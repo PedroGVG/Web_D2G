@@ -1,0 +1,567 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Data2Gain | Golf Data Science AI</title>
+
+    <!-- SEO Meta -->
+    <meta name="description"
+        content="La plataforma de Inteligencia Artificial que predice tu rendimiento golpe a golpe. Compárate con Pros y mejora con Stroke Gained 2.0.">
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="assets/logo.png">
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Orbitron:wght@400;500;600;700;800;900&display=swap"
+        rel="stylesheet">
+
+    <!-- Styles -->
+    <link rel="stylesheet" href="css/reset.css">
+    <link rel="stylesheet" href="css/variables.css">
+    <link rel="stylesheet" href="css/style.css?v=2">
+</head>
+
+<body>
+
+    <!-- Background Canvas -->
+    <canvas id="neural-canvas"></canvas>
+
+    <!-- Sticky Header Logo (appears on scroll) -->
+    <header class="sticky-header" id="sticky-header">
+        <a href="#top" class="header-logo-link">
+            <img src="assets/logo.png" alt="Data2Gain" class="header-logo">
+            <span class="header-brand">Data2Gain</span>
+        </a>
+    </header>
+
+    <!-- Language Switcher Header -->
+    <div class="language-header">
+        <div class="language-switcher">
+            <div class="lang-option">
+                <button class="lang-btn active" data-lang="es" title="Español">
+                    <span class="flag-icon flag-es"></span>
+                </button>
+                <span class="lang-label">ES</span>
+            </div>
+            <div class="lang-option">
+                <button class="lang-btn" data-lang="en" title="English">
+                    <span class="flag-icon flag-en"></span>
+                </button>
+                <span class="lang-label">EN</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Intro Section -->
+    <section class="intro-section">
+        <img src="assets/logo.png" alt="Data2Gain Logo" class="intro-logo">
+        <h1 class="intro-title">Data2Gain</h1>
+        <p class="intro-tagline" data-lang-es="Golf Data Science" data-lang-en="Golf Data Science">Golf Data Science</p>
+        <p class="intro-slogan" data-lang-es="Convierte tus datos en tu mejor estrategia"
+            data-lang-en="Turn your data into your best strategy">Convierte tus datos en tu mejor estrategia</p>
+    </section>
+
+
+
+    <!-- Benefits Section -->
+    <section class="benefits-section">
+        <div class="container">
+            <h2 class="benefits-main-title"
+                data-lang-es="#Track your <span style='color: var(--accent-green);'>golf</span> game!!!"
+                data-lang-en="#Track your <span style='color: var(--accent-green);'>golf</span> game!!!">#Track
+                your <span style="color: var(--accent-green);">golf</span> game!!!</h2>
+            <div class="benefits-grid">
+                <div class="benefits-content">
+                    <div class="benefit-item">
+                        <span class="benefit-icon">01</span>
+                        <div class="benefit-text">
+                            <h3 data-lang-es="Identifica tus fortalezas y debilidades."
+                                data-lang-en="Identify your strengths and weaknesses.">Identifica tus fortalezas y
+                                debilidades.</h3>
+                        </div>
+                    </div>
+                    <div class="benefit-item">
+                        <span class="benefit-icon">02</span>
+                        <div class="benefit-text">
+                            <h3 data-lang-es="Perfecciona tu estrategia en el campo."
+                                data-lang-en="Perfect your strategy on the course.">Perfecciona tu estrategia en el
+                                campo.</h3>
+                        </div>
+                    </div>
+                    <div class="benefit-item">
+                        <span class="benefit-icon">03</span>
+                        <div class="benefit-text">
+                            <h3 data-lang-es="Maximiza tus sesiones de entrenamiento."
+                                data-lang-en="Maximize your training sessions.">Maximiza tus sesiones de entrenamiento.
+                            </h3>
+                        </div>
+                    </div>
+                </div>
+                <!-- Tech Visual: Live Performance Dashboard -->
+                <div class="benefits-visual glass-panel dashboard-container">
+                    <!-- Dashboard Header -->
+                    <div class="dash-header">
+                        <span class="dash-title">LIVE PERFORMANCE</span>
+                        <div class="live-indicator"><span class="blink">●</span> REC</div>
+                    </div>
+
+                    <!-- Main Graph Area -->
+                    <div class="dash-graph-area">
+                        <svg viewBox="0 0 300 150" class="dash-svg">
+                            <!-- Grid Lines -->
+                            <line x1="0" y1="30" x2="300" y2="30" class="dash-grid-line" />
+                            <line x1="0" y1="75" x2="300" y2="75" class="dash-grid-line" />
+                            <line x1="0" y1="120" x2="300" y2="120" class="dash-grid-line" />
+
+                            <!-- Secondary Lines -->
+                            <path d="M0,120 C60,110 90,90 150,100 S210,120 300,80"
+                                class="dash-path-secondary path-green" />
+                            <path d="M0,80 C40,90 80,50 140,60 S200,40 300,70" class="dash-path-secondary path-white" />
+                            <path d="M0,140 C70,130 110,100 180,110 S240,90 300,100"
+                                class="dash-path-secondary path-dim" />
+
+                            <!-- Main Graph Path -->
+                            <path d="M0,100 C50,100 50,60 100,60 S150,90 200,50 S250,20 300,40"
+                                class="dash-path-main" />
+                            <path d="M0,100 C50,100 50,60 100,60 S150,90 200,50 S250,20 300,40"
+                                class="dash-path-glow" />
+
+                            <!-- Area Fill -->
+                            <path d="M0,150 L0,100 C50,100 50,60 100,60 S150,90 200,50 S250,20 300,40 L300,150 Z"
+                                class="dash-area-fill" />
+                        </svg>
+                    </div>
+
+                    <!-- Lower Metrics Panel -->
+                    <div class="dash-footer">
+                        <div class="metric-block">
+                            <span class="metric-label">SG: OFF TEE</span>
+                            <div class="metric-bar-container">
+                                <div class="metric-bar bar-1"></div>
+                            </div>
+                            <span class="metric-val">+1.2</span>
+                        </div>
+                        <div class="metric-block">
+                            <span class="metric-label">SG: APP</span>
+                            <div class="metric-bar-container">
+                                <div class="metric-bar bar-2"></div>
+                            </div>
+                            <span class="metric-val">+0.8</span>
+                        </div>
+                        <div class="metric-block">
+                            <span class="metric-label">SG: AtG</span>
+                            <div class="metric-bar-container">
+                                <div class="metric-bar bar-4"></div>
+                            </div>
+                            <span class="metric-val scale-green">+0.5</span>
+                        </div>
+                        <div class="metric-block">
+                            <span class="metric-label">SG: PUTT</span>
+                            <div class="metric-bar-container">
+                                <div class="metric-bar bar-3"></div>
+                            </div>
+                            <span class="metric-val">-0.4</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Hero Section -->
+    <section class="hero-section">
+        <div class="hero-grid">
+            <div class="hero-content">
+                <h1><span style="font-size: 0.8em;" data-lang-es="Tu juego genera datos."
+                        data-lang-en="Your game generates data.">Tu juego genera datos.</span> <span
+                        class="text-gradient" style="display:block; margin-top: 1em;"
+                        data-lang-es="Nuestra IA genera estrategia" data-lang-en="Our AI generates strategy">Nuestra IA
+                        genera estrategia</span></h1>
+
+
+                <div class="hero-actions">
+                    <a href="https://app.data2gain.com" class="btn btn-primary">Start Transformation <span
+                            class="arrow">→</span></a>
+
+                </div>
+
+                <div class="stats-row">
+                    <div class="stat-item">
+                        <span class="stat-val">0.02s</span>
+                        <span class="stat-label" data-lang-es="Latencia AI" data-lang-en="AI Latency">Latencia AI</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-val">99%</span>
+                        <span class="stat-label" data-lang-es="Precisión" data-lang-en="Accuracy">Precisión</span>
+                    </div>
+                </div>
+            </div>
+            <div class="hero-visual">
+                <img src="assets/golfer_v2.png" alt="Data2Gain AI Strategy Golfer" class="floating-img">
+                <div class="hud-overlay">
+                    <div class="hud-line"></div>
+                    <div class="hud-circle"></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+
+    <!-- Feature: AI Insight -->
+    <section class="feature-section ai-feature" id="ai-insight">
+        <div class="container">
+            <div class="feature-grid ai-grid-layout">
+                <!-- Content Column -->
+                <div class="feature-content">
+                    <div class="badge-container">
+                        <span class="badge-new" data-lang-es="NUEVO" data-lang-en="NEW">NUEVO</span>
+                    </div>
+                    <h2 data-lang-es="Tu analista de golf, Impulsado por AI."
+                        data-lang-en="Your golf analyst, Powered by AI.">Tu analista de golf, <span
+                            class="text-gradient">Impulsado por
+                            AI</span>.</h2>
+                    <p class="lead"
+                        data-lang-es="Nuestro Agente IA analiza tu historial y tus tendencias para darte consejos estratégicos y análisis profundo."
+                        data-lang-en="Our AI Agent analyzes your history and trends to give you strategic advice and deep analysis.">
+                        Nuestro Agente IA analiza tu historial y tus tendencias para darte consejos
+                        estratégicos y análisis profundo.</p>
+
+                    <ul class="feature-list ai-benefits">
+                        <li>
+                            <span class="icon">🧠</span>
+                            <div class="text">
+                                <strong data-lang-es="Análisis Profundo" data-lang-en="Deep Analysis">Análisis
+                                    Profundo</strong>
+                                <p data-lang-es="Descubre patrones que tú no ves."
+                                    data-lang-en="Discover patterns you don't see.">Descubre patrones que tú no ves.</p>
+                            </div>
+                        </li>
+                        <li>
+                            <span class="icon">💬</span>
+                            <div class="text">
+                                <strong data-lang-es="Conversación Natural"
+                                    data-lang-en="Natural Conversation">Conversación Natural</strong>
+                                <p data-lang-es="Pregúntale &quot;¿Dónde pierdo más golpes?&quot; y obtén respuesta inmediata."
+                                    data-lang-en="Ask 'Where do I lose the most strokes?' and get an immediate answer.">
+                                    Pregúntale "¿Dónde pierdo más golpes?" y obtén respuesta inmediata.</p>
+                            </div>
+                        </li>
+                        <li>
+                            <span class="icon">📈</span>
+                            <div class="text">
+                                <strong data-lang-es="Estrategia a Medida" data-lang-en="Tailored Strategy">Estrategia a
+                                    Medida</strong>
+                                <p data-lang-es="Recomendaciones basadas en tu juego real."
+                                    data-lang-en="Recommendations based on your real game.">Recomendaciones basadas en
+                                    tu juego real.</p>
+                            </div>
+                        </li>
+                    </ul>
+
+                    <a href="https://app.data2gain.com" id="btn-ai-analysis" class="btn btn-primary btn-glow"
+                        data-lang-es="Prueba el Análisis IA →" data-lang-en="Try AI Analysis →">Prueba el Análisis IA
+                        <span class="arrow">→</span></a>
+                </div>
+
+                <!-- Visual Column (Phone Mockup with CSS Animation) -->
+                <div class="feature-visual no-bg ai-visual-container">
+                    <div class="phone-mockup">
+                        <div class="phone-screen">
+                            <!-- Simulated AI Interface -->
+                            <div class="ai-interface">
+                                <div class="ai-header">
+                                    <div class="ai-avatar-circle">
+                                        <div class="ai-pulse"></div>
+                                        <img src="assets/logo.png" alt="AI" class="ai-logo-icon">
+                                    </div>
+                                    <!-- AI ACTIVE text removed -->
+                                </div>
+
+                                <div class="ai-chat-stream">
+                                    <!-- Message 1: User -->
+                                    <div class="chat-bubble user-bubble">
+                                        <span data-lang-es="Analiza mi Driver (últimos 5 partidos)."
+                                            data-lang-en="Analyze my Driver (last 5 rounds).">Analiza mi Driver (últimos
+                                            5 partidos).</span>
+                                    </div>
+
+                                    <!-- Message 2: System Processing -->
+                                    <div class="chat-bubble system-bubble processing">
+                                        <div class="typing-indicator"><span>.</span><span>.</span><span>.</span></div>
+                                    </div>
+
+                                    <!-- Message 3: AI Data Response -->
+                                    <div class="chat-bubble ai-response data-card slide-up-1">
+                                        <div class="data-header" data-lang-es="DRIVER STATS"
+                                            data-lang-en="DRIVER STATS">DRIVER STATS</div>
+                                        <div class="ai-table-container">
+                                            <div class="ai-table-row header">
+                                                <span data-lang-es="Metric" data-lang-en="Metric">Metric</span>
+                                                <span data-lang-es="Value" data-lang-en="Value">Value</span>
+                                                <span data-lang-es="Trend" data-lang-en="Trend">Trend</span>
+                                            </div>
+                                            <div class="ai-table-row r1">
+                                                <span>SG. Tee</span>
+                                                <span>+1.7</span>
+                                                <span class="trend-up">▲ 2%</span>
+                                            </div>
+                                            <div class="ai-table-row r2">
+                                                <span>Carry</span>
+                                                <span>265<small>m</small></span>
+                                                <span class="trend-up">▲ 5,1%</span>
+                                            </div>
+                                            <div class="ai-table-row r3">
+                                                <span>Dispersion</span>
+                                                <span>12<small>m</small></span>
+                                                <span class="trend-down">▼ 5%</span>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <!-- Message 4: Graph Response -->
+                                    <div class="chat-bubble ai-response graph-card slide-up-2">
+                                        <div class="data-header" data-lang-es="IMPACT CONSISTENCY"
+                                            data-lang-en="IMPACT CONSISTENCY">IMPACT CONSISTENCY</div>
+                                        <div class="ai-graph-wrapper">
+                                            <!-- Simple SVG Scatter Plot simulation -->
+                                            <svg viewBox="0 0 200 100" class="scatter-svg">
+                                                <!-- Grid -->
+                                                <line x1="100" y1="0" x2="100" y2="100"
+                                                    stroke="rgba(255,255,255,0.1)" />
+                                                <line x1="0" y1="50" x2="200" y2="50" stroke="rgba(255,255,255,0.1)" />
+
+                                                <!-- Logic: Center (100,50) is sweet spot. Dots scattered. -->
+                                                <circle cx="102" cy="48" r="3" class="dot d1" />
+                                                <circle cx="98" cy="52" r="3" class="dot d2" />
+                                                <circle cx="110" cy="45" r="3" class="dot d3" /> <!-- Miss right -->
+                                                <circle cx="105" cy="55" r="3" class="dot d4" />
+                                                <circle cx="95" cy="50" r="3" class="dot d5" />
+                                            </svg>
+                                            <div class="scan-overlay"></div>
+                                        </div>
+                                        <p class="insight-text" data-lang-es="Directo al centro de la calle."
+                                            data-lang-en="Straight down the fairway.">Directo al centro de la calle.</p>
+                                    </div>
+                                </div>
+
+                                <div class="ai-input-area">
+                                    <div class="fake-input"></div>
+                                    <div class="fake-send">➤</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="phone-notch"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Feature: Stroke Gained 2.0 -->
+    <section class="feature-section" id="stroke-gained">
+        <div class="container">
+            <div class="feature-grid reverse">
+                <div class="feature-visual glass-panel">
+                    <img src="assets/hud.png" alt="Stroke Gained HUD" class="feature-img">
+                    <div class="scan-line"></div>
+                </div>
+                <div class="feature-content">
+                    <h2>Stroke Gained 2.0</h2>
+                    <p class="lead" data-lang-es="Benchmark en tiempo real." data-lang-en="Real-time Benchmark.">
+                        Benchmark en tiempo real.</p>
+                    <p data-lang-es="Compárate con un Pro, Hándicap 0 o Hándicap 25 al instante. Descubre dónde ganas o pierdes golpes."
+                        data-lang-en="Compare yourself with a Pro, Handicap 0 or Handicap 25 instantly. Discover where you gain or lose strokes.">
+                        Compárate con un Pro, Hándicap 0 o Hándicap 25 al instante. Descubre dónde ganas o pierdes
+                        golpes.</p>
+                    <ul class="feature-list">
+                        <li data-lang-es="🎯 Comparativa Pro vs Amateur" data-lang-en="🎯 Pro vs Amateur Comparison">🎯
+                            Comparativa Pro vs Amateur</li>
+                        <li data-lang-es="📊 Análisis detallado por segmento de juego"
+                            data-lang-en="📊 Detailed analysis by game segment">📊 Análisis detallado por segmento de
+                            juego</li>
+                        <li data-lang-es="🧠 Predicción de estrategia" data-lang-en="🧠 Strategy prediction">🧠
+                            Predicción de estrategia</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+
+    <!-- Feature: App Mobility -->
+    <section class="feature-section" id="app">
+        <div class="container">
+            <div class="feature-grid">
+                <div class="feature-content">
+                    <h2 data-lang-es="Introducción de datos más rápida del mercado"
+                        data-lang-en="Fastest data entry on the market">Introducción de datos más rápida del mercado
+                    </h2>
+                    <p class="lead">#Track your game!!!</p>
+                    <p data-lang-es="No pierdas tiempo anotando. Nuestra interfaz optimizada permite registrar golpes en segundos, para que te enfoques en tu juego."
+                        data-lang-en="Don't waste time taking notes. Our optimized interface allows you to record strokes in seconds, so you can focus on your game.">
+                        No pierdas tiempo anotando. Nuestra interfaz optimizada permite registrar golpes en segundos,
+                        para que te enfoques en tu juego.</p>
+                    <div class="speed-badge glass-panel">
+                        <span class="lightning">⚡</span> Fast Input Mode
+                    </div>
+                </div>
+                <div class="feature-visual no-bg">
+                    <img src="assets/app.png" alt="Golf App Interface" class="floating-phone">
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+
+    <!-- Mission / Technology Section -->
+    <section class="mission-section">
+        <div class="container">
+            <div class="mission-grid">
+                <div class="mission-content">
+                    <h2 data-lang-es="Especialistas en tecnología y análisis de datos de golf."
+                        data-lang-en="Specialists in golf data technology and analysis.">Especialistas en tecnología y
+                        análisis de datos de golf.</h2>
+                    <p class="lead" data-lang-es="Precisión absoluta." data-lang-en="Absolute precision.">Precisión
+                        absoluta.</p>
+                    <p data-lang-es="¡Utilizamos la tecnología más moderna y el poder de los datos, para medir tu rendimiento, identificar áreas de mejora, proponer objetivos y establecer una estrategia de entrenamiento y juego!"
+                        data-lang-en="We use the most modern technology and the power of data to measure your performance, identify areas for improvement, propose goals and establish a training and game strategy!">
+                        ¡Utilizamos la tecnología más moderna y el poder de los datos, para medir tu rendimiento,
+                        identificar áreas de mejora, proponer objetivos y establecer una estrategia de entrenamiento y
+                        juego!</p>
+                </div>
+                <div class="mission-visual">
+                    <div class="code-visual-container glass-panel">
+                        <div class="code-background">
+                            <pre><code class="python-snippet">
+<span class="kw">import</span> pandas <span class="kw">as</span> pd
+<span class="kw">import</span> numpy <span class="kw">as</span> np
+
+<span class="comment"># Load Player Data</span>
+df = pd.read_csv(<span class="str">"stats.csv"</span>)
+s_gained = df.groupby(<span class="str">'shot_type'</span>).sum()
+
+<span class="kw">def</span> <span class="func">optimize_strategy</span>(lie, wind):
+    <span class="kw">if</span> lie == <span class="str">"ROUGH"</span>:
+        risk_factor = <span class="num">0.85</span>
+        <span class="kw">return</span> <span class="func">safe_target</span>(risk_factor)
+    <span class="kw">else</span>:
+        <span class="kw">return</span> <span class="func">attack_pin</span>()
+
+<span class="comment"># Running Gradient Boosting...</span>
+model.fit(X_train, y_train)
+<span class="kw">print</span>(<span class="str">"Accuracy: 99.2%"</span>)
+                            </code></pre>
+                        </div>
+                        <div class="graph-overlay">
+                            <svg viewBox="0 0 200 120" class="mini-graph">
+                                <path
+                                    d="M0,100 L20,90 L40,95 L60,60 L80,70 L100,40 L120,50 L140,20 L160,30 L180,10 L200,20"
+                                    class="code-graph-line"></path>
+                                <area />
+                            </svg>
+                            <div class="graph-dots">
+                                <span class="g-dot d1"></span><span class="g-dot d2"></span><span
+                                    class="g-dot d3"></span>
+                            </div>
+                        </div>
+                        <div class="execution-status">
+                            <span class="status-indicator"></span> ANALYZING...
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+
+    <!-- Services Section -->
+    <section class="services-section">
+        <div class="container">
+            <h2 class="services-title" data-lang-es="Además ofrecemos" data-lang-en="We also offer">Además ofrecemos
+            </h2>
+            <div class="services-grid">
+                <!-- Tecnología -->
+                <div class="service-card glass-panel">
+                    <div class="service-icon">
+                        <svg class="s-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                            <rect x="2" y="3" width="20" height="14" rx="2" ry="2"></rect>
+                            <line x1="8" y1="21" x2="16" y2="21"></line>
+                            <line x1="12" y1="17" x2="12" y2="21"></line>
+                        </svg>
+                    </div>
+                    <h3 data-lang-es="Tecnología" data-lang-en="Technology">Tecnología</h3>
+                    <p data-lang-es="Ofrecemos una plataforma tecnológica de análisis integral del rendimiento del jugador, a disposición del entrenador, para que pueda desarrollar y personalizar cualquier tipo de analítica."
+                        data-lang-en="We offer a technological platform for comprehensive player performance analysis, available to the coach, so they can develop and customize any type of analytics.">
+                        Ofrecemos una plataforma tecnológica de análisis integral del rendimiento del jugador, a
+                        disposición del entrenador, para que pueda desarrollar y personalizar cualquier tipo de
+                        analítica.</p>
+                </div>
+                <!-- Consultoría -->
+                <div class="service-card glass-panel">
+                    <div class="service-icon">
+                        <svg class="s-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                            <path d="M20 7h-9"></path>
+                            <path d="M14 17H5"></path>
+                            <circle cx="17" cy="17" r="3"></circle>
+                            <circle cx="7" cy="7" r="3"></circle>
+                        </svg>
+                    </div>
+                    <h3 data-lang-es="Consultoría" data-lang-en="Consulting">Consultoría</h3>
+                    <p data-lang-es="Ayudamos a tu entrenador a marcar la diferencia, usar tu tiempo más eficientemente y conseguir tus objetivos de la manera más rápida posible."
+                        data-lang-en="We help your coach make a difference, use your time more efficiently and achieve your goals as quickly as possible.">
+                        Ayudamos a tu entrenador a marcar la diferencia, usar tu tiempo más eficientemente y conseguir
+                        tus objetivos de la manera más rápida posible.</p>
+                </div>
+                <!-- Formación -->
+                <div class="service-card glass-panel">
+                    <div class="service-icon">
+                        <svg class="s-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                            <path d="M22 10v6M2 10l10-5 10 5-10 5z"></path>
+                            <path d="M6 12v5c3 3 9 3 12 0v-5"></path>
+                        </svg>
+                    </div>
+                    <h3 data-lang-es="Formación" data-lang-en="Training">Formación</h3>
+                    <p data-lang-es="Ofrecemos workshops a coaches y entrenadores para capacitarles, en el uso de la estadística y el big data aplicada al golf."
+                        data-lang-en="We offer workshops to coaches and trainers to train them in the use of statistics and big data applied to golf.">
+                        Ofrecemos workshops a coaches y entrenadores para capacitarles, en el uso de la estadística y el
+                        big data aplicada al golf.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer-section">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-logo">
+                    <img src="assets/logo.png" alt="Data2Gain" class="footer-logo-img">
+                    <span class="footer-brand">Data2Gain</span>
+                </div>
+                <a href="mailto:info@data2gain.com" class="contact-email">
+                    <svg class="email-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
+                        <polyline points="22,6 12,13 2,6"></polyline>
+                    </svg>
+                    info@data2gain.com
+                </a>
+                <p class="footer-copyright">© 2024 Data2Gain</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="js/neural-bg.js"></script>
+    <script src="js/main.js"></script>
+</body>
+
+</html>
