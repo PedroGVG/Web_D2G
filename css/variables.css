@@ -1,0 +1,46 @@
+:root {
+    /* Colors - Brand Logo Palette (Black/White/Gold) */
+    --bg-primary: #050505;
+    /* Deep Black to match logo bg */
+    --bg-secondary: #111111;
+
+    --accent-primary: #FFB300;
+    /* Tech Gold/Amber from Logo Triangle */
+    --accent-secondary: #FFFFFF;
+    /* Wireframe White */
+
+    --text-white: #FFFFFF;
+    --text-silver: #D0D0D0;
+
+    --glass-bg: rgba(20, 20, 20, 0.8);
+    --glass-border: rgba(255, 179, 0, 0.2);
+    /* Gold tint border */
+    --glass-highlight: rgba(255, 255, 255, 0.1);
+
+    /* Typography */
+    --font-heading: 'Orbitron', sans-serif;
+    --font-body: 'Inter', sans-serif;
+
+    /* Spacing */
+    --spacing-xs: 0.5rem;
+    --spacing-sm: 1rem;
+    --spacing-md: 2rem;
+    --spacing-lg: 4rem;
+    --spacing-xl: 8rem;
+
+    /* Border Radius */
+    --radius-sm: 4px;
+    --radius-md: 8px;
+    --radius-lg: 16px;
+    --radius-pill: 9999px;
+
+    /* Transitions */
+    --transition-fast: 0.2s ease;
+    --transition-smooth: 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+
+    /* Variable Mappings for compatibility */
+    --accent-green: #00a581;
+    /* Mapping old green variable to new Gold */
+    --accent-blue: var(--text-white);
+    /* Mapping old blue to White for monochrome feel */
+}
