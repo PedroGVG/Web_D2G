@@ -1,6 +1,6 @@
-/* ── Neural Particle Background ──
-   Performance-optimized: 30fps cap, IntersectionObserver pause,
-   reduced particle count, prefers-reduced-motion support.
+/* ── Premium Tech Data Flow Background ──
+   Dynamic, fluid matrix with glowing trails and network connections.
+   World-class aesthetic for Data2Gain. Subtlety focused.
 */
 (function () {
     'use strict';
@@ -9,7 +9,6 @@
     if (!canvas) return;
     const ctx = canvas.getContext('2d');
 
-    /* Respect motion preferences */
     const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     if (prefersReducedMotion) {
         canvas.style.display = 'none';
@@ -18,70 +17,82 @@
 
     let width, height;
     let particles = [];
-    const PARTICLE_COUNT = 28;
-    const CONNECTION_DIST = 140;
-    const MOUSE_DIST = 180;
-    const FPS = 30;
-    const FRAME_INTERVAL = 1000 / FPS;
+    let time = 0;
+    const mouse = { x: -1000, y: -1000, active: false };
 
-    const mouse = { x: null, y: null };
-    let lastFrameTime = 0;
-    let isVisible = true;
-    let animId = null;
-
-    /* ── Visibility Observer ── */
-    const observer = new IntersectionObserver(
-        ([entry]) => { isVisible = entry.isIntersecting; },
-        { threshold: 0 }
-    );
-    observer.observe(canvas);
-
-    /* ── Mouse ── */
     window.addEventListener('mousemove', (e) => {
         mouse.x = e.clientX;
         mouse.y = e.clientY;
+        mouse.active = true;
     }, { passive: true });
+    
+    window.addEventListener('mouseout', () => {
+        mouse.active = false;
+    });
 
-    /* ── Resize ── */
     function resize() {
         width = canvas.width = window.innerWidth;
         height = canvas.height = window.innerHeight;
     }
 
-    let resizeTimer;
     window.addEventListener('resize', () => {
-        clearTimeout(resizeTimer);
-        resizeTimer = setTimeout(resize, 150);
+        resize();
+        initParticles();
     }, { passive: true });
 
-    /* ── Particle ── */
     class Particle {
         constructor() {
-            this.x = Math.random() * width;
-            this.y = Math.random() * height;
-            this.vx = (Math.random() - 0.5) * 0.35;
-            this.vy = (Math.random() - 0.5) * 0.35;
-            this.size = Math.random() * 1.8 + 0.8;
+            this.reset(true);
+        }
+
+        reset(randomize = false) {
+            this.x = randomize ? Math.random() * width : Math.random() * width;
+            this.y = randomize ? Math.random() * height : -10;
+            this.vx = 0;
+            this.vy = 0;
+            this.size = Math.random() * 1.2 + 0.4;
+            // Slower, more elegant speed
+            this.baseSpeed = Math.random() * 0.4 + 0.1;
+            this.angle = Math.random() * Math.PI * 2;
             const r = Math.random();
-            this.color = r > 0.65 ? '#FFB300' : (r > 0.35 ? '#00E89D' : 'rgba(255,255,255,0.6)');
+            this.color = r > 0.8 ? '#FFB300' : (r > 0.4 ? '#00E89D' : '#ffffff');
+            // Much lower opacity to remain in the background
+            this.alpha = Math.random() * 0.25 + 0.05;
         }
 
         update() {
-            this.x += this.vx;
-            this.y += this.vy;
-
-            if (this.x < 0 || this.x > width) this.vx *= -1;
-            if (this.y < 0 || this.y > height) this.vy *= -1;
-
-            if (mouse.x != null) {
+            // Slower noise field
+            const noiseX = Math.sin(this.x * 0.002 + time) * 0.5 + Math.cos(this.y * 0.0015 - time) * 0.5;
+            const noiseY = Math.cos(this.x * 0.002 - time) * 0.5 + Math.sin(this.y * 0.0015 + time) * 0.5;
+            
+            this.angle += noiseX * 0.02;
+            
+            // Softer mouse interaction
+            if (mouse.active) {
                 const dx = mouse.x - this.x;
                 const dy = mouse.y - this.y;
                 const dist = Math.sqrt(dx * dx + dy * dy);
-                if (dist < MOUSE_DIST) {
-                    const force = (MOUSE_DIST - dist) / MOUSE_DIST;
-                    this.x -= (dx / dist) * force * 1.5;
-                    this.y -= (dy / dist) * force * 1.5;
+                if (dist < 200) {
+                    const force = (200 - dist) / 200;
+                    this.vx -= (dx / dist) * force * 0.2;
+                    this.vy -= (dy / dist) * force * 0.2;
                 }
+            }
+
+            // Continuous fluid movement
+            this.vx += Math.cos(this.angle) * 0.03;
+            this.vy += Math.sin(this.angle) * 0.03 + 0.15; // Very gentle downward drift
+
+            // Friction
+            this.vx *= 0.94;
+            this.vy *= 0.94;
+
+            this.x += this.vx * this.baseSpeed;
+            this.y += this.vy * this.baseSpeed;
+
+            // Loop around if out of bounds
+            if (this.x < -50 || this.x > width + 50 || this.y > height + 50 || this.y < -50) {
+                this.reset();
             }
         }
 
@@ -89,54 +100,67 @@
             ctx.beginPath();
             ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
             ctx.fillStyle = this.color;
+            ctx.globalAlpha = this.alpha;
             ctx.fill();
         }
     }
 
-    /* ── Init ── */
-    function init() {
-        resize();
+    function initParticles() {
         particles = [];
-        for (let i = 0; i < PARTICLE_COUNT; i++) {
+        // Reduced count to avoid visual noise
+        const count = window.innerWidth > 768 ? 110 : 50;
+        for (let i = 0; i < count; i++) {
             particles.push(new Particle());
         }
     }
 
-    /* ── Connect ── */
-    function connectParticles() {
+    function drawConnections() {
+        ctx.globalAlpha = 1;
         for (let i = 0; i < particles.length; i++) {
             for (let j = i + 1; j < particles.length; j++) {
                 const dx = particles[i].x - particles[j].x;
                 const dy = particles[i].y - particles[j].y;
-                const dist = Math.sqrt(dx * dx + dy * dy);
-                if (dist < CONNECTION_DIST) {
-                    const alpha = (1 - dist / CONNECTION_DIST) * 0.15;
+                const dist = dx * dx + dy * dy;
+                
+                // Connect if within 110px (12100 dist squared)
+                if (dist < 12100) {
+                    const opacity = 1 - (dist / 12100);
                     ctx.beginPath();
-                    ctx.strokeStyle = `rgba(0, 232, 157, ${alpha})`;
-                    ctx.lineWidth = 0.8;
                     ctx.moveTo(particles[i].x, particles[i].y);
                     ctx.lineTo(particles[j].x, particles[j].y);
+                    // Extremely subtle connections
+                    ctx.strokeStyle = `rgba(0, 232, 157, ${opacity * 0.04})`;
+                    ctx.lineWidth = 0.5;
                     ctx.stroke();
                 }
             }
         }
     }
 
-    /* ── Animate (30fps capped) ── */
-    function animate(timestamp) {
-        animId = requestAnimationFrame(animate);
+    function animate() {
+        requestAnimationFrame(animate);
+        // Slower time progression
+        time += 0.0015;
 
-        if (!isVisible) return;
+        // Stronger clear layer for shorter trails
+        ctx.fillStyle = 'rgba(5, 5, 8, 0.35)'; 
+        ctx.globalAlpha = 1;
+        ctx.globalCompositeOperation = 'source-over';
+        ctx.fillRect(0, 0, width, height);
 
-        const delta = timestamp - lastFrameTime;
-        if (delta < FRAME_INTERVAL) return;
-        lastFrameTime = timestamp - (delta % FRAME_INTERVAL);
+        // Draw network connections
+        drawConnections();
 
-        ctx.clearRect(0, 0, width, height);
-        particles.forEach(p => { p.update(); p.draw(); });
-        connectParticles();
+        // Draw glowing particles
+        ctx.globalCompositeOperation = 'screen';
+        particles.forEach(p => {
+            p.update();
+            p.draw();
+        });
     }
 
-    init();
-    animate(0);
+    resize();
+    initParticles();
+    animate();
+
 })();

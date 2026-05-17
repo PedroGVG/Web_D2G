@@ -3,7 +3,7 @@
     --bg-deep:       #030306;
     --bg-primary:    #050508;
     --bg-secondary:  #0A0B10;
-    --bg-card:       #0D0E14;
+    --bg-card:       rgba(13, 14, 20, 0.5);
     --bg-elevated:   #12131A;
 
     --accent-gold:   #FFB300;

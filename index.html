@@ -48,6 +48,7 @@
     </script>
 </head>
 <body>
+    <div class="ambient-glow" aria-hidden="true"></div>
     <canvas id="neural-canvas" aria-hidden="true"></canvas>
 
     <!-- Sticky Header -->
@@ -77,8 +78,8 @@
         <section id="hero" class="hero-gate" aria-labelledby="hero-heading">
             <img src="assets/logo.png" alt="Data2Gain" class="intro-logo" width="90" height="90" fetchpriority="high">
             <h1 class="brand-name">DATA<span class="text-gradient">2</span>GAIN</h1>
-            <p class="tagline" data-lang-es="Datos que ganan" data-lang-en="Data that wins">Datos que ganan</p>
-            <p class="headline" data-lang-es="Tu juego genera datos.<br>Nuestra IA genera ventaja." data-lang-en="Your game generates data.<br>Our AI generates advantage.">Tu juego genera datos.<br>Nuestra IA genera ventaja.</p>
+            <p class="tagline" data-lang-es="PRECISIÓN DE ÉLITE" data-lang-en="ELITE PRECISION">PRECISIÓN DE ÉLITE</p>
+            <p class="headline" data-lang-es="Jugaste con intuición.<br>Ahora juegas con inteligencia." data-lang-en="You played on instinct.<br>Now you play with intelligence.">Jugaste con intuición.<br>Ahora juegas con inteligencia.</p>
         </section>
 
         <!-- ═══ APP SHOWCASE GATE ═══ -->
@@ -86,13 +87,12 @@
             <div class="container">
                 <!-- Intro -->
                 <div class="showcase-intro reveal" style="text-align:center;margin-bottom:4rem">
-                    <span class="overline" data-lang-es="La plataforma" data-lang-en="The platform">La plataforma</span>
-                    <h2 id="showcase-heading" style="margin:0 auto;max-width:700px" data-lang-es="Analítica de golf de nivel profesional" data-lang-en="Professional-grade golf analytics">Analítica de golf de nivel profesional</h2>
-                    <p class="lead" style="margin:1rem auto 0;text-align:center;max-width:520px" data-lang-es="Dashboard inteligente, dispersión, gap de distancias, planificación y estadísticas detalladas por área. Todo conectado por IA." data-lang-en="Smart dashboard, dispersion, distance gap, planning and detailed area statistics. All connected by AI.">Dashboard inteligente, dispersión, gap de distancias, planificación y estadísticas detalladas por área. Todo conectado por IA.</p>
-                    <div class="showcase-stats" style="justify-content:center;margin-top:2rem;border:0;padding:0">
-                        <div class="stat-block"><div class="stat-value">4</div><div class="stat-label" data-lang-es="Áreas SG" data-lang-en="SG Areas">Áreas SG</div></div>
-                        <div class="stat-block"><div class="stat-value">∞</div><div class="stat-label" data-lang-es="Datos por vuelta" data-lang-en="Data per round">Datos por vuelta</div></div>
-                        <div class="stat-block"><div class="stat-value">IA</div><div class="stat-label" data-lang-es="Análisis predictivo" data-lang-en="Predictive analysis">Análisis predictivo</div></div>
+                    <h2 id="showcase-heading" style="margin:0 auto;max-width:700px" data-lang-es="Inteligencia de Tour. Sin el Tour." data-lang-en="Tour intelligence. Without the Tour.">Inteligencia de Tour. Sin el Tour.</h2>
+                    <p class="lead" style="margin:1rem auto 0;text-align:center;max-width:520px" data-lang-es="El mismo análisis que usan los circuitos profesionales, alimentado por tus propias rondas. Deja de adivinar qué practicar — tus datos ya lo saben." data-lang-en="The same analysis used on professional tours, powered by your own rounds. Stop guessing what to practice — your data already knows.">El mismo análisis que usan los circuitos profesionales, alimentado por tus propias rondas. Deja de adivinar qué practicar — tus datos ya lo saben.</p>
+                    <div class="showcase-stats" style="justify-content:center;margin-top:2rem;border:0;padding:0;gap:3rem">
+                        <div class="stat-block"><div class="stat-value" data-lang-es="PRECISIÓN" data-lang-en="PRECISION">PRECISIÓN</div><div class="stat-label" data-lang-es="Mide con el estándar del circuito" data-lang-en="Measure with the circuit standard">Mide con el estándar del circuito</div></div>
+                        <div class="stat-block"><div class="stat-value" data-lang-es="ESTRATEGIA" data-lang-en="STRATEGY">ESTRATEGIA</div><div class="stat-label" data-lang-es="Focaliza donde ganas golpes" data-lang-en="Focus where you gain strokes">Focaliza donde ganas golpes</div></div>
+                        <div class="stat-block"><div class="stat-value" data-lang-es="PREDICCIÓN" data-lang-en="PREDICTION">PREDICCIÓN</div><div class="stat-label" data-lang-es="Decisiones guiadas por IA" data-lang-en="AI-guided decisions">Decisiones guiadas por IA</div></div>
                     </div>
                 </div>
 
@@ -100,8 +100,8 @@
                 <div class="app-story-beat reveal">
                     <div class="story-text">
                         <span class="story-step">01</span>
-                        <h3 data-lang-es="Tu centro de control" data-lang-en="Your control center">Tu centro de control</h3>
-                        <p data-lang-es="Visualiza tu rendimiento de un vistazo. Objetivos de mejora y tu desglose Strokes Gained en las 4 áreas clave." data-lang-en="Visualize your performance at a glance. Improvement goals and your Strokes Gained breakdown across 4 key areas.">Visualiza tu rendimiento de un vistazo. Objetivos de mejora y tu desglose Strokes Gained en las 4 áreas clave.</p>
+                        <h3 data-lang-es="Tu juego, de un vistazo" data-lang-en="Your game, at a glance">Tu juego, de un vistazo</h3>
+                        <p data-lang-es="Cuatro áreas, una foto clara. Descubre dónde estás sumando y dónde puedes mejorar." data-lang-en="Four areas, one clear picture. Discover where you're gaining and where you can improve.">Cuatro áreas, una foto clara. Descubre dónde estás sumando y dónde puedes mejorar.</p>
                         <ul class="story-tags">
                             <li>Strokes Gained</li>
                             <li data-lang-es="Rendimiento" data-lang-en="Performance">Rendimiento</li>
@@ -119,8 +119,8 @@
                 <div class="app-story-beat beat-reverse reveal">
                     <div class="story-text">
                         <span class="story-step">02</span>
-                        <h3 data-lang-es="Dispersión real de cada palo" data-lang-en="Real dispersion for every club">Dispersión real de cada palo</h3>
-                        <p data-lang-es="Visualiza exactamente dónde van tus golpes. El scatter plot te muestra tu patrón de dispersión real — identifica tu tendencia (fade, draw, recta) y toma mejores decisiones de estrategia." data-lang-en="See exactly where your shots land. The scatter plot shows your real dispersion pattern — identify your tendency (fade, draw, straight) and make better strategy decisions.">Visualiza exactamente dónde van tus golpes. El scatter plot te muestra tu patrón de dispersión real — identifica tu tendencia (fade, draw, recta) y toma mejores decisiones de estrategia.</p>
+                        <h3 data-lang-es="Conoce tu patrón real" data-lang-en="Know your real pattern">Conoce tu patrón real</h3>
+                        <p data-lang-es="Cada palo cuenta una tendencia. Visualiza tu dispersión real y empieza a apuntar donde los datos te sugieren." data-lang-en="Every club reveals a tendency. Visualize your real dispersion and start aiming where the data suggests.">Cada palo cuenta una tendencia. Visualiza tu dispersión real y empieza a apuntar donde los datos te sugieren.</p>
                         <ul class="story-tags">
                             <li>Scatter Plot</li>
                             <li data-lang-es="Tendencia de vuelo" data-lang-en="Shot tendency">Tendencia de vuelo</li>
@@ -138,8 +138,8 @@
                 <div class="app-story-beat reveal">
                     <div class="story-text">
                         <span class="story-step">03</span>
-                        <h3 data-lang-es="Gap de distancias" data-lang-en="Distance gapping">Gap de distancias</h3>
-                        <p data-lang-es="Conoce la distancia real de cada palo — no la que crees que llegas. El análisis gap te muestra huecos de cobertura en tu bolsa y te ayuda a elegir el palo correcto en cada situación." data-lang-en="Know the real distance of each club — not what you think you hit. Gap analysis shows coverage holes in your bag and helps you choose the right club in every situation.">Conoce la distancia real de cada palo — no la que crees que llegas. El análisis gap te muestra huecos de cobertura en tu bolsa y te ayuda a elegir el palo correcto en cada situación.</p>
+                        <h3 data-lang-es="La distancia que crees no es la distancia que tienes." data-lang-en="The distance you think you hit isn't your actual distance.">La distancia que crees no es la distancia que tienes.</h3>
+                        <p data-lang-es="Tus promedios reales, palo a palo. Identifica los huecos de cobertura que convierten buenas decisiones en malos resultados." data-lang-en="Your actual averages, club by club. Identify the coverage gaps that turn good decisions into bad results.">Tus promedios reales, palo a palo. Identifica los huecos de cobertura que convierten buenas decisiones en malos resultados.</p>
                         <ul class="story-tags">
                             <li data-lang-es="Distancia real" data-lang-en="Real distance">Distancia real</li>
                             <li data-lang-es="Cobertura de bolsa" data-lang-en="Bag coverage">Cobertura de bolsa</li>
@@ -153,31 +153,12 @@
                     </div>
                 </div>
 
-                <!-- Beat 4: Planning -->
+                <!-- Beat 4: Detailed Stats -->
                 <div class="app-story-beat beat-reverse reveal">
                     <div class="story-text">
                         <span class="story-step">04</span>
-                        <h3 data-lang-es="Planificación de golpe inteligente" data-lang-en="Smart shot planning">Planificación de golpe inteligente</h3>
-                        <p data-lang-es="Planifica cada golpe con datos reales. Basándose en tu dispersión y distancias para una estrategia sin fisuras." data-lang-en="Plan every shot with real data. Based on your dispersion and distances for seamless strategy.">Planifica cada golpe con datos reales. Basándose en tu dispersión y distancias para una estrategia sin fisuras.</p>
-                        <ul class="story-tags">
-                            <li data-lang-es="Zona de aterrizaje" data-lang-en="Landing zone">Zona de aterrizaje</li>
-                            <li data-lang-es="Objetivo óptimo" data-lang-en="Optimal target">Objetivo óptimo</li>
-                            <li data-lang-es="Decisiones con datos" data-lang-en="Data-driven decisions">Decisiones con datos</li>
-                        </ul>
-                    </div>
-                    <div class="story-phone">
-                        <div class="app-screen-frame">
-                            <img src="assets/screen-planning.png" alt="Planificación de golpe: zona de aterrizaje y objetivo óptimo" width="320" height="560" loading="lazy">
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Beat 5: Detailed Stats -->
-                <div class="app-story-beat reveal">
-                    <div class="story-text">
-                        <span class="story-step">05</span>
-                        <h3 data-lang-es="Estadísticas de gran detalle" data-lang-en="High-detail statistics">Estadísticas de gran detalle</h3>
-                        <p data-lang-es="Analiza cada área de juego (Tee, Approach, Short, Putt) con una profundidad sin precedentes. Identifica patrones específicos y tendencias para optimizar tu entrenamiento donde más lo necesitas." data-lang-en="Analyze every area of play (Tee, Approach, Short, Putt) with unprecedented depth. Identify specific patterns and trends to optimize your training where you need it most.">Analiza cada área de juego (Tee, Approach, Short, Putt) con una profundidad sin precedentes. Identifica patrones específicos y tendencias para optimizar tu entrenamiento donde más lo necesitas.</p>
+                        <h3 data-lang-es="El detalle que marca la diferencia" data-lang-en="The detail that makes the difference">El detalle que marca la diferencia</h3>
+                        <p data-lang-es="Tee, Approach, Short y Putt — cada zona analizada en profundidad para que practiques lo que de verdad necesitas." data-lang-en="Tee, Approach, Short, and Putt — every zone analyzed in depth so you practice what you truly need.">Tee, Approach, Short y Putt — cada zona analizada en profundidad para que practiques lo que de verdad necesitas.</p>
                         <ul class="story-tags">
                             <li data-lang-es="Detalle por área" data-lang-en="Area detail">Detalle por área</li>
                             <li data-lang-es="Análisis de Putt" data-lang-en="Putt analysis">Análisis de Putt</li>
@@ -199,16 +180,16 @@
                 <!-- Intro -->
                 <div class="ai-intro reveal" style="text-align:center;margin-bottom:4rem">
                     <span class="badge-new" data-lang-es="NUEVO" data-lang-en="NEW">NUEVO</span>
-                    <h2 id="ai-heading" style="margin:1rem auto 0;max-width:600px" data-lang-es="Un asistente IA que entiende tu juego" data-lang-en="An AI assistant that understands your game">Un asistente IA que entiende tu juego</h2>
-                    <p class="lead" style="margin:.8rem auto 0;text-align:center;max-width:520px" data-lang-es="Pregúntale lo que quieras sobre tu rendimiento. Análisis, recomendaciones y estrategia — basados en tus datos reales." data-lang-en="Ask anything about your performance. Analysis, recommendations and strategy — based on your real data.">Pregúntale lo que quieras sobre tu rendimiento. Análisis, recomendaciones y estrategia — basados en tus datos reales.</p>
+                    <h2 id="ai-heading" style="margin:1rem auto 0;max-width:600px" data-lang-es="Una IA que conoce tu juego como tú" data-lang-en="An AI that knows your game like you do">Una IA que conoce tu juego como tú</h2>
+                    <p class="lead" style="margin:.8rem auto 0;text-align:center;max-width:520px" data-lang-es="Pregúntale lo que quieras. Te responde con tus datos reales, no con consejos genéricos." data-lang-en="Ask it anything. It answers with your real data, not generic advice.">Pregúntale lo que quieras. Te responde con tus datos reales, no con consejos genéricos.</p>
                 </div>
 
                 <!-- Story Beat 1: Pregunta -->
                 <div class="ai-story-beat reveal">
                     <div class="story-text">
                         <span class="story-step">01</span>
-                        <h3 data-lang-es="Pregunta con lenguaje natural" data-lang-en="Ask in natural language">Pregunta con lenguaje natural</h3>
-                        <p data-lang-es="Escribe cualquier pregunta sobre tu juego. El agente tiene acceso completo a tu historial, estadísticas y tendencias. Puedes pedirle desde un resumen rápido hasta un análisis profundo de cualquier aspecto." data-lang-en="Ask any question about your game. The agent has full access to your history, stats, and trends. Request anything from a quick summary to a deep analysis of any aspect.">Escribe cualquier pregunta sobre tu juego. El agente tiene acceso completo a tu historial, estadísticas y tendencias. Puedes pedirle desde un resumen rápido hasta un análisis profundo de cualquier aspecto.</p>
+                        <h3 data-lang-es="Pregunta como hablarías con tu caddie" data-lang-en="Ask like you'd talk to your caddie">Pregunta como hablarías con tu caddie</h3>
+                        <p data-lang-es="Tiene acceso a todo tu historial y tendencias. Pídele desde un resumen rápido hasta un análisis profundo de cualquier aspecto." data-lang-en="It has access to your full history and trends. Ask for anything from a quick summary to a deep dive into any aspect.">Tiene acceso a todo tu historial y tendencias. Pídele desde un resumen rápido hasta un análisis profundo de cualquier aspecto.</p>
                         <ul class="story-tags">
                             <li data-lang-es="Análisis contextual" data-lang-en="Contextual analysis">Análisis contextual</li>
                             <li data-lang-es="Historial completo" data-lang-en="Full history">Historial completo</li>
@@ -226,8 +207,8 @@
                 <div class="ai-story-beat beat-reverse reveal">
                     <div class="story-text">
                         <span class="story-step">02</span>
-                        <h3 data-lang-es="Recibe análisis de nivel profesional" data-lang-en="Get professional-level analysis">Recibe análisis de nivel profesional</h3>
-                        <p data-lang-es="El agente responde con datos, gráficas y recomendaciones accionables. Desglosa tu rendimiento por distancias, identifica patrones ocultos y sugiere acciones concretas de práctica." data-lang-en="The agent responds with data, charts, and actionable recommendations. It breaks down your performance by distance, identifies hidden patterns, and suggests concrete practice actions.">El agente responde con datos, gráficas y recomendaciones accionables. Desglosa tu rendimiento por distancias, identifica patrones ocultos y sugiere acciones concretas de práctica.</p>
+                        <h3 data-lang-es="Respuestas claras, acciones concretas" data-lang-en="Clear answers, concrete actions">Respuestas claras, acciones concretas</h3>
+                        <p data-lang-es="Gráficas, desgloses y recomendaciones basadas en tus datos. Descubre patrones ocultos y sabe qué practicar." data-lang-en="Charts, breakdowns, and recommendations based on your data. Discover hidden patterns and know what to practice.">Gráficas, desgloses y recomendaciones basadas en tus datos. Descubre patrones ocultos y sabe qué practicar.</p>
                         <ul class="story-tags">
                             <li data-lang-es="Gráficas interactivas" data-lang-en="Interactive charts">Gráficas interactivas</li>
                             <li data-lang-es="Datos en tiempo real" data-lang-en="Real-time data">Datos en tiempo real</li>
@@ -272,13 +253,13 @@
                     <div class="sg-content reveal reveal-delay-1">
                         <div class="section-header">
                             <span class="overline">Strokes Gained</span>
-                            <h2 id="sg-heading" data-lang-es="Mide lo que realmente importa" data-lang-en="Measure what really matters">Mide lo que realmente importa</h2>
-                            <p class="lead" data-lang-es="El mismo sistema que usan los profesionales del PGA Tour. Compara tu rendimiento real contra el benchmark y descubre exactamente dónde ganar golpes." data-lang-en="The same system used by PGA Tour professionals. Compare your real performance against the benchmark and discover exactly where to gain strokes.">El mismo sistema que usan los profesionales del PGA Tour. Compara tu rendimiento real contra el benchmark y descubre exactamente dónde ganar golpes.</p>
+                            <h2 id="sg-heading" data-lang-es="Mídete contra quien quieras." data-lang-en="Compare yourself against anyone.">Mídete contra quien quieras.</h2>
+                            <p class="lead" data-lang-es="Strokes Gained desglosado en las cuatro áreas clave. Compárate con el PGA Tour o con hándicap 0, 5, 10, 15, 20 y 25 — y descubre exactamente dónde ganas y dónde pierdes golpes." data-lang-en="Strokes Gained broken down into four key areas. Compare your stats to the PGA Tour or handicaps 0, 5, 10, 15, 20, and 25 — and discover exactly where you gain and lose strokes.">Strokes Gained desglosado en las cuatro áreas clave. Compárate con el PGA Tour o con hándicap 0, 5, 10, 15, 20 y 25 — y descubre exactamente dónde ganas y dónde pierdes golpes.</p>
                         </div>
                         <ul class="feature-list">
                             <li><span class="text-green">✦</span><span data-lang-es="Tee · Approach · Short Game · Putting" data-lang-en="Tee · Approach · Short Game · Putting">Tee · Approach · Short Game · Putting</span></li>
-                            <li><span class="text-green">✦</span><span data-lang-es="Comparación vs PGA Pro en tiempo real" data-lang-en="Real-time comparison vs PGA Pro">Comparación vs PGA Pro en tiempo real</span></li>
-                            <li><span class="text-green">✦</span><span data-lang-es="Tendencias históricas y evolución" data-lang-en="Historical trends and evolution">Tendencias históricas y evolución</span></li>
+                            <li><span class="text-green">✦</span><span data-lang-es="7 niveles de referencia: PGA Tour + hándicap 0 a 25" data-lang-en="7 reference levels: PGA Tour + handicap 0 to 25">7 niveles de referencia: PGA Tour + hándicap 0 a 25</span></li>
+                            <li><span class="text-green">✦</span><span data-lang-es="Evolución histórica y tendencias de tu juego" data-lang-en="Historical progress and performance trends">Evolución histórica y tendencias de tu juego</span></li>
                         </ul>
                     </div>
                 </div>
@@ -292,10 +273,10 @@
                     <div class="reveal">
                         <div class="section-header">
                             <span class="overline" data-lang-es="Tecnología" data-lang-en="Technology">Tecnología</span>
-                            <h2 id="tech-heading" data-lang-es="Ingeniería de datos aplicada al golf" data-lang-en="Data engineering applied to golf">Ingeniería de datos aplicada al golf</h2>
-                            <p class="lead" data-lang-es="Modelos de machine learning entrenados con datos reales. Cada golpe alimenta algoritmos que mapean tu patrón de juego único." data-lang-en="Machine learning models trained with real data. Every shot feeds algorithms that map your unique game pattern.">Modelos de machine learning entrenados con datos reales. Cada golpe alimenta algoritmos que mapean tu patrón de juego único.</p>
+                            <h2 id="tech-heading" data-lang-es="Tecnología que aprende contigo" data-lang-en="Technology that learns with you">Tecnología que aprende contigo</h2>
+                            <p class="lead" data-lang-es="Modelos de machine learning que se nutren de tus datos reales. Cuanto más juegas, mejor te conoce." data-lang-en="Machine learning models fed by your real data. The more you play, the better it knows you.">Modelos de machine learning que se nutren de tus datos reales. Cuanto más juegas, mejor te conoce.</p>
                         </div>
-                        <a href="#" class="btn btn-primary" data-lang-es="Empezar ahora <span class='arrow'>→</span>" data-lang-en="Start now <span class='arrow'>→</span>">Empezar ahora <span class="arrow">→</span></a>
+                        <a href="#" class="btn btn-primary" data-lang-es="Descúbrelo <span class='arrow'>→</span>" data-lang-en="Discover it <span class='arrow'>→</span>">Descúbrelo <span class="arrow">→</span></a>
                     </div>
                     <div class="reveal reveal-delay-1">
                         <div class="code-panel">
@@ -314,23 +295,23 @@
             <div class="container">
                 <div class="section-header reveal" style="text-align:center;margin-left:auto;margin-right:auto">
                     <span class="overline" data-lang-es="Servicios" data-lang-en="Services">Servicios</span>
-                    <h2 id="services-heading" style="margin:0 auto" data-lang-es="Además ofrecemos" data-lang-en="In addition, we offer">Además ofrecemos</h2>
+                    <h2 id="services-heading" style="margin:0 auto" data-lang-es="También te acompañamos aquí" data-lang-en="We're also here for you">También te acompañamos aquí</h2>
                 </div>
                 <div class="services-grid">
                     <div class="service-card reveal">
                         <div class="service-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg></div>
-                        <h3 data-lang-es="Tecnología" data-lang-en="Technology">Tecnología</h3>
-                        <p data-lang-es="Ofrecemos una plataforma tecnológica de análisis integral del rendimiento del jugador, a disposición del entrenador, para que pueda desarrollar y personalizar cualquier tipo de analítica." data-lang-en="We offer a technological platform for integral player performance analysis, available to the coach, so they can develop and customize any type of analytics.">Ofrecemos una plataforma tecnológica de análisis integral del rendimiento del jugador, a disposición del entrenador, para que pueda desarrollar y personalizar cualquier tipo de analítica.</p>
+                        <h3 data-lang-es="Plataforma para coaches" data-lang-en="Coach platform">Plataforma para coaches</h3>
+                        <p data-lang-es="Toda la analítica a disposición de tu entrenador, para diseñar juntos el plan que mejor se adapte a ti." data-lang-en="All analytics available to your coach, to design together the plan that best suits you.">Toda la analítica a disposición de tu entrenador, para diseñar juntos el plan que mejor se adapte a ti.</p>
                     </div>
                     <div class="service-card reveal reveal-delay-1">
                         <div class="service-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg></div>
                         <h3 data-lang-es="Consultoría" data-lang-en="Consulting">Consultoría</h3>
-                        <p data-lang-es="Ayudamos a tu entrenador a marcar la diferencia, usar tu tiempo más eficientemente y conseguir tus objetivos de la manera más rápida posible." data-lang-en="We help your coach make a difference, use your time more efficiently, and achieve your goals as quickly as possible.">Ayudamos a tu entrenador a marcar la diferencia, usar tu tiempo más eficientemente y conseguir tus objetivos de la manera más rápida posible.</p>
+                        <p data-lang-es="Te ayudamos a aprovechar mejor cada sesión de práctica y acercarte a tu objetivo de hándicap." data-lang-en="We help you make the most of every practice session and get closer to your handicap goal.">Te ayudamos a aprovechar mejor cada sesión de práctica y acercarte a tu objetivo de hándicap.</p>
                     </div>
                     <div class="service-card reveal reveal-delay-2">
                         <div class="service-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg></div>
                         <h3 data-lang-es="Formación" data-lang-en="Training">Formación</h3>
-                        <p data-lang-es="Ofrecemos workshops a coaches y entrenadores para capacitarles en el uso de la estadística y el big data aplicada al golf." data-lang-en="We offer workshops to coaches and trainers to train them in the use of statistics and big data applied to golf.">Ofrecemos workshops a coaches y entrenadores para capacitarles en el uso de la estadística y el big data aplicada al golf.</p>
+                        <p data-lang-es="Workshops para coaches que quieran integrar la estadística y el análisis de datos en su método de enseñanza." data-lang-en="Workshops for coaches who want to integrate statistics and data analysis into their teaching method.">Workshops para coaches que quieran integrar la estadística y el análisis de datos en su método de enseñanza.</p>
                     </div>
                 </div>
             </div>
