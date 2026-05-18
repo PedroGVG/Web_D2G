@@ -203,9 +203,9 @@ h1,h2,h3,h4{font-family:var(--font-display);color:var(--text-primary);font-weigh
 
 /* ═══ Responsive ═══ */
 @media(max-width:768px){
-.showcase-screens{grid-template-columns:1fr}
-.screen-card:first-child{grid-column:auto}
-.phone-mockup{width:240px;transform:none}
-.phone-mockup:hover{transform:scale(1.02)}
-.ai-interface{height:400px}
+    /* Ocultar elementos no esenciales para limpiar la UI móvil y evitar cortes */
+    .story-tags { display: none !important; }
+    .code-panel { display: none !important; }
+    .showcase-stats { display: none !important; }
+    .hero-gate { padding-top: 5rem; }
 }
