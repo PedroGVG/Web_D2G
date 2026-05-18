@@ -1,6 +1,7 @@
-/* ── Premium Tech Data Flow Background ──
-   Dynamic, fluid matrix with glowing trails and network connections.
-   World-class aesthetic for Data2Gain. Subtlety focused.
+/* ── Premium Precision Grid & Data Flow Background ──
+   High-tech digital matrix featuring grid-aligned coordinate flows,
+   target crosshairs, and data packets.
+   Perfect fit for Data2Gain's golf analytics precision.
 */
 (function () {
     'use strict';
@@ -16,7 +17,10 @@
     }
 
     let width, height;
+    let gridSpacing = 80;
     let particles = [];
+    let pulses = [];
+    let crosshairs = [];
     let time = 0;
     const mouse = { x: -1000, y: -1000, active: false };
 
@@ -33,12 +37,17 @@
     function resize() {
         width = canvas.width = window.innerWidth;
         height = canvas.height = window.innerHeight;
+        // Make grid spacing responsive
+        gridSpacing = width < 768 ? 60 : 80;
     }
 
-    window.addEventListener('resize', () => {
-        resize();
-        initParticles();
-    }, { passive: true });
+    // Grid Junction coordinates for targeting
+    function getNearestGridPoint(x, y) {
+        return {
+            x: Math.round(x / gridSpacing) * gridSpacing,
+            y: Math.round(y / gridSpacing) * gridSpacing
+        };
+    }
 
     class Particle {
         constructor() {
@@ -46,52 +55,53 @@
         }
 
         reset(randomize = false) {
-            this.x = randomize ? Math.random() * width : Math.random() * width;
-            this.y = randomize ? Math.random() * height : -10;
-            this.vx = 0;
-            this.vy = 0;
-            this.size = Math.random() * 1.2 + 0.4;
-            // Slower, more elegant speed
-            this.baseSpeed = Math.random() * 0.4 + 0.1;
-            this.angle = Math.random() * Math.PI * 2;
+            // Align to grid on reset
+            const p = getNearestGridPoint(
+                Math.random() * width,
+                randomize ? Math.random() * height : -20
+            );
+            this.x = p.x;
+            this.y = p.y;
+            this.size = Math.random() * 1.5 + 0.6;
+            this.speed = Math.random() * 0.8 + 0.3;
+            
+            // Choose one of the 8 grid directions (multiples of 45 deg in radians)
+            const directions = [0, Math.PI/4, Math.PI/2, 3*Math.PI/4, Math.PI, 5*Math.PI/4, 3*Math.PI/2, 7*Math.PI/4];
+            this.angle = directions[Math.floor(Math.random() * directions.length)];
+            
             const r = Math.random();
-            this.color = r > 0.8 ? '#FFB300' : (r > 0.4 ? '#00E89D' : '#ffffff');
-            // Much lower opacity to remain in the background
-            this.alpha = Math.random() * 0.25 + 0.05;
+            this.color = r > 0.85 ? '#FFB300' : (r > 0.45 ? '#00E89D' : '#ffffff');
+            this.alpha = Math.random() * 0.3 + 0.08;
+            this.stepsToNextDecision = Math.floor(Math.random() * 40) + 20;
         }
 
         update() {
-            // Slower noise field
-            const noiseX = Math.sin(this.x * 0.002 + time) * 0.5 + Math.cos(this.y * 0.0015 - time) * 0.5;
-            const noiseY = Math.cos(this.x * 0.002 - time) * 0.5 + Math.sin(this.y * 0.0015 + time) * 0.5;
-            
-            this.angle += noiseX * 0.02;
-            
-            // Softer mouse interaction
-            if (mouse.active) {
-                const dx = mouse.x - this.x;
-                const dy = mouse.y - this.y;
-                const dist = Math.sqrt(dx * dx + dy * dy);
-                if (dist < 200) {
-                    const force = (200 - dist) / 200;
-                    this.vx -= (dx / dist) * force * 0.2;
-                    this.vy -= (dy / dist) * force * 0.2;
+            this.x += Math.cos(this.angle) * this.speed;
+            this.y += Math.sin(this.angle) * this.speed;
+
+            this.stepsToNextDecision--;
+
+            // When close to grid junction and steps depleted, make a turn
+            if (this.stepsToNextDecision <= 0) {
+                const nearGrid = getNearestGridPoint(this.x, this.y);
+                const distToJunction = Math.hypot(this.x - nearGrid.x, this.y - nearGrid.y);
+                
+                if (distToJunction < 5) {
+                    // Snap to grid junction
+                    this.x = nearGrid.x;
+                    this.y = nearGrid.y;
+                    
+                    // Decides new angle (allows continuation, 90-degree turn, or 45-degree bend)
+                    const turns = [-Math.PI/4, 0, Math.PI/4, -Math.PI/2, Math.PI/2];
+                    const selectedTurn = turns[Math.floor(Math.random() * turns.length)];
+                    this.angle = (this.angle + selectedTurn) % (Math.PI * 2);
+                    
+                    this.stepsToNextDecision = Math.floor(Math.random() * 50) + 30;
                 }
             }
 
-            // Continuous fluid movement
-            this.vx += Math.cos(this.angle) * 0.03;
-            this.vy += Math.sin(this.angle) * 0.03 + 0.15; // Very gentle downward drift
-
-            // Friction
-            this.vx *= 0.94;
-            this.vy *= 0.94;
-
-            this.x += this.vx * this.baseSpeed;
-            this.y += this.vy * this.baseSpeed;
-
-            // Loop around if out of bounds
-            if (this.x < -50 || this.x > width + 50 || this.y > height + 50 || this.y < -50) {
+            // Loop / Reset if out of bounds
+            if (this.x < -100 || this.x > width + 100 || this.y > height + 100 || this.y < -100) {
                 this.reset();
             }
         }
@@ -105,62 +115,217 @@
         }
     }
 
-    function initParticles() {
-        particles = [];
-        // Reduced count to avoid visual noise
-        const count = window.innerWidth > 768 ? 110 : 50;
-        for (let i = 0; i < count; i++) {
-            particles.push(new Particle());
+    class Pulse {
+        constructor() {
+            this.reset();
+        }
+
+        reset() {
+            const start = getNearestGridPoint(Math.random() * width, Math.random() * height);
+            this.x = start.x;
+            this.y = start.y;
+            this.speed = Math.random() * 3 + 2;
+            const dirs = [0, Math.PI/2, Math.PI, 3*Math.PI/2];
+            this.angle = dirs[Math.floor(Math.random() * dirs.length)];
+            this.color = Math.random() > 0.5 ? '#00E89D' : '#FFB300';
+            this.alpha = 0.5;
+            this.life = Math.floor(Math.random() * 80) + 40;
+            this.trail = [];
+        }
+
+        update() {
+            // Save trail
+            this.trail.push({ x: this.x, y: this.y });
+            if (this.trail.length > 8) this.trail.shift();
+
+            this.x += Math.cos(this.angle) * this.speed;
+            this.y += Math.sin(this.angle) * this.speed;
+
+            this.life--;
+            if (this.life <= 0 || this.x < 0 || this.x > width || this.y < 0 || this.y > height) {
+                this.reset();
+            }
+        }
+
+        draw() {
+            if (this.trail.length < 2) return;
+            
+            ctx.beginPath();
+            ctx.moveTo(this.trail[0].x, this.trail[0].y);
+            for (let i = 1; i < this.trail.length; i++) {
+                ctx.lineTo(this.trail[i].x, this.trail[i].y);
+            }
+            ctx.strokeStyle = this.color;
+            ctx.globalAlpha = this.alpha * 0.4;
+            ctx.lineWidth = 1.5;
+            ctx.stroke();
+
+            // Head pulse
+            ctx.beginPath();
+            ctx.arc(this.x, this.y, 2, 0, Math.PI * 2);
+            ctx.fillStyle = this.color;
+            ctx.globalAlpha = this.alpha;
+            ctx.fill();
         }
     }
 
-    function drawConnections() {
-        ctx.globalAlpha = 1;
-        for (let i = 0; i < particles.length; i++) {
-            for (let j = i + 1; j < particles.length; j++) {
-                const dx = particles[i].x - particles[j].x;
-                const dy = particles[i].y - particles[j].y;
-                const dist = dx * dx + dy * dy;
-                
-                // Connect if within 110px (12100 dist squared)
-                if (dist < 12100) {
-                    const opacity = 1 - (dist / 12100);
-                    ctx.beginPath();
-                    ctx.moveTo(particles[i].x, particles[i].y);
-                    ctx.lineTo(particles[j].x, particles[j].y);
-                    // Extremely subtle connections
-                    ctx.strokeStyle = `rgba(0, 232, 157, ${opacity * 0.04})`;
-                    ctx.lineWidth = 0.5;
-                    ctx.stroke();
-                }
+    class Crosshair {
+        constructor() {
+            this.reset();
+        }
+
+        reset() {
+            const pt = getNearestGridPoint(
+                Math.random() * (width - 100) + 50,
+                Math.random() * (height - 100) + 50
+            );
+            this.x = pt.x;
+            this.y = pt.y;
+            this.life = 0;
+            this.maxLife = Math.floor(Math.random() * 150) + 100;
+            this.size = Math.random() * 6 + 4;
+            this.alpha = 0;
+        }
+
+        update() {
+            this.life++;
+            // Fade in, hold, fade out
+            if (this.life < 30) {
+                this.alpha = this.life / 30 * 0.15;
+            } else if (this.life > this.maxLife - 30) {
+                this.alpha = (this.maxLife - this.life) / 30 * 0.15;
+            } else {
+                this.alpha = 0.15;
             }
+
+            if (this.life >= this.maxLife) {
+                this.reset();
+            }
+        }
+
+        draw() {
+            ctx.strokeStyle = '#00E89D';
+            ctx.globalAlpha = this.alpha;
+            ctx.lineWidth = 0.75;
+            
+            // Draw crosshair '+'
+            ctx.beginPath();
+            ctx.moveTo(this.x - this.size, this.y);
+            ctx.lineTo(this.x + this.size, this.y);
+            ctx.moveTo(this.x, this.y - this.size);
+            ctx.lineTo(this.x, this.y + this.size);
+            ctx.stroke();
+
+            // Draw small bounding circle occasionally
+            if (this.size > 7) {
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.size * 0.7, 0, Math.PI * 2);
+                ctx.stroke();
+            }
+        }
+    }
+
+    function initElements() {
+        particles = [];
+        pulses = [];
+        crosshairs = [];
+
+        const isMobile = window.innerWidth < 768;
+        const particleCount = isMobile ? 40 : 80;
+        const pulseCount = isMobile ? 3 : 6;
+        const crosshairCount = isMobile ? 4 : 8;
+
+        for (let i = 0; i < particleCount; i++) particles.push(new Particle());
+        for (let i = 0; i < pulseCount; i++) pulses.push(new Pulse());
+        for (let i = 0; i < crosshairCount; i++) crosshairs.push(new Crosshair());
+    }
+
+    function drawGridMatrix() {
+        // Draw highly subtle background coordinates & lines
+        ctx.strokeStyle = 'rgba(255, 255, 255, 0.015)';
+        ctx.lineWidth = 0.5;
+
+        // Horizontals
+        for (let y = 0; y < height; y += gridSpacing) {
+            ctx.beginPath();
+            ctx.moveTo(0, y);
+            ctx.lineTo(width, y);
+            ctx.stroke();
+        }
+
+        // Verticals
+        for (let x = 0; x < width; x += gridSpacing) {
+            ctx.beginPath();
+            ctx.moveTo(x, 0);
+            ctx.lineTo(x, height);
+            ctx.stroke();
+        }
+
+        // Interactive mouse scanner grid overlay
+        if (mouse.active) {
+            const nearMouse = getNearestGridPoint(mouse.x, mouse.y);
+            
+            // Draw subtle radar scanning circle
+            const grad = ctx.createRadialGradient(mouse.x, mouse.y, 10, mouse.x, mouse.y, 180);
+            grad.addColorStop(0, 'rgba(0, 232, 157, 0.05)');
+            grad.addColorStop(1, 'rgba(0, 232, 157, 0)');
+            
+            ctx.fillStyle = grad;
+            ctx.beginPath();
+            ctx.arc(mouse.x, mouse.y, 180, 0, Math.PI * 2);
+            ctx.fill();
+
+            // Light up grid lines passing near mouse
+            ctx.strokeStyle = 'rgba(0, 232, 157, 0.04)';
+            ctx.beginPath();
+            ctx.moveTo(0, nearMouse.y);
+            ctx.lineTo(width, nearMouse.y);
+            ctx.moveTo(nearMouse.x, 0);
+            ctx.lineTo(nearMouse.x, height);
+            ctx.stroke();
         }
     }
 
     function animate() {
         requestAnimationFrame(animate);
-        // Slower time progression
-        time += 0.0015;
+        time += 0.002;
 
-        // Stronger clear layer for shorter trails
-        ctx.fillStyle = 'rgba(5, 5, 8, 0.35)'; 
+        // Clean screen with premium deep color
+        ctx.fillStyle = 'rgba(5, 5, 8, 0.25)'; // slight trail effect
         ctx.globalAlpha = 1;
         ctx.globalCompositeOperation = 'source-over';
         ctx.fillRect(0, 0, width, height);
 
-        // Draw network connections
-        drawConnections();
+        // Render basic tech grid
+        drawGridMatrix();
 
-        // Draw glowing particles
+        // Render crosshairs
         ctx.globalCompositeOperation = 'screen';
+        crosshairs.forEach(ch => {
+            ch.update();
+            ch.draw();
+        });
+
+        // Render particles (data points)
         particles.forEach(p => {
             p.update();
             p.draw();
         });
+
+        // Render high speed pulses
+        pulses.forEach(pulse => {
+            pulse.update();
+            pulse.draw();
+        });
     }
 
+    window.addEventListener('resize', () => {
+        resize();
+        initElements();
+    }, { passive: true });
+
     resize();
-    initParticles();
+    initElements();
     animate();
 
 })();
