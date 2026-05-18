@@ -397,19 +397,100 @@ h1,h2,h3,h4{font-family:var(--font-display);color:var(--text-primary);font-weigh
     }
 }
 
-@media (max-width: 600px) {
+@media (max-width: 768px) {
+    #app-showcase {
+        margin-top: -2.5rem;
+        padding-top: 1.5rem;
+    }
+    
+    .tour-feature-grid {
+        gap: 0.8rem;
+        margin-top: 2rem;
+    }
+    
+    .tour-feature-card {
+        padding: 1.4rem 1.2rem;
+        border-radius: 12px;
+    }
+    
+    .feature-icon-wrapper {
+        width: 42px;
+        height: 42px;
+        margin-bottom: 0.8rem;
+    }
+    
+    .feature-icon-wrapper svg {
+        width: 18px;
+        height: 18px;
+    }
+    
+    .tour-feature-card h3 {
+        font-size: 0.85rem;
+        margin-bottom: 0.4rem;
+    }
+    
+    .tour-feature-card p {
+        font-size: 0.76rem;
+    }
+    
+    /* Divider & Separator */
+    .showcase-divider {
+        padding: 3.5rem 1rem 2rem;
+    }
+    
+    .divider-line {
+        margin-bottom: 1.8rem;
+    }
+    
+    .divider-title {
+        font-size: 1.5rem !important;
+        margin-bottom: 0.6rem;
+    }
+    
+    .divider-subtitle {
+        font-size: 0.82rem;
+        max-width: 440px;
+    }
+    
+    /* HUD Specs Panel - Clean Horizontal */
     .hud-specs-panel {
-        flex-direction: column;
         gap: 1.2rem;
-        border-radius: 20px;
-        padding: 1.5rem;
-        width: 100%;
-        max-width: 320px;
+        padding: 0.6rem 1.4rem;
+        margin-top: 1.8rem;
+        border-radius: 50px;
+        width: auto;
+        max-width: 100%;
+        flex-direction: row;
+    }
+    
+    .spec-label {
+        font-size: 0.5rem;
+    }
+    
+    .spec-value {
+        font-size: 0.72rem;
     }
     
     .spec-item-divider {
-        width: 40px;
-        height: 1px;
+        width: 1px;
+        height: 16px;
+    }
+}
+
+@media (max-width: 480px) {
+    .hud-specs-panel {
+        gap: 0.7rem;
+        padding: 0.5rem 0.8rem;
+        border-radius: 30px;
+    }
+    
+    .spec-label {
+        font-size: 0.45rem;
+        letter-spacing: 0.08em;
+    }
+    
+    .spec-value {
+        font-size: 0.65rem;
     }
 }
 
