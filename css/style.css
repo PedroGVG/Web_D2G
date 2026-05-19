@@ -794,4 +794,6 @@ h1,h2,h3,h4{font-family:var(--font-display);color:var(--text-primary);font-weigh
     .code-panel { display: none !important; }
     .showcase-stats { display: none !important; }
     .hero-gate { padding-top: 5rem; }
+    .showcase-intro .lead { display: none !important; }
+    .hud-specs-panel { display: none !important; }
 }
