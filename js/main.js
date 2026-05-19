@@ -81,15 +81,18 @@ function switchLanguage(lang) {
    ═══════════════════════════════════════════ */
 function initStickyHeader() {
     const stickyHeader = document.getElementById('sticky-header');
-    const introSection = document.querySelector('.hero-gate');
+    if (!stickyHeader) return;
 
-    if (!stickyHeader || !introSection) return;
+    const handleScroll = () => {
+        if (window.scrollY > 20) {
+            stickyHeader.classList.add('scrolled');
+        } else {
+            stickyHeader.classList.remove('scrolled');
+        }
+    };
 
-    const observer = new IntersectionObserver(([entry]) => {
-        stickyHeader.classList.toggle('visible', !entry.isIntersecting);
-    }, { threshold: 0.1 });
-
-    observer.observe(introSection);
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    handleScroll(); // Run initially
 
     const logoLink = stickyHeader.querySelector('.header-logo-link');
     if (logoLink) {

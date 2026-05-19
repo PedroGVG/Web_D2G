@@ -51,46 +51,19 @@
     <div class="ambient-glow" aria-hidden="true"></div>
     <canvas id="neural-canvas" aria-hidden="true"></canvas>
 
-    <!-- Sticky Header -->
+    <!-- Header -->
     <header id="sticky-header" class="sticky-header" role="banner">
         <a href="#" class="header-logo-link" aria-label="Data2Gain — Volver al inicio">
             <img src="assets/logo.png" alt="Data2Gain logo" class="header-logo" width="28" height="28">
             <span class="header-brand">DATA2GAIN</span>
         </a>
-    </header>
 
-    <!-- Language Switcher -->
-    <div class="language-header" role="navigation" aria-label="Language selector">
-        <div class="language-switcher">
-            <div class="lang-option">
-                <button class="lang-btn active" data-lang="es" aria-label="Español"><span class="flag-icon flag-es"></span></button>
-                <span class="lang-label">ES</span>
-            </div>
-            <div class="lang-option">
-                <button class="lang-btn" data-lang="en" aria-label="English"><span class="flag-icon flag-en"></span></button>
-                <span class="lang-label">EN</span>
-            </div>
-        </div>
-    </div>
-
-    <!-- WRAPPER PARA BLOQUEAR SCROLL HORIZONTAL iOS/SAFARI -->
-    <div class="site-wrapper" style="overflow-x: hidden; width: 100%; position: relative; display: flex; flex-direction: column; min-height: 100vh;">
-
-    <main>
-        <!-- ═══ HERO GATE ═══ -->
-        <section id="hero" class="hero-gate" aria-labelledby="hero-heading">
-            <img src="assets/logo.png" alt="Data2Gain" class="intro-logo" width="90" height="90" fetchpriority="high">
-            <h1 class="brand-name">DATA<span class="text-gradient">2</span>GAIN</h1>
-            <p class="tagline" data-lang-es="PRECISIÓN DE ÉLITE" data-lang-en="ELITE PRECISION">PRECISIÓN DE ÉLITE</p>
-            <p class="headline" data-lang-es="Siente el golpe con intuición.<br>Decide la estrategia con datos." data-lang-en="Feel the shot on instinct.<br>Decide the strategy on data.">Siente el golpe con intuición.<br>Decide la estrategia con datos.</p>
-            <div class="cta-group">
+        <div class="header-right-side">
+            <!-- Header CTA Group -->
+            <div class="header-cta-group">
                 <!-- Opción Web App -->
-                <a href="https://app.data2gain.com" class="btn-web" data-lang-es="Versión Web" data-lang-en="Web Version">
-                    Versión Web
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true">
-                        <line x1="7" y1="17" x2="17" y2="7"></line>
-                        <polyline points="7 7 17 7 17 17"></polyline>
-                    </svg>
+                <a href="https://app.data2gain.com" class="btn-web">
+                    <span data-lang-es="App Web" data-lang-en="Web App">App Web</span>
                 </a>
                 
                 <!-- App Store Apple -->
@@ -115,6 +88,31 @@
                     </div>
                 </a>
             </div>
+
+            <!-- Language Switcher -->
+            <div class="language-switcher">
+                <div class="lang-option">
+                    <button class="lang-btn active" data-lang="es" aria-label="Español"><span class="flag-icon flag-es"></span></button>
+                    <span class="lang-label">ES</span>
+                </div>
+                <div class="lang-option">
+                    <button class="lang-btn" data-lang="en" aria-label="English"><span class="flag-icon flag-en"></span></button>
+                    <span class="lang-label">EN</span>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- WRAPPER PARA BLOQUEAR SCROLL HORIZONTAL iOS/SAFARI -->
+    <div class="site-wrapper" style="overflow-x: hidden; width: 100%; position: relative; display: flex; flex-direction: column; min-height: 100vh;">
+
+    <main>
+        <!-- ═══ HERO GATE ═══ -->
+        <section id="hero" class="hero-gate" aria-labelledby="hero-heading">
+            <img src="assets/logo.png" alt="Data2Gain" class="intro-logo" width="90" height="90" fetchpriority="high">
+            <h1 class="brand-name">DATA<span class="text-gradient">2</span>GAIN</h1>
+            <p class="tagline" data-lang-es="PRECISIÓN DE ÉLITE" data-lang-en="ELITE PRECISION">PRECISIÓN DE ÉLITE</p>
+            <p class="headline" data-lang-es="Siente el golpe con intuición.<br>Decide la estrategia con datos." data-lang-en="Feel the shot on instinct.<br>Decide the strategy on data.">Siente el golpe con intuición.<br>Decide la estrategia con datos.</p>
         </section>
 
         <!-- ═══ APP SHOWCASE GATE ═══ -->
@@ -326,29 +324,74 @@
 
 
         <!-- ═══ SERVICES GATE ═══ -->
-        <section id="services" class="section-gate" aria-labelledby="services-heading">
+        <section id="services" class="section-gate-custom" aria-labelledby="services-heading">
             <div class="container">
-                <div class="section-header reveal" style="text-align:center;margin-left:auto;margin-right:auto">
-                    <span class="overline" data-lang-es="Servicios" data-lang-en="Services">Servicios</span>
-                    <h2 id="services-heading" style="margin:0 auto" data-lang-es="También te acompañamos aquí" data-lang-en="We're also here for you">También te acompañamos aquí</h2>
-                </div>
-                <div class="services-grid">
-                    <div class="service-card reveal">
-                        <div class="service-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg></div>
-                        <h3 data-lang-es="Plataforma para coaches" data-lang-en="Coach platform">Plataforma para coaches</h3>
-                        <p data-lang-es="Toda la analítica a disposición de tu entrenador, para diseñar juntos el plan que mejor se adapte a ti." data-lang-en="All analytics available to your coach, to design together the plan that best suits you.">Toda la analítica a disposición de tu entrenador, para diseñar juntos el plan que mejor se adapte a ti.</p>
+                <div class="services-header-split reveal">
+                    <div class="header-left">
+                        <span class="overline" data-lang-es="Servicios adicionales" data-lang-en="Additional Services">Servicios adicionales</span>
+                        <h2 id="services-heading" data-lang-es="También te acompañamos aquí" data-lang-en="We're also here for you">También te acompañamos aquí</h2>
                     </div>
-                    <div class="service-card reveal reveal-delay-1">
-                        <div class="service-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg></div>
-                        <h3 data-lang-es="Consultoría" data-lang-en="Consulting">Consultoría</h3>
-                        <p data-lang-es="Te ayudamos a aprovechar mejor cada sesión de práctica y acercarte a tu objetivo de hándicap." data-lang-en="We help you make the most of every practice session and get closer to your handicap goal.">Te ayudamos a aprovechar mejor cada sesión de práctica y acercarte a tu objetivo de hándicap.</p>
-                    </div>
-                    <div class="service-card reveal reveal-delay-2">
-                        <div class="service-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg></div>
-                        <h3 data-lang-es="Formación" data-lang-en="Training">Formación</h3>
-                        <p data-lang-es="Workshops para coaches que quieran integrar la estadística y el análisis de datos en su método de enseñanza." data-lang-en="Workshops for coaches who want to integrate statistics and data analysis into their teaching method.">Workshops para coaches que quieran integrar la estadística y el análisis de datos en su método de enseñanza.</p>
+                    <div class="header-right">
+                        <p class="services-lead" data-lang-es="Llevamos el análisis del golf más allá de la app. Soluciones avanzadas para profesionales, escuelas y jugadores exigentes." data-lang-en="We take golf analytics beyond the app. Advanced solutions for professionals, academies, and demanding players.">Llevamos el análisis del golf más allá de la app. Soluciones avanzadas para profesionales, escuelas y jugadores exigentes.</p>
                     </div>
                 </div>
+
+                <div class="services-ledger">
+                    <!-- Row 1 -->
+                    <div class="ledger-row reveal accent-emerald" onclick="window.open('mailto:info@data2gain.com?subject=Plataforma%20para%20coaches', '_blank')">
+                        <div class="row-meta">
+                            <span class="row-num">01</span>
+                            <span class="row-tag" data-lang-es="ALTO RENDIMIENTO" data-lang-en="HIGH PERFORMANCE">ALTO RENDIMIENTO</span>
+                        </div>
+                        <div class="row-main">
+                            <h3 class="row-title" data-lang-es="Plataforma para coaches" data-lang-en="Coach platform">Plataforma para coaches</h3>
+                            <p class="row-desc" data-lang-es="Toda la analítica a disposición de tu entrenador, para diseñar juntos el plan que mejor se adapte a ti." data-lang-en="All analytics available to your coach, to design together the plan that best suits you.">Toda la analítica a disposición de tu entrenador, para diseñar juntos el plan que mejor se adapte a ti.</p>
+                        </div>
+                        <div class="row-action">
+                            <span class="action-btn-text" data-lang-es="Saber más" data-lang-en="Learn more">Saber más</span>
+                            <div class="action-circle">
+                                <svg class="arrow-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="7" y1="17" x2="17" y2="7"></line><polyline points="7 7 17 7 17 17"></polyline></svg>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Row 2 -->
+                    <div class="ledger-row reveal reveal-delay-1 accent-gold" onclick="window.open('mailto:info@data2gain.com?subject=Consultoría%20Personalizada', '_blank')">
+                        <div class="row-meta">
+                            <span class="row-num">02</span>
+                            <span class="row-tag" data-lang-es="ESTRATEGIA & PLAN" data-lang-en="STRATEGY & PLAN">ESTRATEGIA & PLAN</span>
+                        </div>
+                        <div class="row-main">
+                            <h3 class="row-title" data-lang-es="Consultoría" data-lang-en="Consulting">Consultoría</h3>
+                            <p class="row-desc" data-lang-es="Te ayudamos a aprovechar mejor cada sesión de práctica y acercarte a tu objetivo de hándicap." data-lang-en="We help you make the most of every practice session and get closer to your handicap goal.">Te ayudamos a aprovechar mejor cada sesión de práctica y acercarte a tu objetivo de hándicap.</p>
+                        </div>
+                        <div class="row-action">
+                            <span class="action-btn-text" data-lang-es="Saber más" data-lang-en="Learn more">Saber más</span>
+                            <div class="action-circle">
+                                <svg class="arrow-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="7" y1="17" x2="17" y2="7"></line><polyline points="7 7 17 7 17 17"></polyline></svg>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Row 3 -->
+                    <div class="ledger-row reveal reveal-delay-2 accent-blue" onclick="window.open('mailto:info@data2gain.com?subject=Formación%20Especializada', '_blank')">
+                        <div class="row-meta">
+                            <span class="row-num">03</span>
+                            <span class="row-tag" data-lang-es="CAPACITACIÓN" data-lang-en="TRAINING">CAPACITACIÓN</span>
+                        </div>
+                        <div class="row-main">
+                            <h3 class="row-title" data-lang-es="Formación" data-lang-en="Training">Formación</h3>
+                            <p class="row-desc" data-lang-es="Workshops para coaches que quieran integrar la estadística y el análisis de datos en su método de enseñanza." data-lang-en="Workshops for coaches who want to integrate statistics and data analysis into their teaching method.">Workshops para coaches que quieran integrar la estadística y el análisis de datos en su método de enseñanza.</p>
+                        </div>
+                        <div class="row-action">
+                            <span class="action-btn-text" data-lang-es="Saber más" data-lang-en="Learn more">Saber más</span>
+                            <div class="action-circle">
+                                <svg class="arrow-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="7" y1="17" x2="17" y2="7"></line><polyline points="7 7 17 7 17 17"></polyline></svg>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </section>
 
         <!-- ═══ FINAL CTA SECTION ═══ -->
@@ -359,12 +402,8 @@
                 
                 <div class="cta-group" style="margin-top:0">
                     <!-- Opción Web App -->
-                    <a href="https://app.data2gain.com" class="btn-web" data-lang-es="Versión Web" data-lang-en="Web Version">
-                        Versión Web
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true">
-                            <line x1="7" y1="17" x2="17" y2="7"></line>
-                            <polyline points="7 7 17 7 17 17"></polyline>
-                        </svg>
+                    <a href="https://app.data2gain.com" class="btn-web">
+                        <span data-lang-es="App Web" data-lang-en="Web App">App Web</span>
                     </a>
                     
                     <!-- App Store Apple -->
