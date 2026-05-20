@@ -650,7 +650,7 @@ h1,h2,h3,h4{font-family:var(--font-display);color:var(--text-primary);font-weigh
 .smartphone-mockup {
     position: relative;
     width: 100%;
-    max-width: 350px; /* Reduced to look a bit smaller and more balanced */
+    max-width: 280px; /* Reduced to look a bit smaller and more balanced */
     margin: 0 auto;
     perspective: 1000px;
     z-index: 2;
@@ -805,7 +805,7 @@ h1,h2,h3,h4{font-family:var(--font-display);color:var(--text-primary);font-weigh
 }
 
 @media(max-width:900px){
-    .smartphone-mockup{transform:none !important;margin:0 auto;max-width:315px !important}
+    .smartphone-mockup{transform:none !important;margin:0 auto;max-width:250px !important}
     .app-screen-frame{transform:none !important}
     .ai-story-beat, .app-story-beat{margin-bottom:4rem}
     .story-text{text-align:center}
