@@ -1172,6 +1172,30 @@ h1,h2,h3,h4{font-family:var(--font-display);color:var(--text-primary);font-weigh
     box-shadow: 0 4px 12px rgba(255, 179, 0, 0.25);
 }
 
+@media (max-width: 768px) {
+    .sg-grid {
+        gap: 2rem;
+    }
+    .sg-tabs {
+        flex-wrap: wrap;
+        width: 100%;
+        justify-content: flex-start;
+    }
+    .sg-tab {
+        flex: 1 1 calc(33.333% - 0.4rem);
+        text-align: center;
+        padding: 0.6rem 0.2rem;
+        font-size: 0.65rem;
+    }
+    .feature-list li {
+        align-items: flex-start;
+        font-size: 0.85rem;
+    }
+    .feature-list li span:first-child {
+        margin-top: 2px;
+    }
+}
+
 .feature-list{list-style:none;padding:0;margin-top:1.5rem}
 .feature-list li{margin-bottom:.6rem;display:flex;align-items:center;gap:.5rem;color:var(--text-secondary);font-size:.95rem}
 
