@@ -1757,7 +1757,7 @@ h1,h2,h3,h4{font-family:var(--font-display);color:var(--text-primary);font-weigh
     .hero-gate { padding-top: 5rem; }
     .showcase-intro .lead {
         display: block !important;
-        font-size: 0.95rem !important;
+        font-size: 1.05rem !important;
         line-height: 1.6;
         color: var(--text-secondary);
         margin: 1rem auto 0 !important;
@@ -1771,11 +1771,99 @@ h1,h2,h3,h4{font-family:var(--font-display);color:var(--text-primary);font-weigh
     }
     .divider-subtitle {
         display: block !important;
-        font-size: 0.82rem !important;
+        font-size: 1.05rem !important;
         line-height: 1.6;
         color: var(--text-secondary);
         max-width: 440px;
         margin: 0 auto;
+    }
+
+    /* Homogeneous Font Sizes for all Header Descriptions on Mobile */
+    .showcase-intro .lead,
+    .divider-subtitle,
+    .story-text p,
+    .ai-intro .lead,
+    .sg-content .lead,
+    .services-lead,
+    .bottom-cta-section .lead {
+        font-size: 1.05rem !important;
+        line-height: 1.6 !important;
+    }
+
+    /* ═══ Smooth, Staggered Scroll Reveal Animations for Mobile ═══ */
+    /* Target parent blocks to act only as triggers, disabling their default bulky animations */
+    .app-story-beat.reveal,
+    .ai-story-beat.reveal,
+    .showcase-intro.reveal,
+    .showcase-divider.reveal,
+    .ai-intro.reveal {
+        opacity: 1 !important;
+        transform: none !important;
+        filter: none !important;
+        transition: none !important;
+    }
+
+    /* 1. App Showcase & AI Intro Header Staggers */
+    .showcase-intro h2, .showcase-intro .lead,
+    .ai-intro .badge-new, .ai-intro h2, .ai-intro .lead {
+        opacity: 0;
+        transform: translateY(15px);
+        transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+        will-change: opacity, transform;
+    }
+    .showcase-intro.revealed h2 { opacity: 1; transform: translateY(0); transition-delay: 0.05s; }
+    .showcase-intro.revealed .lead { opacity: 1; transform: translateY(0); transition-delay: 0.18s; }
+    
+    .ai-intro.revealed .badge-new { opacity: 1; transform: translateY(0); transition-delay: 0.05s; }
+    .ai-intro.revealed h2 { opacity: 1; transform: translateY(0); transition-delay: 0.15s; }
+    .ai-intro.revealed .lead { opacity: 1; transform: translateY(0); transition-delay: 0.28s; }
+
+    /* 2. Showcase Divider Staggers */
+    .showcase-divider .divider-line,
+    .showcase-divider .divider-title,
+    .showcase-divider .divider-subtitle {
+        opacity: 0;
+        transform: translateY(15px);
+        transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+        will-change: opacity, transform;
+    }
+    .showcase-divider.revealed .divider-line { opacity: 1; transform: translateY(0); transition-delay: 0.05s; }
+    .showcase-divider.revealed .divider-title { opacity: 1; transform: translateY(0); transition-delay: 0.18s; }
+    .showcase-divider.revealed .divider-subtitle { opacity: 1; transform: translateY(0); transition-delay: 0.3s; }
+
+    /* 3. Story Beats (Dashboard, Dispersion, Gap, Putt, etc.) Progressively Loading Elements */
+    .app-story-beat .story-text > *, 
+    .ai-story-beat .story-text > * {
+        opacity: 0;
+        transform: translateY(15px);
+        transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+        will-change: opacity, transform;
+    }
+    
+    .app-story-beat.revealed .story-text > *, 
+    .ai-story-beat.revealed .story-text > * {
+        opacity: 1;
+        transform: translateY(0);
+    }
+    
+    .app-story-beat.revealed .story-text > *:nth-child(1), .ai-story-beat.revealed .story-text > *:nth-child(1) { transition-delay: 0.05s; }
+    .app-story-beat.revealed .story-text > *:nth-child(2), .ai-story-beat.revealed .story-text > *:nth-child(2) { transition-delay: 0.15s; }
+    .app-story-beat.revealed .story-text > *:nth-child(3), .ai-story-beat.revealed .story-text > *:nth-child(3) { transition-delay: 0.25s; }
+    .app-story-beat.revealed .story-text > *:nth-child(4), .ai-story-beat.revealed .story-text > *:nth-child(4) { transition-delay: 0.35s; }
+    
+    .app-story-beat .story-phone,
+    .ai-story-beat .story-phone {
+        opacity: 0;
+        transform: translateY(30px) scale(0.97);
+        transition: opacity 1s cubic-bezier(0.16, 1, 0.3, 1), transform 1s cubic-bezier(0.16, 1, 0.3, 1);
+        will-change: opacity, transform;
+    }
+    
+    .app-story-beat.revealed .story-phone,
+    .ai-story-beat.revealed .story-phone {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+        transition-delay: 0.28s;
     }
 
     /* Responsive Premium Header */
