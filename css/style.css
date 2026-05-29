@@ -201,7 +201,29 @@ h1,h2,h3,h4{font-family:var(--font-display);color:var(--text-primary);font-weigh
 .hero-gate .intro-logo{width:90px;height:auto;margin-bottom:1.5rem;filter:drop-shadow(0 0 20px rgba(255,179,0,.15));animation:fadeUp .8s var(--ease-out) both}
 .hero-gate .brand-name{font-family:var(--font-brand);font-size:clamp(2.5rem,6vw,4rem);font-weight:800;color:var(--text-primary);letter-spacing:.04em;margin-bottom:.5rem;animation:fadeUp .8s var(--ease-out) .1s both}
 .hero-gate .tagline{font-family:var(--font-mono);font-size:.75rem;color:var(--accent-gold);letter-spacing:.25em;text-transform:uppercase;padding:.4rem 1.2rem;border-top:1px solid var(--glass-border);border-bottom:1px solid var(--glass-border);display:inline-block;margin-bottom:2rem;animation:fadeUp .8s var(--ease-out) .2s both}
-.hero-gate .headline{font-size:clamp(1.1rem,2.5vw,1.6rem);color:var(--text-secondary);font-family:var(--font-body);font-weight:300;max-width:500px;animation:fadeUp .8s var(--ease-out) .3s both}
+.hero-gate .headline {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.4rem;
+    text-align: center;
+    max-width: 600px;
+    animation: fadeUp .8s var(--ease-out) .3s both;
+}
+.hero-gate .headline .headline-sub {
+    font-size: clamp(1.1rem, 2.5vw, 1.45rem);
+    color: rgba(255, 255, 255, 0.45);
+    font-family: var(--font-body);
+    font-weight: 400;
+    letter-spacing: -0.01em;
+}
+.hero-gate .headline .headline-main {
+    font-size: clamp(1.4rem, 3.2vw, 2.1rem);
+    color: #ffffff;
+    font-family: var(--font-body);
+    font-weight: 700;
+    letter-spacing: -0.02em;
+}
 @keyframes fadeUp{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
 
 /* ═══ Section Common ═══ */
