@@ -469,6 +469,11 @@ h1,h2,h3,h4{font-family:var(--font-display);color:var(--text-primary);font-weigh
     z-index: 2;
 }
 
+/* Mobile Telemetry Visual Break (hidden on desktop) */
+.mobile-telemetry-break {
+    display: none;
+}
+
 .spec-item {
     display: flex;
     flex-direction: column;
@@ -1830,6 +1835,130 @@ h1,h2,h3,h4{font-family:var(--font-display);color:var(--text-primary);font-weigh
     .showcase-divider.revealed .divider-line { opacity: 1; transform: translateY(0); transition-delay: 0.05s; }
     .showcase-divider.revealed .divider-title { opacity: 1; transform: translateY(0); transition-delay: 0.18s; }
     .showcase-divider.revealed .divider-subtitle { opacity: 1; transform: translateY(0); transition-delay: 0.3s; }
+
+    /* 2b. Mobile Telemetry Break Stagger & Styles */
+    .showcase-divider .mobile-telemetry-break {
+        opacity: 0;
+        transform: translateY(15px);
+        transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+        will-change: opacity, transform;
+    }
+    .showcase-divider.revealed .mobile-telemetry-break {
+        opacity: 1;
+        transform: translateY(0);
+        transition-delay: 0.42s;
+    }
+
+    .mobile-telemetry-break {
+        display: flex !important;
+        flex-direction: column;
+        align-items: center;
+        margin: 2.5rem 0 1rem;
+        position: relative;
+        width: 100%;
+        pointer-events: none;
+    }
+    
+    .radar-scope {
+        position: relative;
+        width: 90px;
+        height: 90px;
+        border-radius: 50%;
+        background: rgba(0, 232, 157, 0.02);
+        border: 1px dashed rgba(0, 232, 157, 0.18);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        box-shadow: 0 0 25px rgba(0, 232, 157, 0.06);
+        overflow: hidden;
+    }
+    
+    .radar-circle {
+        position: absolute;
+        border-radius: 50%;
+        border: 1px solid rgba(0, 232, 157, 0.08);
+    }
+    
+    .radar-circle.circle-1 {
+        width: 60px;
+        height: 60px;
+    }
+    
+    .radar-circle.circle-2 {
+        width: 30px;
+        height: 30px;
+    }
+    
+    .radar-crosshair-h {
+        position: absolute;
+        width: 80%;
+        height: 1px;
+        background: linear-gradient(90deg, transparent, rgba(0, 232, 157, 0.25) 50%, transparent);
+    }
+    
+    .radar-crosshair-v {
+        position: absolute;
+        width: 1px;
+        height: 80%;
+        background: linear-gradient(180deg, transparent, rgba(0, 232, 157, 0.25) 50%, transparent);
+    }
+    
+    .radar-sweep {
+        position: absolute;
+        width: 50%;
+        height: 50%;
+        top: 0;
+        left: 0;
+        background: conic-gradient(from 180deg at 100% 100%, rgba(0, 232, 157, 0.12), transparent 45deg);
+        transform-origin: 100% 100%;
+        animation: radarSweep 4s linear infinite;
+    }
+    
+    .radar-ping-dot {
+        position: absolute;
+        width: 5px;
+        height: 5px;
+        background: var(--accent-green);
+        border-radius: 50%;
+        top: 35%;
+        left: 65%;
+        box-shadow: 0 0 10px var(--accent-green);
+    }
+    
+    .radar-ping-dot::after {
+        content: '';
+        position: absolute;
+        inset: -4px;
+        border: 1px solid rgba(0, 232, 157, 0.4);
+        border-radius: 50%;
+        animation: ping 2s ease-out infinite;
+    }
+    
+    .telemetry-line-down {
+        width: 1px;
+        height: 50px;
+        background: linear-gradient(180deg, rgba(0, 232, 157, 0.25), transparent);
+        margin-top: 0.8rem;
+        position: relative;
+    }
+    
+    .telemetry-line-down::after {
+        content: '';
+        position: absolute;
+        bottom: 0;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 4px;
+        height: 4px;
+        background: rgba(0, 232, 157, 0.4);
+        border-radius: 50%;
+        box-shadow: 0 0 8px rgba(0, 232, 157, 0.5);
+    }
+
+    @keyframes radarSweep {
+        from { transform: rotate(0deg); }
+        to { transform: rotate(360deg); }
+    }
 
     /* 3. Story Beats (Dashboard, Dispersion, Gap, Putt, etc.) Progressively Loading Elements */
     .app-story-beat .story-text > *, 
