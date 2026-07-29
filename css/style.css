@@ -671,7 +671,7 @@ h1,h2,h3,h4{font-family:var(--font-display);color:var(--text-primary);font-weigh
 .smartphone-mockup {
     position: relative;
     width: 100%;
-    max-width: 280px; /* Reduced to look a bit smaller and more balanced */
+    max-width: 330px; /* Increased for better desktop readability */
     margin: 0 auto;
     perspective: 1000px;
     z-index: 2;
@@ -735,6 +735,10 @@ h1,h2,h3,h4{font-family:var(--font-display);color:var(--text-primary);font-weigh
     display: block;
     position: relative;
     z-index: 1;
+    image-rendering: -webkit-optimize-contrast;
+    image-rendering: crisp-edges;
+    transform: translateZ(0);
+    backface-visibility: hidden;
 }
 
 /* Glass Screen Glare Overlay */
@@ -790,17 +794,20 @@ h1,h2,h3,h4{font-family:var(--font-display);color:var(--text-primary);font-weigh
 
 /* Hover and tilt base states */
 .smartphone-mockup {
-    transform: perspective(1000px) rotateY(-2deg);
+    transform: perspective(1000px) translateY(0);
     transition: transform var(--duration-normal) var(--ease-out);
+    transform-style: preserve-3d;
+    -webkit-font-smoothing: antialiased;
+    max-width: 330px; /* Increased from 280px for better readability on desktop */
 }
 
 .app-story-beat.beat-reverse .smartphone-mockup, 
 .ai-story-beat.beat-reverse .smartphone-mockup {
-    transform: perspective(1000px) rotateY(2deg);
+    transform: perspective(1000px) translateY(0);
 }
 
 .smartphone-mockup:hover {
-    transform: perspective(1000px) rotateY(0deg) scale(1.025) !important;
+    transform: perspective(1000px) translateY(-8px) scale(1.025) !important;
 }
 
 /* Interactive dynamic shine glare tracking pointer position */
