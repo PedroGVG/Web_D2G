@@ -1555,6 +1555,11 @@ h1,h2,h3,h4{font-family:var(--font-display);color:var(--text-primary);font-weigh
         font-size: 1.8rem;
     }
     
+    .row-tag {
+        font-size: 0.85rem;
+        color: var(--text-secondary);
+    }
+    
     .row-title {
         font-size: 1.2rem;
     }
