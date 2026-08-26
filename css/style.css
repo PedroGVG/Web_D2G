@@ -667,174 +667,111 @@ h1,h2,h3,h4{font-family:var(--font-display);color:var(--text-primary);font-weigh
     .app-story-beat.beat-reverse .story-phone{order:1}
 }
 
-/* ═══ Premium CSS Smartphone Mockup ═══ */
-.smartphone-mockup {
+/* ═══ Frameless Glassmorphic Showcase Cards (Desktop & Pro App Interface) ═══ */
+.frameless-showcase-card {
     position: relative;
     width: 100%;
-    max-width: 330px; /* Increased for better desktop readability */
+    max-width: 490px; /* Amplio para máxima legibilidad de números y gráficos */
     margin: 0 auto;
-    perspective: 1000px;
-    z-index: 2;
-    transition: transform var(--duration-normal) var(--ease-out);
-}
-
-.device-bezel {
-    position: relative;
-    width: 100%;
-    background: #040407;
-    padding: 11px; /* Exact physical smartphone bezel */
-    border-radius: 38px;
-    border: 1px solid rgba(255, 255, 255, 0.08);
+    background: linear-gradient(145deg, rgba(16, 21, 28, 0.94), rgba(9, 12, 16, 0.98));
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 16px;
     box-shadow: 
-        0 25px 60px -15px rgba(0, 0, 0, 0.85),
-        0 0 0 3px #181920, /* Solid metal outer chassis */
-        0 0 0 4px rgba(255, 255, 255, 0.12), /* Polished steel bevel border */
-        inset 0 2px 8px rgba(255, 255, 255, 0.15),
-        inset 0 -2px 8px rgba(0, 0, 0, 0.8);
+        0 24px 60px -15px rgba(0, 0, 0, 0.9),
+        0 0 35px -10px var(--glow-color, rgba(0, 232, 157, 0.2)),
+        inset 0 1px 1px rgba(255, 255, 255, 0.15);
     overflow: hidden;
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    z-index: 2;
+    transform: perspective(1200px) translateY(0);
+    transition: transform var(--duration-normal) var(--ease-out), box-shadow var(--duration-normal) var(--ease-out), border-color var(--duration-normal);
+    transform-style: preserve-3d;
 }
 
-.device-dynamic-island {
-    position: absolute;
-    top: 19px;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 80px;
-    height: 18px;
-    background: #000;
-    border-radius: 20px;
-    z-index: 10;
-    box-shadow: inset 0 1px 2px rgba(255, 255, 255, 0.15);
+.frameless-showcase-card:hover {
+    transform: perspective(1200px) translateY(-8px) scale(1.015) !important;
+    border-color: rgba(255, 255, 255, 0.22);
+    box-shadow: 
+        0 32px 75px -15px rgba(0, 0, 0, 0.95),
+        0 0 50px -5px var(--glow-color, rgba(0, 232, 157, 0.35)),
+        inset 0 1px 2px rgba(255, 255, 255, 0.25);
 }
 
-.device-dynamic-island::after {
-    content: '';
-    position: absolute;
-    right: 12px;
-    top: 50%;
-    transform: translateY(-50%);
-    width: 5px;
-    height: 5px;
-    background: #11112b;
+.card-glass-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px 16px;
+    background: rgba(6, 8, 12, 0.92);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.window-dots {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.window-dots span {
+    width: 9px;
+    height: 9px;
     border-radius: 50%;
-    box-shadow: inset 0 1px 1px rgba(255,255,255,0.3);
+    display: inline-block;
 }
 
-.app-screen-frame {
-    width: 100%;
-    border-radius: 28px;
-    overflow: hidden;
-    background: #000;
+.dot-red { background: #ff5f56; box-shadow: 0 0 6px rgba(255, 95, 86, 0.6); }
+.dot-yellow { background: #ffbd2e; box-shadow: 0 0 6px rgba(255, 189, 46, 0.6); }
+.dot-green { background: #27c93f; box-shadow: 0 0 6px rgba(39, 201, 63, 0.6); }
+
+.card-telemetry-badge {
+    font-family: var(--font-mono);
+    font-size: 0.68rem;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    color: var(--text-secondary);
+    text-transform: uppercase;
+}
+
+.card-media-viewport {
     position: relative;
-    border: 1px solid rgba(255,255,255,0.03);
+    width: 100%;
+    overflow: hidden;
+    background: #07090c;
 }
 
-.app-screen-frame img {
+.card-media-viewport img {
     width: 100%;
     height: auto;
     display: block;
-    position: relative;
-    z-index: 1;
     image-rendering: -webkit-optimize-contrast;
     image-rendering: crisp-edges;
     transform: translateZ(0);
     backface-visibility: hidden;
+    transition: opacity 0.25s ease;
 }
 
-/* Glass Screen Glare Overlay */
-.screen-glare {
+.card-glass-shine {
     position: absolute;
     inset: 0;
-    background: linear-gradient(
-        135deg, 
-        rgba(255, 255, 255, 0.15) 0%, 
-        rgba(255, 255, 255, 0.03) 35%, 
-        rgba(255, 255, 255, 0) 55%, 
-        rgba(255, 255, 255, 0) 100%
-    );
-    z-index: 5;
-    pointer-events: none;
-    mix-blend-mode: overlay;
-    transition: opacity var(--duration-normal) var(--ease-out);
-}
-
-/* Physical Hardware Side Buttons */
-.device-volume-btn, .device-power-btn {
-    position: absolute;
-    background: linear-gradient(to bottom, #2c2d36, #16171e, #2c2d36);
-    border-radius: 3px;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.5);
-    z-index: -1;
-}
-
-.device-volume-btn {
-    left: -3px;
-    top: 110px;
-    width: 3px;
-    height: 45px;
-}
-
-.device-volume-btn::after {
-    content: '';
-    position: absolute;
-    left: 0;
-    top: 60px;
-    width: 3px;
-    height: 45px;
-    background: inherit;
-    border-radius: inherit;
-}
-
-.device-power-btn {
-    right: -3px;
-    top: 130px;
-    width: 3px;
-    height: 60px;
-}
-
-/* Hover and tilt base states */
-.smartphone-mockup {
-    transform: perspective(1000px) translateY(0);
-    transition: transform var(--duration-normal) var(--ease-out);
-    transform-style: preserve-3d;
-    -webkit-font-smoothing: antialiased;
-    max-width: 330px; /* Increased from 280px for better readability on desktop */
-}
-
-.app-story-beat.beat-reverse .smartphone-mockup, 
-.ai-story-beat.beat-reverse .smartphone-mockup {
-    transform: perspective(1000px) translateY(0);
-}
-
-.smartphone-mockup:hover {
-    transform: perspective(1000px) translateY(-8px) scale(1.025) !important;
-}
-
-/* Interactive dynamic shine glare tracking pointer position */
-.smartphone-mockup::after {
-    content: '';
-    position: absolute;
-    inset: 11px; /* Matches bezel padding */
-    border-radius: 28px;
     background: radial-gradient(
-        circle at var(--x, 50%) var(--y, 50%), 
-        rgba(255, 255, 255, 0.16) 0%, 
-        transparent 55%
+        circle at var(--x, 50%) var(--y, 50%),
+        rgba(255, 255, 255, 0.12) 0%,
+        transparent 60%
     );
     pointer-events: none;
-    z-index: 6;
+    z-index: 5;
     mix-blend-mode: overlay;
-    transition: opacity var(--duration-fast) var(--ease-out);
     opacity: 0;
+    transition: opacity var(--duration-fast) var(--ease-out);
 }
 
-.smartphone-mockup:hover::after {
+.frameless-showcase-card:hover .card-glass-shine {
     opacity: 1;
 }
 
 @media(max-width:900px){
-    .smartphone-mockup{transform:none !important;margin:0 auto;max-width:250px !important}
-    .app-screen-frame{transform:none !important}
+    .frameless-showcase-card{transform:none !important;margin:0 auto;max-width:100% !important}
     .ai-story-beat, .app-story-beat{margin-bottom:4rem}
     .story-text{text-align:center}
     .story-tags{justify-content:center}
@@ -934,11 +871,11 @@ h1,h2,h3,h4{font-family:var(--font-display);color:var(--text-primary);font-weigh
 .floating-widget.widget-delay-2 { animation-delay: -3.0s; }
 .floating-widget.widget-delay-3 { animation-delay: -4.5s; }
 
-/* Posicionamiento relativo al .smartphone-mockup */
-.widget-tr { top: 12%; right: -6%; }
-.widget-tl { top: 15%; left: -6%; }
-.widget-br { bottom: 12%; right: -6%; }
-.widget-bl { bottom: 15%; left: -6%; }
+/* Posicionamiento relativo a .story-phone / .frameless-showcase-card */
+.widget-tr { top: -12px; right: -16px; }
+.widget-tl { top: -12px; left: -16px; }
+.widget-br { bottom: -12px; right: -16px; }
+.widget-bl { bottom: -12px; left: -16px; }
 
 @media(max-width: 900px) {
     .floating-widget {

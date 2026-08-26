@@ -74,6 +74,16 @@ function switchLanguage(lang) {
         if (text) element.innerHTML = text;
     });
 
+    // Conmutar imágenes bilingües de forma fluida
+    document.querySelectorAll('img[data-img-es][data-img-en]').forEach(img => {
+        const targetSrc = img.getAttribute(`data-img-${lang}`);
+        if (targetSrc && img.getAttribute('src') !== targetSrc) {
+            img.style.opacity = '0.7';
+            img.setAttribute('src', targetSrc);
+            img.onload = () => { img.style.opacity = '1'; };
+        }
+    });
+
     document.documentElement.setAttribute('lang', lang);
 }
 
@@ -111,35 +121,35 @@ function init3DTilt() {
     const isTouchDevice = window.matchMedia('(hover: none)').matches;
     if (isTouchDevice) return;
 
-    // 1. Regular smartphone mockups in feature beats
-    const mobileMockups = document.querySelectorAll('.smartphone-mockup:not(.hero-mobile-overlap)');
-    mobileMockups.forEach(mockup => {
-        mockup.addEventListener('pointermove', (e) => {
+    // 1. Frameless Showcase Cards in feature beats
+    const cards = document.querySelectorAll('.frameless-showcase-card');
+    cards.forEach(card => {
+        card.addEventListener('pointermove', (e) => {
             if (e.pointerType !== 'mouse') return;
 
-            const rect = mockup.getBoundingClientRect();
+            const rect = card.getBoundingClientRect();
             const x = e.clientX - rect.left;
             const y = e.clientY - rect.top;
 
             // Update custom properties for reflection highlight
-            mockup.style.setProperty('--x', `${(x / rect.width) * 100}%`);
-            mockup.style.setProperty('--y', `${(y / rect.height) * 100}%`);
+            card.style.setProperty('--x', `${(x / rect.width) * 100}%`);
+            card.style.setProperty('--y', `${(y / rect.height) * 100}%`);
 
-            // Normalize coordinates relative to center of mockup (-1 to 1)
+            // Normalize coordinates relative to center of card (-1 to 1)
             const normX = (x / rect.width) * 2 - 1;
             const normY = (y / rect.height) * 2 - 1;
             
-            const rotateX = -normY * 7;
-            const rotateY = normX * 7;
+            const rotateX = -normY * 4.5;
+            const rotateY = normX * 4.5;
 
-            // Apply 3D tilt transformation
-            mockup.style.transform = `perspective(1000px) rotateX(${rotateX.toFixed(2)}deg) rotateY(${rotateY.toFixed(2)}deg) scale(1.025)`;
+            // Apply smooth 3D tilt transformation
+            card.style.transform = `perspective(1200px) rotateX(${rotateX.toFixed(2)}deg) rotateY(${rotateY.toFixed(2)}deg) scale(1.015)`;
         });
 
-        mockup.addEventListener('pointerleave', () => {
-            mockup.style.transform = '';
-            mockup.style.setProperty('--x', '50%');
-            mockup.style.setProperty('--y', '50%');
+        card.addEventListener('pointerleave', () => {
+            card.style.transform = '';
+            card.style.setProperty('--x', '50%');
+            card.style.setProperty('--y', '50%');
         });
     });
 
