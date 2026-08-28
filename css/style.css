@@ -212,9 +212,9 @@ a {
 /* App Web Button */
 .btn-nav-web {
     font-family: var(--font-mono);
-    font-size: 0.75rem;
+    font-size: 0.85rem;
     font-weight: 700;
-    padding: 6px 14px;
+    padding: 8px 16px;
     border-radius: var(--radius-pill);
     border: 1px solid var(--accent-gold);
     color: var(--accent-gold);
@@ -223,7 +223,7 @@ a {
     align-items: center;
     justify-content: center;
     transition: all 0.25s var(--ease-spring);
-    min-height: 36px;
+    min-height: 44px;
     letter-spacing: 0.04em;
     white-space: nowrap;
 }
@@ -236,8 +236,8 @@ a {
 
 /* Store Icon Buttons */
 .btn-store-icon {
-    width: 36px;
-    height: 36px;
+    width: 44px;
+    height: 44px;
     border-radius: 50%;
     background: rgba(255, 255, 255, 0.05);
     border: 1px solid var(--border-subtle);
@@ -567,10 +567,9 @@ a {
     display: flex;
     flex-direction: column;
     gap: 4px;
-    pointer-events: none;
-    opacity: 0;
-    transition: opacity 0.3s ease, transform 0.3s ease;
+    transition: transform 0.3s ease;
     white-space: nowrap;
+    opacity: 1;
 }
 
 .hole-hazard-tag.card-left .hazard-card {
@@ -699,6 +698,7 @@ a {
     border: 1px solid rgba(255, 255, 255, 0.08);
     min-width: 250px;
     min-height: 250px;
+    background: var(--bg-card);
 }
 
 .scrolly-screen-img {
@@ -1781,12 +1781,12 @@ a {
 }
 
 @media (max-width: 550px) {
-    .nav-brand-text { display: block; font-size: 0.7rem; letter-spacing: 0.02em; }
-    .nav-logo { width: 20px; height: 20px; }
-    .nav-right-side { gap: 4px; }
-    .btn-nav-web { padding: 4px 6px; font-size: 0.6rem; min-height: 28px; }
-    .btn-store-icon { width: 28px; height: 28px; }
-    .btn-store-icon svg { width: 12px; height: 12px; }
-    .lang-switcher-pill { min-height: 28px; padding: 2px; }
-    .lang-flag-btn { width: 20px; height: 20px; }
+    .nav-brand-text { display: block; font-size: 0.85rem; letter-spacing: 0.02em; }
+    .nav-logo { width: 24px; height: 24px; }
+    .nav-right-side { gap: 8px; }
+    .btn-nav-web { padding: 8px 12px; font-size: 0.75rem; min-height: 44px; }
+    .btn-store-icon { width: 44px; height: 44px; }
+    .btn-store-icon svg { width: 18px; height: 18px; }
+    .lang-switcher-pill { min-height: 44px; padding: 4px; }
+    .lang-flag-btn { width: 34px; height: 34px; }
 }
