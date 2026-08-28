@@ -220,38 +220,6 @@
             </section>
 
 
-            <!-- ═══ 1.5. FLUJO DE USO EN 3 PASOS ═══ -->
-            <section class="flow-section ambient-grid" aria-labelledby="flow-heading" style="padding: 4.5rem 1.5rem; background: var(--bg-deep); border-top: 1px solid rgba(255,255,255,0.05); position: relative;">
-                <div style="max-width: 1200px; margin: 0 auto;">
-                    <div style="text-align: center; margin-bottom: 4rem;">
-                        <span class="badge-tag" data-lang-es="CÓMO FUNCIONA" data-lang-en="HOW IT WORKS">CÓMO FUNCIONA</span>
-                        <h2 id="flow-heading" data-lang-es="Tu ruta hacia un mejor hándicap" data-lang-en="Your path to a better handicap" style="font-size: 2.25rem; margin-top: 1rem; font-family: 'Orbitron', sans-serif;">Tu ruta hacia un mejor hándicap</h2>
-                    </div>
-                    
-                    <div class="flow-grid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 2rem; position: relative;">
-                        <!-- Step 1 -->
-                        <div class="flow-card premium-card" style="padding: 2.5rem 2rem; border-radius: 1rem; position: relative;">
-                            <div class="step-number mono-text" style="color: var(--accent-gold); font-size: 0.85rem; letter-spacing: 1px; margin-bottom: 1rem;">PASO 01</div>
-                            <h3 data-lang-es="Registra o importa tu ronda" data-lang-en="Record or import your round" style="font-size: 1.25rem; margin-bottom: 1rem; font-weight: 600;">Registra o importa tu ronda</h3>
-                            <p style="color: var(--text-muted); font-size: 0.95rem; line-height: 1.6;" data-lang-es="Anota tus golpes en la app durante el juego de forma sencilla, o impórtalos al terminar." data-lang-en="Easily log your shots in the app during play, or import them after you finish.">Anota tus golpes en la app durante el juego de forma sencilla, o impórtalos al terminar.</p>
-                        </div>
-                        
-                        <!-- Step 2 -->
-                        <div class="flow-card premium-card" style="padding: 2.5rem 2rem; border-radius: 1rem; position: relative;">
-                            <div class="step-number mono-text" style="color: var(--accent-gold); font-size: 0.85rem; letter-spacing: 1px; margin-bottom: 1rem;">PASO 02</div>
-                            <h3 data-lang-es="Analiza patrones (Strokes Gained)" data-lang-en="Analyze patterns (Strokes Gained)" style="font-size: 1.25rem; margin-bottom: 1rem; font-weight: 600;">Analiza patrones (Strokes Gained)</h3>
-                            <p style="color: var(--text-muted); font-size: 0.95rem; line-height: 1.6;" data-lang-es="El motor procesa tus datos al instante y te muestra exactamente dónde estás perdiendo o ganando golpes frente a tu objetivo." data-lang-en="The engine processes your data instantly and shows exactly where you're losing or gaining strokes against your goal.">El motor procesa tus datos al instante y te muestra exactamente dónde estás perdiendo o ganando golpes frente a tu objetivo.</p>
-                        </div>
-
-                        <!-- Step 3 -->
-                        <div class="flow-card premium-card" style="padding: 2.5rem 2rem; border-radius: 1rem; position: relative;">
-                            <div class="step-number mono-text" style="color: var(--accent-gold); font-size: 0.85rem; letter-spacing: 1px; margin-bottom: 1rem;">PASO 03</div>
-                            <h3 data-lang-es="Recibe decisiones y plan de práctica" data-lang-en="Get decisions and practice plan" style="font-size: 1.25rem; margin-bottom: 1rem; font-weight: 600;">Recibe decisiones y plan de práctica</h3>
-                            <p style="color: var(--text-muted); font-size: 0.95rem; line-height: 1.6;" data-lang-es="El Caddie IA interpreta tus tendencias para darte estrategias de campo específicas y rutinas para el campo de prácticas." data-lang-en="The AI Caddie interprets your trends to give you specific course strategies and driving range routines.">El Caddie IA interpreta tus tendencias para darte estrategias de campo específicas y rutinas para el campo de prácticas.</p>
-                        </div>
-                    </div>
-                </div>
-            </section>
 
             <!-- ═══ 2. SCROLLYTELLING NARRATIVE (REAL APP SCREENSHOTS) ═══ -->
             <section id="scrolly-section" class="scrolly-container" aria-labelledby="scrolly-heading">
@@ -426,18 +394,7 @@
                 </div>
 
                 <!-- Central Hero Number -->
-                <div class="route-hero-stats">
-                    <div class="route-stats-labels">
-                        <div>
-                            <span data-lang-es="TU RONDA HOY" data-lang-en="YOUR ROUND TODAY">TU RONDA HOY</span>
-                            <span class="value-hcp">Hándicap 14,2</span>
-                        </div>
-                        <div style="text-align: right;">
-                            <span data-lang-es="TU OBJETIVO" data-lang-en="YOUR GOAL">TU OBJETIVO</span>
-                            <span class="value-hcp text-gold">Hándicap 10,0</span>
-                        </div>
-                    </div>
-                    
+                <div class="route-hero-stats" style="margin-bottom: 2.5rem;">
                     <div class="route-hero-number">
                         <div class="massive-num">3,8</div>
                         <div class="num-label" data-lang-es="Golpes recuperables te separan" data-lang-en="Recoverable strokes separate you">Golpes recuperables te separan</div>
@@ -525,6 +482,14 @@
                         </div>
                     </div>
                 </div>
+
+                <!-- CTA Secundario -->
+                <div style="text-align: center; margin-top: 3.5rem;">
+                    <a href="https://app.data2gain.com" class="btn-cta-main" target="_blank" rel="noopener">
+                        <span data-lang-es="VER MI RUTA PERSONALIZADA" data-lang-en="SEE MY CUSTOM PATH">VER MI RUTA PERSONALIZADA</span>
+                        <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
+                    </a>
+                </div>
             </section>
 
 
@@ -578,21 +543,7 @@
                 </div>
             </section>
 
-            <!-- ═══ 4.75 HUMAN ELEMENT / EDITORIAL PHOTO ═══ -->
-            <section class="human-photo-section">
-                <div class="human-photo-wrapper">
-                    <!-- Photo from Unsplash, dark golfer aesthetic -->
-                    <img src="https://images.unsplash.com/photo-1593111774240-d529f12eb4a6?q=80&w=1200&auto=format&fit=crop" alt="Jugador de golf concentrado en el campo" class="human-photo">
-                    <div class="human-photo-overlay">
-                        <div class="human-photo-quote" data-lang-es="«La intuición gana torneos cuando está respaldada por datos incontestables.»" data-lang-en="«Intuition wins tournaments when backed by undeniable data.»">
-                            «La intuición gana torneos cuando está respaldada por datos incontestables.»
-                        </div>
-                        <div class="human-photo-author">
-                            Data2Gain Team
-                        </div>
-                    </div>
-                </div>
-            </section>
+
 
             <!-- ═══ 5. SERVICIOS ADICIONALES (DISTINCT EDITORIAL BESPOKE LEDGER) ═══ -->
             <section id="services" class="services-bespoke-section ambient-grid" aria-labelledby="services-heading">

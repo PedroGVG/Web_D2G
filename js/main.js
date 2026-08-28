@@ -59,7 +59,11 @@ function switchLanguage(lang) {
         if (targetSrc && img.getAttribute('src') !== targetSrc) {
             img.style.opacity = '0.6';
             img.setAttribute('src', targetSrc);
-            img.onload = () => { img.style.opacity = '1'; };
+            if (img.complete) {
+                img.style.opacity = '1';
+            } else {
+                img.onload = () => { img.style.opacity = '1'; };
+            }
         }
     });
 
@@ -224,36 +228,42 @@ function initScrollytellingEngine() {
         3: document.getElementById('stage-putt')
     };
 
-    const observer = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                activeStepIndex = entry.target.getAttribute('data-step') || '1';
-
-                // Update text steps
-                steps.forEach(s => s.classList.remove('active'));
-                entry.target.classList.add('active');
-
-                // Update pinned stage visual
-                Object.keys(stageStates).forEach(k => {
-                    if (stageStates[k]) {
-                        stageStates[k].classList.remove('active');
-                    }
-                });
-
-                if (stageStates[activeStepIndex]) {
-                    stageStates[activeStepIndex].classList.add('active');
-                }
-
-                updateScrollyTitles();
+    function handleScroll() {
+        let currentStep = '1';
+        steps.forEach(step => {
+            const rect = step.getBoundingClientRect();
+            // If the step is in the top 60% of the viewport, consider it active
+            if (rect.top < window.innerHeight * 0.6) {
+                currentStep = step.getAttribute('data-step') || '1';
             }
         });
-    }, {
-        root: null,
-        rootMargin: '-10% 0px -10% 0px',
-        threshold: 0.1
-    });
 
-    steps.forEach(s => observer.observe(s));
+        if (activeStepIndex !== currentStep) {
+            activeStepIndex = currentStep;
+
+            // Update text steps
+            steps.forEach(s => s.classList.remove('active'));
+            const activeStepEl = document.querySelector(`.narrative-step[data-step="${currentStep}"]`);
+            if (activeStepEl) activeStepEl.classList.add('active');
+
+            // Update pinned stage visual
+            Object.keys(stageStates).forEach(k => {
+                if (stageStates[k]) {
+                    stageStates[k].classList.remove('active');
+                }
+            });
+
+            if (stageStates[activeStepIndex]) {
+                stageStates[activeStepIndex].classList.add('active');
+            }
+
+            updateScrollyTitles();
+        }
+    }
+
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    // Initialize state on load
+    handleScroll();
 }
 
 /* ═════════════════════════════════════════════════════════════════
