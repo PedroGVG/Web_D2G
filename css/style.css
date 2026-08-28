@@ -649,6 +649,7 @@ a {
     align-items: center;
     justify-content: center;
     opacity: 0;
+    z-index: 1;
     transform: translateY(15px) scale(0.96);
     transition: opacity 0.45s var(--ease-spring), transform 0.45s var(--ease-spring);
     pointer-events: none;
@@ -656,6 +657,7 @@ a {
 
 .scrolly-screen-state.active {
     opacity: 1;
+    z-index: 10;
     transform: translateY(0) scale(1);
     pointer-events: auto;
 }
@@ -674,6 +676,7 @@ a {
     object-fit: contain;
     display: block;
     transition: opacity 0.3s ease;
+    opacity: 1 !important;
 }
 
 .radar-scanline-beam {
@@ -1565,6 +1568,8 @@ a {
         display: block;
         margin: 0 auto;
         filter: drop-shadow(0 10px 20px rgba(0,0,0,0.5));
+        opacity: 1 !important; /* Force visibility */
+        visibility: visible !important;
     }
 
     .floating-widget-v2 {
