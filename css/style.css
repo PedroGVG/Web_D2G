@@ -68,7 +68,7 @@ body.theme-dark-sport {
     font-family: var(--font-sans);
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
-    overflow-x: hidden;
+    overflow-x: clip; /* clip instead of hidden to not break position: sticky */
     line-height: 1.6;
 }
 
@@ -105,7 +105,7 @@ body.theme-dark-sport {
     flex-direction: column;
     min-height: 100vh;
     width: 100%;
-    overflow-x: hidden;
+    overflow-x: clip; /* clip instead of hidden — hidden creates a scroll container that breaks position:sticky on the pinned telemetry panel */
 }
 
 /* ─── TYPOGRAPHY & UTILITIES ─── */
@@ -263,25 +263,30 @@ a {
     transform: translateY(-1px);
 }
 
-/* Store Icon Buttons */
-.btn-store-icon {
-    width: 44px;
-    height: 44px;
-    border-radius: 50%;
-    background: transparent;
-    border: 1px solid transparent;
+/* Store Text-Label Buttons (iOS / Android) */
+.btn-store-label {
     display: inline-flex;
     align-items: center;
     justify-content: center;
+    padding: 5px 12px;
+    min-height: 36px;
+    border-radius: var(--radius-pill);
+    background: transparent;
+    border: 1px solid var(--border-bright);
     color: var(--text-secondary);
+    font-family: var(--font-mono);
+    font-size: 0.6875rem;
+    font-weight: 600;
+    letter-spacing: 0.04em;
+    text-decoration: none;
     transition: all 0.2s var(--ease-spring);
-    opacity: 0.7;
+    white-space: nowrap;
 }
 
-.btn-store-icon:hover {
-    background: rgba(255, 255, 255, 0.05);
+.btn-store-label:hover {
+    background: rgba(255, 255, 255, 0.08);
+    border-color: var(--accent-gold);
     color: #FFF;
-    opacity: 1;
 }
 
 /* Language Switcher Flags Pill */
@@ -1600,9 +1605,10 @@ a {
         min-height: 32px;
     }
 
-    .btn-store-icon {
-        width: 32px;
-        height: 32px;
+    .btn-store-label {
+        padding: 4px 8px;
+        min-height: 32px;
+        font-size: 0.625rem;
     }
 
     .lang-switcher-pill {
@@ -1775,22 +1781,76 @@ a {
 
     .narrative-step {
         min-height: auto;
-        padding: 1.5rem;
+        padding: 0;
         background: var(--bg-card);
         border: 1px solid var(--border-subtle);
         border-radius: var(--radius-md);
-        margin-bottom: 1.5rem;
-        opacity: 1; /* Fully visible for clean scrolling */
+        margin-bottom: 0.75rem;
+        opacity: 1;
         transform: none;
+        overflow: hidden;
+    }
+
+    /* Accordion header (step-num + h3 become clickable) */
+    .narrative-step .accordion-header {
+        display: flex;
+        align-items: center;
+        gap: 0.75rem;
+        padding: 1.25rem 1.5rem;
+        cursor: pointer;
+        -webkit-tap-highlight-color: transparent;
+        user-select: none;
+        transition: background 0.2s;
+    }
+
+    .narrative-step .accordion-header:active {
+        background: rgba(255, 255, 255, 0.03);
+    }
+
+    .narrative-step .accordion-header .step-num {
+        margin-bottom: 0;
+        white-space: nowrap;
+        flex-shrink: 0;
+    }
+
+    .narrative-step .accordion-header h3 {
+        font-size: 1.1rem;
+        margin-bottom: 0;
+        flex: 1;
+    }
+
+    .narrative-step .accordion-chevron {
+        flex-shrink: 0;
+        width: 20px;
+        height: 20px;
+        color: var(--text-muted);
+        transition: transform 0.35s var(--ease-spring);
+    }
+
+    .narrative-step.accordion-open .accordion-chevron {
+        transform: rotate(180deg);
+    }
+
+    /* Collapsible content area */
+    .narrative-step .accordion-body {
+        max-height: 0;
+        overflow: hidden;
+        transition: max-height 0.4s var(--ease-spring), padding 0.3s;
+        padding: 0 1.5rem;
+    }
+
+    .narrative-step.accordion-open .accordion-body {
+        max-height: 700px; /* Generous height for content + image */
+        padding: 0 1.5rem 1.5rem;
     }
 
     .narrative-step h3 {
-        font-size: 1.35rem;
+        font-size: 1.1rem;
         margin-bottom: 0.5rem;
     }
 
     .step-desc {
-        display: none; /* Hide distracting text on mobile */
+        display: none; /* Keep hidden on mobile as before */
     }
 
     .narrative-step p {
@@ -1943,6 +2003,12 @@ a {
         font-size: 0.95rem;
     }
 
+    .hero-cta-block .btn-cta-main {
+        max-width: 280px;
+        padding: 12px 22px;
+        font-size: 0.9rem;
+    }
+
     /* Footer Mobile */
     .footer-v2 {
         padding: 1.75rem 1.25rem;
@@ -1957,11 +2023,18 @@ a {
 
 @media (max-width: 550px) {
     .nav-brand-text { display: block; font-size: 0.85rem; letter-spacing: 0.02em; }
-    .nav-logo { width: 24px; height: 24px; }
-    .nav-right-side { gap: 8px; }
-    .btn-nav-web { padding: 8px 12px; font-size: 0.75rem; min-height: 44px; }
-    .btn-store-icon { width: 44px; height: 44px; }
-    .btn-store-icon svg { width: 18px; height: 18px; }
-    .lang-switcher-pill { min-height: 44px; padding: 4px; }
-    .lang-flag-btn { width: 34px; height: 34px; }
+    .nav-logo { width: 22px; height: 22px; }
+    .nav-right-side { gap: 4px; }
+    .btn-nav-web { padding: 5px 10px; font-size: 0.65rem; min-height: 30px; box-shadow: none; }
+    .btn-store-label { padding: 3px 7px; min-height: 30px; font-size: 0.6rem; }
+    .lang-switcher-pill { min-height: 30px; padding: 2px 3px; display: flex !important; }
+    .lang-flag-btn { width: 22px; height: 22px; }
+    .flag-icon { width: 14px; height: 10px; }
+
+    /* Smaller hero CTA button */
+    .hero-cta-block .btn-cta-main {
+        padding: 12px 28px;
+        font-size: 0.85rem;
+        box-shadow: 0 0 25px rgba(255, 179, 0, 0.25);
+    }
 }

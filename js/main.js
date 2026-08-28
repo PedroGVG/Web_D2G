@@ -9,6 +9,7 @@ document.addEventListener('DOMContentLoaded', () => {
     initAmbientTelemetryCanvas();
     initHeroCinematicTilt();
     initScrollytellingEngine();
+    initMobileAccordion();
     initSgBenchmarkCalculator();
     initSpotlightCursor();
 });
@@ -264,6 +265,143 @@ function initScrollytellingEngine() {
     window.addEventListener('scroll', handleScroll, { passive: true });
     // Initialize state on load
     handleScroll();
+}
+
+/* ═════════════════════════════════════════════════════════════════
+   4.5. MOBILE ACCORDION FOR NARRATIVE STEPS
+   Wraps step-num + h3 into a tappable header, collapses the rest.
+   Only active on mobile (≤768px). First panel starts open.
+   ═════════════════════════════════════════════════════════════════ */
+function initMobileAccordion() {
+    const isMobile = window.matchMedia('(max-width: 768px)');
+    let accordionized = false;
+
+    function buildAccordion() {
+        if (accordionized) return;
+        const steps = document.querySelectorAll('.narrative-step');
+        if (!steps.length) return;
+
+        steps.forEach((step, i) => {
+            // Extract elements
+            const stepNum = step.querySelector('.step-num');
+            const h3 = step.querySelector('h3');
+            if (!stepNum || !h3) return;
+
+            // Create header
+            const header = document.createElement('div');
+            header.className = 'accordion-header';
+            header.setAttribute('role', 'button');
+            header.setAttribute('aria-expanded', i === 0 ? 'true' : 'false');
+            header.setAttribute('tabindex', '0');
+
+            // Move step-num and h3 into header
+            header.appendChild(stepNum);
+            header.appendChild(h3);
+
+            // Chevron SVG
+            const chevron = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+            chevron.setAttribute('viewBox', '0 0 24 24');
+            chevron.setAttribute('fill', 'none');
+            chevron.setAttribute('stroke', 'currentColor');
+            chevron.setAttribute('stroke-width', '2.5');
+            chevron.setAttribute('stroke-linecap', 'round');
+            chevron.setAttribute('stroke-linejoin', 'round');
+            chevron.classList.add('accordion-chevron');
+            chevron.innerHTML = '<polyline points="6 9 12 15 18 9"></polyline>';
+            header.appendChild(chevron);
+
+            // Create body wrapper for remaining content
+            const body = document.createElement('div');
+            body.className = 'accordion-body';
+
+            // Move all remaining children into body
+            while (step.firstChild) {
+                body.appendChild(step.firstChild);
+            }
+
+            // Assemble
+            step.appendChild(header);
+            step.appendChild(body);
+
+            // Open first panel
+            if (i === 0) {
+                step.classList.add('accordion-open');
+            }
+
+            // Toggle handler
+            header.addEventListener('click', () => {
+                const isOpen = step.classList.contains('accordion-open');
+
+                // Close all
+                steps.forEach(s => {
+                    s.classList.remove('accordion-open');
+                    const h = s.querySelector('.accordion-header');
+                    if (h) h.setAttribute('aria-expanded', 'false');
+                });
+
+                // Open clicked (if it was closed)
+                if (!isOpen) {
+                    step.classList.add('accordion-open');
+                    header.setAttribute('aria-expanded', 'true');
+                }
+            });
+
+            // Keyboard support
+            header.addEventListener('keydown', (e) => {
+                if (e.key === 'Enter' || e.key === ' ') {
+                    e.preventDefault();
+                    header.click();
+                }
+            });
+        });
+
+        accordionized = true;
+    }
+
+    function teardownAccordion() {
+        if (!accordionized) return;
+        const steps = document.querySelectorAll('.narrative-step');
+
+        steps.forEach(step => {
+            const header = step.querySelector('.accordion-header');
+            const body = step.querySelector('.accordion-body');
+            if (!header || !body) return;
+
+            // Move step-num and h3 back out of header
+            const stepNum = header.querySelector('.step-num');
+            const h3 = header.querySelector('h3');
+
+            // Move body children back into step
+            while (body.firstChild) {
+                step.appendChild(body.firstChild);
+            }
+
+            // Re-insert step-num and h3 at the top
+            if (h3) step.insertBefore(h3, step.firstChild);
+            if (stepNum) step.insertBefore(stepNum, step.firstChild);
+
+            // Clean up DOM
+            header.remove();
+            body.remove();
+            step.classList.remove('accordion-open');
+        });
+
+        accordionized = false;
+    }
+
+    function handleResize(mq) {
+        if (mq.matches) {
+            buildAccordion();
+        } else {
+            teardownAccordion();
+        }
+    }
+
+    // Initial check
+    handleResize(isMobile);
+
+    // Listen for viewport changes (e.g. rotate phone to landscape)
+    isMobile.addEventListener('change', handleResize);
 }
 
 /* ═════════════════════════════════════════════════════════════════
