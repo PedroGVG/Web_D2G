@@ -1,207 +1,394 @@
+/**
+ * DATA2GAIN V2 — HIGH PERFORMANCE TELEMETRY, INTERACTIVITY & BILINGUAL ENGINE
+ */
+
+let currentLang = 'es';
+
 document.addEventListener('DOMContentLoaded', () => {
     initLanguageSwitcher();
-    initStickyHeader();
-    initScrollReveal();
-    initSmoothScroll();
-    init3DTilt();
+    initAmbientTelemetryCanvas();
+    initHeroCinematicTilt();
+    initScrollytellingEngine();
+    initSgBenchmarkCalculator();
+    initSpotlightCursor();
 });
 
-/* ═══════════════════════════════════════════
-   Scroll Reveal (IntersectionObserver)
-   ═══════════════════════════════════════════ */
-function initScrollReveal() {
-    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-
-    const reveals = document.querySelectorAll('.reveal');
-    if (!reveals.length) return;
-
-    if (prefersReducedMotion) {
-        reveals.forEach(el => el.classList.add('revealed'));
-        return;
-    }
-
-    const observer = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                entry.target.classList.add('revealed');
-                observer.unobserve(entry.target);
-            }
-        });
-    }, { threshold: 0.05, rootMargin: '0px 0px -80px 0px' });
-
-    reveals.forEach(el => observer.observe(el));
-}
-
-/* ═══════════════════════════════════════════
-   Smooth Scroll
-   ═══════════════════════════════════════════ */
-function initSmoothScroll() {
-    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-        anchor.addEventListener('click', function (e) {
-            const target = document.querySelector(this.getAttribute('href'));
-            if (!target) return;
-            e.preventDefault();
-            target.scrollIntoView({ behavior: 'smooth' });
-        });
-    });
-}
-
-/* ═══════════════════════════════════════════
-   Language Switcher
-   ═══════════════════════════════════════════ */
+/* ═════════════════════════════════════════════════════════════════
+   1. BILINGUAL LANGUAGE SWITCHER (ES / EN)
+   ═════════════════════════════════════════════════════════════════ */
 function initLanguageSwitcher() {
-    const langButtons = document.querySelectorAll('.lang-btn');
-    const savedLang = localStorage.getItem('preferredLanguage') || 'es';
+    const langButtons = document.querySelectorAll('.lang-flag-btn');
+    const urlParams = new URLSearchParams(window.location.search);
+    const urlLang = urlParams.get('lang');
+    const savedLang = urlLang || localStorage.getItem('d2g_preferred_lang') || 'es';
 
     switchLanguage(savedLang);
 
     langButtons.forEach(btn => {
         btn.addEventListener('click', () => {
             const lang = btn.getAttribute('data-lang');
-            switchLanguage(lang);
-            localStorage.setItem('preferredLanguage', lang);
+            if (lang && lang !== currentLang) {
+                switchLanguage(lang);
+                localStorage.setItem('d2g_preferred_lang', lang);
+            }
         });
     });
 }
 
 function switchLanguage(lang) {
-    document.querySelectorAll('.lang-btn').forEach(btn => {
-        btn.classList.toggle('active', btn.getAttribute('data-lang') === lang);
+    currentLang = lang;
+
+    // Update flag button states
+    document.querySelectorAll('.lang-flag-btn').forEach(btn => {
+        const isActive = btn.getAttribute('data-lang') === lang;
+        btn.classList.toggle('active', isActive);
+        btn.setAttribute('aria-pressed', isActive ? 'true' : 'false');
     });
 
+    // Update text elements
     document.querySelectorAll('[data-lang-es][data-lang-en]').forEach(element => {
         const text = element.getAttribute(`data-lang-${lang}`);
-        if (text) element.innerHTML = text;
+        if (text) {
+            element.innerHTML = text;
+        }
     });
 
-    // Conmutar imágenes bilingües de forma fluida
+    // Update images (switching screenshots between ES and EN folders)
     document.querySelectorAll('img[data-img-es][data-img-en]').forEach(img => {
         const targetSrc = img.getAttribute(`data-img-${lang}`);
         if (targetSrc && img.getAttribute('src') !== targetSrc) {
-            img.style.opacity = '0.7';
+            img.style.opacity = '0.6';
             img.setAttribute('src', targetSrc);
             img.onload = () => { img.style.opacity = '1'; };
         }
     });
 
+    // Update document language tag
     document.documentElement.setAttribute('lang', lang);
+
+    // Refresh active scrollytelling title in the new language
+    updateScrollyTitles();
 }
 
-/* ═══════════════════════════════════════════
-   Sticky Header
-   ═══════════════════════════════════════════ */
-function initStickyHeader() {
-    const stickyHeader = document.getElementById('sticky-header');
-    if (!stickyHeader) return;
 
-    const handleScroll = () => {
-        if (window.scrollY > 20) {
-            stickyHeader.classList.add('scrolled');
-        } else {
-            stickyHeader.classList.remove('scrolled');
+/* ═════════════════════════════════════════════════════════════════
+   2. AMBIENT TELEMETRY CANVAS (Subtle High-Tech Grid & Particles)
+   ═════════════════════════════════════════════════════════════════ */
+function initAmbientTelemetryCanvas() {
+    const canvas = document.getElementById('telemetry-canvas');
+    if (!canvas) return;
+    const ctx = canvas.getContext('2d');
+    let width, height;
+    let particles = [];
+    const particleCount = 35;
+
+    function resize() {
+        width = canvas.width = window.innerWidth;
+        height = canvas.height = window.innerHeight;
+    }
+    window.addEventListener('resize', resize);
+    resize();
+
+    class Particle {
+        constructor() {
+            this.reset();
+        }
+        reset() {
+            this.x = Math.random() * width;
+            this.y = Math.random() * height;
+            this.vx = (Math.random() - 0.5) * 0.3;
+            this.vy = (Math.random() - 0.5) * 0.3;
+            this.radius = Math.random() * 1.5 + 0.5;
+            this.alpha = Math.random() * 0.4 + 0.1;
+        }
+        update() {
+            this.x += this.vx;
+            this.y += this.vy;
+            if (this.x < 0 || this.x > width || this.y < 0 || this.y > height) {
+                this.reset();
+            }
+        }
+        draw() {
+            ctx.fillStyle = `rgba(255, 179, 0, ${this.alpha})`;
+            ctx.beginPath();
+            ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
+            ctx.fill();
+        }
+    }
+
+    for (let i = 0; i < particleCount; i++) {
+        particles.push(new Particle());
+    }
+
+    function animate() {
+        ctx.clearRect(0, 0, width, height);
+
+        // Draw faint telemetry grid lines
+        ctx.strokeStyle = 'rgba(255, 255, 255, 0.015)';
+        ctx.lineWidth = 1;
+        const gridSize = 80;
+        for (let x = 0; x < width; x += gridSize) {
+            ctx.beginPath();
+            ctx.moveTo(x, 0);
+            ctx.lineTo(x, height);
+            ctx.stroke();
+        }
+        for (let y = 0; y < height; y += gridSize) {
+            ctx.beginPath();
+            ctx.moveTo(0, y);
+            ctx.lineTo(width, y);
+            ctx.stroke();
+        }
+
+        // Update & Draw Particles
+        particles.forEach(p => {
+            p.update();
+            p.draw();
+        });
+
+        requestAnimationFrame(animate);
+    }
+    animate();
+}
+
+/* ═════════════════════════════════════════════════════════════════
+   3. HERO CINEMATIC 3D TILT EFFECT
+   ═════════════════════════════════════════════════════════════════ */
+function initHeroCinematicTilt() {
+    const heroStage = document.querySelector('.hero-stage-cinematic');
+    const cinematicFrame = document.querySelector('.cinematic-frame');
+    if (heroStage && cinematicFrame && !window.matchMedia('(pointer: coarse)').matches) {
+        heroStage.addEventListener('mousemove', (e) => {
+            const rect = heroStage.getBoundingClientRect();
+            const x = e.clientX - rect.left - rect.width / 2;
+            const y = e.clientY - rect.top - rect.height / 2;
+            const rotateX = (-y / rect.height) * 4;
+            const rotateY = (x / rect.width) * 4;
+            cinematicFrame.style.transform = `perspective(1200px) rotateX(${rotateX.toFixed(2)}deg) rotateY(${rotateY.toFixed(2)}deg)`;
+        });
+
+        heroStage.addEventListener('mouseleave', () => {
+            cinematicFrame.style.transform = 'perspective(1200px) rotateX(0deg) rotateY(0deg)';
+        });
+    }
+}
+
+/* ═════════════════════════════════════════════════════════════════
+   4. SCROLLYTELLING ENGINE (Dynamic Real Screen Pinned Viewport)
+   ═════════════════════════════════════════════════════════════════ */
+let activeStepIndex = '1';
+
+const scrollyTitles = {
+    es: {
+        1: 'RADAR TELEMETRY · DISPERSIÓN REAL',
+        2: 'BAG MAPPING · COBERTURA & DISTANCIA',
+        3: 'GREEN METRICS · MATRIZ SLOPE & PUTT'
+    },
+    en: {
+        1: 'RADAR TELEMETRY · REAL DISPERSION',
+        2: 'BAG MAPPING · COVERAGE & DISTANCE',
+        3: 'GREEN METRICS · SLOPE & PUTT MATRIX'
+    }
+};
+
+const scrollyBadges = {
+    es: {
+        1: 'TELEMETRÍA EN DIRECTO · RESOLUCIÓN POR IMPACTO',
+        2: 'PROMEDIOS REALES · ELIMINACIÓN DE SOLAPES',
+        3: 'CONTROL DE CAÍDA · MAKE RATE POR DISTANCIA'
+    },
+    en: {
+        1: 'LIVE TELEMETRY · SHOT-BY-SHOT RESOLUTION',
+        2: 'REAL AVERAGES · OVERLAP ELIMINATION',
+        3: 'BREAK CONTROL · MAKE RATE BY DISTANCE'
+    }
+};
+
+function updateScrollyTitles() {
+    const stageTitle = document.getElementById('pinned-stage-title');
+    const subBadge = document.getElementById('pinned-sub-badge');
+
+    if (stageTitle && scrollyTitles[currentLang] && scrollyTitles[currentLang][activeStepIndex]) {
+        stageTitle.textContent = scrollyTitles[currentLang][activeStepIndex];
+    }
+    if (subBadge && scrollyBadges[currentLang] && scrollyBadges[currentLang][activeStepIndex]) {
+        subBadge.textContent = scrollyBadges[currentLang][activeStepIndex];
+    }
+}
+
+function initScrollytellingEngine() {
+    const steps = document.querySelectorAll('.narrative-step');
+    const stageStates = {
+        1: document.getElementById('stage-dispersion'),
+        2: document.getElementById('stage-gap'),
+        3: document.getElementById('stage-putt')
+    };
+
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                activeStepIndex = entry.target.getAttribute('data-step') || '1';
+
+                // Update text steps
+                steps.forEach(s => s.classList.remove('active'));
+                entry.target.classList.add('active');
+
+                // Update pinned stage visual
+                Object.keys(stageStates).forEach(k => {
+                    if (stageStates[k]) {
+                        stageStates[k].classList.remove('active');
+                    }
+                });
+
+                if (stageStates[activeStepIndex]) {
+                    stageStates[activeStepIndex].classList.add('active');
+                }
+
+                updateScrollyTitles();
+            }
+        });
+    }, {
+        root: null,
+        rootMargin: '-30% 0px -30% 0px',
+        threshold: 0.1
+    });
+
+    steps.forEach(s => observer.observe(s));
+}
+
+/* ═════════════════════════════════════════════════════════════════
+   5. STROKES GAINED BENCHMARK CALCULATOR
+   ═════════════════════════════════════════════════════════════════ */
+function initSgBenchmarkCalculator() {
+    const benchBtns = document.querySelectorAll('.bench-btn');
+    const barTee = document.getElementById('bar-tee');
+    const barApp = document.getElementById('bar-app');
+    const barShort = document.getElementById('bar-short');
+    const barPutt = document.getElementById('bar-putt');
+
+    const valTee = document.getElementById('val-tee');
+    const valApp = document.getElementById('val-app');
+    const valShort = document.getElementById('val-short');
+    const valPutt = document.getElementById('val-putt');
+
+    const datasets = {
+        pga: {
+            tee: { width: '72%', val: '+0.34 SG', green: true },
+            app: { width: '35%', val: '-0.11 SG', green: false },
+            short: { width: '30%', val: '-0.06 SG', green: false },
+            putt: { width: '55%', val: '-0.24 SG', green: true }
+        },
+        hcp0: {
+            tee: { width: '85%', val: '+0.78 SG', green: true },
+            app: { width: '50%', val: '+0.15 SG', green: true },
+            short: { width: '58%', val: '+0.18 SG', green: true },
+            putt: { width: '72%', val: '+0.42 SG', green: true }
+        },
+        hcp5: {
+            tee: { width: '92%', val: '+1.35 SG', green: true },
+            app: { width: '66%', val: '+0.58 SG', green: true },
+            short: { width: '70%', val: '+0.42 SG', green: true },
+            putt: { width: '80%', val: '+0.85 SG', green: true }
+        },
+        hcp10: {
+            tee: { width: '96%', val: '+2.05 SG', green: true },
+            app: { width: '80%', val: '+1.25 SG', green: true },
+            short: { width: '84%', val: '+0.95 SG', green: true },
+            putt: { width: '90%', val: '+1.50 SG', green: true }
+        },
+        hcp15: {
+            tee: { width: '98%', val: '+3.10 SG', green: true },
+            app: { width: '90%', val: '+2.30 SG', green: true },
+            short: { width: '92%', val: '+1.95 SG', green: true },
+            putt: { width: '95%', val: '+2.65 SG', green: true }
+        },
+        hcp20: {
+            tee: { width: '100%', val: '+4.40 SG', green: true },
+            app: { width: '98%', val: '+3.60 SG', green: true },
+            short: { width: '98%', val: '+3.20 SG', green: true },
+            putt: { width: '100%', val: '+3.95 SG', green: true }
         }
     };
 
-    window.addEventListener('scroll', handleScroll, { passive: true });
-    handleScroll(); // Run initially
+    const hcpSlider = document.getElementById('hcp-slider');
+    const currentHcpDisplay = document.getElementById('current-hcp-display');
+    const labelSpans = document.querySelectorAll('.hcp-slider-labels span');
+    
+    // Map slider values (0-5) to dataset keys and display names
+    const hcpMap = [
+        { key: 'pga', display: 'PGA TOUR' },
+        { key: 'hcp0', display: 'HCP 0' },
+        { key: 'hcp5', display: 'HCP 5' },
+        { key: 'hcp10', display: 'HCP 10' },
+        { key: 'hcp15', display: 'HCP 15' },
+        { key: 'hcp20', display: 'HCP 20' }
+    ];
 
-    const logoLink = stickyHeader.querySelector('.header-logo-link');
-    if (logoLink) {
-        logoLink.addEventListener('click', (e) => {
-            e.preventDefault();
-            window.scrollTo({ top: 0, behavior: 'smooth' });
+    if (hcpSlider) {
+        hcpSlider.addEventListener('input', (e) => {
+            const val = parseInt(e.target.value, 10);
+            const mapping = hcpMap[val];
+            if (!mapping) return;
+            
+            // Update the display text
+            if (currentHcpDisplay) currentHcpDisplay.textContent = mapping.display;
+            
+            // Highlight the correct label
+            labelSpans.forEach((span, i) => {
+                span.style.color = i === val ? 'var(--text-main)' : 'var(--text-muted)';
+            });
+
+            const data = datasets[mapping.key];
+            if (!data) return;
+
+            // Apply updates
+            applyRow(barTee, valTee, data.tee);
+            applyRow(barApp, valApp, data.app);
+            applyRow(barShort, valShort, data.short);
+            applyRow(barPutt, valPutt, data.putt);
         });
+        
+        // Also allow clicking labels to move slider
+        labelSpans.forEach((span, i) => {
+            span.addEventListener('click', () => {
+                hcpSlider.value = i;
+                // Dispatch input event to trigger the update
+                hcpSlider.dispatchEvent(new Event('input'));
+            });
+        });
+        
+        // Initialize first state
+        hcpSlider.dispatchEvent(new Event('input'));
+    }
+
+    function applyRow(bar, valElem, item) {
+        if (bar && valElem) {
+            bar.style.setProperty('--val', item.width);
+            const valStr = item.val.replace(' SG', '');
+            valElem.textContent = valStr;
+            
+            const num = parseFloat(valStr.replace('+', ''));
+            let colorClass = 'green';
+            if (num <= -0.10) {
+                colorClass = 'red';
+            } else if (num < 0) {
+                colorClass = 'amber';
+            }
+            
+            bar.className = `dial-wrapper ${colorClass}`;
+            valElem.className = 'hud-value mono-text'; /* Text will be white in CSS */
+        }
     }
 }
 
-/* ═══════════════════════════════════════════
-   3D Mouse Tilt Card Interaction
-   ═══════════════════════════════════════════ */
-function init3DTilt() {
-    const isTouchDevice = window.matchMedia('(hover: none)').matches;
-    if (isTouchDevice) return;
+/* ═════════════════════════════════════════════════════════════════
+   6. CURSOR SPOTLIGHT TRACKER
+   ═════════════════════════════════════════════════════════════════ */
+function initSpotlightCursor() {
+    const spotlight = document.querySelector('.spotlight-cursor');
+    if (!spotlight || window.matchMedia('(pointer: coarse)').matches) return;
 
-    // 1. Frameless Showcase Cards in feature beats
-    const cards = document.querySelectorAll('.frameless-showcase-card');
-    cards.forEach(card => {
-        card.addEventListener('pointermove', (e) => {
-            if (e.pointerType !== 'mouse') return;
-
-            const rect = card.getBoundingClientRect();
-            const x = e.clientX - rect.left;
-            const y = e.clientY - rect.top;
-
-            // Update custom properties for reflection highlight
-            card.style.setProperty('--x', `${(x / rect.width) * 100}%`);
-            card.style.setProperty('--y', `${(y / rect.height) * 100}%`);
-
-            // Normalize coordinates relative to center of card (-1 to 1)
-            const normX = (x / rect.width) * 2 - 1;
-            const normY = (y / rect.height) * 2 - 1;
-            
-            const rotateX = -normY * 4.5;
-            const rotateY = normX * 4.5;
-
-            // Apply smooth 3D tilt transformation
-            card.style.transform = `perspective(1200px) rotateX(${rotateX.toFixed(2)}deg) rotateY(${rotateY.toFixed(2)}deg) scale(1.015)`;
-        });
-
-        card.addEventListener('pointerleave', () => {
-            card.style.transform = '';
-            card.style.setProperty('--x', '50%');
-            card.style.setProperty('--y', '50%');
-        });
+    window.addEventListener('mousemove', (e) => {
+        spotlight.style.transform = `translate(${e.clientX - 300}px, ${e.clientY - 300}px)`;
     });
-
-    // 2. High-impact Dual-Device Hero Showcase Parallax
-    const heroShowcase = document.querySelector('.hero-devices');
-    if (heroShowcase) {
-        const desktop = heroShowcase.querySelector('.desktop-mockup');
-        const mobile = heroShowcase.querySelector('.hero-mobile-overlap');
-
-        heroShowcase.addEventListener('pointermove', (e) => {
-            if (e.pointerType !== 'mouse') return;
-
-            const rect = heroShowcase.getBoundingClientRect();
-            const x = e.clientX - rect.left;
-            const y = e.clientY - rect.top;
-
-            const normX = (x / rect.width) * 2 - 1;
-            const normY = (y / rect.height) * 2 - 1;
-
-            if (desktop) {
-                const rotX = 7 - (normY * 4);
-                const rotY = -5 + (normX * 4);
-                const transX = normX * -6;
-                const transY = normY * -6;
-                desktop.style.transform = `perspective(1500px) rotateX(${rotX.toFixed(2)}deg) rotateY(${rotY.toFixed(2)}deg) rotateZ(-1deg) translate3d(${transX.toFixed(1)}px, ${transY.toFixed(1)}px, 0px)`;
-            }
-
-            if (mobile) {
-                // Update reflection inside phone
-                const mobRect = mobile.getBoundingClientRect();
-                const mobX = e.clientX - mobRect.left;
-                const mobY = e.clientY - mobRect.top;
-                mobile.style.setProperty('--x', `${(mobX / mobRect.width) * 100}%`);
-                mobile.style.setProperty('--y', `${(mobY / mobRect.height) * 100}%`);
-
-                const rotX = 4 - (normY * 7);
-                const rotY = -8 + (normX * 7);
-                const transX = normX * 16;
-                const transY = normY * 16;
-                mobile.style.transform = `perspective(1000px) translate3d(${transX.toFixed(1)}px, ${transY.toFixed(1)}px, 90px) rotateX(${rotX.toFixed(2)}deg) rotateY(${rotY.toFixed(2)}deg) rotateZ(2deg)`;
-            }
-        });
-
-        heroShowcase.addEventListener('pointerleave', () => {
-            if (desktop) {
-                desktop.style.transform = '';
-            }
-            if (mobile) {
-                mobile.style.transform = '';
-                mobile.style.setProperty('--x', '50%');
-                mobile.style.setProperty('--y', '50%');
-            }
-        });
-    }
 }
