@@ -406,10 +406,10 @@ a {
 
 .hero-cinematic-img {
     width: 100%;
-    aspect-ratio: 16 / 9;
+    aspect-ratio: 4 / 3;
     display: block;
     object-fit: cover;
-    object-position: center 75%;
+    object-position: center 40%;
     filter: contrast(1.05) saturate(1.05);
 }
 
@@ -512,17 +512,17 @@ a {
     color: var(--text-secondary);
 }
 
-/* Coordinates for 16:9 fixed aspect ratio */
-.tag-fairway { top: 50%; left: 35%; }
+/* Coordinates for 4:3 fixed aspect ratio strokesaver */
+.tag-fairway { top: 70%; left: 48%; }
 .tag-fairway .hazard-card { border-color: rgba(0, 232, 157, 0.5); }
 
 .tag-water { top: 55%; left: 65%; }
 .tag-water .hazard-card { border-color: rgba(255, 77, 106, 0.5); }
 
-.tag-bunker { top: 75%; left: 45%; }
+.tag-bunker { top: 22%; left: 42%; }
 .tag-bunker .hazard-card { border-color: rgba(255, 77, 106, 0.5); }
 
-.tag-pin { top: 75%; left: 75%; }
+.tag-pin { top: 15%; left: 52%; }
 .tag-pin .hazard-card { border-color: rgba(255, 179, 0, 0.5); }
 
 .tag-cliff { display: none; } /* Removed from this image */
