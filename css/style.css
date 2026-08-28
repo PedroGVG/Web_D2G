@@ -406,10 +406,10 @@ a {
 
 .hero-cinematic-img {
     width: 100%;
-    height: auto;
+    aspect-ratio: 16 / 9;
     display: block;
     object-fit: cover;
-    max-height: 600px;
+    object-position: center 75%;
     filter: contrast(1.05) saturate(1.05);
 }
 
@@ -512,21 +512,20 @@ a {
     color: var(--text-secondary);
 }
 
-/* Coordinates */
-.tag-fairway { top: 36%; left: 40%; }
+/* Coordinates for 16:9 fixed aspect ratio */
+.tag-fairway { top: 50%; left: 35%; }
 .tag-fairway .hazard-card { border-color: rgba(0, 232, 157, 0.5); }
 
-.tag-water { top: 62%; left: 10%; }
+.tag-water { top: 55%; left: 65%; }
 .tag-water .hazard-card { border-color: rgba(255, 77, 106, 0.5); }
 
-.tag-bunker { top: 68%; left: 32%; }
+.tag-bunker { top: 75%; left: 45%; }
 .tag-bunker .hazard-card { border-color: rgba(255, 77, 106, 0.5); }
 
-.tag-pin { top: 60%; left: 58%; }
+.tag-pin { top: 75%; left: 75%; }
 .tag-pin .hazard-card { border-color: rgba(255, 179, 0, 0.5); }
 
-.tag-cliff { top: 40%; right: 14%; }
-.tag-cliff .hazard-card { border-color: rgba(255, 77, 106, 0.5); }
+.tag-cliff { display: none; } /* Removed from this image */
 
 /* Bottom Tactical HUD Strip */
 .cinematic-hud-bottom {
@@ -552,6 +551,36 @@ a {
 
 .hud-item strong {
     color: var(--text-primary);
+}
+
+.hazard-card {
+    position: absolute;
+    top: 50%;
+    left: 20px;
+    transform: translateY(-50%);
+    background: rgba(10, 12, 16, 0.85);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    border: 1px solid var(--border-subtle);
+    border-radius: var(--radius-sm);
+    padding: 8px 12px;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity 0.3s ease, transform 0.3s ease;
+    white-space: nowrap;
+}
+
+.hole-hazard-tag.card-left .hazard-card {
+    left: auto;
+    right: 20px;
+}
+
+.hole-hazard-tag:hover .hazard-card {
+    opacity: 1;
+    transform: translateY(-50%) scale(1.02);
 }
 
 .hud-divider {
@@ -668,13 +697,21 @@ a {
     overflow: hidden;
     box-shadow: 0 15px 40px rgba(0, 0, 0, 0.8);
     border: 1px solid rgba(255, 255, 255, 0.08);
+    min-width: 250px;
+    min-height: 250px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .scrolly-screen-img {
-    width: 100%;
+    max-width: 100%; /* Fix width collapse bug */
+    width: auto;
+    height: auto;
     max-height: 400px;
     object-fit: contain;
     display: block;
+    margin: 0 auto;
     transition: opacity 0.3s ease;
     opacity: 1 !important;
 }
@@ -1493,14 +1530,6 @@ a {
     .hazard-detail {
         display: none; /* Hide dense details on mobile to let the map breathe */
     }
-
-    /* Precise mobile coordinates so tags never overlap */
-    /* Kept above 70% to avoid overlapping with bottom HUD */
-    .tag-fairway { top: 20%; left: 25%; }
-    .tag-cliff { top: 38%; right: 4%; }
-    .tag-pin { top: 52%; left: 45%; }
-    .tag-water { top: 48%; left: 4%; }
-    .tag-bunker { top: 68%; left: 20%; }
 
     .cinematic-hud-bottom {
         display: none; /* User requested to hide this entirely on mobile */
