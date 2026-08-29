@@ -1881,27 +1881,94 @@ a {
         padding: 0;
     }
 
-    .narrative-step {
-        min-height: auto;
-        padding: 0;
-        background: var(--bg-card);
-        border: 1px solid var(--border-subtle);
-        border-radius: var(--radius-md);
-        margin-bottom: 0.75rem;
-        opacity: 1;
-        transform: none;
-        overflow: hidden;
+    .mobile-side-progress {
+        position: fixed;
+        right: 12px;
+        top: 50%;
+        transform: translateY(-50%);
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+        z-index: 50;
+        background: rgba(0, 0, 0, 0.4);
+        padding: 10px 6px;
+        border-radius: var(--radius-pill);
+        backdrop-filter: blur(8px);
+        -webkit-backdrop-filter: blur(8px);
+        border: 1px solid rgba(255, 255, 255, 0.05);
     }
 
-    /* Old accordion styles replaced by mobile carousel */
+    .progress-dot {
+        width: 6px;
+        height: 6px;
+        border-radius: 50%;
+        background: rgba(255, 255, 255, 0.2);
+        transition: all 0.3s ease;
+    }
+
+    .progress-dot.active {
+        background: var(--accent-gold);
+        transform: scale(1.5);
+        box-shadow: 0 0 8px var(--accent-gold-glow);
+    }
+
+    .narrative-step {
+        min-height: auto;
+        padding: 0 0 40px 0;
+        background: transparent;
+        border: none;
+        margin-bottom: 24px;
+        opacity: 1;
+        transform: none;
+    }
 
     .narrative-step h3 {
-        font-size: 1.1rem;
-        margin-bottom: 0.5rem;
+        font-size: 1.5rem;
+        margin-bottom: 0.75rem;
+        color: var(--text-primary);
     }
 
     .step-desc {
-        display: none; /* Keep hidden on mobile as before */
+        display: block; /* Show text on mobile now */
+        font-size: 0.95rem;
+        line-height: 1.55;
+        margin-bottom: 1.5rem;
+        color: var(--text-secondary);
+    }
+    
+    .mobile-step-img {
+        position: relative;
+        cursor: zoom-in;
+        padding: 0;
+        background: transparent;
+        border: none;
+        width: calc(100vw - 32px);
+        margin: 1rem -4px 1.5rem; /* Container has 20px padding, -4px pulls it out to leave exactly 16px margin to viewport edge */
+    }
+
+    .mobile-step-img img {
+        width: 100%;
+        height: auto;
+        max-height: 65dvh;
+        object-fit: contain;
+        display: block;
+        margin: 0 auto;
+        border-radius: var(--radius-md);
+        background: var(--bg-card);
+        border: 1px solid rgba(255, 255, 255, 0.08);
+    }
+
+    .mobile-step-img::after {
+        content: '🔍';
+        position: absolute;
+        bottom: 16px;
+        right: 16px;
+        font-size: 1.25rem;
+        background: rgba(0, 0, 0, 0.75);
+        border: 1px solid rgba(255, 255, 255, 0.15);
+        border-radius: var(--radius-sm);
+        padding: 6px 10px;
+        pointer-events: none;
     }
 
     .narrative-step p {

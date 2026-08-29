@@ -9,7 +9,7 @@ document.addEventListener('DOMContentLoaded', () => {
     initAmbientTelemetryCanvas();
     initHeroCinematicTilt();
     initScrollytellingEngine();
-    initMobileCarousel();
+    initMobileScrolly();
     initSgBenchmarkCalculator();
     initSpotlightCursor();
 });
@@ -268,17 +268,16 @@ function initScrollytellingEngine() {
 }
 
 /* ═════════════════════════════════════════════════════════════════
-   4.5. MOBILE SCREEN CAROUSEL + FULLSCREEN ZOOM VIEWER
-   Replaces the desktop scrollytelling with a swipe carousel on mobile.
-   Each slide shows step number, title, and full-width screenshot.
-   Tap any screenshot to open a zoomable fullscreen viewer.
+   4.5. MOBILE SCROLLYTELLING + FULLSCREEN ZOOM VIEWER
+   Vertical flow with side progress dots and tap-to-zoom on screenshots.
    Only active on mobile (≤960px). Tears down on desktop.
    ═════════════════════════════════════════════════════════════════ */
-function initMobileCarousel() {
+function initMobileScrolly() {
     const mq = window.matchMedia('(max-width: 960px)');
     let built = false;
-    let carouselEl = null;
     let viewerEl = null;
+    let progressEl = null;
+    let scrollObserver = null;
     
     function build() {
         if (built) return;
@@ -286,111 +285,35 @@ function initMobileCarousel() {
         const steps = document.querySelectorAll('.narrative-step');
         if (!stage || !steps.length) return;
         
-        // Hide desktop elements
+        // Hide desktop pinned panel (narrative column remains visible)
         const pinnedPanel = stage.querySelector('.pinned-telemetry-panel');
-        const narrativeCol = stage.querySelector('.scrolly-narrative-column');
         if (pinnedPanel) pinnedPanel.style.display = 'none';
-        if (narrativeCol) narrativeCol.style.display = 'none';
         
-        // Build carousel
-        carouselEl = document.createElement('div');
-        carouselEl.className = 'mobile-carousel';
+        // Build side progress indicator
+        progressEl = document.createElement('div');
+        progressEl.className = 'mobile-side-progress';
+        progressEl.style.opacity = '0';
+        progressEl.style.pointerEvents = 'none';
+        progressEl.style.transition = 'opacity 0.3s ease';
         
-        const track = document.createElement('div');
-        track.className = 'carousel-track';
-        
-        const slides = [];
         steps.forEach((step, i) => {
-            const slide = document.createElement('div');
-            slide.className = 'carousel-slide';
+            const dot = document.createElement('div');
+            dot.className = 'progress-dot' + (i === 0 ? ' active' : '');
+            dot.setAttribute('data-target', step.getAttribute('data-step') || (i+1));
+            progressEl.appendChild(dot);
             
-            // Step number
-            const stepNum = step.querySelector('.step-num');
-            const numEl = document.createElement('div');
-            numEl.className = 'carousel-step-num mono-text';
-            if (stepNum) {
-                numEl.textContent = stepNum.textContent;
-                // Copy data-lang attributes
-                if (stepNum.dataset.langEs) numEl.setAttribute('data-lang-es', stepNum.dataset.langEs);
-                if (stepNum.dataset.langEn) numEl.setAttribute('data-lang-en', stepNum.dataset.langEn);
-            }
-            slide.appendChild(numEl);
-            
-            // Title
-            const h3 = step.querySelector('h3');
-            const titleEl = document.createElement('h3');
-            titleEl.className = 'carousel-title';
-            if (h3) {
-                titleEl.textContent = h3.textContent;
-                if (h3.dataset.langEs) titleEl.setAttribute('data-lang-es', h3.dataset.langEs);
-                if (h3.dataset.langEn) titleEl.setAttribute('data-lang-en', h3.dataset.langEn);
-            }
-            slide.appendChild(titleEl);
-            
-            // Image
-            const imgSrc = step.querySelector('.mobile-step-img img');
-            if (imgSrc) {
-                const imgWrap = document.createElement('div');
-                imgWrap.className = 'carousel-img-wrap';
-                const img = document.createElement('img');
-                img.src = imgSrc.src;
-                img.alt = imgSrc.alt;
-                img.className = 'carousel-img';
-                if (imgSrc.dataset.imgEs) img.setAttribute('data-img-es', imgSrc.dataset.imgEs);
-                if (imgSrc.dataset.imgEn) img.setAttribute('data-img-en', imgSrc.dataset.imgEn);
-                img.setAttribute('loading', 'lazy');
-                
-                // Tap to open viewer
+            // Add click-to-zoom to the image
+            const imgWrap = step.querySelector('.mobile-step-img');
+            const img = imgWrap ? imgWrap.querySelector('img') : null;
+            if (imgWrap && img && !imgWrap.hasAttribute('data-zoom-attached')) {
+                imgWrap.setAttribute('data-zoom-attached', 'true');
                 imgWrap.addEventListener('click', () => openViewer(img.src));
-                imgWrap.appendChild(img);
-                slide.appendChild(imgWrap);
             }
-            
-            track.appendChild(slide);
-            slides.push(slide);
         });
         
-        carouselEl.appendChild(track);
+        document.body.appendChild(progressEl);
         
-        // Dots
-        const dotsWrap = document.createElement('div');
-        dotsWrap.className = 'carousel-dots';
-        slides.forEach((_, i) => {
-            const dot = document.createElement('button');
-            dot.className = 'carousel-dot' + (i === 0 ? ' active' : '');
-            dot.setAttribute('aria-label', `Slide ${i + 1}`);
-            dot.addEventListener('click', () => {
-                slides[i].scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
-            });
-            dotsWrap.appendChild(dot);
-        });
-        carouselEl.appendChild(dotsWrap);
-        
-        // Hint
-        const hint = document.createElement('p');
-        hint.className = 'carousel-hint mono-text';
-        hint.setAttribute('data-lang-es', 'Desliza para explorar');
-        hint.setAttribute('data-lang-en', 'Swipe to explore');
-        hint.textContent = 'Desliza para explorar';
-        carouselEl.appendChild(hint);
-        
-        stage.appendChild(carouselEl);
-        
-        // Scroll observer for dots
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    const idx = slides.indexOf(entry.target);
-                    dotsWrap.querySelectorAll('.carousel-dot').forEach((d, di) => {
-                        d.classList.toggle('active', di === idx);
-                    });
-                }
-            });
-        }, { root: track, threshold: 0.6 });
-        
-        slides.forEach(s => observer.observe(s));
-        
-        // Build viewer overlay (hidden)
+        // Build viewer overlay
         viewerEl = document.createElement('div');
         viewerEl.className = 'screen-viewer-overlay';
         viewerEl.innerHTML = `
@@ -405,14 +328,30 @@ function initMobileCarousel() {
         });
         document.body.appendChild(viewerEl);
         
-        // ESC key
+        // Setup observer for progress dots
+        const visibleSteps = new Set();
+        scrollObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    visibleSteps.add(entry.target);
+                    if (entry.intersectionRatio > 0.2) {
+                        const stepId = entry.target.getAttribute('data-step');
+                        progressEl.querySelectorAll('.progress-dot').forEach(d => {
+                            d.classList.toggle('active', d.getAttribute('data-target') === stepId);
+                        });
+                    }
+                } else {
+                    visibleSteps.delete(entry.target);
+                }
+            });
+            
+            // Toggle container visibility
+            progressEl.style.opacity = visibleSteps.size > 0 ? '1' : '0';
+        }, { threshold: [0, 0.2, 0.5] });
+        
+        steps.forEach(s => scrollObserver.observe(s));
+        
         document.addEventListener('keydown', handleEsc);
-        
-        // Re-apply current language to new elements
-        if (typeof switchLanguage === 'function' && typeof currentLang !== 'undefined') {
-            switchLanguage(currentLang);
-        }
-        
         built = true;
     }
     
@@ -438,18 +377,16 @@ function initMobileCarousel() {
         if (!built) return;
         const stage = document.querySelector('.scrolly-stage');
         
-        // Show desktop elements
+        // Show desktop pinned panel
         const pinnedPanel = stage?.querySelector('.pinned-telemetry-panel');
-        const narrativeCol = stage?.querySelector('.scrolly-narrative-column');
         if (pinnedPanel) pinnedPanel.style.display = '';
-        if (narrativeCol) narrativeCol.style.display = '';
         
-        // Remove carousel
-        if (carouselEl) { carouselEl.remove(); carouselEl = null; }
+        if (progressEl) { progressEl.remove(); progressEl = null; }
         if (viewerEl) { viewerEl.remove(); viewerEl = null; }
+        if (scrollObserver) { scrollObserver.disconnect(); scrollObserver = null; }
+        
         document.removeEventListener('keydown', handleEsc);
         document.body.style.overflow = '';
-        
         built = false;
     }
     
