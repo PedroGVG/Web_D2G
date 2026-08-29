@@ -9,7 +9,7 @@ document.addEventListener('DOMContentLoaded', () => {
     initAmbientTelemetryCanvas();
     initHeroCinematicTilt();
     initScrollytellingEngine();
-    initMobileAccordion();
+    initMobileCarousel();
     initSgBenchmarkCalculator();
     initSpotlightCursor();
 });
@@ -268,140 +268,198 @@ function initScrollytellingEngine() {
 }
 
 /* ═════════════════════════════════════════════════════════════════
-   4.5. MOBILE ACCORDION FOR NARRATIVE STEPS
-   Wraps step-num + h3 into a tappable header, collapses the rest.
-   Only active on mobile (≤768px). First panel starts open.
+   4.5. MOBILE SCREEN CAROUSEL + FULLSCREEN ZOOM VIEWER
+   Replaces the desktop scrollytelling with a swipe carousel on mobile.
+   Each slide shows step number, title, and full-width screenshot.
+   Tap any screenshot to open a zoomable fullscreen viewer.
+   Only active on mobile (≤960px). Tears down on desktop.
    ═════════════════════════════════════════════════════════════════ */
-function initMobileAccordion() {
-    const isMobile = window.matchMedia('(max-width: 768px)');
-    let accordionized = false;
-
-    function buildAccordion() {
-        if (accordionized) return;
+function initMobileCarousel() {
+    const mq = window.matchMedia('(max-width: 960px)');
+    let built = false;
+    let carouselEl = null;
+    let viewerEl = null;
+    
+    function build() {
+        if (built) return;
+        const stage = document.querySelector('.scrolly-stage');
         const steps = document.querySelectorAll('.narrative-step');
-        if (!steps.length) return;
-
+        if (!stage || !steps.length) return;
+        
+        // Hide desktop elements
+        const pinnedPanel = stage.querySelector('.pinned-telemetry-panel');
+        const narrativeCol = stage.querySelector('.scrolly-narrative-column');
+        if (pinnedPanel) pinnedPanel.style.display = 'none';
+        if (narrativeCol) narrativeCol.style.display = 'none';
+        
+        // Build carousel
+        carouselEl = document.createElement('div');
+        carouselEl.className = 'mobile-carousel';
+        
+        const track = document.createElement('div');
+        track.className = 'carousel-track';
+        
+        const slides = [];
         steps.forEach((step, i) => {
-            // Extract elements
+            const slide = document.createElement('div');
+            slide.className = 'carousel-slide';
+            
+            // Step number
             const stepNum = step.querySelector('.step-num');
+            const numEl = document.createElement('div');
+            numEl.className = 'carousel-step-num mono-text';
+            if (stepNum) {
+                numEl.textContent = stepNum.textContent;
+                // Copy data-lang attributes
+                if (stepNum.dataset.langEs) numEl.setAttribute('data-lang-es', stepNum.dataset.langEs);
+                if (stepNum.dataset.langEn) numEl.setAttribute('data-lang-en', stepNum.dataset.langEn);
+            }
+            slide.appendChild(numEl);
+            
+            // Title
             const h3 = step.querySelector('h3');
-            if (!stepNum || !h3) return;
-
-            // Create header
-            const header = document.createElement('div');
-            header.className = 'accordion-header';
-            header.setAttribute('role', 'button');
-            header.setAttribute('aria-expanded', i === 0 ? 'true' : 'false');
-            header.setAttribute('tabindex', '0');
-
-            // Move step-num and h3 into header
-            header.appendChild(stepNum);
-            header.appendChild(h3);
-
-            // Chevron SVG
-            const chevron = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
-            chevron.setAttribute('viewBox', '0 0 24 24');
-            chevron.setAttribute('fill', 'none');
-            chevron.setAttribute('stroke', 'currentColor');
-            chevron.setAttribute('stroke-width', '2.5');
-            chevron.setAttribute('stroke-linecap', 'round');
-            chevron.setAttribute('stroke-linejoin', 'round');
-            chevron.classList.add('accordion-chevron');
-            chevron.innerHTML = '<polyline points="6 9 12 15 18 9"></polyline>';
-            header.appendChild(chevron);
-
-            // Create body wrapper for remaining content
-            const body = document.createElement('div');
-            body.className = 'accordion-body';
-
-            // Move all remaining children into body
-            while (step.firstChild) {
-                body.appendChild(step.firstChild);
+            const titleEl = document.createElement('h3');
+            titleEl.className = 'carousel-title';
+            if (h3) {
+                titleEl.textContent = h3.textContent;
+                if (h3.dataset.langEs) titleEl.setAttribute('data-lang-es', h3.dataset.langEs);
+                if (h3.dataset.langEn) titleEl.setAttribute('data-lang-en', h3.dataset.langEn);
             }
-
-            // Assemble
-            step.appendChild(header);
-            step.appendChild(body);
-
-            // Open first panel
-            if (i === 0) {
-                step.classList.add('accordion-open');
+            slide.appendChild(titleEl);
+            
+            // Image
+            const imgSrc = step.querySelector('.mobile-step-img img');
+            if (imgSrc) {
+                const imgWrap = document.createElement('div');
+                imgWrap.className = 'carousel-img-wrap';
+                const img = document.createElement('img');
+                img.src = imgSrc.src;
+                img.alt = imgSrc.alt;
+                img.className = 'carousel-img';
+                if (imgSrc.dataset.imgEs) img.setAttribute('data-img-es', imgSrc.dataset.imgEs);
+                if (imgSrc.dataset.imgEn) img.setAttribute('data-img-en', imgSrc.dataset.imgEn);
+                img.setAttribute('loading', 'lazy');
+                
+                // Tap to open viewer
+                imgWrap.addEventListener('click', () => openViewer(img.src));
+                imgWrap.appendChild(img);
+                slide.appendChild(imgWrap);
             }
-
-            // Toggle handler
-            header.addEventListener('click', () => {
-                const isOpen = step.classList.contains('accordion-open');
-
-                // Close all
-                steps.forEach(s => {
-                    s.classList.remove('accordion-open');
-                    const h = s.querySelector('.accordion-header');
-                    if (h) h.setAttribute('aria-expanded', 'false');
-                });
-
-                // Open clicked (if it was closed)
-                if (!isOpen) {
-                    step.classList.add('accordion-open');
-                    header.setAttribute('aria-expanded', 'true');
+            
+            track.appendChild(slide);
+            slides.push(slide);
+        });
+        
+        carouselEl.appendChild(track);
+        
+        // Dots
+        const dotsWrap = document.createElement('div');
+        dotsWrap.className = 'carousel-dots';
+        slides.forEach((_, i) => {
+            const dot = document.createElement('button');
+            dot.className = 'carousel-dot' + (i === 0 ? ' active' : '');
+            dot.setAttribute('aria-label', `Slide ${i + 1}`);
+            dot.addEventListener('click', () => {
+                slides[i].scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
+            });
+            dotsWrap.appendChild(dot);
+        });
+        carouselEl.appendChild(dotsWrap);
+        
+        // Hint
+        const hint = document.createElement('p');
+        hint.className = 'carousel-hint mono-text';
+        hint.setAttribute('data-lang-es', 'Desliza para explorar');
+        hint.setAttribute('data-lang-en', 'Swipe to explore');
+        hint.textContent = 'Desliza para explorar';
+        carouselEl.appendChild(hint);
+        
+        stage.appendChild(carouselEl);
+        
+        // Scroll observer for dots
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const idx = slides.indexOf(entry.target);
+                    dotsWrap.querySelectorAll('.carousel-dot').forEach((d, di) => {
+                        d.classList.toggle('active', di === idx);
+                    });
                 }
             });
-
-            // Keyboard support
-            header.addEventListener('keydown', (e) => {
-                if (e.key === 'Enter' || e.key === ' ') {
-                    e.preventDefault();
-                    header.click();
-                }
-            });
+        }, { root: track, threshold: 0.6 });
+        
+        slides.forEach(s => observer.observe(s));
+        
+        // Build viewer overlay (hidden)
+        viewerEl = document.createElement('div');
+        viewerEl.className = 'screen-viewer-overlay';
+        viewerEl.innerHTML = `
+            <button class="viewer-close" aria-label="Cerrar">&times;</button>
+            <div class="viewer-content">
+                <img class="viewer-img" src="" alt="">
+            </div>
+        `;
+        viewerEl.querySelector('.viewer-close').addEventListener('click', closeViewer);
+        viewerEl.addEventListener('click', (e) => {
+            if (e.target === viewerEl) closeViewer();
         });
-
-        accordionized = true;
-    }
-
-    function teardownAccordion() {
-        if (!accordionized) return;
-        const steps = document.querySelectorAll('.narrative-step');
-
-        steps.forEach(step => {
-            const header = step.querySelector('.accordion-header');
-            const body = step.querySelector('.accordion-body');
-            if (!header || !body) return;
-
-            // Move step-num and h3 back out of header
-            const stepNum = header.querySelector('.step-num');
-            const h3 = header.querySelector('h3');
-
-            // Move body children back into step
-            while (body.firstChild) {
-                step.appendChild(body.firstChild);
-            }
-
-            // Re-insert step-num and h3 at the top
-            if (h3) step.insertBefore(h3, step.firstChild);
-            if (stepNum) step.insertBefore(stepNum, step.firstChild);
-
-            // Clean up DOM
-            header.remove();
-            body.remove();
-            step.classList.remove('accordion-open');
-        });
-
-        accordionized = false;
-    }
-
-    function handleResize(mq) {
-        if (mq.matches) {
-            buildAccordion();
-        } else {
-            teardownAccordion();
+        document.body.appendChild(viewerEl);
+        
+        // ESC key
+        document.addEventListener('keydown', handleEsc);
+        
+        // Re-apply current language to new elements
+        if (typeof switchLanguage === 'function' && typeof currentLang !== 'undefined') {
+            switchLanguage(currentLang);
         }
+        
+        built = true;
     }
-
-    // Initial check
-    handleResize(isMobile);
-
-    // Listen for viewport changes (e.g. rotate phone to landscape)
-    isMobile.addEventListener('change', handleResize);
+    
+    function openViewer(src) {
+        if (!viewerEl) return;
+        const img = viewerEl.querySelector('.viewer-img');
+        img.src = src;
+        viewerEl.classList.add('active');
+        document.body.style.overflow = 'hidden';
+    }
+    
+    function closeViewer() {
+        if (!viewerEl) return;
+        viewerEl.classList.remove('active');
+        document.body.style.overflow = '';
+    }
+    
+    function handleEsc(e) {
+        if (e.key === 'Escape') closeViewer();
+    }
+    
+    function teardown() {
+        if (!built) return;
+        const stage = document.querySelector('.scrolly-stage');
+        
+        // Show desktop elements
+        const pinnedPanel = stage?.querySelector('.pinned-telemetry-panel');
+        const narrativeCol = stage?.querySelector('.scrolly-narrative-column');
+        if (pinnedPanel) pinnedPanel.style.display = '';
+        if (narrativeCol) narrativeCol.style.display = '';
+        
+        // Remove carousel
+        if (carouselEl) { carouselEl.remove(); carouselEl = null; }
+        if (viewerEl) { viewerEl.remove(); viewerEl = null; }
+        document.removeEventListener('keydown', handleEsc);
+        document.body.style.overflow = '';
+        
+        built = false;
+    }
+    
+    function handleChange(e) {
+        if (e.matches) build();
+        else teardown();
+    }
+    
+    handleChange(mq);
+    mq.addEventListener('change', handleChange);
 }
 
 /* ═════════════════════════════════════════════════════════════════
