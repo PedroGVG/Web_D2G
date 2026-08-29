@@ -430,6 +430,64 @@ a {
     text-align: center;
 }
 
+/* ═════════════════════════════════════════════════════════════════
+   HERO — DESKTOP EDITORIAL LAYOUT (left-aligned, premium feel)
+   ═════════════════════════════════════════════════════════════════ */
+@media (min-width: 1024px) {
+    .hero-section {
+        align-items: stretch;
+        text-align: left;
+        padding-left: 0;
+        padding-right: 0;
+    }
+
+    .hero-header-wrap {
+        width: min(100% - 96px, 1360px);
+        max-width: none;
+        margin: 0 auto 2.5rem;
+        align-items: flex-start;
+    }
+
+    .hero-title {
+        max-width: 760px;
+        margin-left: 14%;
+    }
+
+    .hero-title-sub {
+        max-width: 520px;
+    }
+
+    .hero-title-main {
+        max-width: 760px;
+        font-size: clamp(2.5rem, 4.2vw, 3.75rem);
+        line-height: 1.04;
+    }
+
+    .hero-lead {
+        max-width: 580px;
+        margin-left: 14%;
+    }
+
+    .hero-cta-block {
+        margin-top: 34px;
+        margin-left: 14%;
+        align-items: flex-start;
+    }
+
+    .hero-cta-block .btn-cta-main {
+        width: clamp(320px, 30vw, 380px);
+    }
+
+    .hero-cta-promise {
+        text-align: left;
+    }
+
+    /* Keep the cinematic map full-width and centered below */
+    .hero-stage-cinematic {
+        margin: 0 auto;
+    }
+}
+
 
 /* ═════════════════════════════════════════════════════════════════
    ASPIRATIONAL GOLF HOLE STRATEGY MAP (HERO)
