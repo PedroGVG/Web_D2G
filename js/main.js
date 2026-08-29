@@ -69,9 +69,6 @@ function switchLanguage(lang) {
 
     // Update document language tag
     document.documentElement.setAttribute('lang', lang);
-
-    // Refresh active scrollytelling title in the new language
-    updateScrollyTitles();
 }
 
 
