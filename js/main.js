@@ -199,11 +199,18 @@ function initScrollyViewer() {
         dot.setAttribute('data-target', step.getAttribute('data-step') || (i+1));
         progressEl.appendChild(dot);
         
-        // Add click-to-zoom to the image
-        const imgWrap = step.querySelector('.mobile-step-img'); // Keeping this class name for simplicity in CSS
+        // Add click-to-zoom to the image container
+        const imgWrap = step.querySelector('.mobile-step-img'); 
         const img = imgWrap ? imgWrap.querySelector('img') : null;
         if (imgWrap && img && !imgWrap.hasAttribute('data-zoom-attached')) {
             imgWrap.setAttribute('data-zoom-attached', 'true');
+            
+            // Create a real DOM button for the zoom icon (solves pseudo-element click bugs)
+            const zoomBtn = document.createElement('div');
+            zoomBtn.className = 'zoom-action-btn';
+            imgWrap.appendChild(zoomBtn);
+            
+            // Attach listener to wrapper (bubbles from btn)
             imgWrap.addEventListener('click', () => openViewer(img.src));
         }
     });
