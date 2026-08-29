@@ -435,42 +435,40 @@ a {
    ═════════════════════════════════════════════════════════════════ */
 @media (min-width: 1024px) {
     .hero-section {
-        align-items: stretch;
-        text-align: left;
-        padding-left: 0;
-        padding-right: 0;
-        --hero-left: clamp(48px, 8vw, 144px);
+        align-items: center;
+        text-align: center;
+        padding-left: clamp(48px, 8vw, 144px);
+        padding-right: clamp(48px, 8vw, 144px);
     }
 
     .hero-header-wrap {
         width: 100%;
-        max-width: none;
-        margin: 0 0 2.5rem;
-        margin-left: var(--hero-left);
-        align-items: flex-start;
+        max-width: 1200px;
+        margin: 0 auto 2.5rem;
+        align-items: center;
     }
 
     .hero-title {
-        max-width: 660px;
+        max-width: 100%;
     }
 
     .hero-title-sub {
-        max-width: 520px;
+        max-width: 600px;
     }
 
     .hero-title-main {
-        max-width: 660px;
-        font-size: clamp(2.5rem, 4.2vw, 3.75rem);
+        max-width: 100%;
+        font-size: clamp(2.5rem, 4.5vw, 4.25rem);
         line-height: 1.04;
     }
 
     .hero-lead {
-        max-width: 660px;
+        max-width: 800px;
     }
 
     .hero-cta-block {
         margin-top: 34px;
-        align-items: flex-start;
+        align-items: center;
     }
 
     .hero-cta-block .btn-cta-main {
@@ -478,13 +476,12 @@ a {
     }
 
     .hero-cta-promise {
-        text-align: left;
+        text-align: center;
     }
 
-    /* Keep the cinematic map aligned to the same left guide */
+    /* Center the cinematic map */
     .hero-stage-cinematic {
-        margin: 0;
-        margin-left: var(--hero-left);
+        margin: 0 auto;
     }
 }
 
@@ -2252,7 +2249,7 @@ a {
 
 @media (max-width: 767px) {
     .hero-title-main {
-        max-width: 340px;
+        max-width: 380px; /* Widened slightly to fit the large texts centered */
         line-height: 1;
         margin: 0 auto;
     }
@@ -2260,20 +2257,19 @@ a {
     .hero-title-primary {
         display: block;
         font-size: 31px;
-        line-height: 1;
+        line-height: 1.05;
     }
 
     .hero-title-secondary {
         display: block;
-        margin-top: 10px;
-        font-size: 18px;
-        line-height: 1.15;
-        font-weight: 600;
-        opacity: .88;
+        margin-top: 14px; /* small gap */
+        font-size: 31px; /* same size as primary */
+        line-height: 1.05;
+        font-weight: 800; /* matching the main title weight */
     }
 
     .hero-lead {
-        margin-top: 18px;
+        margin-top: 20px;
     }
 }
 
