@@ -205,12 +205,7 @@ function initScrollyViewer() {
         if (imgWrap && img && !imgWrap.hasAttribute('data-zoom-attached')) {
             imgWrap.setAttribute('data-zoom-attached', 'true');
             
-            // Create a real DOM button for the zoom icon (solves pseudo-element click bugs)
-            const zoomBtn = document.createElement('div');
-            zoomBtn.className = 'zoom-action-btn';
-            imgWrap.appendChild(zoomBtn);
-            
-            // Attach listener to wrapper (bubbles from btn)
+            // Attach listener to wrapper
             imgWrap.addEventListener('click', () => openViewer(img.src));
         }
     });
