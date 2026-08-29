@@ -178,94 +178,116 @@ function initHeroCinematicTilt() {
 }
 
 /* ═════════════════════════════════════════════════════════════════
-   4. SCROLLYTELLING + FULLSCREEN ZOOM VIEWER
+   4. SCROLLYTELLING + FULLSCREEN ZOOM VIEWER (LIGHTBOX)
    Vertical flow with side progress dots and tap-to-zoom on screenshots.
    ═════════════════════════════════════════════════════════════════ */
 function initScrollyViewer() {
-    const stage = document.querySelector('.scrolly-stage');
     const steps = document.querySelectorAll('.narrative-step');
-    if (!stage || !steps.length) return;
+    const overlay = document.getElementById('image-zoom-overlay');
+    const viewerImg = document.getElementById('viewer-img-target');
+    const closeBtn = document.getElementById('viewer-close-btn');
     
-    // Build side progress indicator
-    const progressEl = document.createElement('div');
-    progressEl.className = 'scrolly-side-progress'; // renamed from mobile-side-progress
-    progressEl.style.opacity = '0';
-    progressEl.style.pointerEvents = 'none';
-    progressEl.style.transition = 'opacity 0.3s ease';
+    if (!steps.length) return;
     
-    steps.forEach((step, i) => {
-        const dot = document.createElement('div');
-        dot.className = 'progress-dot' + (i === 0 ? ' active' : '');
-        dot.setAttribute('data-target', step.getAttribute('data-step') || (i+1));
-        progressEl.appendChild(dot);
-        
-        // Add click-to-zoom to the image container
-        const imgWrap = step.querySelector('.mobile-step-img'); 
-        const img = imgWrap ? imgWrap.querySelector('img') : null;
-        if (imgWrap && img && !imgWrap.hasAttribute('data-zoom-attached')) {
-            imgWrap.setAttribute('data-zoom-attached', 'true');
-            
-            // Attach listener to wrapper
-            imgWrap.addEventListener('click', () => openViewer(img.src));
-        }
-    });
-    
-    document.body.appendChild(progressEl);
-    
-    // Build viewer overlay
-    const viewerEl = document.createElement('div');
-    viewerEl.className = 'screen-viewer-overlay';
-    viewerEl.innerHTML = `
-        <button class="viewer-close" aria-label="Cerrar">&times;</button>
-        <div class="viewer-content">
-            <img class="viewer-img" src="" alt="">
-        </div>
-    `;
-    viewerEl.querySelector('.viewer-close').addEventListener('click', closeViewer);
-    viewerEl.addEventListener('click', (e) => {
-        if (e.target === viewerEl) closeViewer();
-    });
-    document.body.appendChild(viewerEl);
-    
-    // Setup observer for progress dots
-    const visibleSteps = new Set();
-    const scrollObserver = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                visibleSteps.add(entry.target);
-                if (entry.intersectionRatio > 0.2) {
-                    const stepId = entry.target.getAttribute('data-step');
-                    progressEl.querySelectorAll('.progress-dot').forEach(d => {
-                        d.classList.toggle('active', d.getAttribute('data-target') === stepId);
-                    });
-                }
-            } else {
-                visibleSteps.delete(entry.target);
-            }
-        });
-        
-        // Toggle container visibility
-        progressEl.style.opacity = visibleSteps.size > 0 ? '1' : '0';
-    }, { threshold: [0, 0.2, 0.5] });
-    
-    steps.forEach(s => scrollObserver.observe(s));
-    
-    document.addEventListener('keydown', (e) => {
-        if (e.key === 'Escape') closeViewer();
-    });
-    
-    function openViewer(src) {
-        if (!viewerEl) return;
-        const img = viewerEl.querySelector('.viewer-img');
-        img.src = src;
-        viewerEl.classList.add('active');
+    function openViewer(src, alt) {
+        if (!overlay || !viewerImg) return;
+        viewerImg.src = src;
+        viewerImg.alt = alt || 'Captura ampliada';
+        overlay.classList.add('active');
+        overlay.setAttribute('aria-hidden', 'false');
         document.body.style.overflow = 'hidden';
     }
     
     function closeViewer() {
-        if (!viewerEl) return;
-        viewerEl.classList.remove('active');
+        if (!overlay) return;
+        overlay.classList.remove('active');
+        overlay.setAttribute('aria-hidden', 'true');
         document.body.style.overflow = '';
+    }
+    
+    // Attach click listener to each screenshot container and button
+    steps.forEach((step, i) => {
+        const imgWrap = step.querySelector('.mobile-step-img');
+        const img = imgWrap ? imgWrap.querySelector('img') : null;
+        const zoomBtn = imgWrap ? imgWrap.querySelector('.zoom-action-btn') : null;
+        
+        if (imgWrap && img) {
+            imgWrap.style.cursor = 'zoom-in';
+            imgWrap.addEventListener('click', (e) => {
+                // If clicked anywhere on the image container or zoom button
+                e.stopPropagation();
+                openViewer(img.currentSrc || img.src, img.alt);
+            });
+        }
+        
+        if (zoomBtn && img) {
+            zoomBtn.addEventListener('click', (e) => {
+                e.stopPropagation();
+                openViewer(img.currentSrc || img.src, img.alt);
+            });
+        }
+    });
+    
+    // Close modal when clicking anywhere on the dark overlay (outside the image)
+    if (overlay) {
+        overlay.addEventListener('click', (e) => {
+            if (e.target === overlay || e.target.classList.contains('viewer-dialog')) {
+                closeViewer();
+            }
+        });
+    }
+    
+    if (closeBtn) {
+        closeBtn.addEventListener('click', (e) => {
+            e.stopPropagation();
+            closeViewer();
+        });
+    }
+    
+    // Close on Escape key
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape') closeViewer();
+    });
+    
+    // Build side progress indicator
+    const existingProgress = document.querySelector('.scrolly-side-progress');
+    if (!existingProgress) {
+        const progressEl = document.createElement('div');
+        progressEl.className = 'scrolly-side-progress';
+        progressEl.style.opacity = '0';
+        progressEl.style.pointerEvents = 'none';
+        progressEl.style.transition = 'opacity 0.3s ease';
+        
+        steps.forEach((step, i) => {
+            const dot = document.createElement('div');
+            dot.className = 'progress-dot' + (i === 0 ? ' active' : '');
+            dot.setAttribute('data-target', step.getAttribute('data-step') || (i+1));
+            progressEl.appendChild(dot);
+        });
+        
+        document.body.appendChild(progressEl);
+        
+        // Setup observer for progress dots
+        const visibleSteps = new Set();
+        const scrollObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    visibleSteps.add(entry.target);
+                    if (entry.intersectionRatio > 0.2) {
+                        const stepId = entry.target.getAttribute('data-step');
+                        progressEl.querySelectorAll('.progress-dot').forEach(d => {
+                            d.classList.toggle('active', d.getAttribute('data-target') === stepId);
+                        });
+                    }
+                } else {
+                    visibleSteps.delete(entry.target);
+                }
+            });
+            
+            progressEl.style.opacity = visibleSteps.size > 0 ? '1' : '0';
+        }, { threshold: [0, 0.2, 0.5] });
+        
+        steps.forEach(s => scrollObserver.observe(s));
     }
 }
 
