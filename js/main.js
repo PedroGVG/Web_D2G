@@ -8,8 +8,7 @@ document.addEventListener('DOMContentLoaded', () => {
     initLanguageSwitcher();
     initAmbientTelemetryCanvas();
     initHeroCinematicTilt();
-    initScrollytellingEngine();
-    initMobileScrolly();
+    initScrollyViewer();
     initSgBenchmarkCalculator();
     initSpotlightCursor();
 });
@@ -179,181 +178,79 @@ function initHeroCinematicTilt() {
 }
 
 /* ═════════════════════════════════════════════════════════════════
-   4. SCROLLYTELLING ENGINE (Dynamic Real Screen Pinned Viewport)
-   ═════════════════════════════════════════════════════════════════ */
-let activeStepIndex = '1';
-
-const scrollyTitles = {
-    es: {
-        1: 'RADAR TELEMETRY · DISPERSIÓN REAL',
-        2: 'BAG MAPPING · COBERTURA & DISTANCIA',
-        3: 'GREEN METRICS · MATRIZ SLOPE & PUTT'
-    },
-    en: {
-        1: 'RADAR TELEMETRY · REAL DISPERSION',
-        2: 'BAG MAPPING · COVERAGE & DISTANCE',
-        3: 'GREEN METRICS · SLOPE & PUTT MATRIX'
-    }
-};
-
-const scrollyBadges = {
-    es: {
-        1: 'TELEMETRÍA EN DIRECTO · RESOLUCIÓN POR IMPACTO',
-        2: 'PROMEDIOS REALES · ELIMINACIÓN DE SOLAPES',
-        3: 'CONTROL DE CAÍDA · MAKE RATE POR DISTANCIA'
-    },
-    en: {
-        1: 'LIVE TELEMETRY · SHOT-BY-SHOT RESOLUTION',
-        2: 'REAL AVERAGES · OVERLAP ELIMINATION',
-        3: 'BREAK CONTROL · MAKE RATE BY DISTANCE'
-    }
-};
-
-function updateScrollyTitles() {
-    const stageTitle = document.getElementById('pinned-stage-title');
-    const subBadge = document.getElementById('pinned-sub-badge');
-
-    if (stageTitle && scrollyTitles[currentLang] && scrollyTitles[currentLang][activeStepIndex]) {
-        stageTitle.textContent = scrollyTitles[currentLang][activeStepIndex];
-    }
-    if (subBadge && scrollyBadges[currentLang] && scrollyBadges[currentLang][activeStepIndex]) {
-        subBadge.textContent = scrollyBadges[currentLang][activeStepIndex];
-    }
-}
-
-function initScrollytellingEngine() {
-    const steps = document.querySelectorAll('.narrative-step');
-    const stageStates = {
-        1: document.getElementById('stage-dispersion'),
-        2: document.getElementById('stage-gap'),
-        3: document.getElementById('stage-putt')
-    };
-
-    function handleScroll() {
-        let currentStep = '1';
-        steps.forEach(step => {
-            const rect = step.getBoundingClientRect();
-            // If the step is in the top 60% of the viewport, consider it active
-            if (rect.top < window.innerHeight * 0.6) {
-                currentStep = step.getAttribute('data-step') || '1';
-            }
-        });
-
-        if (activeStepIndex !== currentStep) {
-            activeStepIndex = currentStep;
-
-            // Update text steps
-            steps.forEach(s => s.classList.remove('active'));
-            const activeStepEl = document.querySelector(`.narrative-step[data-step="${currentStep}"]`);
-            if (activeStepEl) activeStepEl.classList.add('active');
-
-            // Update pinned stage visual
-            Object.keys(stageStates).forEach(k => {
-                if (stageStates[k]) {
-                    stageStates[k].classList.remove('active');
-                }
-            });
-
-            if (stageStates[activeStepIndex]) {
-                stageStates[activeStepIndex].classList.add('active');
-            }
-
-            updateScrollyTitles();
-        }
-    }
-
-    window.addEventListener('scroll', handleScroll, { passive: true });
-    // Initialize state on load
-    handleScroll();
-}
-
-/* ═════════════════════════════════════════════════════════════════
-   4.5. MOBILE SCROLLYTELLING + FULLSCREEN ZOOM VIEWER
+   4. SCROLLYTELLING + FULLSCREEN ZOOM VIEWER
    Vertical flow with side progress dots and tap-to-zoom on screenshots.
-   Only active on mobile (≤960px). Tears down on desktop.
    ═════════════════════════════════════════════════════════════════ */
-function initMobileScrolly() {
-    const mq = window.matchMedia('(max-width: 960px)');
-    let built = false;
-    let viewerEl = null;
-    let progressEl = null;
-    let scrollObserver = null;
+function initScrollyViewer() {
+    const stage = document.querySelector('.scrolly-stage');
+    const steps = document.querySelectorAll('.narrative-step');
+    if (!stage || !steps.length) return;
     
-    function build() {
-        if (built) return;
-        const stage = document.querySelector('.scrolly-stage');
-        const steps = document.querySelectorAll('.narrative-step');
-        if (!stage || !steps.length) return;
+    // Build side progress indicator
+    const progressEl = document.createElement('div');
+    progressEl.className = 'scrolly-side-progress'; // renamed from mobile-side-progress
+    progressEl.style.opacity = '0';
+    progressEl.style.pointerEvents = 'none';
+    progressEl.style.transition = 'opacity 0.3s ease';
+    
+    steps.forEach((step, i) => {
+        const dot = document.createElement('div');
+        dot.className = 'progress-dot' + (i === 0 ? ' active' : '');
+        dot.setAttribute('data-target', step.getAttribute('data-step') || (i+1));
+        progressEl.appendChild(dot);
         
-        // Hide desktop pinned panel (narrative column remains visible)
-        const pinnedPanel = stage.querySelector('.pinned-telemetry-panel');
-        if (pinnedPanel) pinnedPanel.style.display = 'none';
-        
-        // Build side progress indicator
-        progressEl = document.createElement('div');
-        progressEl.className = 'mobile-side-progress';
-        progressEl.style.opacity = '0';
-        progressEl.style.pointerEvents = 'none';
-        progressEl.style.transition = 'opacity 0.3s ease';
-        
-        steps.forEach((step, i) => {
-            const dot = document.createElement('div');
-            dot.className = 'progress-dot' + (i === 0 ? ' active' : '');
-            dot.setAttribute('data-target', step.getAttribute('data-step') || (i+1));
-            progressEl.appendChild(dot);
-            
-            // Add click-to-zoom to the image
-            const imgWrap = step.querySelector('.mobile-step-img');
-            const img = imgWrap ? imgWrap.querySelector('img') : null;
-            if (imgWrap && img && !imgWrap.hasAttribute('data-zoom-attached')) {
-                imgWrap.setAttribute('data-zoom-attached', 'true');
-                imgWrap.addEventListener('click', () => openViewer(img.src));
+        // Add click-to-zoom to the image
+        const imgWrap = step.querySelector('.mobile-step-img'); // Keeping this class name for simplicity in CSS
+        const img = imgWrap ? imgWrap.querySelector('img') : null;
+        if (imgWrap && img && !imgWrap.hasAttribute('data-zoom-attached')) {
+            imgWrap.setAttribute('data-zoom-attached', 'true');
+            imgWrap.addEventListener('click', () => openViewer(img.src));
+        }
+    });
+    
+    document.body.appendChild(progressEl);
+    
+    // Build viewer overlay
+    const viewerEl = document.createElement('div');
+    viewerEl.className = 'screen-viewer-overlay';
+    viewerEl.innerHTML = `
+        <button class="viewer-close" aria-label="Cerrar">&times;</button>
+        <div class="viewer-content">
+            <img class="viewer-img" src="" alt="">
+        </div>
+    `;
+    viewerEl.querySelector('.viewer-close').addEventListener('click', closeViewer);
+    viewerEl.addEventListener('click', (e) => {
+        if (e.target === viewerEl) closeViewer();
+    });
+    document.body.appendChild(viewerEl);
+    
+    // Setup observer for progress dots
+    const visibleSteps = new Set();
+    const scrollObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                visibleSteps.add(entry.target);
+                if (entry.intersectionRatio > 0.2) {
+                    const stepId = entry.target.getAttribute('data-step');
+                    progressEl.querySelectorAll('.progress-dot').forEach(d => {
+                        d.classList.toggle('active', d.getAttribute('data-target') === stepId);
+                    });
+                }
+            } else {
+                visibleSteps.delete(entry.target);
             }
         });
         
-        document.body.appendChild(progressEl);
-        
-        // Build viewer overlay
-        viewerEl = document.createElement('div');
-        viewerEl.className = 'screen-viewer-overlay';
-        viewerEl.innerHTML = `
-            <button class="viewer-close" aria-label="Cerrar">&times;</button>
-            <div class="viewer-content">
-                <img class="viewer-img" src="" alt="">
-            </div>
-        `;
-        viewerEl.querySelector('.viewer-close').addEventListener('click', closeViewer);
-        viewerEl.addEventListener('click', (e) => {
-            if (e.target === viewerEl) closeViewer();
-        });
-        document.body.appendChild(viewerEl);
-        
-        // Setup observer for progress dots
-        const visibleSteps = new Set();
-        scrollObserver = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    visibleSteps.add(entry.target);
-                    if (entry.intersectionRatio > 0.2) {
-                        const stepId = entry.target.getAttribute('data-step');
-                        progressEl.querySelectorAll('.progress-dot').forEach(d => {
-                            d.classList.toggle('active', d.getAttribute('data-target') === stepId);
-                        });
-                    }
-                } else {
-                    visibleSteps.delete(entry.target);
-                }
-            });
-            
-            // Toggle container visibility
-            progressEl.style.opacity = visibleSteps.size > 0 ? '1' : '0';
-        }, { threshold: [0, 0.2, 0.5] });
-        
-        steps.forEach(s => scrollObserver.observe(s));
-        
-        document.addEventListener('keydown', handleEsc);
-        built = true;
-    }
+        // Toggle container visibility
+        progressEl.style.opacity = visibleSteps.size > 0 ? '1' : '0';
+    }, { threshold: [0, 0.2, 0.5] });
+    
+    steps.forEach(s => scrollObserver.observe(s));
+    
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape') closeViewer();
+    });
     
     function openViewer(src) {
         if (!viewerEl) return;
@@ -368,35 +265,6 @@ function initMobileScrolly() {
         viewerEl.classList.remove('active');
         document.body.style.overflow = '';
     }
-    
-    function handleEsc(e) {
-        if (e.key === 'Escape') closeViewer();
-    }
-    
-    function teardown() {
-        if (!built) return;
-        const stage = document.querySelector('.scrolly-stage');
-        
-        // Show desktop pinned panel
-        const pinnedPanel = stage?.querySelector('.pinned-telemetry-panel');
-        if (pinnedPanel) pinnedPanel.style.display = '';
-        
-        if (progressEl) { progressEl.remove(); progressEl = null; }
-        if (viewerEl) { viewerEl.remove(); viewerEl = null; }
-        if (scrollObserver) { scrollObserver.disconnect(); scrollObserver = null; }
-        
-        document.removeEventListener('keydown', handleEsc);
-        document.body.style.overflow = '';
-        built = false;
-    }
-    
-    function handleChange(e) {
-        if (e.matches) build();
-        else teardown();
-    }
-    
-    handleChange(mq);
-    mq.addEventListener('change', handleChange);
 }
 
 /* ═════════════════════════════════════════════════════════════════
