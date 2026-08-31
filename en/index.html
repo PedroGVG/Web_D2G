@@ -1,0 +1,650 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
+    <title data-lang-es="Data2Gain | Analítica de Golf Avanzada e Inteligencia Artificial" data-lang-en="Data2Gain | AI-Powered Golf Analytics & Tour Intelligence">Data2Gain | AI-Powered Golf Analytics & Tour Intelligence</title>
+    <meta name="description" content="Turn your golf data into a competitive edge with Tour-level telemetry, real-time Strokes Gained analysis, strategic hole maps, and a predictive AI caddie.">
+    <meta name="keywords" content="golf analytics, strokes gained, golf AI, golf course strategy, AI caddie, lower golf handicap, golf coaching platform">
+    <meta name="robots" content="index, follow">
+    <link rel="canonical" href="https://data2gain.com/en/">
+    <link rel="alternate" hreflang="es" href="https://data2gain.com/es/">
+    <link rel="alternate" hreflang="en" href="https://data2gain.com/en/">
+    <link rel="alternate" hreflang="x-default" href="https://data2gain.com/es/">
+
+    <!-- Site icons and installable web app metadata -->
+    <link rel="icon" href="/favicon.ico" sizes="any">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+    <link rel="manifest" href="/site-en.webmanifest">
+    <meta name="theme-color" content="#050505">
+    
+    <!-- Open Graph SEO -->
+    <meta property="og:title" content="Data2Gain — Course Strategy, Telemetry &amp; Specialized Services">
+    <meta property="og:description" content="Feel the shot with intuition. Decide strategy with data. Tour intelligence, without the Tour.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://data2gain.com/en/">
+    <meta property="og:image" content="https://data2gain.com/assets/hero-hole-sg.jpg">
+    <meta property="og:locale" content="en_US">
+    <meta property="og:locale:alternate" content="es_ES">
+
+    <!-- Twitter Cards SEO -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Data2Gain — Advanced Strokes Gained Analytics">
+    <meta name="twitter:description" content="Make better on-course decisions with Tour-level golf intelligence.">
+    <meta name="twitter:image" content="https://data2gain.com/assets/hero-hole-sg.jpg">
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter+Tight:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,400&family=JetBrains+Mono:wght@400;500;600;700&family=Orbitron:wght@600;700;800;900&display=swap" rel="stylesheet">
+    
+    <!-- CSS V2 -->
+    <link rel="stylesheet" href="/css/style.css?v=9">
+    
+    <!-- Schema Markup -->
+    <script type="application/ld+json">
+    [{
+        "@context": "https://schema.org",
+        "@type": "SoftwareApplication",
+        "name": "Data2Gain",
+        "applicationCategory": "SportsApplication",
+        "operatingSystem": "iOS, Android, Web",
+        "inLanguage": "en",
+        "description": "Golf telemetry and advanced Strokes Gained analytics with interactive AI.",
+        "url": "https://data2gain.com/en/",
+        "offers": { "@type": "Offer", "price": "8.95", "priceCurrency": "EUR" },
+        "publisher": {
+            "@type": "Organization",
+            "name": "Data2Gain",
+            "url": "https://data2gain.com/en/"
+        }
+    },
+    {
+        "@context": "https://schema.org",
+        "@type": "FAQPage",
+        "inLanguage": "en",
+        "mainEntity": [{
+            "@type": "Question",
+            "name": "How does Data2Gain work?",
+            "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Record or import your round, analyze your Strokes Gained patterns, and receive decisions and a practice plan from our AI Caddie."
+            }
+        }, {
+            "@type": "Question",
+            "name": "How much does it cost?",
+            "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Data2Gain costs €8.95 per month and includes full access to pro analytics."
+            }
+        }]
+    }]
+    </script>
+</head>
+<body class="theme-dark-sport">
+    <!-- Ambient Canvas & Lighting -->
+    <canvas id="telemetry-canvas" aria-hidden="true"></canvas>
+    <div class="spotlight-cursor" aria-hidden="true"></div>
+
+    <div class="site-wrapper">
+        <!-- ═══ HEADER / NAVBAR MATCHING USER DESIGN ═══ -->
+        <header class="navbar" role="banner">
+            <a href="/en/" class="nav-brand-group" aria-label="Data2Gain Home">
+                <img src="/assets/logo.png" alt="Data2Gain Logo" class="nav-logo" width="32" height="32">
+                <span class="nav-brand-text">DATA<span class="text-gold">2</span>GAIN</span>
+            </a>
+
+            <!-- Platform Segmented Selector -->
+            <nav class="platform-selector" role="group" aria-label="Platform">
+                <a href="https://app.data2gain.com" class="platform-btn active" target="_blank" rel="noopener">
+                    <span data-lang-es="Web App" data-lang-en="Web App">Web App</span>
+                </a>
+                <a href="https://apps.apple.com" class="platform-btn" target="_blank" rel="noopener" aria-label="iOS App">
+                    <span>iOS</span>
+                </a>
+                <a href="https://play.google.com" class="platform-btn" target="_blank" rel="noopener" aria-label="Android App">
+                    <span>Android</span>
+                </a>
+            </nav>
+
+            <!-- Language Switcher Flags Pill -->
+            <nav class="lang-switcher-pill" aria-label="Language selector">
+                <a href="/es/" class="lang-flag-btn" data-lang="es" aria-label="Español" title="Español">
+                    <span class="flag-icon flag-es"></span>
+                </a>
+                <a href="/en/" class="lang-flag-btn active" data-lang="en" aria-label="English" title="English" aria-current="page">
+                    <span class="flag-icon flag-en"></span>
+                </a>
+            </nav>
+        </header>
+
+        <main>
+            <!-- ═══ 1. HERO IMMERSIVE (ASPIRATIONAL STROKES GAINED HOLE STRATEGY MAP) ═══ -->
+            <section id="hero" class="hero-section ambient-grid" aria-labelledby="hero-title">
+                <div class="hero-header-wrap">
+
+
+                    <h1 id="hero-title" class="hero-title">
+                        <span class="hero-title-sub" data-lang-es="Inteligencia de Tour. Sin el Tour" data-lang-en="Tour intelligence. Without the Tour">Tour intelligence. Without the Tour</span>
+                        <span class="hero-title-main">
+                            <span class="hero-title-primary" data-lang-es="Siente el golpe con intuición" data-lang-en="Feel the shot with intuition">Feel the shot with intuition</span>
+                            <span class="hero-title-secondary" data-lang-es="Decide la estrategia con datos" data-lang-en="Decide strategy with data">Decide strategy with data</span>
+                        </span>
+                    </h1>
+
+                    <p class="hero-lead" data-lang-es="El mismo análisis que usan los circuitos profesionales, alimentado por tus propias rondas." data-lang-en="The same analysis used by professional tours, powered by your own rounds.">The same analysis used by professional tours, powered by your own rounds.</p>
+
+                    <div class="hero-cta-block">
+                        <a href="https://app.data2gain.com" class="btn-cta-main" target="_blank" rel="noopener">
+                            <span data-lang-es="PRUEBA DATA2GAIN" data-lang-en="TRY DATA2GAIN">TRY DATA2GAIN</span>
+                        </a>
+                        <p class="hero-cta-price">
+                            <span class="hero-cta-price-item" data-lang-es="Todas las funciones" data-lang-en="All features">All features</span>
+                            <span class="hero-cta-price-item"><span aria-hidden="true">·</span> <strong data-lang-es="8,95 €/mes" data-lang-en="€8.95/month">€8.95/month</strong></span>
+                            <span class="hero-cta-price-item"><span aria-hidden="true">·</span> <span data-lang-es="Cancela cuando quieras" data-lang-en="Cancel anytime">Cancel anytime</span></span>
+                        </p>
+                        <p class="hero-cta-promise mono-text" data-lang-es="Analiza tu primera ronda en menos de 3 minutos." data-lang-en="Analyze your first round in under 3 minutes.">Analyze your first round in under 3 minutes.</p>
+                    </div>
+                </div>
+
+                <!-- Spectacular Aspirational Hole Map with Real Strokes Gained Hazard Labels -->
+                <div class="hero-stage-cinematic" data-tilt>
+                    <div class="cinematic-frame hole-map-frame">
+                        <img src="/assets/hero-hole-sg.jpg" alt="Championship hole map with Strokes Gained telemetry for every hazard and risk zone" class="hero-cinematic-img" width="1200" height="675" fetchpriority="high">
+                        
+                        <!-- Ambient Atmospheric Vignette Gradient -->
+                        <div class="cinematic-vignette" aria-hidden="true"></div>
+                        <div class="cinematic-glass-shine" aria-hidden="true"></div>
+
+                        <!-- 1. Target: Optimal Fairway Landing Zone -->
+                        <div class="hole-hazard-tag tag-fairway">
+                            <span class="target-beacon green"></span>
+                            <div class="hazard-card">
+                                <div class="hazard-badge-row">
+                                    <span class="hazard-type text-green" data-lang-es="ESTRATEGIA ÓPTIMA" data-lang-en="OPTIMAL STRATEGY">OPTIMAL STRATEGY</span>
+                                    <span class="hazard-sg text-green">+0.55 SG</span>
+                                </div>
+                                <span class="hazard-detail" data-lang-es="Calle centro · 250y Carry" data-lang-en="Center fairway · 250y Carry">Center fairway · 250y Carry</span>
+                            </div>
+                        </div>
+
+                        <!-- 2. Hazard: Left Water Penalty -->
+                        <div class="hole-hazard-tag tag-water card-left">
+                            <span class="target-beacon red"></span>
+                            <div class="hazard-card">
+                                <div class="hazard-badge-row">
+                                    <span class="hazard-type text-red" data-lang-es="OBSTÁCULO AGUA" data-lang-en="WATER HAZARD">WATER HAZARD</span>
+                                    <span class="hazard-sg text-red">-1.82 SG</span>
+                                </div>
+                                <span class="hazard-detail" data-lang-es="Penalización + Drop" data-lang-en="Penalty + Drop">Penalty + Drop</span>
+                            </div>
+                        </div>
+
+                        <!-- 3. Hazard: Greenside Bunker -->
+                        <div class="hole-hazard-tag tag-bunker">
+                            <span class="target-beacon gold"></span>
+                            <div class="hazard-card">
+                                <div class="hazard-badge-row">
+                                    <span class="hazard-type text-gold" data-lang-es="BUNKER GREEN" data-lang-en="GREENSIDE BUNKER">GREENSIDE BUNKER</span>
+                                    <span class="hazard-sg text-gold">-0.85 SG</span>
+                                </div>
+                                <span class="hazard-detail" data-lang-es="Arena · Up&amp;Down 28%" data-lang-en="Sand · Up&amp;Down 28%">Sand · Up&amp;Down 28%</span>
+                            </div>
+                        </div>
+
+                        <!-- 4. Target: Green Safe Sector / Pin Position -->
+                        <div class="hole-hazard-tag tag-pin card-left">
+                            <span class="target-beacon gold"></span>
+                            <div class="hazard-card">
+                                <div class="hazard-badge-row">
+                                    <span class="hazard-type text-gold" data-lang-es="SECTOR BANDERA" data-lang-en="PIN SECTOR">PIN SECTOR</span>
+                                    <span class="hazard-sg text-gold">+0.48 SG</span>
+                                </div>
+                                <span class="hazard-detail" data-lang-es="Subida suave · 1-Putt 44%" data-lang-en="Uphill putt · 1-Putt 44%">Uphill putt · 1-Putt 44%</span>
+                            </div>
+                        </div>
+
+                        <!-- 5. Hazard: Coastal Ocean Cliff / Out of Bounds -->
+                        <div class="hole-hazard-tag tag-cliff">
+                            <span class="target-beacon red"></span>
+                            <div class="hazard-card">
+                                <div class="hazard-badge-row">
+                                    <span class="hazard-type text-red" data-lang-es="FUERA LÍMITES" data-lang-en="OUT OF BOUNDS">OUT OF BOUNDS</span>
+                                    <span class="hazard-sg text-red">-2.00 SG</span>
+                                </div>
+                                <span class="hazard-detail" data-lang-es="Acantilado / Pérdida" data-lang-en="Cliff / Lost Ball">Cliff / Lost Ball</span>
+                            </div>
+                        </div>
+
+                        <!-- Bottom Tactical HUD Bar -->
+                        <div class="cinematic-hud-bottom">
+                            <div class="hud-item"><span class="h-label" data-lang-es="HOYO ANALIZADO:" data-lang-en="HOLE:">HOLE:</span> <strong data-lang-es="PAR 4 · 418 YD (HANDICAP 2)" data-lang-en="PAR 4 · 418 YD (HANDICAP 2)">PAR 4 · 418 YD (HANDICAP 2)</strong></div>
+                            <div class="hud-divider"></div>
+                            <div class="hud-item"><span class="h-label" data-lang-es="ESTRATEGIA:" data-lang-en="STRATEGY:">STRATEGY:</span> <strong class="text-gold" data-lang-es="MADERA 3 A CALLE (+0.42 SG vs DRIVER)" data-lang-en="3-WOOD TO FAIRWAY (+0.42 SG vs DRIVER)">3-WOOD TO FAIRWAY (+0.42 SG vs DRIVER)</strong></div>
+                            <div class="hud-divider"></div>
+                            <div class="hud-item"><span class="h-label" data-lang-es="FACTOR RIESGO:" data-lang-en="RISK:">RISK:</span> <strong class="text-green" data-lang-es="BAJO (EVITA AGUA Y ACANTILADO)" data-lang-en="LOW (AVOIDS WATER &amp; CLIFF)">LOW (AVOIDS WATER &amp; CLIFF)</strong></div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+
+
+            <!-- ═══ 2. SCROLLYTELLING NARRATIVE (REAL APP SCREENSHOTS) ═══ -->
+            <section id="scrolly-section" class="scrolly-container" aria-labelledby="scrolly-heading">
+                <div class="scrolly-intro">
+                    <span class="badge-tag" data-lang-es="EL ANÁLISIS, AL DETALLE" data-lang-en="THE ANALYSIS, IN DEPTH">THE ANALYSIS, IN DEPTH</span>
+                    <h2 id="scrolly-heading" data-lang-es="Cada golpe es un dato. Cada dato es una ventaja" data-lang-en="Every shot is data. Every data point is an edge">Every shot is data. Every data point is an edge</h2>
+                    <p data-lang-es="Explora las herramientas reales de Data2Gain que desglosan tu juego con precisión milimétrica." data-lang-en="Explore Data2Gain's real tools that break down your game with millimeter precision.">Explore Data2Gain's real tools that break down your game with millimeter precision.</p>
+                </div>
+
+                <div class="scrolly-stage">
+                    <!-- SCROLLING NARRATIVE BEATS (BILINGUAL) -->
+                    <div class="scrolly-narrative-column">
+                        <!-- Beat 1 -->
+                        <div class="narrative-step active" data-step="1">
+                            <div class="step-num" data-lang-es="01 / RADAR DE DISPERSIÓN" data-lang-en="01 / DISPERSION RADAR">01 / DISPERSION RADAR</div>
+                            <h3 data-lang-es="Conoce tu patrón real" data-lang-en="Know your real pattern">Know your real pattern</h3>
+                            <div class="mobile-step-img">
+                                <img src="/assets/screens/en/screen-dispersion.png" data-img-es="/assets/screens/es/screen-dispersion.png" data-img-en="/assets/screens/en/screen-dispersion.png" alt="Real shot-dispersion radar chart" width="490" height="650">
+                                <div class="floating-widget-v2 widget-emerald" style="top: 15%; left: 5%;">
+                                    🎯 <span data-lang-es="HIERRO 5: -13.7m IZQ" data-lang-en="5-IRON: -13.7m LEFT">5-IRON: -13.7m LEFT</span>
+                                </div>
+                                <button class="zoom-action-btn" type="button" aria-label="Enlarge image" title="Enlarge image">
+                                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                                        <circle cx="11" cy="11" r="8"></circle>
+                                        <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+                                        <line x1="11" y1="8" x2="11" y2="14"></line>
+                                        <line x1="8" y1="11" x2="14" y2="11"></line>
+                                    </svg>
+                                </button>
+                            </div>
+                            <p class="step-desc" data-lang-es="Cada palo cuenta una tendencia. Visualiza tu dispersión real en radar mediante scatter plots y empieza a apuntar donde los datos objetivos te sugieren, no donde crees que vas a tirar." data-lang-en="Every club tells a trend. Visualize your actual dispersion on radar via scatter plots and start aiming where objective data suggests, not where you hope it goes.">Every club tells a trend. Visualize your actual dispersion on radar via scatter plots and start aiming where objective data suggests, not where you hope it goes.</p>
+                            <div class="step-chips">
+                                <span class="chip" data-lang-es="Scatter Plot Real" data-lang-en="Real Scatter Plot">Real Scatter Plot</span>
+                                <span class="chip" data-lang-es="Tendencia de Vuelo" data-lang-en="Flight Tendency">Flight Tendency</span>
+                                <span class="chip" data-lang-es="Mapeo por Palo" data-lang-en="Club-by-Club Mapping">Club-by-Club Mapping</span>
+                            </div>
+                        </div>
+
+                        <!-- Beat 2 -->
+                        <div class="narrative-step" data-step="2">
+                            <div class="step-num" data-lang-es="02 / BAG MAPPING" data-lang-en="02 / BAG MAPPING">02 / BAG MAPPING</div>
+                            <h3 data-lang-es="La distancia que tienes no es la que crees" data-lang-en="The distance you have is not what you think">The distance you have is not what you think</h3>
+                            <div class="mobile-step-img">
+                                <img src="/assets/screens/en/screen-gap.png" data-img-es="/assets/screens/es/screen-gap.png" data-img-en="/assets/screens/en/screen-gap.png" alt="Golf bag gap and distance coverage analysis" width="490" height="460">
+                                <div class="floating-widget-v2 widget-gold" style="bottom: 20%; right: 5%;">
+                                    ⛳ <span data-lang-es="HUECO 3W-4i: 23 yd" data-lang-en="GAP 3W-4i: 23 yd">GAP 3W-4i: 23 yd</span>
+                                </div>
+                                <button class="zoom-action-btn" type="button" aria-label="Enlarge image" title="Enlarge image">
+                                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                                        <circle cx="11" cy="11" r="8"></circle>
+                                        <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+                                        <line x1="11" y1="8" x2="11" y2="14"></line>
+                                        <line x1="8" y1="11" x2="14" y2="11"></line>
+                                    </svg>
+                                </button>
+                            </div>
+                            <p class="step-desc" data-lang-es="Tus promedios reales, palo a palo. Identifica con exactitud los huecos de cobertura en tu bolsa que convierten buenas decisiones en golpes perdidos al agua o fuera de límites." data-lang-en="Your real averages, club by club. Precisely identify the coverage gaps in your bag that turn good decisions into lost shots in water or out of bounds.">Your real averages, club by club. Precisely identify the coverage gaps in your bag that turn good decisions into lost shots in water or out of bounds.</p>
+                            <div class="step-chips">
+                                <span class="chip" data-lang-es="Distancia Real de Carry" data-lang-en="Real Carry Distance">Real Carry Distance</span>
+                                <span class="chip" data-lang-es="Cobertura de Bolsa" data-lang-en="Bag Coverage">Bag Coverage</span>
+                                <span class="chip" data-lang-es="Selección Óptima" data-lang-en="Optimal Selection">Optimal Selection</span>
+                            </div>
+                        </div>
+
+                        <!-- Beat 3 -->
+                        <div class="narrative-step" data-step="3">
+                            <div class="step-num" data-lang-es="03 / PUTT MATRIX" data-lang-en="03 / PUTT MATRIX">03 / PUTT MATRIX</div>
+                            <h3 data-lang-es="El detalle que marca la diferencia" data-lang-en="The detail that makes the difference">The detail that makes the difference</h3>
+                            <div class="mobile-step-img">
+                                <img src="/assets/screens/en/screen-putt.png" data-img-es="/assets/screens/es/screen-putt.png" data-img-en="/assets/screens/en/screen-putt.png" alt="Putting statistics and break matrix" width="490" height="650">
+                                <div class="floating-widget-v2 widget-emerald" style="bottom: 15%; left: 5%;">
+                                    🏌️‍♂️ <span data-lang-es="1-2 YD: 80% EMBOCADO" data-lang-en="1-2 YD: 80% HOLED">1-2 YD: 80% HOLED</span>
+                                </div>
+                                <button class="zoom-action-btn" type="button" aria-label="Enlarge image" title="Enlarge image">
+                                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                                        <circle cx="11" cy="11" r="8"></circle>
+                                        <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+                                        <line x1="11" y1="8" x2="11" y2="14"></line>
+                                        <line x1="8" y1="11" x2="14" y2="11"></line>
+                                    </svg>
+                                </button>
+                            </div>
+                            <p class="step-desc" data-lang-es="Tee, Approach, Short y Putt — cada zona analizada en profundidad con matrices de caída y pendiente (slope) para que practiques exactamente lo que necesitas para bajar de hándicap." data-lang-en="Tee, Approach, Short and Putt — each area analyzed in depth with slope and break matrices so you practice exactly what you need to lower your handicap.">Tee, Approach, Short and Putt — each area analyzed in depth with slope and break matrices so you practice exactly what you need to lower your handicap.</p>
+                            <div class="step-chips">
+                                <span class="chip" data-lang-es="Matriz de Slope" data-lang-en="Slope Matrix">Slope Matrix</span>
+                                <span class="chip" data-lang-es="Porcentajes de Acierto" data-lang-en="Make Percentages">Make Percentages</span>
+                                <span class="chip" data-lang-es="Lectura de Green" data-lang-en="Green Reading">Green Reading</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+
+            <!-- ═══ 3. REAL AI CADDIE AGENT EXPERIENCE ═══ -->
+            <section id="ai-caddie" class="ai-caddie-section" aria-labelledby="caddie-heading">
+                <div class="ai-header-center">
+                    <span class="badge-tag-gold" data-lang-es="INTELIGENCIA ARTIFICIAL GENERATIVA" data-lang-en="GENERATIVE ARTIFICIAL INTELLIGENCE">GENERATIVE ARTIFICIAL INTELLIGENCE</span>
+                    <h2 id="caddie-heading" data-lang-es="Una IA entrenada con tu juego real" data-lang-en="An AI trained on your actual game">An AI trained on your actual game</h2>
+                    <p data-lang-es="Pregúntale lo que quieras. Te responde con tus datos reales, análisis de Strokes Gained y recomendaciones concretas para tus próximas rondas." data-lang-en="Ask anything. It answers with your real data, Strokes Gained analysis, and concrete recommendations for your next rounds.">Ask anything. It answers with your real data, Strokes Gained analysis, and concrete recommendations for your next rounds.</p>
+                </div>
+
+                <div class="ai-real-grid">
+                    <!-- Real Screen 1: Welcome / Prompts -->
+                    <div class="ai-card-mockup">
+                        <div class="ai-card-header">
+                            <span class="agent-pulse"></span>
+                            <span class="mono-text" data-lang-es="D2G AGENT · PREGUNTAS EN LENGUAJE NATURAL" data-lang-en="D2G AGENT · NATURAL LANGUAGE QUERIES">D2G AGENT · NATURAL LANGUAGE QUERIES</span>
+                        </div>
+                        <div class="ai-card-body">
+                            <img src="/assets/screens/en/screen-ai-chat-1.png" data-img-es="/assets/screens/es/screen-ai-chat-1.png" data-img-en="/assets/screens/en/screen-ai-chat-1.png" alt="Data2Gain AI Agent analysis and chat options" class="ai-screen-img" width="490" height="520">
+                            <div class="floating-widget-v2 widget-pink" style="top: 25px; right: 20px;">
+                                🤖 <span data-lang-es="IA CADDIE ACTIVO" data-lang-en="AI CADDIE ACTIVE">AI CADDIE ACTIVE</span>
+                            </div>
+                        </div>
+                        <div class="ai-card-footer">
+                            <span class="mono-text text-muted" data-lang-es="HISTORIAL COMPLETO · ANÁLISIS CONTEXTUAL" data-lang-en="FULL HISTORY · CONTEXTUAL ANALYSIS">FULL HISTORY · CONTEXTUAL ANALYSIS</span>
+                        </div>
+                    </div>
+
+                    <!-- Real Screen 2: Real Answers with Charts -->
+                    <div class="ai-card-mockup">
+                        <div class="ai-card-header">
+                            <span class="agent-pulse green"></span>
+                            <span class="mono-text" data-lang-es="D2G AGENT · ANÁLISIS PREDICTIVO Y CONSEJOS" data-lang-en="D2G AGENT · PREDICTIVE INSIGHTS &amp; TIPS">D2G AGENT · PREDICTIVE INSIGHTS &amp; TIPS</span>
+                        </div>
+                        <div class="ai-card-body">
+                            <img src="/assets/screens/en/screen-ai-chat-2.png" data-img-es="/assets/screens/es/screen-ai-chat-2.png" data-img-en="/assets/screens/en/screen-ai-chat-2.png" alt="Data2Gain AI Agent recommendations and interactive charts" class="ai-screen-img" width="490" height="520">
+                            <div class="floating-widget-v2 widget-blue" style="bottom: 30px; left: 20px;">
+                                💡 <span data-lang-es="TIP: CALLE = +1.8 SG" data-lang-en="TIP: FAIRWAY = +1.8 SG">TIP: FAIRWAY = +1.8 SG</span>
+                            </div>
+                        </div>
+                        <div class="ai-card-footer">
+                            <span class="mono-text text-muted" data-lang-es="GRÁFICAS INTERACTIVAS · DATOS EN TIEMPO REAL" data-lang-en="INTERACTIVE CHARTS · REALTIME DATA">INTERACTIVE CHARTS · REALTIME DATA</span>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+
+
+            <!-- ═══ 4.5. TELEMETRY VALIDATION & IMPACT (BENTO METRICS & PRO LOGS) ═══ -->
+            <section id="telemetry-impact" class="telemetry-impact-section ambient-grid" aria-labelledby="impact-heading">
+                <div class="impact-container">
+                    <!-- Section Header -->
+                    <div class="impact-header-center">
+                        <div class="badge-tag-gold">
+                            <span class="pulse-beacon-gold"></span>
+                            <span data-lang-es="RESULTADOS VALIDADOS" data-lang-en="VALIDATED RESULTS">VALIDATED RESULTS</span>
+                        </div>
+                        <h2 id="impact-heading" class="impact-title" data-lang-es="El impacto de jugar con datos" data-lang-en="The impact of playing with data">The impact of playing with data</h2>
+                        <p class="impact-subtitle" data-lang-es="Métricas reales extraídas de rondas monitorizadas con análisis Strokes Gained en jugadores de todos los niveles" data-lang-en="Real metrics extracted from monitored rounds with Strokes Gained analysis across players of all levels">Real metrics extracted from monitored rounds with Strokes Gained analysis across players of all levels</p>
+                    </div>
+
+                    <!-- Telemetry Bento Metrics Grid -->
+                    <div class="telemetry-metrics-bento">
+                        <!-- Metric Card 1: Handicap Drop -->
+                        <div class="telemetry-metric-card card-gold">
+                            <div class="metric-card-top">
+                                <span class="metric-category mono-text" data-lang-es="MÉTRICA 01 // RENDIMIENTO" data-lang-en="METRIC 01 // PERFORMANCE">METRIC 01 // PERFORMANCE</span>
+                                <span class="metric-pill pill-gold" data-lang-es="▼ 2.4 GOLPES" data-lang-en="▼ 2.4 STROKES">▼ 2.4 STROKES</span>
+                            </div>
+                            <div class="metric-value-wrap">
+                                <span class="metric-number text-gold mono-text">-2.4</span>
+                                <span class="metric-unit" data-lang-es="HCP MEDIO" data-lang-en="AVG HCP">AVG HCP</span>
+                            </div>
+                            <h3 class="metric-headline" data-lang-es="Baja media de hándicap en 12 meses" data-lang-en="Average handicap drop in 12 months">Average handicap drop in 12 months</h3>
+                            <p class="metric-desc" data-lang-es="Progresión obtenida mediante eliminación de huecos de bolsa y decisiones estratégicas con Strokes Gained." data-lang-en="Progression achieved through bag gap elimination and strategic decisions with Strokes Gained.">Progression achieved through bag gap elimination and strategic decisions with Strokes Gained.</p>
+                            
+                            <!-- Micro Telemetry Track -->
+                            <div class="metric-telemetry-bar">
+                                <div class="telemetry-step-track">
+                                    <span class="telemetry-track-label mono-text">HCP 14.8</span>
+                                    <div class="telemetry-progress-line">
+                                        <div class="telemetry-progress-fill fill-gold" style="width: 76%;"></div>
+                                        <div class="telemetry-pointer-pip gold" style="left: 76%;"></div>
+                                    </div>
+                                    <span class="telemetry-track-label active mono-text text-gold">HCP 12.4</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Metric Card 2: Analyzed Rounds -->
+                        <div class="telemetry-metric-card card-emerald">
+                            <div class="metric-card-top">
+                                <span class="metric-category mono-text" data-lang-es="MÉTRICA 02 // VOLUMEN BIG DATA" data-lang-en="METRIC 02 // BIG DATA VOLUME">METRIC 02 // BIG DATA VOLUME</span>
+                                <span class="metric-pill pill-emerald" data-lang-es="● EN TIEMPO REAL" data-lang-en="● REAL-TIME">● REAL-TIME</span>
+                            </div>
+                            <div class="metric-value-wrap">
+                                <span class="metric-number text-green mono-text">+50K</span>
+                                <span class="metric-unit" data-lang-es="RONDAS" data-lang-en="ROUNDS">ROUNDS</span>
+                            </div>
+                            <h3 class="metric-headline" data-lang-es="Rondas completas analizadas" data-lang-en="Complete rounds analyzed">Complete rounds analyzed</h3>
+                            <p class="metric-desc" data-lang-es="Golpes categorizados en Tee, Approach, Short Game y Putt para alimentar nuestros modelos IA predictivos." data-lang-en="Shots categorized across Tee, Approach, Short Game, and Putt to power our predictive AI models.">Shots categorized across Tee, Approach, Short Game, and Putt to power our predictive AI models.</p>
+                            
+                            <!-- Micro Telemetry Track -->
+                            <div class="metric-telemetry-bar">
+                                <div class="telemetry-bars-group">
+                                    <div class="mini-bar" style="height: 35%;"></div>
+                                    <div class="mini-bar" style="height: 55%;"></div>
+                                    <div class="mini-bar" style="height: 70%;"></div>
+                                    <div class="mini-bar" style="height: 85%;"></div>
+                                    <div class="mini-bar active-green" style="height: 100%;"></div>
+                                    <span class="mini-bar-label mono-text" data-lang-es="18 HOYOS TELEMETRÍA" data-lang-en="18 HOLES TELEMETRY">18 HOLES TELEMETRY</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Metric Card 3: Academies and Coaches -->
+                        <div class="telemetry-metric-card card-blue">
+                            <div class="metric-card-top">
+                                <span class="metric-category mono-text" data-lang-es="MÉTRICA 03 // RED PROFESIONAL" data-lang-en="METRIC 03 // PRO NETWORK">METRIC 03 // PRO NETWORK</span>
+                                <span class="metric-pill pill-blue" data-lang-es="PGA COACHES" data-lang-en="PGA COACHES">PGA COACHES</span>
+                            </div>
+                            <div class="metric-value-wrap">
+                                <span class="metric-number text-blue mono-text">15+</span>
+                                <span class="metric-unit" data-lang-es="ACADEMIAS" data-lang-en="ACADEMIES">ACADEMIES</span>
+                            </div>
+                            <h3 class="metric-headline" data-lang-es="Academias y coaches activos" data-lang-en="Active academies and coaches">Active academies and coaches</h3>
+                            <p class="metric-desc" data-lang-es="Centros y escuelas que utilizan Data2Gain para diseñar entrenamientos basados en datos con sus alumnos." data-lang-en="Training centers and schools using Data2Gain to design data-driven practice sessions for their students.">Training centers and schools using Data2Gain to design data-driven practice sessions for their students.</p>
+                            
+                            <!-- Micro Telemetry Track -->
+                            <div class="metric-telemetry-bar">
+                                <div class="pro-badges-row">
+                                    <span class="pro-chip mono-text">PGA ESPAÑA</span>
+                                    <span class="pro-chip mono-text">TOUR COACHES</span>
+                                    <span class="pro-chip mono-text">TRACKMAN CERT.</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Dossiers / Testimonials -->
+                    <div class="impact-dossiers-grid">
+                        <!-- Dossier 1: Carlos M. -->
+                        <div class="dossier-card">
+                            <div class="dossier-header">
+                                <div class="dossier-avatar-wrap">
+                                    <img src="/assets/testimonial-carlos.jpg" alt="Carlos M." class="dossier-avatar" width="52" height="52" loading="lazy">
+                                    <span class="dossier-avatar-badge gold" title="Verified">✓</span>
+                                </div>
+                                <div class="dossier-author-info">
+                                    <div class="dossier-name">Carlos M.</div>
+                                    <div class="dossier-role mono-text" data-lang-es="JUGADOR AMATEUR · HCP 14 ➔ 9" data-lang-en="AMATEUR GOLFER · HCP 14 ➔ 9">AMATEUR GOLFER · HCP 14 ➔ 9</div>
+                                </div>
+                                <div class="dossier-hud-tag mono-text">LOG #0842</div>
+                            </div>
+                            <div class="dossier-quote-wrap">
+                                <span class="quote-mark">“</span>
+                                <p class="dossier-quote" data-lang-es="«Antes practicaba sin rumbo. Con Data2Gain descubrí que perdía 2 golpes por ronda solo en el juego corto de 10-30 metros. Lo entrené enfocado y mi hándicap bajó de 14 a 9.»" data-lang-en="«I used to practice aimlessly. With Data2Gain I found out I was losing 2 strokes per round just from 10-30 yards. I practiced that and my handicap went from 14 to 9.»">«I used to practice aimlessly. With Data2Gain I found out I was losing 2 strokes per round just from 10-30 yards. I practiced that and my handicap went from 14 to 9.»</p>
+                            </div>
+                            <div class="dossier-footer">
+                                <span class="dossier-highlight mono-text text-gold" data-lang-es="IMPACTO: -5 GOLPES DE HÁNDICAP" data-lang-en="IMPACT: -5 HANDICAP STROKES">IMPACT: -5 HANDICAP STROKES</span>
+                                <span class="dossier-verification mono-text" data-lang-es="RONDA VERIFICADA" data-lang-en="VERIFIED ROUND">VERIFIED ROUND</span>
+                            </div>
+                        </div>
+
+                        <!-- Dossier 2: Sarah W. -->
+                        <div class="dossier-card">
+                            <div class="dossier-header">
+                                <div class="dossier-avatar-wrap">
+                                    <img src="/assets/testimonial-sarah.jpg" alt="Sarah W." class="dossier-avatar" width="52" height="52" loading="lazy">
+                                    <span class="dossier-avatar-badge emerald" title="Certified">✓</span>
+                                </div>
+                                <div class="dossier-author-info">
+                                    <div class="dossier-name">Sarah W.</div>
+                                    <div class="dossier-role mono-text" data-lang-es="PGA PROFESSIONAL COACH" data-lang-en="PGA PROFESSIONAL COACH">PGA PROFESSIONAL COACH</div>
+                                </div>
+                                <div class="dossier-hud-tag mono-text">LOG #0917</div>
+                            </div>
+                            <div class="dossier-quote-wrap">
+                                <span class="quote-mark">“</span>
+                                <p class="dossier-quote" data-lang-es="«Como coach, esta herramienta es oro. Me permite mostrarle a mis alumnos exactamente dónde están fallando con datos objetivos, en vez de sensaciones. Las clases ahora son 100% efectivas.»" data-lang-en="«As a coach, this tool is gold. It lets me show my students exactly where they are failing with objective data, instead of feelings. Lessons are now 100% effective.»">«As a coach, this tool is gold. It lets me show my students exactly where they are failing with objective data, instead of feelings. Lessons are now 100% effective.»</p>
+                            </div>
+                            <div class="dossier-footer">
+                                <span class="dossier-highlight mono-text text-green" data-lang-es="EFECTIVIDAD: 100% OBJETIVA" data-lang-en="EFFECTIVENESS: 100% OBJECTIVE">EFFECTIVENESS: 100% OBJECTIVE</span>
+                                <span class="dossier-verification mono-text" data-lang-es="COACH CERTIFICADA" data-lang-en="CERTIFIED COACH">CERTIFIED COACH</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+
+
+            <!-- ═══ 5. SERVICIOS ADICIONALES (DISTINCT EDITORIAL BESPOKE LEDGER) ═══ -->
+            <section id="services" class="services-bespoke-section ambient-grid" aria-labelledby="services-heading">
+                <div class="services-container">
+                    <div class="services-header-split">
+                        <div class="header-left">
+                            <span class="badge-tag-gold" data-lang-es="CONSULTORÍA &amp; SERVICIOS A MEDIDA" data-lang-en="BESPOKE CONSULTING &amp; SERVICES">BESPOKE CONSULTING &amp; SERVICES</span>
+                            <h2 id="services-heading" data-lang-es="También te acompañamos aquí" data-lang-en="We also support you here">We also support you here</h2>
+                        </div>
+                        <div class="header-right">
+                            <p class="services-lead" data-lang-es="Llevamos el análisis del golf más allá de la app. Soluciones avanzadas y programas presenciales para profesionales, escuelas y jugadores exigentes." data-lang-en="We take golf analytics beyond the app. Advanced solutions and in-person programs for professionals, academies, and demanding players.">We take golf analytics beyond the app. Advanced solutions and in-person programs for professionals, academies, and demanding players.</p>
+                        </div>
+                    </div>
+
+                    <!-- Distinct Enclosed Ledger Frame -->
+                    <div class="services-ledger-frame">
+                        <div class="services-editorial-ledger">
+                            <!-- Service 01 -->
+                            <a href="mailto:info@data2gain.com?subject=Plataforma%20para%20coaches" target="_blank" rel="noopener noreferrer" class="service-row accent-emerald" aria-label="Platform for coaches">
+                                <div class="row-index-badge">
+                                    <span class="row-num">01</span>
+                                    <span class="row-tag" data-lang-es="ALTO RENDIMIENTO" data-lang-en="HIGH PERFORMANCE">HIGH PERFORMANCE</span>
+                                </div>
+                                <div class="row-content">
+                                    <h3 class="row-title" data-lang-es="Plataforma para coaches" data-lang-en="Platform for coaches">Platform for coaches</h3>
+                                    <p class="row-desc" data-lang-es="Toda la analítica a disposición de tu entrenador, para diseñar juntos el plan que mejor se adapte a ti." data-lang-en="All analytics at your coach's disposal, to design the plan that best suits you together.">All analytics at your coach's disposal, to design the plan that best suits you together.</p>
+                                </div>
+                                <div class="row-cta">
+                                    <span class="cta-label" data-lang-es="Saber más" data-lang-en="Learn more">Learn more</span>
+                                    <div class="cta-arrow-circle" aria-hidden="true">
+                                        <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="7" y1="17" x2="17" y2="7"></line><polyline points="7 7 17 7 17 17"></polyline></svg>
+                                    </div>
+                                </div>
+                            </a>
+
+                            <!-- Service 02 -->
+                            <a href="mailto:info@data2gain.com?subject=Consultor%C3%ADa%20Personalizada" target="_blank" rel="noopener noreferrer" class="service-row accent-gold" aria-label="Consulting">
+                                <div class="row-index-badge">
+                                    <span class="row-num">02</span>
+                                    <span class="row-tag" data-lang-es="ESTRATEGIA &amp; PLAN" data-lang-en="STRATEGY &amp; PLAN">STRATEGY &amp; PLAN</span>
+                                </div>
+                                <div class="row-content">
+                                    <h3 class="row-title" data-lang-es="Consultoría" data-lang-en="Consulting">Consulting</h3>
+                                    <p class="row-desc" data-lang-es="Te ayudamos a aprovechar mejor cada sesión de práctica y acercarte a tu objetivo de hándicap." data-lang-en="We help you get more out of every practice session and move closer to your handicap goal.">We help you get more out of every practice session and move closer to your handicap goal.</p>
+                                </div>
+                                <div class="row-cta">
+                                    <span class="cta-label" data-lang-es="Saber más" data-lang-en="Learn more">Learn more</span>
+                                    <div class="cta-arrow-circle" aria-hidden="true">
+                                        <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="7" y1="17" x2="17" y2="7"></line><polyline points="7 7 17 7 17 17"></polyline></svg>
+                                    </div>
+                                </div>
+                            </a>
+
+                            <!-- Service 03 -->
+                            <a href="mailto:info@data2gain.com?subject=Formaci%C3%B3n%20Especializada" target="_blank" rel="noopener noreferrer" class="service-row accent-blue" aria-label="Training">
+                                <div class="row-index-badge">
+                                    <span class="row-num">03</span>
+                                    <span class="row-tag" data-lang-es="CAPACITACIÓN" data-lang-en="TRAINING">TRAINING</span>
+                                </div>
+                                <div class="row-content">
+                                    <h3 class="row-title" data-lang-es="Formación" data-lang-en="Workshops">Workshops</h3>
+                                    <p class="row-desc" data-lang-es="Workshops para coaches que quieran integrar la estadística y el análisis de datos en su método de enseñanza." data-lang-en="Workshops for coaches who want to integrate statistics and data analysis into their teaching methodology.">Workshops for coaches who want to integrate statistics and data analysis into their teaching methodology.</p>
+                                </div>
+                                <div class="row-cta">
+                                    <span class="cta-label" data-lang-es="Saber más" data-lang-en="Learn more">Learn more</span>
+                                    <div class="cta-arrow-circle" aria-hidden="true">
+                                        <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="7" y1="17" x2="17" y2="7"></line><polyline points="7 7 17 7 17 17"></polyline></svg>
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+
+        </main>
+
+        <!-- ═══ 6. FINAL HIGH-CONVERSION CTA & FOOTER ═══ -->
+        <footer class="final-cta-section bg-topography" role="contentinfo">
+            <div class="cta-glow-backdrop" aria-hidden="true"></div>
+            <div class="cta-box-content" style="margin-bottom: 5rem;">
+                <h2 data-lang-es="Lleva tu juego al siguiente nivel" data-lang-en="Take your game to the next level">Take your game to the next level</h2>
+                <p data-lang-es="Analiza tus rondas con precisión de élite y empieza a tomar decisiones inteligentes basadas en datos reales." data-lang-en="Analyze your rounds with elite precision and start making smart decisions based on real data.">Analyze your rounds with elite precision and start making smart decisions based on real data.</p>
+                
+                <div class="pricing-info" style="margin: 2.5rem 0;">
+                    <div class="mono-text" style="font-size: 3rem; color: var(--accent-gold); font-weight: 700;">8,95€<span style="font-size: 1.25rem; color: var(--text-muted); font-weight: normal;">/mes</span></div>
+                    <div style="font-size: 1rem; color: var(--text-muted); margin-top: 0.5rem;" data-lang-es="Precio único. Todas las funciones PRO incluidas." data-lang-en="Single price. All PRO features included.">Single price. All PRO features included.</div>
+                </div>
+                <div class="cta-buttons-wrap">
+                    <a href="https://app.data2gain.com" class="btn-cta-main" target="_blank" rel="noopener">
+                        <span data-lang-es="Probar Data2Gain Pro" data-lang-en="Try Data2Gain Pro">Try Data2Gain Pro</span>
+                        <span class="btn-subtext" data-lang-es="Cancela cuando quieras" data-lang-en="Cancel anytime">Cancel anytime</span>
+                    </a>
+                </div>
+            </div>
+
+            <div class="footer-inner" style="width: 100%; border-top: 1px solid rgba(255,255,255,0.05); padding-top: 2rem;">
+                <div class="footer-bottom-row" style="flex-direction: column; gap: 1.5rem;">
+                    <div style="display: flex; gap: 1.5rem; flex-wrap: wrap; justify-content: center; font-size: 0.85rem; color: #a1a1aa;">
+                        <a href="#" style="color: inherit; text-decoration: underline;" data-lang-es="Política de Privacidad" data-lang-en="Privacy Policy">Privacy Policy</a>
+                        <a href="#" style="color: inherit; text-decoration: underline;" data-lang-es="Política de Cookies" data-lang-en="Cookies Policy">Cookies Policy</a>
+                        <a href="#" style="color: inherit; text-decoration: underline;" data-lang-es="Aviso Legal y Términos" data-lang-en="Terms & Legal Notice">Terms & Legal Notice</a>
+                        <a href="#" style="color: inherit; text-decoration: underline;" data-lang-es="Gestión de Consentimiento" data-lang-en="Consent Management">Consent Management</a>
+                    </div>
+                    <div style="display: flex; gap: 2rem; align-items: center; width: 100%; justify-content: space-between; flex-wrap: wrap; border-top: 1px solid rgba(255,255,255,0.02); padding-top: 1.5rem;">
+                        <p class="mono-text" style="margin: 0; color: #a1a1aa;" data-lang-es="© 2026 Data2Gain Analytics. Todos los derechos reservados." data-lang-en="© 2026 Data2Gain Analytics. All rights reserved.">© 2026 Data2Gain Analytics. All rights reserved.</p>
+                        <a href="mailto:info@data2gain.com" class="footer-email-link">info@data2gain.com</a>
+                    </div>
+                </div>
+            </div>
+        </footer>
+    </div>
+
+    <!-- Fullscreen Lightbox / Zoom Modal -->
+    <div id="image-zoom-overlay" class="screen-viewer-overlay" aria-hidden="true" role="dialog" aria-modal="true">
+        <button class="viewer-close" id="viewer-close-btn" type="button" aria-label="Close viewer" title="Close (Esc)">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                <line x1="18" y1="6" x2="6" y2="18"></line>
+                <line x1="6" y1="6" x2="18" y2="18"></line>
+            </svg>
+        </button>
+        <div class="viewer-dialog">
+            <img class="viewer-img" id="viewer-img-target" src="" alt="Enlarged screenshot">
+        </div>
+    </div>
+
+    <!-- Main V2 Dynamic Scripts -->
+    <script src="/js/main.js?v=7" defer></script>
+</body>
+</html>
+
+

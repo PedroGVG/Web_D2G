@@ -422,8 +422,37 @@ a {
     justify-content: center;
 }
 
+.hero-cta-price {
+    margin-top: 14px;
+    padding: 8px 14px;
+    max-width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    column-gap: 0.3rem;
+    row-gap: 0.1rem;
+    border: 1px solid rgba(255, 179, 0, 0.22);
+    border-radius: var(--radius-pill);
+    background: rgba(255, 179, 0, 0.06);
+    color: var(--text-secondary);
+    font-size: clamp(0.75rem, 1vw, 0.825rem);
+    font-weight: 600;
+    line-height: 1.4;
+    text-align: center;
+}
+
+.hero-cta-price-item {
+    white-space: nowrap;
+}
+
+.hero-cta-price strong {
+    color: var(--accent-gold);
+    font-weight: 800;
+}
+
 .hero-cta-promise {
-    margin-top: 22px;
+    margin-top: 14px;
     font-size: 0.8rem !important;
     color: #71717a !important;
     max-width: 340px;
@@ -787,7 +816,7 @@ a {
     position: relative;
     cursor: zoom-in;
     margin: 2rem auto;
-    width: fit-content;
+    width: min(490px, 100%);
     max-width: 100%;
 }
 
@@ -801,6 +830,10 @@ a {
     border-radius: var(--radius-md);
     background: var(--bg-card);
     border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+img[data-src-es][data-src-en] {
+    transition: opacity 0.2s ease;
 }
 
 .zoom-action-btn {

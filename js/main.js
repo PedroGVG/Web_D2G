@@ -20,15 +20,15 @@ function initLanguageSwitcher() {
     const langButtons = document.querySelectorAll('.lang-flag-btn');
     const urlParams = new URLSearchParams(window.location.search);
     const urlLang = urlParams.get('lang');
-    const savedLang = urlLang || localStorage.getItem('d2g_preferred_lang') || 'es';
+    const pathLang = window.location.pathname.match(/^\/(es|en)(?:\/|$)/)?.[1];
+    const savedLang = pathLang || urlLang || document.documentElement.lang || 'es';
 
     switchLanguage(savedLang);
 
     langButtons.forEach(btn => {
         btn.addEventListener('click', () => {
             const lang = btn.getAttribute('data-lang');
-            if (lang && lang !== currentLang) {
-                switchLanguage(lang);
+            if (lang) {
                 localStorage.setItem('d2g_preferred_lang', lang);
             }
         });
@@ -36,13 +36,18 @@ function initLanguageSwitcher() {
 }
 
 function switchLanguage(lang) {
+    lang = lang === 'en' ? 'en' : 'es';
     currentLang = lang;
 
     // Update flag button states
     document.querySelectorAll('.lang-flag-btn').forEach(btn => {
         const isActive = btn.getAttribute('data-lang') === lang;
         btn.classList.toggle('active', isActive);
-        btn.setAttribute('aria-pressed', isActive ? 'true' : 'false');
+        if (isActive) {
+            btn.setAttribute('aria-current', 'page');
+        } else {
+            btn.removeAttribute('aria-current');
+        }
     });
 
     // Update text elements
@@ -53,18 +58,29 @@ function switchLanguage(lang) {
         }
     });
 
-    // Update images (switching screenshots between ES and EN folders)
-    document.querySelectorAll('img[data-img-es][data-img-en]').forEach(img => {
-        const targetSrc = img.getAttribute(`data-img-${lang}`);
-        if (targetSrc && img.getAttribute('src') !== targetSrc) {
-            img.style.opacity = '0.6';
-            img.setAttribute('src', targetSrc);
-            if (img.complete) {
-                img.style.opacity = '1';
-            } else {
-                img.onload = () => { img.style.opacity = '1'; };
-            }
-        }
+    // Activate only the responsive screenshot set for the selected language.
+    // The HTML starts with inline placeholders, so an EN visit never downloads ES assets.
+    document.querySelectorAll('img[data-src-es][data-src-en]').forEach(img => {
+        if (img.dataset.activeLang === lang) return;
+
+        const targetSrc = img.getAttribute(`data-src-${lang}`);
+        const targetSrcset = img.getAttribute(`data-srcset-${lang}`);
+        const targetWidth = img.getAttribute(`data-width-${lang}`);
+        const targetHeight = img.getAttribute(`data-height-${lang}`);
+        if (!targetSrc) return;
+
+        img.style.opacity = '0.6';
+        if (targetWidth) img.setAttribute('width', targetWidth);
+        if (targetHeight) img.setAttribute('height', targetHeight);
+
+        const revealImage = () => { img.style.opacity = '1'; };
+        img.addEventListener('load', revealImage, { once: true });
+
+        if (targetSrcset) img.setAttribute('srcset', targetSrcset);
+        img.setAttribute('src', targetSrc);
+        img.dataset.activeLang = lang;
+
+        if (img.complete && img.naturalWidth > 1) revealImage();
     });
 
     // Update document language tag
