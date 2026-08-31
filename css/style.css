@@ -1298,14 +1298,29 @@ a {
 
 
 /* ═════════════════════════════════════════════════════════════════
-   5. SERVICIOS ADICIONALES (DISTINCT EDITORIAL BESPOKE LEDGER)
+   5. SERVICIOS ADICIONALES (DISTINCT BESPOKE CONSULTING ENCLOSURE)
    ═════════════════════════════════════════════════════════════════ */
 .services-bespoke-section {
-    padding: 4.5rem 5%;
-    background: var(--bg-services);
-    border-top: 1px solid var(--border-subtle);
-    border-bottom: 1px solid var(--border-subtle);
+    padding: 6.5rem 5%;
+    background: 
+        radial-gradient(ellipse at 85% 15%, rgba(255, 179, 0, 0.09) 0%, transparent 50%),
+        radial-gradient(ellipse at 15% 85%, rgba(0, 178, 255, 0.06) 0%, transparent 45%),
+        linear-gradient(180deg, #090E1B 0%, #10172B 50%, #080C16 100%);
+    border-top: 1px solid rgba(255, 179, 0, 0.28);
+    border-bottom: 1px solid rgba(255, 179, 0, 0.28);
     position: relative;
+    overflow: hidden;
+}
+
+.services-bespoke-section::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 10%;
+    right: 10%;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--accent-gold), transparent);
+    box-shadow: 0 0 18px var(--accent-gold);
 }
 
 .services-container {
@@ -1330,14 +1345,24 @@ a {
 .services-lead {
     font-size: 1.0625rem;
     line-height: 1.7;
-    color: var(--text-secondary);
+    color: #c4c8d4;
 }
 
-/* Editorial Ledger Stack */
+/* Editorial Ledger Frame Enclosure */
+.services-ledger-frame {
+    background: rgba(11, 16, 28, 0.85);
+    backdrop-filter: blur(18px);
+    -webkit-backdrop-filter: blur(18px);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-top: 1px solid rgba(255, 179, 0, 0.4);
+    border-radius: var(--radius-lg);
+    box-shadow: 0 30px 70px -15px rgba(0, 0, 0, 0.9), inset 0 1px 0 rgba(255, 255, 255, 0.1);
+    overflow: hidden;
+}
+
 .services-editorial-ledger {
     display: flex;
     flex-direction: column;
-    border-top: 1px solid var(--border-subtle);
 }
 
 .service-row {
@@ -1345,11 +1370,15 @@ a {
     grid-template-columns: 200px 1fr 140px;
     align-items: center;
     gap: 2rem;
-    padding: 2rem 1.5rem;
-    border-bottom: 1px solid var(--border-subtle);
+    padding: 2.25rem 2rem;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.06);
     transition: all 0.3s var(--ease-spring);
     position: relative;
     background: transparent;
+}
+
+.service-row:last-child {
+    border-bottom: none;
 }
 
 .service-row::before {
@@ -1358,19 +1387,19 @@ a {
     left: 0;
     top: 0;
     height: 100%;
-    width: 3px;
+    width: 4px;
     opacity: 0;
     transition: opacity 0.3s, transform 0.3s;
     transform: scaleY(0.4);
 }
 
-.service-row.accent-emerald::before { background: var(--accent-green); }
-.service-row.accent-gold::before { background: var(--accent-gold); }
-.service-row.accent-blue::before { background: var(--accent-blue); }
+.service-row.accent-emerald::before { background: var(--accent-green); box-shadow: 0 0 12px var(--accent-green); }
+.service-row.accent-gold::before { background: var(--accent-gold); box-shadow: 0 0 12px var(--accent-gold); }
+.service-row.accent-blue::before { background: var(--accent-blue); box-shadow: 0 0 12px var(--accent-blue); }
 
 .service-row:hover {
-    background: rgba(255, 255, 255, 0.025);
-    padding-left: 2rem;
+    background: rgba(255, 255, 255, 0.04);
+    padding-left: 2.5rem;
 }
 
 .service-row:hover::before {
