@@ -8,8 +8,9 @@ document.addEventListener('DOMContentLoaded', () => {
     initLanguageSwitcher();
     initAmbientTelemetryCanvas();
     initHeroCinematicTilt();
+    initHeroStrategySwitch();
     initScrollyViewer();
-    initSgBenchmarkCalculator();
+    initStrokesGainedBenchmark();
     initSpotlightCursor();
 });
 
@@ -59,7 +60,6 @@ function switchLanguage(lang) {
     });
 
     // Activate only the responsive screenshot set for the selected language.
-    // The HTML starts with inline placeholders, so an EN visit never downloads ES assets.
     document.querySelectorAll('img[data-src-es][data-src-en]').forEach(img => {
         if (img.dataset.activeLang === lang) return;
 
@@ -85,25 +85,33 @@ function switchLanguage(lang) {
 
     // Update document language tag
     document.documentElement.setAttribute('lang', lang);
+
+    // Refresh dynamic benchmark texts if loaded
+    if (typeof window.__updateSgBenchmarkLang === 'function') {
+        window.__updateSgBenchmarkLang();
+    }
 }
 
 
 /* ═════════════════════════════════════════════════════════════════
-   2. AMBIENT TELEMETRY CANVAS (Subtle High-Tech Grid & Particles)
+   2. AMBIENT TELEMETRY CANVAS (Optimized Grid & Particles)
    ═════════════════════════════════════════════════════════════════ */
 function initAmbientTelemetryCanvas() {
     const canvas = document.getElementById('telemetry-canvas');
     if (!canvas) return;
-    const ctx = canvas.getContext('2d');
-    let width, height;
+    const ctx = canvas.getContext('2d', { alpha: true });
+    if (!ctx) return;
+
+    let width = 0, height = 0;
     let particles = [];
-    const particleCount = 35;
+    const particleCount = 25;
+    let animId = null;
 
     function resize() {
         width = canvas.width = window.innerWidth;
         height = canvas.height = window.innerHeight;
     }
-    window.addEventListener('resize', resize);
+    window.addEventListener('resize', resize, { passive: true });
     resize();
 
     class Particle {
@@ -111,12 +119,14 @@ function initAmbientTelemetryCanvas() {
             this.reset();
         }
         reset() {
-            this.x = Math.random() * width;
-            this.y = Math.random() * height;
+            const w = width > 0 ? width : 800;
+            const h = height > 0 ? height : 600;
+            this.x = Math.random() * w;
+            this.y = Math.random() * h;
             this.vx = (Math.random() - 0.5) * 0.3;
             this.vy = (Math.random() - 0.5) * 0.3;
             this.radius = Math.random() * 1.5 + 0.5;
-            this.alpha = Math.random() * 0.4 + 0.1;
+            this.alpha = Math.random() * 0.35 + 0.1;
         }
         update() {
             this.x += this.vx;
@@ -138,67 +148,192 @@ function initAmbientTelemetryCanvas() {
     }
 
     function animate() {
+        if (document.hidden) {
+            animId = null;
+            return;
+        }
+
         ctx.clearRect(0, 0, width, height);
 
-        // Draw faint telemetry grid lines
-        ctx.strokeStyle = 'rgba(255, 255, 255, 0.015)';
-        ctx.lineWidth = 1;
-        const gridSize = 80;
-        for (let x = 0; x < width; x += gridSize) {
+        // Draw faint telemetry grid lines in a single batched path
+        if (width > 0 && height > 0) {
+            ctx.strokeStyle = 'rgba(255, 255, 255, 0.015)';
+            ctx.lineWidth = 1;
             ctx.beginPath();
-            ctx.moveTo(x, 0);
-            ctx.lineTo(x, height);
-            ctx.stroke();
-        }
-        for (let y = 0; y < height; y += gridSize) {
-            ctx.beginPath();
-            ctx.moveTo(0, y);
-            ctx.lineTo(width, y);
+            const gridSize = 80;
+            for (let x = 0; x < width; x += gridSize) {
+                ctx.moveTo(x, 0);
+                ctx.lineTo(x, height);
+            }
+            for (let y = 0; y < height; y += gridSize) {
+                ctx.moveTo(0, y);
+                ctx.lineTo(width, y);
+            }
             ctx.stroke();
         }
 
         // Update & Draw Particles
-        particles.forEach(p => {
-            p.update();
-            p.draw();
-        });
+        for (let i = 0; i < particles.length; i++) {
+            particles[i].update();
+            particles[i].draw();
+        }
 
-        requestAnimationFrame(animate);
+        animId = requestAnimationFrame(animate);
     }
-    animate();
+
+    document.addEventListener('visibilitychange', () => {
+        if (!document.hidden && !animId) {
+            animId = requestAnimationFrame(animate);
+        }
+    });
+
+    animId = requestAnimationFrame(animate);
 }
 
 /* ═════════════════════════════════════════════════════════════════
-   3. HERO CINEMATIC 3D TILT EFFECT
+   3. HERO CINEMATIC 3D TILT EFFECT (RAF Throttled, No Reflow)
    ═════════════════════════════════════════════════════════════════ */
 function initHeroCinematicTilt() {
     const heroStage = document.querySelector('.hero-stage-cinematic');
     const cinematicFrame = document.querySelector('.cinematic-frame');
-    if (heroStage && cinematicFrame && !window.matchMedia('(pointer: coarse)').matches) {
-        heroStage.addEventListener('mousemove', (e) => {
-            const rect = heroStage.getBoundingClientRect();
+    if (!heroStage || !cinematicFrame || window.matchMedia('(pointer: coarse)').matches) return;
+
+    let rect = null;
+    let rafId = null;
+
+    function updateRect() {
+        rect = heroStage.getBoundingClientRect();
+    }
+
+    heroStage.addEventListener('mouseenter', updateRect, { passive: true });
+    window.addEventListener('resize', updateRect, { passive: true });
+
+    heroStage.addEventListener('mousemove', (e) => {
+        if (!rect) updateRect();
+        if (rafId) return;
+
+        rafId = requestAnimationFrame(() => {
+            if (!rect || rect.height === 0 || rect.width === 0) {
+                rafId = null;
+                return;
+            }
             const x = e.clientX - rect.left - rect.width / 2;
             const y = e.clientY - rect.top - rect.height / 2;
             const rotateX = (-y / rect.height) * 4;
             const rotateY = (x / rect.width) * 4;
             cinematicFrame.style.transform = `perspective(1200px) rotateX(${rotateX.toFixed(2)}deg) rotateY(${rotateY.toFixed(2)}deg)`;
+            rafId = null;
         });
+    }, { passive: true });
 
-        heroStage.addEventListener('mouseleave', () => {
-            cinematicFrame.style.transform = 'perspective(1200px) rotateX(0deg) rotateY(0deg)';
-        });
-    }
+    heroStage.addEventListener('mouseleave', () => {
+        if (rafId) {
+            cancelAnimationFrame(rafId);
+            rafId = null;
+        }
+        cinematicFrame.style.transform = 'perspective(1200px) rotateX(0deg) rotateY(0deg)';
+    });
 }
 
 /* ═════════════════════════════════════════════════════════════════
-   4. SCROLLYTELLING + FULLSCREEN ZOOM VIEWER (LIGHTBOX)
-   Vertical flow with side progress dots and tap-to-zoom on screenshots.
+   3. HERO STRATEGY TACTIC SWITCHER (3-WOOD vs DRIVER)
+   ═════════════════════════════════════════════════════════════════ */
+function initHeroStrategySwitch() {
+    const btnTactical = document.getElementById('btn-strat-tactical');
+    const btnAggressive = document.getElementById('btn-strat-aggressive');
+    const heroStage = document.querySelector('.hero-stage-cinematic');
+    
+    const hudStratName = document.getElementById('hud-strat-name');
+    const hudStratRisk = document.getElementById('hud-strat-risk');
+    const hudStratDisp = document.getElementById('hud-strat-dispersion');
+    
+    const fairwayLabel = document.getElementById('fairway-strat-label');
+    const fairwaySg = document.getElementById('fairway-sg-val');
+    const fairwayDetail = document.getElementById('fairway-strat-detail');
+    const waterDetail = document.getElementById('water-strat-detail');
+    
+    if (!btnTactical || !btnAggressive || !heroStage) return;
+
+    function applyStrategy(strat) {
+        const isTactical = strat === 'tactical';
+        
+        btnTactical.classList.toggle('active', isTactical);
+        btnTactical.setAttribute('aria-pressed', isTactical ? 'true' : 'false');
+        btnAggressive.classList.toggle('active', !isTactical);
+        btnAggressive.setAttribute('aria-pressed', !isTactical ? 'true' : 'false');
+        
+        heroStage.classList.toggle('strat-tactical', isTactical);
+        heroStage.classList.toggle('strat-aggressive', !isTactical);
+        
+        const lang = currentLang || 'es';
+        
+        if (isTactical) {
+            if (hudStratName) {
+                hudStratName.textContent = lang === 'en' ? '3-WOOD (+0.42 SG vs DRIVER)' : 'MADERA 3 (+0.42 SG vs DRIVER)';
+                hudStratName.className = 'text-gold';
+            }
+            if (hudStratRisk) {
+                hudStratRisk.textContent = lang === 'en' ? 'LOW (0% WATER RISK)' : 'BAJO (0% RIESGO AGUA)';
+                hudStratRisk.className = 'text-green';
+            }
+            if (hudStratDisp) {
+                hudStratDisp.textContent = lang === 'en' ? '18 YD (SAFE ZONE)' : '18 YD (ZONA SEGURA)';
+            }
+            if (fairwayLabel) {
+                fairwayLabel.textContent = lang === 'en' ? 'OPTIMAL FAIRWAY (3W)' : 'CALLE ÓPTIMA (3W)';
+            }
+            if (fairwaySg) {
+                fairwaySg.textContent = '+0.55 SG';
+                fairwaySg.className = 'hazard-sg text-green';
+            }
+            if (fairwayDetail) {
+                fairwayDetail.textContent = lang === 'en' ? '240y Carry · 18y Dispersion' : '240y Carry · Dispersión 18y';
+            }
+            if (waterDetail) {
+                waterDetail.textContent = lang === 'en' ? '0% risk with 3-Wood' : '0% riesgo con Madera 3';
+            }
+        } else {
+            if (hudStratName) {
+                hudStratName.textContent = lang === 'en' ? 'DRIVER AGGRESSIVE (-0.85 SG vs 3W)' : 'DRIVER AL LÍMITE (-0.85 SG vs 3W)';
+                hudStratName.className = 'text-red';
+            }
+            if (hudStratRisk) {
+                hudStratRisk.textContent = lang === 'en' ? 'CRITICAL (32% WATER HAZARD)' : 'CRÍTICO (32% RIESGO AGUA)';
+                hudStratRisk.className = 'text-red';
+            }
+            if (hudStratDisp) {
+                hudStratDisp.textContent = lang === 'en' ? '38 YD (PENALTY CONE)' : '38 YD (CONO DE PENALIZACIÓN)';
+            }
+            if (fairwayLabel) {
+                fairwayLabel.textContent = lang === 'en' ? 'FAIRWAY / ROUGH' : 'CALLE / ROUGH';
+            }
+            if (fairwaySg) {
+                fairwaySg.textContent = '+0.12 SG';
+                fairwaySg.className = 'hazard-sg text-gold';
+            }
+            if (fairwayDetail) {
+                fairwayDetail.textContent = lang === 'en' ? '275y Carry · 38y Dispersion' : '275y Carry · Dispersión 38y';
+            }
+            if (waterDetail) {
+                waterDetail.textContent = lang === 'en' ? '32% Water Hazard Probability' : '32% Probabilidad de agua';
+            }
+        }
+    }
+
+    btnTactical.addEventListener('click', () => applyStrategy('tactical'));
+    btnAggressive.addEventListener('click', () => applyStrategy('aggressive'));
+}
+
+/* ═════════════════════════════════════════════════════════════════
+   4. SCROLLYTELLING + TWO-PANE STAGE OBSERVER + LIGHTBOX
    ═════════════════════════════════════════════════════════════════ */
 function initScrollyViewer() {
     const steps = document.querySelectorAll('.narrative-step');
     const overlay = document.getElementById('image-zoom-overlay');
     const viewerImg = document.getElementById('viewer-img-target');
     const closeBtn = document.getElementById('viewer-close-btn');
+    const deckSlides = document.querySelectorAll('.telemetry-deck-slide');
+    const statusLabel = document.getElementById('deck-status-label');
     
     if (!steps.length) return;
     
@@ -219,7 +354,7 @@ function initScrollyViewer() {
     }
     
     // Attach click listener to each screenshot container and button
-    steps.forEach((step, i) => {
+    steps.forEach((step) => {
         const imgWrap = step.querySelector('.mobile-step-img');
         const img = imgWrap ? imgWrap.querySelector('img') : null;
         const zoomBtn = imgWrap ? imgWrap.querySelector('.zoom-action-btn') : null;
@@ -227,7 +362,6 @@ function initScrollyViewer() {
         if (imgWrap && img) {
             imgWrap.style.cursor = 'zoom-in';
             imgWrap.addEventListener('click', (e) => {
-                // If clicked anywhere on the image container or zoom button
                 e.stopPropagation();
                 openViewer(img.currentSrc || img.src, img.alt);
             });
@@ -241,7 +375,6 @@ function initScrollyViewer() {
         }
     });
     
-    // Close modal when clicking anywhere on the dark overlay (outside the image)
     if (overlay) {
         overlay.addEventListener('click', (e) => {
             if (e.target === overlay || e.target.classList.contains('viewer-dialog')) {
@@ -257,186 +390,176 @@ function initScrollyViewer() {
         });
     }
     
-    // Close on Escape key
     document.addEventListener('keydown', (e) => {
         if (e.key === 'Escape') closeViewer();
     });
-    
-    // Build side progress indicator
-    const existingProgress = document.querySelector('.scrolly-side-progress');
-    if (!existingProgress) {
-        const progressEl = document.createElement('div');
-        progressEl.className = 'scrolly-side-progress';
-        progressEl.style.opacity = '0';
-        progressEl.style.pointerEvents = 'none';
-        progressEl.style.transition = 'opacity 0.3s ease';
-        
-        steps.forEach((step, i) => {
-            const dot = document.createElement('div');
-            dot.className = 'progress-dot' + (i === 0 ? ' active' : '');
-            dot.setAttribute('data-target', step.getAttribute('data-step') || (i+1));
-            progressEl.appendChild(dot);
-        });
-        
-        document.body.appendChild(progressEl);
-        
-        // Setup observer for progress dots
-        const visibleSteps = new Set();
-        const scrollObserver = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    visibleSteps.add(entry.target);
-                    if (entry.intersectionRatio > 0.2) {
-                        const stepId = entry.target.getAttribute('data-step');
-                        progressEl.querySelectorAll('.progress-dot').forEach(d => {
-                            d.classList.toggle('active', d.getAttribute('data-target') === stepId);
-                        });
-                    }
-                } else {
-                    visibleSteps.delete(entry.target);
+
+    // Observer to synchronize the Desktop Sticky Telemetry Deck with scrolling steps
+    const stepObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting && entry.intersectionRatio >= 0.25) {
+                const stepNum = entry.target.getAttribute('data-step');
+                
+                // Update active state on narrative steps
+                steps.forEach(s => {
+                    s.classList.toggle('active', s.getAttribute('data-step') === stepNum);
+                });
+
+                // Update active slide on sticky deck
+                deckSlides.forEach(slide => {
+                    slide.classList.toggle('active', slide.getAttribute('data-deck-slide') === stepNum);
+                });
+
+                // Update status label
+                if (statusLabel) {
+                    statusLabel.textContent = `DATA2GAIN PRO · TELEMETRY VIEW 0${stepNum}/03`;
                 }
-            });
-            
-            progressEl.style.opacity = visibleSteps.size > 0 ? '1' : '0';
-        }, { threshold: [0, 0.2, 0.5] });
-        
-        steps.forEach(s => scrollObserver.observe(s));
-    }
+            }
+        });
+    }, { threshold: [0.25, 0.5] });
+
+    steps.forEach(s => stepObserver.observe(s));
 }
 
 /* ═════════════════════════════════════════════════════════════════
-   5. STROKES GAINED BENCHMARK CALCULATOR
+   5. STROKES GAINED BENCHMARK SIMULATOR (POINT 3)
    ═════════════════════════════════════════════════════════════════ */
-function initSgBenchmarkCalculator() {
-    const benchBtns = document.querySelectorAll('.bench-btn');
-    const barTee = document.getElementById('bar-tee');
-    const barApp = document.getElementById('bar-app');
-    const barShort = document.getElementById('bar-short');
-    const barPutt = document.getElementById('bar-putt');
+function initStrokesGainedBenchmark() {
+    const tabBtns = document.querySelectorAll('.sg-tab-btn');
+    if (!tabBtns.length) return;
 
-    const valTee = document.getElementById('val-tee');
-    const valApp = document.getElementById('val-app');
-    const valShort = document.getElementById('val-short');
-    const valPutt = document.getElementById('val-putt');
+    const valTee = document.getElementById('sg-val-tee');
+    const barTee = document.getElementById('sg-bar-tee');
+    const kpiTee = document.getElementById('sg-kpi-tee');
+
+    const valApp = document.getElementById('sg-val-app');
+    const barApp = document.getElementById('sg-bar-app');
+    const kpiApp = document.getElementById('sg-kpi-app');
+
+    const valShort = document.getElementById('sg-val-short');
+    const barShort = document.getElementById('sg-bar-short');
+    const kpiShort = document.getElementById('sg-kpi-short');
+
+    const valPutt = document.getElementById('sg-val-putt');
+    const barPutt = document.getElementById('sg-bar-putt');
+    const kpiPutt = document.getElementById('sg-kpi-putt');
+
+    const diagMsg = document.getElementById('sg-diag-message');
 
     const datasets = {
         pga: {
-            tee: { width: '72%', val: '+0.34 SG', green: true },
-            app: { width: '35%', val: '-0.11 SG', green: false },
-            short: { width: '30%', val: '-0.06 SG', green: false },
-            putt: { width: '55%', val: '-0.24 SG', green: true }
+            tee: { val: '-0.25 SG', width: '38%', color: 'fill-red', textColor: 'text-red', kpiEs: '265 yd · 58% Calle', kpiEn: '265 yd · 58% Fairway' },
+            app: { val: '-0.58 SG', width: '22%', color: 'fill-red', textColor: 'text-red', kpiEs: '12.4m desde 150m', kpiEn: '12.4m from 150m' },
+            short: { val: '-0.18 SG', width: '42%', color: 'fill-red', textColor: 'text-red', kpiEs: '52% Recuperación', kpiEn: '52% Scrambling' },
+            putt: { val: '-0.42 SG', width: '30%', color: 'fill-red', textColor: 'text-red', kpiEs: '41% en 1.5 - 3m', kpiEn: '41% make rate 5-10ft' },
+            diagEs: 'Frente a un profesional del PGA Tour, la mayor brecha está en la precisión de tiro a green (-0.58 SG) y el putt (-0.42 SG). La distancia de salida solo representa el 17% de la diferencia total.',
+            diagEn: 'Against a PGA Tour pro, the largest gap lies in iron approach proximity (-0.58 SG) and putting (-0.42 SG). Off-the-tee distance accounts for only 17% of the total difference.'
         },
         hcp0: {
-            tee: { width: '85%', val: '+0.78 SG', green: true },
-            app: { width: '50%', val: '+0.15 SG', green: true },
-            short: { width: '58%', val: '+0.18 SG', green: true },
-            putt: { width: '72%', val: '+0.42 SG', green: true }
+            tee: { val: '+0.04 SG', width: '54%', color: 'fill-green', textColor: 'text-green', kpiEs: '258 yd · 62% Calle', kpiEn: '258 yd · 62% Fairway' },
+            app: { val: '-0.21 SG', width: '42%', color: 'fill-red', textColor: 'text-red', kpiEs: '10.5m desde 150m', kpiEn: '10.5m from 150m' },
+            short: { val: '+0.02 SG', width: '50%', color: 'fill-green', textColor: 'text-green', kpiEs: '50% Recuperación', kpiEn: '50% Scrambling' },
+            putt: { val: '-0.15 SG', width: '44%', color: 'fill-red', textColor: 'text-red', kpiEs: '46% en 1.5 - 3m', kpiEn: '46% make rate 5-10ft' },
+            diagEs: 'Frente a un jugador Scratch (HCP 0), tu juego largo y salidas son competitivas, pero cedes 0.36 golpes por vuelta en tiros de approach de 130-170 metros y lectura de greens.',
+            diagEn: 'Against a Scratch player (HCP 0), your driving is comparable, but you lose 0.36 strokes per round on approach shots from 140-180 yards and green reading.'
         },
         hcp5: {
-            tee: { width: '92%', val: '+1.35 SG', green: true },
-            app: { width: '66%', val: '+0.58 SG', green: true },
-            short: { width: '70%', val: '+0.42 SG', green: true },
-            putt: { width: '80%', val: '+0.85 SG', green: true }
+            tee: { val: '+0.34 SG', width: '72%', color: 'fill-green', textColor: 'text-green', kpiEs: '248 yd · 64% Calle', kpiEn: '248 yd · 64% Fairway' },
+            app: { val: '-0.11 SG', width: '45%', color: 'fill-red', textColor: 'text-red', kpiEs: '9.8m desde 140-160m', kpiEn: '9.8m from 140-160m' },
+            short: { val: '-0.06 SG', width: '52%', color: 'fill-amber', textColor: 'text-amber', kpiEs: '46% Recuperación', kpiEn: '46% Scrambling' },
+            putt: { val: '-0.24 SG', width: '38%', color: 'fill-red', textColor: 'text-red', kpiEs: '48% Embocado', kpiEn: '48% Make rate' },
+            diagEs: 'Frente a un jugador HCP 5, tu mayor fuga de golpes está en los tiros a green (-0.11 SG) y en putts de media distancia (-0.24 SG). Enfocar el 60% de tu práctica en proximidad a 150m reducirá tu hándicap en 2.1 golpes.',
+            diagEn: 'Against an HCP 5 player, your largest leak is on approach shots (-0.11 SG) and mid-range putts (-0.24 SG). Focusing 60% of practice on 150m proximity will lower your handicap by 2.1 strokes.'
         },
         hcp10: {
-            tee: { width: '96%', val: '+2.05 SG', green: true },
-            app: { width: '80%', val: '+1.25 SG', green: true },
-            short: { width: '84%', val: '+0.95 SG', green: true },
-            putt: { width: '90%', val: '+1.50 SG', green: true }
+            tee: { val: '+0.72 SG', width: '78%', color: 'fill-green', textColor: 'text-green', kpiEs: '242 yd · 68% Calle', kpiEn: '242 yd · 68% Fairway' },
+            app: { val: '+0.18 SG', width: '60%', color: 'fill-green', textColor: 'text-green', kpiEs: '8.8m desde 140-160m', kpiEn: '8.8m from 140-160m' },
+            short: { val: '+0.15 SG', width: '58%', color: 'fill-green', textColor: 'text-green', kpiEs: '56% Recuperación', kpiEn: '56% Scrambling' },
+            putt: { val: '-0.02 SG', width: '49%', color: 'fill-amber', textColor: 'text-amber', kpiEs: '52% Embocado', kpiEn: '52% Make rate' },
+            diagEs: 'Frente a HCP 10, ganas golpes holgadamente desde el tee (+0.72 SG) y en aproximación (+0.18 SG). Tu consistencia desde la calle es tu mayor ventaja competitiva.',
+            diagEn: 'Against HCP 10, you easily gain strokes off the tee (+0.72 SG) and on approach (+0.18 SG). Fairway consistency is your strongest competitive advantage.'
         },
         hcp15: {
-            tee: { width: '98%', val: '+3.10 SG', green: true },
-            app: { width: '90%', val: '+2.30 SG', green: true },
-            short: { width: '92%', val: '+1.95 SG', green: true },
-            putt: { width: '95%', val: '+2.65 SG', green: true }
+            tee: { val: '+1.15 SG', width: '85%', color: 'fill-green', textColor: 'text-green', kpiEs: '240 yd · 72% Calle', kpiEn: '240 yd · 72% Fairway' },
+            app: { val: '+0.48 SG', width: '70%', color: 'fill-green', textColor: 'text-green', kpiEs: '7.9m desde 140-160m', kpiEn: '7.9m from 140-160m' },
+            short: { val: '+0.35 SG', width: '68%', color: 'fill-green', textColor: 'text-green', kpiEs: '62% Recuperación', kpiEn: '62% Scrambling' },
+            putt: { val: '+0.12 SG', width: '58%', color: 'fill-green', textColor: 'text-green', kpiEs: '58% Embocado', kpiEn: '58% Make rate' },
+            diagEs: 'Superas con amplitud al promedio de HCP 15 en todas las facetas del juego (+2.10 SG total). Tu estrategia conservadora desde el tee elimina dobles bogeys.',
+            diagEn: 'You significantly outperform average HCP 15 players across all categories (+2.10 SG total). Playing smarter club selections virtually eliminates double bogeys.'
         },
         hcp20: {
-            tee: { width: '100%', val: '+4.40 SG', green: true },
-            app: { width: '98%', val: '+3.60 SG', green: true },
-            short: { width: '98%', val: '+3.20 SG', green: true },
-            putt: { width: '100%', val: '+3.95 SG', green: true }
+            tee: { val: '+1.68 SG', width: '92%', color: 'fill-green', textColor: 'text-green', kpiEs: '238 yd · 75% Calle', kpiEn: '238 yd · 75% Fairway' },
+            app: { val: '+0.82 SG', width: '80%', color: 'fill-green', textColor: 'text-green', kpiEs: '7.1m desde 140-160m', kpiEn: '7.1m from 140-160m' },
+            short: { val: '+0.58 SG', width: '76%', color: 'fill-green', textColor: 'text-green', kpiEs: '68% Recuperación', kpiEn: '68% Scrambling' },
+            putt: { val: '+0.31 SG', width: '66%', color: 'fill-green', textColor: 'text-green', kpiEs: '65% Embocado', kpiEn: '65% Make rate' },
+            diagEs: 'Ganas más de 3.3 golpes por vuelta frente a un jugador HCP 20. El control de distancias y la eliminación de penalizaciones al agua marcan la diferencia radical.',
+            diagEn: 'You gain more than 3.3 strokes per round over HCP 20 players. Avoiding penalty strokes and managing distance gaps create a massive scoring edge.'
         }
     };
 
-    const hcpSlider = document.getElementById('hcp-slider');
-    const currentHcpDisplay = document.getElementById('current-hcp-display');
-    const labelSpans = document.querySelectorAll('.hcp-slider-labels span');
-    
-    // Map slider values (0-5) to dataset keys and display names
-    const hcpMap = [
-        { key: 'pga', display: 'PGA TOUR' },
-        { key: 'hcp0', display: 'HCP 0' },
-        { key: 'hcp5', display: 'HCP 5' },
-        { key: 'hcp10', display: 'HCP 10' },
-        { key: 'hcp15', display: 'HCP 15' },
-        { key: 'hcp20', display: 'HCP 20' }
-    ];
-
-    if (hcpSlider) {
-        hcpSlider.addEventListener('input', (e) => {
-            const val = parseInt(e.target.value, 10);
-            const mapping = hcpMap[val];
-            if (!mapping) return;
-            
-            // Update the display text
-            if (currentHcpDisplay) currentHcpDisplay.textContent = mapping.display;
-            
-            // Highlight the correct label
-            labelSpans.forEach((span, i) => {
-                span.style.color = i === val ? 'var(--text-main)' : 'var(--text-muted)';
-            });
-
-            const data = datasets[mapping.key];
-            if (!data) return;
-
-            // Apply updates
-            applyRow(barTee, valTee, data.tee);
-            applyRow(barApp, valApp, data.app);
-            applyRow(barShort, valShort, data.short);
-            applyRow(barPutt, valPutt, data.putt);
-        });
-        
-        // Also allow clicking labels to move slider
-        labelSpans.forEach((span, i) => {
-            span.addEventListener('click', () => {
-                hcpSlider.value = i;
-                // Dispatch input event to trigger the update
-                hcpSlider.dispatchEvent(new Event('input'));
-            });
-        });
-        
-        // Initialize first state
-        hcpSlider.dispatchEvent(new Event('input'));
-    }
-
-    function applyRow(bar, valElem, item) {
-        if (bar && valElem) {
-            bar.style.setProperty('--val', item.width);
-            const valStr = item.val.replace(' SG', '');
-            valElem.textContent = valStr;
-            
-            const num = parseFloat(valStr.replace('+', ''));
-            let colorClass = 'green';
-            if (num <= -0.10) {
-                colorClass = 'red';
-            } else if (num < 0) {
-                colorClass = 'amber';
-            }
-            
-            bar.className = `dial-wrapper ${colorClass}`;
-            valElem.className = 'hud-value mono-text'; /* Text will be white in CSS */
+    function updateMetric(valEl, barEl, kpiEl, data) {
+        if (!valEl || !barEl || !data) return;
+        valEl.textContent = data.val;
+        valEl.className = `sg-val-badge ${data.textColor}`;
+        barEl.style.width = data.width;
+        barEl.className = `sg-bar-fill ${data.color}`;
+        if (kpiEl) {
+            const lang = currentLang || 'es';
+            kpiEl.textContent = lang === 'en' ? data.kpiEn : data.kpiEs;
         }
     }
+
+    function applyBenchmark(key) {
+        const d = datasets[key];
+        if (!d) return;
+
+        tabBtns.forEach(btn => {
+            const isActive = btn.getAttribute('data-ref') === key;
+            btn.classList.toggle('active', isActive);
+            btn.setAttribute('aria-selected', isActive ? 'true' : 'false');
+        });
+
+        updateMetric(valTee, barTee, kpiTee, d.tee);
+        updateMetric(valApp, barApp, kpiApp, d.app);
+        updateMetric(valShort, barShort, kpiShort, d.short);
+        updateMetric(valPutt, barPutt, kpiPutt, d.putt);
+
+        if (diagMsg) {
+            const lang = currentLang || 'es';
+            diagMsg.textContent = lang === 'en' ? d.diagEn : d.diagEs;
+        }
+    }
+
+    tabBtns.forEach(btn => {
+        btn.addEventListener('click', () => {
+            const ref = btn.getAttribute('data-ref');
+            if (ref) applyBenchmark(ref);
+        });
+    });
+
+    // Expose language re-render function
+    window.__updateSgBenchmarkLang = () => {
+        const activeTab = document.querySelector('.sg-tab-btn.active');
+        const ref = activeTab ? activeTab.getAttribute('data-ref') : 'hcp5';
+        applyBenchmark(ref);
+    };
 }
 
 /* ═════════════════════════════════════════════════════════════════
-   6. CURSOR SPOTLIGHT TRACKER
+   6. CURSOR SPOTLIGHT TRACKER (RAF Throttled)
    ═════════════════════════════════════════════════════════════════ */
 function initSpotlightCursor() {
     const spotlight = document.querySelector('.spotlight-cursor');
     if (!spotlight || window.matchMedia('(pointer: coarse)').matches) return;
 
+    let rafId = null;
     window.addEventListener('mousemove', (e) => {
-        spotlight.style.transform = `translate(${e.clientX - 300}px, ${e.clientY - 300}px)`;
-    });
+        if (rafId) return;
+        const x = e.clientX;
+        const y = e.clientY;
+        rafId = requestAnimationFrame(() => {
+            spotlight.style.transform = `translate(${x - 300}px, ${y - 300}px)`;
+            rafId = null;
+        });
+    }, { passive: true });
 }

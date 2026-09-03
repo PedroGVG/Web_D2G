@@ -38,10 +38,10 @@
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter+Tight:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400&amp;family=JetBrains+Mono:wght@400;600;700&amp;family=Orbitron:wght@800&amp;display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter+Tight:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400&amp;family=JetBrains+Mono:wght@400;500;600;700&amp;family=Plus+Jakarta+Sans:wght@500;600;700;800&amp;family=Syne:wght@700;800&amp;display=swap" rel="stylesheet">
     
     <!-- CSS V2 -->
-    <link rel="stylesheet" href="css/style.css?v=9">
+    <link rel="stylesheet" href="css/style.css?v=10">
     
     <!-- Schema Markup -->
     <script type="application/ld+json">
@@ -89,65 +89,94 @@
     <div class="spotlight-cursor" aria-hidden="true"></div>
 
     <div class="site-wrapper">
-        <!-- ═══ HEADER / NAVBAR MATCHING USER DESIGN ═══ -->
+        <!-- ═══ HEADER / NAVBAR: REFINED TOUR COMMAND BAR ═══ -->
         <header class="navbar" role="banner">
             <a href="/es/" class="nav-brand-group" aria-label="Data2Gain Inicio">
                 <img src="assets/logo-32.webp" srcset="assets/logo-32.webp 32w, assets/logo-64.webp 64w" sizes="32px" alt="Data2Gain Logo" class="nav-logo" width="32" height="32">
                 <span class="nav-brand-text">DATA<span class="text-gold">2</span>GAIN</span>
             </a>
 
-            <!-- Platform Segmented Selector -->
-            <nav class="platform-selector" role="group" aria-label="Plataforma">
-                <a href="https://app.data2gain.com" class="platform-btn active" target="_blank" rel="noopener">
-                    <span data-lang-es="Web App" data-lang-en="Web App">Web App</span>
-                </a>
-                <a href="https://apps.apple.com" class="platform-btn" target="_blank" rel="noopener" aria-label="iOS App">
-                    <span>iOS</span>
-                </a>
-                <a href="https://play.google.com" class="platform-btn" target="_blank" rel="noopener" aria-label="Android App">
-                    <span>Android</span>
-                </a>
+            <!-- Editorial Nav Links -->
+            <nav class="nav-menu" aria-label="Navegación principal">
+                <a href="#hero" class="nav-link" data-lang-es="Estrategia" data-lang-en="Strategy">Estrategia</a>
+                <a href="#strokes-gained" class="nav-link" data-lang-es="Strokes Gained" data-lang-en="Strokes Gained">Strokes Gained</a>
+                <a href="#scrolly-section" class="nav-link" data-lang-es="Telemetría" data-lang-en="Telemetry">Telemetría</a>
+                <a href="#ai-caddie" class="nav-link" data-lang-es="Caddie IA" data-lang-en="AI Caddie">Caddie IA</a>
+                <a href="#services" class="nav-link" data-lang-es="Servicios" data-lang-en="Services">Servicios</a>
             </nav>
 
-            <!-- Language Switcher Flags Pill -->
-            <nav class="lang-switcher-pill" aria-label="Selector de idioma">
-                <a href="/es/" class="lang-flag-btn active" data-lang="es" aria-label="Español" title="Español" aria-current="page">
-                    <span class="flag-icon flag-es"></span>
+            <!-- Launch App CTA & Language Switcher -->
+            <div class="nav-actions-group">
+                <a href="https://app.data2gain.com" class="nav-launch-btn" target="_blank" rel="noopener">
+                    <span class="target-beacon green mini"></span>
+                    <span data-lang-es="Acceder a Web App" data-lang-en="Launch Web App">Acceder a Web App</span>
                 </a>
-                <a href="/en/" class="lang-flag-btn" data-lang="en" aria-label="English" title="English">
-                    <span class="flag-icon flag-en"></span>
-                </a>
-            </nav>
+
+                <!-- Language Switcher Flags Pill -->
+                <nav class="lang-switcher-pill" aria-label="Selector de idioma">
+                    <a href="/es/" class="lang-flag-btn active" data-lang="es" aria-label="Español" title="Español" aria-current="page">
+                        <span class="flag-icon flag-es"></span>
+                    </a>
+                    <a href="/en/" class="lang-flag-btn" data-lang="en" aria-label="English" title="English">
+                        <span class="flag-icon flag-en"></span>
+                    </a>
+                </nav>
+            </div>
         </header>
 
         <main>
             <!-- ═══ 1. HERO IMMERSIVE (ASPIRATIONAL STROKES GAINED HOLE STRATEGY MAP) ═══ -->
             <section id="hero" class="hero-section ambient-grid" aria-labelledby="hero-title">
                 <div class="hero-header-wrap">
-
+                    <div class="hero-live-badge">
+                        <span class="target-beacon green mini"></span>
+                        <span class="mono-text" data-lang-es="TELEMETRÍA DE TOUR &amp; CADDIE IA" data-lang-en="TOUR TELEMETRY &amp; AI CADDIE">TELEMETRÍA DE TOUR &amp; CADDIE IA</span>
+                    </div>
 
                     <h1 id="hero-title" class="hero-title">
-                        <span class="hero-title-sub" data-lang-es="Inteligencia de Tour. Sin el Tour" data-lang-en="Tour intelligence. Without the Tour">Inteligencia de Tour. Sin el Tour</span>
                         <span class="hero-title-main">
-                            <span class="hero-title-primary" data-lang-es="Siente el golpe con intuición" data-lang-en="Feel the shot with intuition">Siente el golpe con intuición</span>
-                            <span class="hero-title-secondary" data-lang-es="Decide la estrategia con datos" data-lang-en="Decide strategy with data">Decide la estrategia con datos</span>
+                            <span class="hero-title-primary" data-lang-es="Siente el golpe con intuición." data-lang-en="Feel the shot with intuition.">Siente el golpe con intuición.</span>
+                            <span class="hero-title-secondary" data-lang-es="Decide con datos de Tour." data-lang-en="Decide with Tour data.">Decide con datos de Tour.</span>
                         </span>
                     </h1>
 
-                    <p class="hero-lead" data-lang-es="El mismo análisis que usan los circuitos profesionales, alimentado por tus propias rondas." data-lang-en="The same analysis used by professional tours, powered by your own rounds.">
-                        El mismo análisis que usan los circuitos profesionales, alimentado por tus propias rondas.
+                    <p class="hero-lead" data-lang-es="La misma analítica Strokes Gained que guía a los profesionales, calibrada para tu bolsa, tus dispersiones y tus objetivos de hándicap." data-lang-en="The same Strokes Gained analytics that guides tour professionals, calibrated for your bag, your dispersion, and your handicap goals.">
+                        La misma analítica Strokes Gained que guía a los profesionales, calibrada para tu bolsa, tus dispersiones y tus objetivos de hándicap.
                     </p>
 
                     <div class="hero-cta-block">
                         <a href="https://app.data2gain.com" class="btn-cta-main" target="_blank" rel="noopener">
-                            <span data-lang-es="PRUEBA DATA2GAIN" data-lang-en="TRY DATA2GAIN">PRUEBA DATA2GAIN</span>
+                            <span data-lang-es="PROBAR DATA2GAIN PRO" data-lang-en="TRY DATA2GAIN PRO">PROBAR DATA2GAIN PRO</span>
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
                         </a>
                         <p class="hero-cta-price">
-                            <span class="hero-cta-price-item" data-lang-es="Todas las funciones" data-lang-en="All features">Todas las funciones</span>
+                            <span class="hero-cta-price-item" data-lang-es="Todas las funciones incluidas" data-lang-en="All features included">Todas las funciones incluidas</span>
                             <span class="hero-cta-price-item"><span aria-hidden="true">·</span> <strong data-lang-es="8,95 €/mes" data-lang-en="€8.95/month">8,95 €/mes</strong></span>
                             <span class="hero-cta-price-item"><span aria-hidden="true">·</span> <span data-lang-es="Cancela cuando quieras" data-lang-en="Cancel anytime">Cancela cuando quieras</span></span>
                         </p>
-                        <p class="hero-cta-promise mono-text" data-lang-es="Analiza tu primera ronda en menos de 3 minutos." data-lang-en="Analyze your first round in under 3 minutes.">Analiza tu primera ronda en menos de 3 minutos.</p>
+                        <p class="hero-cta-promise mono-text" data-lang-es="⚡ Analiza tu primera ronda en menos de 3 minutos." data-lang-en="⚡ Analyze your first round in under 3 minutes.">⚡ Analiza tu primera ronda en menos de 3 minutos.</p>
+                    </div>
+                </div>
+
+                <!-- Strategic Interactive Tactic Toggle -->
+                <div class="hero-strategy-switch-wrap">
+                    <div class="strategy-toggle-bar" role="group" aria-label="Estrategia del hoyo">
+                        <button type="button" class="strategy-toggle-btn active" id="btn-strat-tactical" data-strat="tactical">
+                            <span class="strat-radio-dot"></span>
+                            <span class="strat-btn-content">
+                                <span class="strat-btn-label" data-lang-es="ESTRATEGIA RECOMENDADA IA" data-lang-en="AI RECOMMENDED STRATEGY">ESTRATEGIA RECOMENDADA IA</span>
+                                <span class="strat-btn-sub" data-lang-es="Madera 3 a centro de calle" data-lang-en="3-Wood to fairway center">Madera 3 a centro de calle</span>
+                            </span>
+                            <span class="strat-delta-badge text-green">+0.42 SG</span>
+                        </button>
+                        <button type="button" class="strategy-toggle-btn" id="btn-strat-aggressive" data-strat="aggressive">
+                            <span class="strat-radio-dot"></span>
+                            <span class="strat-btn-content">
+                                <span class="strat-btn-label" data-lang-es="ESTRATEGIA AGRESIVA" data-lang-en="AGGRESSIVE STRATEGY">ESTRATEGIA AGRESIVA</span>
+                                <span class="strat-btn-sub" data-lang-es="Driver sobre acantilado" data-lang-en="Driver over cliffline">Driver sobre acantilado</span>
+                            </span>
+                            <span class="strat-delta-badge text-red">-0.85 SG</span>
+                        </button>
                     </div>
                 </div>
 
@@ -160,27 +189,27 @@
                         <div class="cinematic-vignette" aria-hidden="true"></div>
                         <div class="cinematic-glass-shine" aria-hidden="true"></div>
 
-                        <!-- 1. Target: Optimal Fairway Landing Zone -->
-                        <div class="hole-hazard-tag tag-fairway">
-                            <span class="target-beacon green"></span>
+                        <!-- 1. Target: Fairway Landing Zone -->
+                        <div class="hole-hazard-tag tag-fairway" id="hazard-fairway">
+                            <span class="target-beacon green" id="fairway-beacon"></span>
                             <div class="hazard-card">
                                 <div class="hazard-badge-row">
-                                    <span class="hazard-type text-green" data-lang-es="ESTRATEGIA ÓPTIMA" data-lang-en="OPTIMAL STRATEGY">ESTRATEGIA ÓPTIMA</span>
-                                    <span class="hazard-sg text-green">+0.55 SG</span>
+                                    <span class="hazard-type text-green" id="fairway-strat-label" data-lang-es="CALLE ÓPTIMA (3W)" data-lang-en="OPTIMAL FAIRWAY (3W)">CALLE ÓPTIMA (3W)</span>
+                                    <span class="hazard-sg text-green" id="fairway-sg-val">+0.55 SG</span>
                                 </div>
-                                <span class="hazard-detail" data-lang-es="Calle centro · 250y Carry" data-lang-en="Center fairway · 250y Carry">Calle centro · 250y Carry</span>
+                                <span class="hazard-detail" id="fairway-strat-detail" data-lang-es="240y Carry · Dispersión 18y" data-lang-en="240y Carry · 18y Dispersion">240y Carry · Dispersión 18y</span>
                             </div>
                         </div>
 
                         <!-- 2. Hazard: Left Water Penalty -->
-                        <div class="hole-hazard-tag tag-water card-left">
-                            <span class="target-beacon red"></span>
+                        <div class="hole-hazard-tag tag-water card-left" id="hazard-water">
+                            <span class="target-beacon red" id="water-beacon"></span>
                             <div class="hazard-card">
                                 <div class="hazard-badge-row">
                                     <span class="hazard-type text-red" data-lang-es="OBSTÁCULO AGUA" data-lang-en="WATER HAZARD">OBSTÁCULO AGUA</span>
-                                    <span class="hazard-sg text-red">-1.82 SG</span>
+                                    <span class="hazard-sg text-red" id="water-sg-val">-1.82 SG</span>
                                 </div>
-                                <span class="hazard-detail" data-lang-es="Penalización + Drop" data-lang-en="Penalty + Drop">Penalización + Drop</span>
+                                <span class="hazard-detail" id="water-strat-detail" data-lang-es="0% riesgo con Madera 3" data-lang-en="0% risk with 3-Wood">0% riesgo con Madera 3</span>
                             </div>
                         </div>
 
@@ -208,33 +237,121 @@
                             </div>
                         </div>
 
-                        <!-- 5. Hazard: Coastal Ocean Cliff / Out of Bounds -->
-                        <div class="hole-hazard-tag tag-cliff">
-                            <span class="target-beacon red"></span>
-                            <div class="hazard-card">
-                                <div class="hazard-badge-row">
-                                    <span class="hazard-type text-red" data-lang-es="FUERA LÍMITES" data-lang-en="OUT OF BOUNDS">FUERA LÍMITES</span>
-                                    <span class="hazard-sg text-red">-2.00 SG</span>
-                                </div>
-                                <span class="hazard-detail" data-lang-es="Acantilado / Pérdida" data-lang-en="Cliff / Lost Ball">Acantilado / Pérdida</span>
-                            </div>
-                        </div>
-
                         <!-- Bottom Tactical HUD Bar -->
                         <div class="cinematic-hud-bottom">
-                            <div class="hud-item"><span class="h-label" data-lang-es="HOYO ANALIZADO:" data-lang-en="HOLE:">HOYO ANALIZADO:</span> <strong data-lang-es="PAR 4 · 418 YD (HANDICAP 2)" data-lang-en="PAR 4 · 418 YD (HANDICAP 2)">PAR 4 · 418 YD (HANDICAP 2)</strong></div>
+                            <div class="hud-item"><span class="h-label" data-lang-es="HOYO:" data-lang-en="HOLE:">HOYO:</span> <strong data-lang-es="PAR 4 · 418 YD (HCP 2)" data-lang-en="PAR 4 · 418 YD (HCP 2)">PAR 4 · 418 YD (HCP 2)</strong></div>
                             <div class="hud-divider"></div>
-                            <div class="hud-item"><span class="h-label" data-lang-es="ESTRATEGIA:" data-lang-en="STRATEGY:">ESTRATEGIA:</span> <strong class="text-gold" data-lang-es="MADERA 3 A CALLE (+0.42 SG vs DRIVER)" data-lang-en="3-WOOD TO FAIRWAY (+0.42 SG vs DRIVER)">MADERA 3 A CALLE (+0.42 SG vs DRIVER)</strong></div>
+                            <div class="hud-item"><span class="h-label" data-lang-es="ESTRATEGIA:" data-lang-en="STRATEGY:">ESTRATEGIA:</span> <strong class="text-gold" id="hud-strat-name" data-lang-es="MADERA 3 (+0.42 SG vs DRIVER)" data-lang-en="3-WOOD (+0.42 SG vs DRIVER)">MADERA 3 (+0.42 SG vs DRIVER)</strong></div>
                             <div class="hud-divider"></div>
-                            <div class="hud-item"><span class="h-label" data-lang-es="FACTOR RIESGO:" data-lang-en="RISK:">FACTOR RIESGO:</span> <strong class="text-green" data-lang-es="BAJO (EVITA AGUA Y ACANTILADO)" data-lang-en="LOW (AVOIDS WATER &amp; CLIFF)">BAJO (EVITA AGUA Y ACANTILADO)</strong></div>
+                            <div class="hud-item"><span class="h-label" data-lang-es="FACTOR RIESGO:" data-lang-en="RISK:">FACTOR RIESGO:</span> <strong class="text-green" id="hud-strat-risk" data-lang-es="BAJO (0% RIESGO AGUA)" data-lang-en="LOW (0% WATER RISK)">BAJO (0% RIESGO AGUA)</strong></div>
+                            <div class="hud-divider"></div>
+                            <div class="hud-item"><span class="h-label" data-lang-es="DISPERSIÓN:" data-lang-en="DISPERSION:">DISPERSIÓN:</span> <strong class="text-primary" id="hud-strat-dispersion" data-lang-es="18 YD (ZONA SEGURA)" data-lang-en="18 YD (SAFE ZONE)">18 YD (ZONA SEGURA)</strong></div>
                         </div>
                     </div>
                 </div>
             </section>
 
+            <!-- ═══ 1.5. INTERACTIVE STROKES GAINED BENCHMARK ENGINE (POINT 3) ═══ -->
+            <section id="strokes-gained" class="sg-benchmark-section ambient-grid" aria-labelledby="sg-heading">
+                <div class="sg-container">
+                    <div class="sg-header-center">
+                        <span class="badge-tag" data-lang-es="MÉTRICAS DE TOUR EN TIEMPO REAL" data-lang-en="REAL-TIME TOUR METRICS">MÉTRICAS DE TOUR EN TIEMPO REAL</span>
+                        <h2 id="sg-heading" data-lang-es="Mídete contra el Tour o contra tu objetivo" data-lang-en="Benchmark against the Tour or your target">Mídete contra el Tour o contra tu objetivo</h2>
+                        <p data-lang-es="Strokes Gained desglosa cada golpe frente a miles de rondas de referencia. Selecciona un nivel y descubre exactamente en qué área estás regalando golpes al campo." data-lang-en="Strokes Gained breaks down every shot against thousands of benchmark rounds. Select a level and discover exactly where you are giving away strokes to the course.">Strokes Gained desglosa cada golpe frente a miles de rondas de referencia. Selecciona un nivel y descubre exactamente en qué área estás regalando golpes al campo.</p>
+                    </div>
 
+                    <!-- Reference Level Tabs -->
+                    <div class="sg-benchmark-control">
+                        <span class="sg-control-label mono-text" data-lang-es="NIVEL DE COMPARACIÓN:" data-lang-en="COMPARISON BENCHMARK:">NIVEL DE COMPARACIÓN:</span>
+                        <div class="sg-tabs-pill" role="tablist" aria-label="Nivel de referencia Strokes Gained">
+                            <button type="button" class="sg-tab-btn" data-ref="pga" role="tab" aria-selected="false">PGA TOUR</button>
+                            <button type="button" class="sg-tab-btn" data-ref="hcp0" role="tab" aria-selected="false">HCP 0 (SCRATCH)</button>
+                            <button type="button" class="sg-tab-btn active" data-ref="hcp5" role="tab" aria-selected="true">HCP 5</button>
+                            <button type="button" class="sg-tab-btn" data-ref="hcp10" role="tab" aria-selected="false">HCP 10</button>
+                            <button type="button" class="sg-tab-btn" data-ref="hcp15" role="tab" aria-selected="false">HCP 15</button>
+                            <button type="button" class="sg-tab-btn" data-ref="hcp20" role="tab" aria-selected="false">HCP 20</button>
+                        </div>
+                    </div>
 
-            <!-- ═══ 2. SCROLLYTELLING NARRATIVE (REAL APP SCREENSHOTS) ═══ -->
+                    <!-- Bento Grid of 4 SG Categories -->
+                    <div class="sg-bento-grid">
+                        <!-- 01: TEE / OFF-THE-TEE -->
+                        <div class="sg-metric-card" id="sg-card-tee">
+                            <div class="sg-card-top">
+                                <span class="sg-cat-badge mono-text" data-lang-es="01 // SALIDAS (TEE)" data-lang-en="01 // OFF-THE-TEE">01 // SALIDAS (TEE)</span>
+                                <span class="sg-val-badge text-green" id="sg-val-tee">+0.34 SG</span>
+                            </div>
+                            <div class="sg-bar-track">
+                                <div class="sg-bar-fill fill-green" id="sg-bar-tee" style="width: 72%;"></div>
+                            </div>
+                            <div class="sg-card-bottom">
+                                <span class="sg-kpi-label" data-lang-es="Distancia &amp; Calles" data-lang-en="Distance &amp; Fairways">Distancia &amp; Calles</span>
+                                <span class="sg-kpi-val mono-text" id="sg-kpi-tee" data-lang-es="248 yd · 64% Calle" data-lang-en="248 yd · 64% Fairway">248 yd · 64% Calle</span>
+                            </div>
+                        </div>
+
+                        <!-- 02: APPROACH -->
+                        <div class="sg-metric-card" id="sg-card-app">
+                            <div class="sg-card-top">
+                                <span class="sg-cat-badge mono-text" data-lang-es="02 // APROXIMACIÓN (APP)" data-lang-en="02 // APPROACH (APP)">02 // APROXIMACIÓN (APP)</span>
+                                <span class="sg-val-badge text-red" id="sg-val-app">-0.11 SG</span>
+                            </div>
+                            <div class="sg-bar-track">
+                                <div class="sg-bar-fill fill-red" id="sg-bar-app" style="width: 45%;"></div>
+                            </div>
+                            <div class="sg-card-bottom">
+                                <span class="sg-kpi-label" data-lang-es="Proximidad a Bandera" data-lang-en="Proximity to Pin">Proximidad a Bandera</span>
+                                <span class="sg-kpi-val mono-text" id="sg-kpi-app" data-lang-es="9.8m desde 140-160m" data-lang-en="9.8m from 140-160m">9.8m desde 140-160m</span>
+                            </div>
+                        </div>
+
+                        <!-- 03: SHORT GAME -->
+                        <div class="sg-metric-card" id="sg-card-short">
+                            <div class="sg-card-top">
+                                <span class="sg-cat-badge mono-text" data-lang-es="03 // JUEGO CORTO (ARG)" data-lang-en="03 // SHORT GAME (ARG)">03 // JUEGO CORTO (ARG)</span>
+                                <span class="sg-val-badge text-amber" id="sg-val-short">-0.06 SG</span>
+                            </div>
+                            <div class="sg-bar-track">
+                                <div class="sg-bar-fill fill-amber" id="sg-bar-short" style="width: 52%;"></div>
+                            </div>
+                            <div class="sg-card-bottom">
+                                <span class="sg-kpi-label" data-lang-es="Up &amp; Down (&lt;30m)" data-lang-en="Up &amp; Down (&lt;30m)">Up &amp; Down (&lt;30m)</span>
+                                <span class="sg-kpi-val mono-text" id="sg-kpi-short" data-lang-es="46% Recuperación" data-lang-en="46% Scrambling">46% Recuperación</span>
+                            </div>
+                        </div>
+
+                        <!-- 04: PUTTING -->
+                        <div class="sg-metric-card" id="sg-card-putt">
+                            <div class="sg-card-top">
+                                <span class="sg-cat-badge mono-text" data-lang-es="04 // PUTT (PUTTING)" data-lang-en="04 // PUTTING">04 // PUTT (PUTTING)</span>
+                                <span class="sg-val-badge text-red" id="sg-val-putt">-0.24 SG</span>
+                            </div>
+                            <div class="sg-bar-track">
+                                <div class="sg-bar-fill fill-red" id="sg-bar-putt" style="width: 38%;"></div>
+                            </div>
+                            <div class="sg-card-bottom">
+                                <span class="sg-kpi-label" data-lang-es="Efectividad en 1.5 - 3m" data-lang-en="Make Rate 5-10 ft">Efectividad en 1.5 - 3m</span>
+                                <span class="sg-kpi-val mono-text" id="sg-kpi-putt" data-lang-es="48% Embocado" data-lang-en="48% Make rate">48% Embocado</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- AI Diagnostic Recommendation Bar -->
+                    <div class="sg-diagnostic-box">
+                        <div class="sg-diag-icon">💡</div>
+                        <div class="sg-diag-text">
+                            <span class="sg-diag-tag mono-text" data-lang-es="DIAGNÓSTICO AUTOMÁTICO DE IA" data-lang-en="AUTOMATIC AI DIAGNOSTIC">DIAGNÓSTICO AUTOMÁTICO DE IA</span>
+                            <p id="sg-diag-message" data-lang-es="Frente a un jugador HCP 5, tu mayor fuga de golpes está en los tiros a green (-0.11 SG) y en putts de media distancia (-0.24 SG). Enfocar el 60% de tu práctica en proximidad a 150m reducirá tu hándicap en 2.1 golpes." data-lang-en="Against an HCP 5 player, your largest leak is on approach shots (-0.11 SG) and mid-range putts (-0.24 SG). Focusing 60% of practice on 150m proximity will lower your handicap by 2.1 strokes.">Frente a un jugador HCP 5, tu mayor fuga de golpes está en los tiros a green (-0.11 SG) y en putts de media distancia (-0.24 SG). Enfocar el 60% de tu práctica en proximidad a 150m reducirá tu hándicap en 2.1 golpes.</p>
+                        </div>
+                        <a href="https://app.data2gain.com" class="sg-diag-action" target="_blank" rel="noopener">
+                            <span data-lang-es="Analizar Mi Bolsa" data-lang-en="Analyze My Bag">Analizar Mi Bolsa</span>
+                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+                        </a>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ═══ 2. SCROLLYTELLING NARRATIVE (POINT 4: TWO-PANE TELEMETRY STAGE) ═══ -->
             <section id="scrolly-section" class="scrolly-container" aria-labelledby="scrolly-heading">
                 <div class="scrolly-intro">
                     <span class="badge-tag" data-lang-es="EL ANÁLISIS, AL DETALLE" data-lang-en="THE ANALYSIS, IN DEPTH">EL ANÁLISIS, AL DETALLE</span>
@@ -243,83 +360,122 @@
                 </div>
 
                 <div class="scrolly-stage">
-                    <!-- SCROLLING NARRATIVE BEATS (BILINGUAL) -->
-                    <div class="scrolly-narrative-column">
-                        <!-- Beat 1 -->
-                        <div class="narrative-step active" data-step="1">
-                            <div class="step-num" data-lang-es="01 / RADAR DE DISPERSIÓN" data-lang-en="01 / DISPERSION RADAR">01 / RADAR DE DISPERSIÓN</div>
-                            <h3 data-lang-es="Conoce tu patrón real" data-lang-en="Know your real pattern">Conoce tu patrón real</h3>
-                            <div class="mobile-step-img">
-                                <img src="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20width='800'%20height='1119'%3E%3C/svg%3E" data-src-es="assets/screens/es/screen-dispersion-800.webp" data-src-en="assets/screens/en/screen-dispersion-800.webp" data-srcset-es="assets/screens/es/screen-dispersion-360.webp 360w, assets/screens/es/screen-dispersion-800.webp 800w" data-srcset-en="assets/screens/en/screen-dispersion-360.webp 360w, assets/screens/en/screen-dispersion-800.webp 800w" data-width-es="800" data-height-es="1119" data-width-en="800" data-height-en="1130" sizes="(max-width: 720px) calc(100vw - 32px), 490px" alt="Gráfico de dispersión real en radar" width="800" height="1119" loading="lazy" decoding="async">
-                                <div class="floating-widget-v2 widget-emerald" style="top: 15%; left: 5%;">
-                                    🎯 <span data-lang-es="HIERRO 5: -13.7m IZQ" data-lang-en="5-IRON: -13.7m LEFT">HIERRO 5: -13.7m IZQ</span>
+                    <div class="scrolly-split-layout">
+                        <!-- Desktop Pinned Telemetry Viewport (Left) -->
+                        <div class="scrolly-sticky-col" aria-hidden="true">
+                            <div class="telemetry-deck-frame">
+                                <div class="telemetry-deck-scanline"></div>
+                                <div class="telemetry-deck-glass"></div>
+
+                                <!-- Screen 1: Dispersion Radar -->
+                                <div class="telemetry-deck-slide active" data-deck-slide="1">
+                                    <img src="assets/screens/es/screen-dispersion-800.webp" data-src-es="assets/screens/es/screen-dispersion-800.webp" data-src-en="assets/screens/en/screen-dispersion-800.webp" alt="Gráfico de dispersión real en radar" width="800" height="1119" loading="lazy">
+                                    <div class="floating-widget-v2 widget-emerald" style="top: 15%; left: 8%;">
+                                        🎯 <span data-lang-es="HIERRO 5: -13.7m IZQ" data-lang-en="5-IRON: -13.7m LEFT">HIERRO 5: -13.7m IZQ</span>
+                                    </div>
                                 </div>
-                                <button class="zoom-action-btn" type="button" aria-label="Ampliar imagen" title="Ampliar imagen">
-                                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-                                        <circle cx="11" cy="11" r="8"></circle>
-                                        <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
-                                        <line x1="11" y1="8" x2="11" y2="14"></line>
-                                        <line x1="8" y1="11" x2="14" y2="11"></line>
-                                    </svg>
-                                </button>
-                            </div>
-                            <p class="step-desc" data-lang-es="Cada palo cuenta una tendencia. Visualiza tu dispersión real en radar mediante scatter plots y empieza a apuntar donde los datos objetivos te sugieren, no donde crees que vas a tirar." data-lang-en="Every club tells a trend. Visualize your actual dispersion on radar via scatter plots and start aiming where objective data suggests, not where you hope it goes.">Cada palo cuenta una tendencia. Visualiza tu dispersión real en radar mediante scatter plots y empieza a apuntar donde los datos objetivos te sugieren, no donde crees que vas a tirar.</p>
-                            <div class="step-chips">
-                                <span class="chip" data-lang-es="Scatter Plot Real" data-lang-en="Real Scatter Plot">Scatter Plot Real</span>
-                                <span class="chip" data-lang-es="Tendencia de Vuelo" data-lang-en="Flight Tendency">Tendencia de Vuelo</span>
-                                <span class="chip" data-lang-es="Mapeo por Palo" data-lang-en="Club-by-Club Mapping">Mapeo por Palo</span>
+
+                                <!-- Screen 2: Bag Mapping / Gaps -->
+                                <div class="telemetry-deck-slide" data-deck-slide="2">
+                                    <img src="assets/screens/es/screen-gap-800.webp" data-src-es="assets/screens/es/screen-gap-800.webp" data-src-en="assets/screens/en/screen-gap-800.webp" alt="Análisis Gap de cobertura de bolsa" width="900" height="841" loading="lazy">
+                                    <div class="floating-widget-v2 widget-gold" style="bottom: 22%; right: 8%;">
+                                        ⛳ <span data-lang-es="HUECO 3W-4i: 23 yd" data-lang-en="GAP 3W-4i: 23 yd">HUECO 3W-4i: 23 yd</span>
+                                    </div>
+                                </div>
+
+                                <!-- Screen 3: Putt Matrix -->
+                                <div class="telemetry-deck-slide" data-deck-slide="3">
+                                    <img src="assets/screens/es/screen-putt-800.webp" data-src-es="assets/screens/es/screen-putt-800.webp" data-src-en="assets/screens/en/screen-putt-800.webp" alt="Estadísticas de Putt y matriz de caídas" width="800" height="1292" loading="lazy">
+                                    <div class="floating-widget-v2 widget-emerald" style="bottom: 18%; left: 8%;">
+                                        🏌️‍♂️ <span data-lang-es="1-2 YD: 80% EMBOCADO" data-lang-en="1-2 YD: 80% HOLED">1-2 YD: 80% EMBOCADO</span>
+                                    </div>
+                                </div>
+
+                                <div class="telemetry-deck-hud-status">
+                                    <span class="target-beacon green mini"></span>
+                                    <span class="mono-text" id="deck-status-label">DATA2GAIN PRO · TELEMETRY VIEW 01/03</span>
+                                </div>
                             </div>
                         </div>
 
-                        <!-- Beat 2 -->
-                        <div class="narrative-step" data-step="2">
-                            <div class="step-num" data-lang-es="02 / BAG MAPPING" data-lang-en="02 / BAG MAPPING">02 / BAG MAPPING</div>
-                            <h3 data-lang-es="La distancia que tienes no es la que crees" data-lang-en="The distance you have is not what you think">La distancia que tienes no es la que crees</h3>
-                            <div class="mobile-step-img">
-                                <img src="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20width='900'%20height='841'%3E%3C/svg%3E" data-src-es="assets/screens/es/screen-gap-800.webp" data-src-en="assets/screens/en/screen-gap-800.webp" data-srcset-es="assets/screens/es/screen-gap-360.webp 360w, assets/screens/es/screen-gap-800.webp 800w" data-srcset-en="assets/screens/en/screen-gap-360.webp 360w, assets/screens/en/screen-gap-800.webp 800w" data-width-es="900" data-height-es="841" data-width-en="900" data-height-en="845" sizes="(max-width: 720px) calc(100vw - 32px), 490px" alt="Análisis Gap de cobertura de bolsa" width="900" height="841" loading="lazy" decoding="async">
-                                <div class="floating-widget-v2 widget-gold" style="bottom: 20%; right: 5%;">
-                                    ⛳ <span data-lang-es="HUECO 3W-4i: 23 yd" data-lang-en="GAP 3W-4i: 23 yd">HUECO 3W-4i: 23 yd</span>
+                        <!-- SCROLLING NARRATIVE BEATS (BILINGUAL) (Right) -->
+                        <div class="scrolly-narrative-column">
+                            <!-- Beat 1 -->
+                            <div class="narrative-step active" data-step="1">
+                                <div class="step-num" data-lang-es="01 / RADAR DE DISPERSIÓN" data-lang-en="01 / DISPERSION RADAR">01 / RADAR DE DISPERSIÓN</div>
+                                <h3 data-lang-es="Conoce tu patrón real" data-lang-en="Know your real pattern">Conoce tu patrón real</h3>
+                                <div class="mobile-step-img">
+                                    <img src="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20width='800'%20height='1119'%3E%3C/svg%3E" data-src-es="assets/screens/es/screen-dispersion-800.webp" data-src-en="assets/screens/en/screen-dispersion-800.webp" data-srcset-es="assets/screens/es/screen-dispersion-360.webp 360w, assets/screens/es/screen-dispersion-800.webp 800w" data-srcset-en="assets/screens/en/screen-dispersion-360.webp 360w, assets/screens/es/screen-dispersion-800.webp 800w" data-width-es="800" data-height-es="1119" data-width-en="800" data-height-en="1130" sizes="(max-width: 720px) calc(100vw - 32px), 490px" alt="Gráfico de dispersión real en radar" width="800" height="1119" loading="lazy" decoding="async">
+                                    <div class="floating-widget-v2 widget-emerald" style="top: 15%; left: 5%;">
+                                        🎯 <span data-lang-es="HIERRO 5: -13.7m IZQ" data-lang-en="5-IRON: -13.7m LEFT">HIERRO 5: -13.7m IZQ</span>
+                                    </div>
+                                    <button class="zoom-action-btn" type="button" aria-label="Ampliar imagen" title="Ampliar imagen">
+                                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                                            <circle cx="11" cy="11" r="8"></circle>
+                                            <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+                                            <line x1="11" y1="8" x2="11" y2="14"></line>
+                                            <line x1="8" y1="11" x2="14" y2="11"></line>
+                                        </svg>
+                                    </button>
                                 </div>
-                                <button class="zoom-action-btn" type="button" aria-label="Ampliar imagen" title="Ampliar imagen">
-                                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-                                        <circle cx="11" cy="11" r="8"></circle>
-                                        <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
-                                        <line x1="11" y1="8" x2="11" y2="14"></line>
-                                        <line x1="8" y1="11" x2="14" y2="11"></line>
-                                    </svg>
-                                </button>
+                                <p class="step-desc" data-lang-es="Cada palo cuenta una tendencia. Visualiza tu dispersión real en radar mediante scatter plots y empieza a apuntar donde los datos objetivos te sugieren, no donde crees que vas a tirar." data-lang-en="Every club tells a trend. Visualize your actual dispersion on radar via scatter plots and start aiming where objective data suggests, not where you hope it goes.">Cada palo cuenta una tendencia. Visualiza tu dispersión real en radar mediante scatter plots y empieza a apuntar donde los datos objetivos te sugieren, no donde crees que vas a tirar.</p>
+                                <div class="step-chips">
+                                    <span class="chip" data-lang-es="Scatter Plot Real" data-lang-en="Real Scatter Plot">Scatter Plot Real</span>
+                                    <span class="chip" data-lang-es="Tendencia de Vuelo" data-lang-en="Flight Tendency">Tendencia de Vuelo</span>
+                                    <span class="chip" data-lang-es="Mapeo por Palo" data-lang-en="Club-by-Club Mapping">Mapeo por Palo</span>
+                                </div>
                             </div>
-                            <p class="step-desc" data-lang-es="Tus promedios reales, palo a palo. Identifica con exactitud los huecos de cobertura en tu bolsa que convierten buenas decisiones en golpes perdidos al agua o fuera de límites." data-lang-en="Your real averages, club by club. Precisely identify the coverage gaps in your bag that turn good decisions into lost shots in water or out of bounds.">Tus promedios reales, palo a palo. Identifica con exactitud los huecos de cobertura en tu bolsa que convierten buenas decisiones en golpes perdidos al agua o fuera de límites.</p>
-                            <div class="step-chips">
-                                <span class="chip" data-lang-es="Distancia Real de Carry" data-lang-en="Real Carry Distance">Distancia Real de Carry</span>
-                                <span class="chip" data-lang-es="Cobertura de Bolsa" data-lang-en="Bag Coverage">Cobertura de Bolsa</span>
-                                <span class="chip" data-lang-es="Selección Óptima" data-lang-en="Optimal Selection">Selección Óptima</span>
-                            </div>
-                        </div>
 
-                        <!-- Beat 3 -->
-                        <div class="narrative-step" data-step="3">
-                            <div class="step-num" data-lang-es="03 / PUTT MATRIX" data-lang-en="03 / PUTT MATRIX">03 / PUTT MATRIX</div>
-                            <h3 data-lang-es="El detalle que marca la diferencia" data-lang-en="The detail that makes the difference">El detalle que marca la diferencia</h3>
-                            <div class="mobile-step-img">
-                                <img src="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20width='800'%20height='1292'%3E%3C/svg%3E" data-src-es="assets/screens/es/screen-putt-800.webp" data-src-en="assets/screens/en/screen-putt-800.webp" data-srcset-es="assets/screens/es/screen-putt-360.webp 360w, assets/screens/es/screen-putt-800.webp 800w" data-srcset-en="assets/screens/en/screen-putt-360.webp 360w, assets/screens/en/screen-putt-800.webp 800w" data-width-es="800" data-height-es="1292" data-width-en="800" data-height-en="1311" sizes="(max-width: 720px) calc(100vw - 32px), 490px" alt="Estadísticas de Putt y matriz de caídas" width="800" height="1292" loading="lazy" decoding="async">
-                                <div class="floating-widget-v2 widget-emerald" style="bottom: 15%; left: 5%;">
-                                    🏌️‍♂️ <span data-lang-es="1-2 YD: 80% EMBOCADO" data-lang-en="1-2 YD: 80% HOLED">1-2 YD: 80% EMBOCADO</span>
+                            <!-- Beat 2 -->
+                            <div class="narrative-step" data-step="2">
+                                <div class="step-num" data-lang-es="02 / BAG MAPPING" data-lang-en="02 / BAG MAPPING">02 / BAG MAPPING</div>
+                                <h3 data-lang-es="La distancia que tienes no es la que crees" data-lang-en="The distance you have is not what you think">La distancia que tienes no es la que crees</h3>
+                                <div class="mobile-step-img">
+                                    <img src="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20width='900'%20height='841'%3E%3C/svg%3E" data-src-es="assets/screens/es/screen-gap-800.webp" data-src-en="assets/screens/en/screen-gap-800.webp" data-srcset-es="assets/screens/es/screen-gap-360.webp 360w, assets/screens/es/screen-gap-800.webp 800w" data-srcset-en="assets/screens/en/screen-gap-360.webp 360w, assets/screens/en/screen-gap-800.webp 800w" data-width-es="900" data-height-es="841" data-width-en="900" data-height-en="845" sizes="(max-width: 720px) calc(100vw - 32px), 490px" alt="Análisis Gap de cobertura de bolsa" width="900" height="841" loading="lazy" decoding="async">
+                                    <div class="floating-widget-v2 widget-gold" style="bottom: 20%; right: 5%;">
+                                        ⛳ <span data-lang-es="HUECO 3W-4i: 23 yd" data-lang-en="GAP 3W-4i: 23 yd">HUECO 3W-4i: 23 yd</span>
+                                    </div>
+                                    <button class="zoom-action-btn" type="button" aria-label="Ampliar imagen" title="Ampliar imagen">
+                                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                                            <circle cx="11" cy="11" r="8"></circle>
+                                            <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+                                            <line x1="11" y1="8" x2="11" y2="14"></line>
+                                            <line x1="8" y1="11" x2="14" y2="11"></line>
+                                        </svg>
+                                    </button>
                                 </div>
-                                <button class="zoom-action-btn" type="button" aria-label="Ampliar imagen" title="Ampliar imagen">
-                                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-                                        <circle cx="11" cy="11" r="8"></circle>
-                                        <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
-                                        <line x1="11" y1="8" x2="11" y2="14"></line>
-                                        <line x1="8" y1="11" x2="14" y2="11"></line>
-                                    </svg>
-                                </button>
+                                <p class="step-desc" data-lang-es="Tus promedios reales, palo a palo. Identifica con exactitud los huecos de cobertura en tu bolsa que convierten buenas decisiones en golpes perdidos al agua o fuera de límites." data-lang-en="Your real averages, club by club. Precisely identify the coverage gaps in your bag that turn good decisions into lost shots in water or out of bounds.">Tus promedios reales, palo a palo. Identifica con exactitud los huecos de cobertura en tu bolsa que convierten buenas decisiones en golpes perdidos al agua o fuera de límites.</p>
+                                <div class="step-chips">
+                                    <span class="chip" data-lang-es="Distancia Real de Carry" data-lang-en="Real Carry Distance">Distancia Real de Carry</span>
+                                    <span class="chip" data-lang-es="Cobertura de Bolsa" data-lang-en="Bag Coverage">Cobertura de Bolsa</span>
+                                    <span class="chip" data-lang-es="Selección Óptima" data-lang-en="Optimal Selection">Selección Óptima</span>
+                                </div>
                             </div>
-                            <p class="step-desc" data-lang-es="Tee, Approach, Short y Putt — cada zona analizada en profundidad con matrices de caída y pendiente (slope) para que practiques exactamente lo que necesitas para bajar de hándicap." data-lang-en="Tee, Approach, Short and Putt — each area analyzed in depth with slope and break matrices so you practice exactly what you need to lower your handicap.">Tee, Approach, Short y Putt — cada zona analizada en profundidad con matrices de caída y pendiente (slope) para que practiques exactamente lo que necesitas para bajar de hándicap.</p>
-                            <div class="step-chips">
-                                <span class="chip" data-lang-es="Matriz de Slope" data-lang-en="Slope Matrix">Matriz de Slope</span>
-                                <span class="chip" data-lang-es="Porcentajes de Acierto" data-lang-en="Make Percentages">Porcentajes de Acierto</span>
-                                <span class="chip" data-lang-es="Lectura de Green" data-lang-en="Green Reading">Lectura de Green</span>
+
+                            <!-- Beat 3 -->
+                            <div class="narrative-step" data-step="3">
+                                <div class="step-num" data-lang-es="03 / PUTT MATRIX" data-lang-en="03 / PUTT MATRIX">03 / PUTT MATRIX</div>
+                                <h3 data-lang-es="El detalle que marca la diferencia" data-lang-en="The detail that makes the difference">El detalle que marca la diferencia</h3>
+                                <div class="mobile-step-img">
+                                    <img src="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20width='800'%20height='1292'%3E%3C/svg%3E" data-src-es="assets/screens/es/screen-putt-800.webp" data-src-en="assets/screens/en/screen-putt-800.webp" data-srcset-es="assets/screens/es/screen-putt-360.webp 360w, assets/screens/es/screen-putt-800.webp 800w" data-srcset-en="assets/screens/en/screen-putt-360.webp 360w, assets/screens/en/screen-putt-800.webp 800w" data-width-es="800" data-height-es="1292" data-width-en="800" data-height-en="1311" sizes="(max-width: 720px) calc(100vw - 32px), 490px" alt="Estadísticas de Putt y matriz de caídas" width="800" height="1292" loading="lazy" decoding="async">
+                                    <div class="floating-widget-v2 widget-emerald" style="bottom: 15%; left: 5%;">
+                                        🏌️‍♂️ <span data-lang-es="1-2 YD: 80% EMBOCADO" data-lang-en="1-2 YD: 80% HOLED">1-2 YD: 80% EMBOCADO</span>
+                                    </div>
+                                    <button class="zoom-action-btn" type="button" aria-label="Ampliar imagen" title="Ampliar imagen">
+                                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                                            <circle cx="11" cy="11" r="8"></circle>
+                                            <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+                                            <line x1="11" y1="8" x2="11" y2="14"></line>
+                                            <line x1="8" y1="11" x2="14" y2="11"></line>
+                                        </svg>
+                                    </button>
+                                </div>
+                                <p class="step-desc" data-lang-es="Tee, Approach, Short y Putt — cada zona analizada en profundidad con matrices de caída y pendiente (slope) para que practiques exactamente lo que necesitas para bajar de hándicap." data-lang-en="Tee, Approach, Short and Putt — each area analyzed in depth with slope and break matrices so you practice exactly what you need to lower your handicap.">Tee, Approach, Short y Putt — cada zona analizada en profundidad con matrices de caída y pendiente (slope) para que practiques exactamente lo que necesitas para bajar de hándicap.</p>
+                                <div class="step-chips">
+                                    <span class="chip" data-lang-es="Matriz de Slope" data-lang-en="Slope Matrix">Matriz de Slope</span>
+                                    <span class="chip" data-lang-es="Porcentajes de Acierto" data-lang-en="Make Percentages">Porcentajes de Acierto</span>
+                                    <span class="chip" data-lang-es="Lectura de Green" data-lang-en="Green Reading">Lectura de Green</span>
+                                </div>
                             </div>
                         </div>
                     </div>

@@ -1,0 +1,22 @@
+RewriteEngine On
+RewriteBase /
+Options -MultiViews
+
+AddType image/x-icon .ico
+AddType application/manifest+json .webmanifest
+
+# Preserve old campaign and language URLs while consolidating indexing.
+RewriteCond %{QUERY_STRING} (^|&)lang=en(&|$) [NC]
+RewriteRule ^$ /en/ [R=301,L,NE,QSD]
+
+RewriteCond %{QUERY_STRING} (^|&)lang=es(&|$) [NC]
+RewriteRule ^$ /es/ [R=301,L,NE,QSD]
+
+RewriteRule ^v2/?$ /es/ [R=301,L]
+
+# Remove index.html from the root and localized public URLs.
+RewriteCond %{THE_REQUEST} \s/+(.*/)?index\.html(?:[?\s]) [NC]
+RewriteRule ^(.*/)?index\.html$ /$1 [R=301,L,NE]
+
+# Spanish is the default locale; both languages have their own indexable URL.
+RewriteRule ^$ /es/ [R=301,L]
