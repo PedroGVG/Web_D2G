@@ -533,10 +533,18 @@ a {
     align-items: center;
     justify-content: space-between;
     padding: 12px 20px;
-    background: rgba(5, 7, 11, 0.92);
+    background: rgba(5, 7, 11, 0.94);
     border-bottom: 1px solid var(--border-subtle);
     gap: 12px;
     flex-wrap: wrap;
+}
+
+.cockpit-top-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    gap: 10px;
 }
 
 .cockpit-hole-badge {
@@ -550,66 +558,110 @@ a {
     color: var(--text-primary);
 }
 
-.cockpit-strategy-switch {
+.cockpit-touch-prompt {
+    font-size: 0.6875rem;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    color: var(--accent-gold);
     display: inline-flex;
     align-items: center;
-    background: rgba(14, 18, 26, 0.9);
-    border: 1px solid var(--border-subtle);
-    border-radius: var(--radius-pill);
-    padding: 3px;
     gap: 4px;
+    animation: promptPulse 2.4s infinite ease-in-out;
+}
+
+@keyframes promptPulse {
+    0%, 100% { opacity: 0.85; transform: translateX(0); }
+    50% { opacity: 1; transform: translateX(2px); }
+}
+
+/* Tactile Segmented Strategy Switcher */
+.cockpit-strategy-switch {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    width: 100%;
+    background: rgba(4, 6, 10, 0.95);
+    border: 1.5px solid rgba(255, 255, 255, 0.14);
+    border-radius: var(--radius-pill);
+    padding: 4px;
+    gap: 6px;
+    box-shadow: inset 0 2px 6px rgba(0, 0, 0, 0.8);
 }
 
 .cockpit-strat-btn {
-    display: inline-flex;
+    display: flex;
     align-items: center;
+    justify-content: center;
     gap: 8px;
-    padding: 7px 14px;
+    padding: 8px 14px;
+    min-height: 42px;
     border-radius: var(--radius-pill);
-    background: transparent;
-    border: 1px solid transparent;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.12);
     color: var(--text-secondary);
     font-family: var(--font-sans);
     font-size: 0.75rem;
     font-weight: 700;
     cursor: pointer;
-    transition: all 0.25s var(--ease-spring);
+    transition: all 0.2s var(--ease-spring);
     white-space: nowrap;
+    -webkit-tap-highlight-color: transparent;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.4);
+}
+
+.cockpit-strat-btn:active {
+    transform: scale(0.96);
 }
 
 .cockpit-strat-btn:hover {
     color: var(--text-primary);
-    background: rgba(255, 255, 255, 0.04);
+    background: rgba(255, 255, 255, 0.09);
+    border-color: rgba(255, 255, 255, 0.25);
 }
 
 .cockpit-strat-btn.active {
-    background: rgba(22, 30, 44, 0.95);
-    border-color: var(--border-green);
+    background: linear-gradient(180deg, rgba(0, 229, 153, 0.2) 0%, rgba(0, 229, 153, 0.08) 100%);
+    border: 1.5px solid var(--accent-green);
     color: #FFFFFF;
-    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.5);
+    box-shadow: 0 0 16px rgba(0, 229, 153, 0.35), inset 0 1px 0 rgba(255, 255, 255, 0.2);
 }
 
 .cockpit-strat-btn.active[data-strat="aggressive"] {
-    border-color: rgba(255, 68, 88, 0.5);
-    box-shadow: 0 2px 12px rgba(255, 68, 88, 0.2);
+    background: linear-gradient(180deg, rgba(255, 68, 88, 0.22) 0%, rgba(255, 68, 88, 0.1) 100%);
+    border-color: var(--accent-red);
+    box-shadow: 0 0 16px rgba(255, 68, 88, 0.35), inset 0 1px 0 rgba(255, 255, 255, 0.2);
 }
 
-.strat-dot {
-    width: 8px;
-    height: 8px;
+/* Tactile Radio Circle Indicator */
+.strat-radio-circle {
+    width: 12px;
+    height: 12px;
     border-radius: 50%;
+    border: 2px solid rgba(255, 255, 255, 0.35);
+    background: transparent;
+    position: relative;
     flex-shrink: 0;
+    transition: all 0.2s ease;
 }
-.strat-dot.green { background: var(--accent-green); box-shadow: 0 0 8px var(--accent-green); }
-.strat-dot.red { background: var(--accent-red); box-shadow: 0 0 8px var(--accent-red); }
+
+.cockpit-strat-btn.active[data-strat="tactical"] .strat-radio-circle {
+    border-color: var(--accent-green);
+    background: var(--accent-green);
+    box-shadow: 0 0 8px var(--accent-green);
+}
+
+.cockpit-strat-btn.active[data-strat="aggressive"] .strat-radio-circle {
+    border-color: var(--accent-red);
+    background: var(--accent-red);
+    box-shadow: 0 0 8px var(--accent-red);
+}
 
 .strat-pill-badge {
     font-family: var(--font-mono);
     font-size: 0.6875rem;
     font-weight: 800;
-    padding: 1px 6px;
+    padding: 2px 7px;
     border-radius: var(--radius-pill);
-    background: rgba(255, 255, 255, 0.06);
+    background: rgba(255, 255, 255, 0.08);
 }
 
 /* Inside Cockpit: Map Screen */
@@ -2601,29 +2653,46 @@ img[data-src-es][data-src-en] {
         gap: 8px;
     }
 
+    .cockpit-top-row {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        width: 100%;
+        gap: 8px;
+    }
+
     .cockpit-hole-badge {
-        justify-content: center;
         font-size: 0.6875rem;
+    }
+
+    .cockpit-touch-prompt {
+        font-size: 0.625rem;
     }
 
     .cockpit-strategy-switch {
         display: grid;
         grid-template-columns: 1fr 1fr;
         width: 100%;
-        gap: 4px;
-        padding: 2px;
+        gap: 5px;
+        padding: 3px;
     }
 
     .cockpit-strat-btn {
-        padding: 7px 6px;
+        min-height: 42px;
+        padding: 8px 6px;
         font-size: 0.6875rem;
         justify-content: center;
         gap: 6px;
     }
 
+    .strat-radio-circle {
+        width: 10px;
+        height: 10px;
+    }
+
     .strat-pill-badge {
         font-size: 0.625rem;
-        padding: 1px 4px;
+        padding: 1px 5px;
     }
 
     .cinematic-frame.hole-map-frame {

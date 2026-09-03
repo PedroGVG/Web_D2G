@@ -155,20 +155,23 @@
                 <div class="hero-cockpit-device hero-stage-cinematic" data-tilt>
                     <!-- Cockpit Device Header Bar -->
                     <div class="cockpit-header">
-                        <div class="cockpit-hole-badge">
-                            <span class="target-beacon gold mini"></span>
-                            <span class="mono-text" data-lang-es="HOYO 14 · PAR 4 (418 YD)" data-lang-en="HOLE 14 · PAR 4 (418 YD)">HOYO 14 · PAR 4 (418 YD)</span>
+                        <div class="cockpit-top-row">
+                            <div class="cockpit-hole-badge">
+                                <span class="target-beacon gold mini"></span>
+                                <span class="mono-text" data-lang-es="HOYO 14 · PAR 4 (418 YD)" data-lang-en="HOLE 14 · PAR 4 (418 YD)">HOYO 14 · PAR 4 (418 YD)</span>
+                            </div>
+                            <span class="cockpit-touch-prompt mono-text" data-lang-es="👆 Toca para alternar:" data-lang-en="👆 Tap to toggle:">👆 Toca para alternar:</span>
                         </div>
 
-                        <!-- Integrated Strategy Segmented Selector -->
+                        <!-- Tactile Segmented Strategy Selector -->
                         <div class="cockpit-strategy-switch" role="group" aria-label="Estrategia del hoyo">
-                            <button type="button" class="cockpit-strat-btn active" id="btn-strat-tactical" data-strat="tactical">
-                                <span class="strat-dot green"></span>
+                            <button type="button" class="cockpit-strat-btn active" id="btn-strat-tactical" data-strat="tactical" aria-pressed="true">
+                                <span class="strat-radio-circle"></span>
                                 <span class="strat-btn-name" data-lang-es="Recomendada (3W)" data-lang-en="Recommended (3W)">Recomendada (3W)</span>
                                 <span class="strat-pill-badge text-green">+0.42 SG</span>
                             </button>
-                            <button type="button" class="cockpit-strat-btn" id="btn-strat-aggressive" data-strat="aggressive">
-                                <span class="strat-dot red"></span>
+                            <button type="button" class="cockpit-strat-btn" id="btn-strat-aggressive" data-strat="aggressive" aria-pressed="false">
+                                <span class="strat-radio-circle"></span>
                                 <span class="strat-btn-name" data-lang-es="Agresiva (Driver)" data-lang-en="Aggressive (Driver)">Agresiva (Driver)</span>
                                 <span class="strat-pill-badge text-red">-0.85 SG</span>
                             </button>
