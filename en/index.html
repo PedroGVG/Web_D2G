@@ -125,13 +125,14 @@
             <section id="hero" class="hero-section ambient-grid" aria-labelledby="hero-title">
                 <div class="hero-header-wrap">
                     <h1 id="hero-title" class="hero-title">
+                        <span class="hero-title-sub" data-lang-es="Inteligencia de Tour. Sin el Tour" data-lang-en="Tour intelligence. Without the Tour">Tour intelligence. Without the Tour</span>
                         <span class="hero-title-main">
-                            <span class="hero-title-primary" data-lang-es="Siente el golpe con intuición." data-lang-en="Feel the shot with intuition.">Feel the shot with intuition.</span>
-                            <span class="hero-title-secondary" data-lang-es="Decide con datos de Tour." data-lang-en="Decide with Tour data.">Decide with Tour data.</span>
+                            <span class="hero-title-primary" data-lang-es="Siente el golpe con intuición" data-lang-en="Feel the shot with intuition">Feel the shot with intuition</span>
+                            <span class="hero-title-secondary" data-lang-es="Decide la estrategia con datos" data-lang-en="Decide strategy with data">Decide strategy with data</span>
                         </span>
                     </h1>
 
-                    <p class="hero-lead" data-lang-es="La misma analítica Strokes Gained que guía a los profesionales, calibrada para tu bolsa, tus dispersiones y tus objetivos de hándicap." data-lang-en="The same Strokes Gained analytics that guides tour professionals, calibrated for your bag, your dispersion, and your handicap goals.">The same Strokes Gained analytics that guides tour professionals, calibrated for your bag, your dispersion, and your handicap goals.</p>
+                    <p class="hero-lead" data-lang-es="El mismo análisis que usan los circuitos profesionales, alimentado por tus propias rondas." data-lang-en="The same analysis used by professional tours, powered by your own rounds.">The same analysis used by professional tours, powered by your own rounds.</p>
 
                     <div class="hero-cta-block">
                         <a href="https://app.data2gain.com" class="btn-cta-main" target="_blank" rel="noopener">
@@ -149,12 +150,16 @@
 
                 <!-- Strategic Interactive Tactic Toggle -->
                 <div class="hero-strategy-switch-wrap">
+                    <div class="strategy-mobile-prompt mono-text">
+                        <span class="target-beacon green mini"></span>
+                        <span data-lang-es="TOCA PARA VER EL CAMBIO EN EL MAPA:" data-lang-en="TAP TO SEE LIVE HOLE IMPACT:">TAP TO SEE LIVE HOLE IMPACT:</span>
+                    </div>
                     <div class="strategy-toggle-bar" role="group" aria-label="Estrategia del hoyo">
                         <button type="button" class="strategy-toggle-btn active" id="btn-strat-tactical" data-strat="tactical">
                             <span class="strat-radio-dot"></span>
                             <span class="strat-btn-content">
                                 <span class="strat-btn-label" data-lang-es="ESTRATEGIA RECOMENDADA" data-lang-en="RECOMMENDED STRATEGY">RECOMMENDED STRATEGY</span>
-                                <span class="strat-btn-sub" data-lang-es="Madera 3 a centro de calle" data-lang-en="3-Wood to fairway center">3-Wood to fairway center</span>
+                                <span class="strat-btn-sub" data-lang-es="Madera 3 a calle" data-lang-en="3-Wood to fairway">3-Wood to fairway</span>
                             </span>
                             <span class="strat-delta-badge text-green">+0.42 SG</span>
                         </button>
@@ -162,7 +167,7 @@
                             <span class="strat-radio-dot"></span>
                             <span class="strat-btn-content">
                                 <span class="strat-btn-label" data-lang-es="ESTRATEGIA AGRESIVA" data-lang-en="AGGRESSIVE STRATEGY">AGGRESSIVE STRATEGY</span>
-                                <span class="strat-btn-sub" data-lang-es="Driver sobre acantilado" data-lang-en="Driver over cliffline">Driver over cliffline</span>
+                                <span class="strat-btn-sub" data-lang-es="Driver agresivo" data-lang-en="Aggressive driver">Aggressive driver</span>
                             </span>
                             <span class="strat-delta-badge text-red">-0.85 SG</span>
                         </button>
@@ -172,6 +177,12 @@
                 <!-- Spectacular Aspirational Hole Map with Real Strokes Gained Hazard Labels -->
                 <div class="hero-stage-cinematic" data-tilt>
                     <div class="cinematic-frame hole-map-frame">
+                        <!-- Floating Live Strategy Indicator (Ultra Clear on Mobile & Desktop) -->
+                        <div class="map-strategy-live-badge strat-tactical" id="map-live-strat-badge">
+                            <span class="target-beacon green mini" id="strat-live-beacon"></span>
+                            <span class="strat-live-text" id="strat-live-text" data-lang-es="MODO: MADERA 3 (0% RIESGO AGUA · +0.55 SG)" data-lang-en="MODE: 3-WOOD (0% WATER RISK · +0.55 SG)">MODE: 3-WOOD (0% WATER RISK · +0.55 SG)</span>
+                        </div>
+
                         <img src="/assets/hero-hole-sg-1200.webp" srcset="/assets/hero-hole-sg-480.webp 480w, /assets/hero-hole-sg-800.webp 800w, /assets/hero-hole-sg-1200.webp 1200w" sizes="(max-width: 767px) calc(100vw - 32px), (max-width: 1199px) calc(100vw - 48px), 1100px" alt="Championship hole map with Strokes Gained telemetry for every hazard and risk zone" class="hero-cinematic-img" width="1264" height="848" fetchpriority="high">
                         
                         <!-- Ambient Atmospheric Vignette Gradient -->

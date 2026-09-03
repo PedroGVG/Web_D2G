@@ -251,6 +251,10 @@ function initHeroStrategySwitch() {
     const fairwaySg = document.getElementById('fairway-sg-val');
     const fairwayDetail = document.getElementById('fairway-strat-detail');
     const waterDetail = document.getElementById('water-strat-detail');
+
+    const liveBadge = document.getElementById('map-live-strat-badge');
+    const liveBeacon = document.getElementById('strat-live-beacon');
+    const liveText = document.getElementById('strat-live-text');
     
     if (!btnTactical || !btnAggressive || !heroStage) return;
 
@@ -268,6 +272,15 @@ function initHeroStrategySwitch() {
         const lang = currentLang || 'es';
         
         if (isTactical) {
+            if (liveBadge) {
+                liveBadge.className = 'map-strategy-live-badge strat-tactical';
+            }
+            if (liveBeacon) {
+                liveBeacon.className = 'target-beacon green mini';
+            }
+            if (liveText) {
+                liveText.textContent = lang === 'en' ? 'MODE: 3-WOOD · 0% WATER RISK (+0.55 SG)' : 'MODO: MADERA 3 (0% RIESGO AGUA · +0.55 SG)';
+            }
             if (hudStratName) {
                 hudStratName.textContent = lang === 'en' ? '3-WOOD (+0.42 SG vs DRIVER)' : 'MADERA 3 (+0.42 SG vs DRIVER)';
                 hudStratName.className = 'text-gold';
@@ -293,6 +306,15 @@ function initHeroStrategySwitch() {
                 waterDetail.textContent = lang === 'en' ? '0% risk with 3-Wood' : '0% riesgo con Madera 3';
             }
         } else {
+            if (liveBadge) {
+                liveBadge.className = 'map-strategy-live-badge strat-aggressive';
+            }
+            if (liveBeacon) {
+                liveBeacon.className = 'target-beacon red mini';
+            }
+            if (liveText) {
+                liveText.textContent = lang === 'en' ? '⚠️ DRIVER MODE · 32% WATER RISK (-1.82 SG)' : '⚠️ MODO: DRIVER (32% RIESGO AGUA · -1.82 SG)';
+            }
             if (hudStratName) {
                 hudStratName.textContent = lang === 'en' ? 'DRIVER AGGRESSIVE (-0.85 SG vs 3W)' : 'DRIVER AL LÍMITE (-0.85 SG vs 3W)';
                 hudStratName.className = 'text-red';
