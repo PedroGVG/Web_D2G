@@ -26,7 +26,7 @@
     --text-muted: #647087;
     
     /* Typography — Precision Sports Engineering */
-    --font-brand: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+    --font-brand: 'Orbitron', -apple-system, BlinkMacSystemFont, sans-serif;
     --font-display: 'Syne', 'Plus Jakarta Sans', -apple-system, sans-serif;
     --font-sans: 'Inter Tight', -apple-system, BlinkMacSystemFont, sans-serif;
     --font-mono: 'JetBrains Mono', monospace;
@@ -228,89 +228,52 @@ a {
 }
 
 .nav-brand-text {
-    font-family: var(--font-display);
+    font-family: var(--font-brand);
     font-weight: 800;
-    letter-spacing: 0.06em;
-    font-size: 1.18rem;
+    letter-spacing: 0.08em;
+    font-size: 1.125rem;
     color: #FFFFFF;
 }
 
-/* Editorial Nav Links */
-.nav-menu {
-    display: none;
-    align-items: center;
-    gap: 28px;
-}
-
-@media (min-width: 900px) {
-    .nav-menu {
-        display: flex;
-    }
-}
-
-.nav-link {
-    font-family: var(--font-sans);
-    font-size: 0.875rem;
-    font-weight: 500;
-    color: var(--text-secondary);
-    transition: color 0.2s var(--ease-spring);
-    position: relative;
-    padding: 6px 0;
-}
-
-.nav-link:hover {
-    color: var(--text-primary);
-}
-
-.nav-link::after {
-    content: '';
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    width: 0;
-    height: 1.5px;
-    background: var(--accent-green);
-    transition: width 0.25s var(--ease-spring);
-}
-
-.nav-link:hover::after {
-    width: 100%;
-}
-
-/* Nav Actions Group */
-.nav-actions-group {
+/* Platform Segmented Selector */
+.platform-selector {
     display: flex;
     align-items: center;
-    gap: 12px;
+    background: rgba(10, 12, 18, 0.7);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: var(--radius-pill);
+    padding: 3px;
+    gap: 2px;
 }
 
-.nav-launch-btn {
+.platform-btn {
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    font-weight: 600;
+    letter-spacing: 0.04em;
+    padding: 0 16px;
+    height: 36px;
+    border-radius: var(--radius-pill);
+    background: transparent;
+    border: 1.5px solid transparent;
+    color: var(--text-secondary);
     display: inline-flex;
     align-items: center;
-    gap: 8px;
-    height: 38px;
-    padding: 0 16px;
-    border-radius: var(--radius-pill);
-    background: rgba(0, 229, 153, 0.08);
-    border: 1px solid var(--border-green);
-    color: var(--accent-green);
-    font-family: var(--font-brand);
-    font-size: 0.8125rem;
-    font-weight: 700;
-    letter-spacing: 0.03em;
+    justify-content: center;
     transition: all 0.25s var(--ease-spring);
+    white-space: nowrap;
+    text-decoration: none;
 }
 
-.nav-launch-btn:hover {
-    background: var(--accent-green);
-    color: #040609;
-    box-shadow: 0 0 25px var(--accent-green-glow);
-    transform: translateY(-1px);
+.platform-btn:hover {
+    color: var(--text-primary);
+    background: rgba(255, 255, 255, 0.05);
 }
 
-.target-beacon.mini {
-    width: 7px;
-    height: 7px;
+.platform-btn.active {
+    border-color: var(--accent-gold);
+    color: var(--accent-gold);
+    background: rgba(255, 179, 0, 0.06);
 }
 
 /* Language Switcher Flags Pill */
@@ -1078,12 +1041,6 @@ a {
     }
 }
 
-@media (max-width: 580px) {
-    .sg-bento-grid {
-        grid-template-columns: 1fr;
-    }
-}
-
 .sg-metric-card {
     background: rgba(12, 17, 26, 0.7);
     border: 1px solid var(--border-subtle);
@@ -1261,6 +1218,102 @@ a {
 .sg-diag-action:hover {
     transform: translateY(-2px);
     box-shadow: 0 0 20px var(--accent-green-glow);
+}
+
+/* ─── Compact Mobile Optimization for SG Benchmark ─── */
+@media (max-width: 640px) {
+    .sg-benchmark-section {
+        padding: 3.5rem 16px 2.5rem;
+    }
+
+    .sg-header-center {
+        margin-bottom: 1.5rem;
+    }
+
+    .sg-benchmark-control {
+        margin-bottom: 1.25rem;
+        gap: 8px;
+    }
+
+    .sg-tabs-pill {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 5px;
+        padding: 5px;
+        width: 100%;
+        border-radius: var(--radius-md);
+    }
+
+    .sg-tab-btn {
+        padding: 8px 4px;
+        font-size: 0.6875rem;
+        letter-spacing: 0.02em;
+        text-align: center;
+        justify-content: center;
+        border-radius: var(--radius-sm);
+        white-space: nowrap;
+    }
+
+    /* Compact 2x2 grid on mobile */
+    .sg-bento-grid {
+        grid-template-columns: repeat(2, 1fr) !important;
+        gap: 8px;
+        margin-bottom: 1.25rem;
+    }
+
+    .sg-metric-card {
+        padding: 12px 10px;
+        gap: 8px;
+        border-radius: var(--radius-sm);
+    }
+
+    .sg-cat-badge {
+        font-size: 0.5625rem;
+        letter-spacing: 0.03em;
+    }
+
+    .sg-val-badge {
+        font-size: 0.9375rem;
+    }
+
+    .sg-bar-track {
+        height: 5px;
+    }
+
+    .sg-card-bottom {
+        padding-top: 6px;
+        gap: 2px;
+    }
+
+    .sg-kpi-label {
+        font-size: 0.625rem;
+    }
+
+    .sg-kpi-val {
+        font-size: 0.6875rem;
+    }
+
+    .sg-diagnostic-box {
+        padding: 14px 16px;
+        gap: 12px;
+        border-radius: var(--radius-sm);
+    }
+
+    .sg-diag-icon {
+        font-size: 1.35rem;
+    }
+
+    .sg-diag-text p {
+        font-size: 0.8125rem;
+        line-height: 1.45;
+    }
+
+    .sg-diag-action {
+        width: 100%;
+        justify-content: center;
+        padding: 9px 14px;
+        font-size: 0.75rem;
+    }
 }
 
 

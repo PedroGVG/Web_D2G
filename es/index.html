@@ -38,10 +38,10 @@
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter+Tight:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400&amp;family=JetBrains+Mono:wght@400;500;600;700&amp;family=Plus+Jakarta+Sans:wght@500;600;700;800&amp;family=Syne:wght@700;800&amp;display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter+Tight:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400&amp;family=JetBrains+Mono:wght@400;500;600;700&amp;family=Orbitron:wght@800&amp;family=Plus+Jakarta+Sans:wght@500;600;700;800&amp;family=Syne:wght@700;800&amp;display=swap" rel="stylesheet">
     
     <!-- CSS V2 -->
-    <link rel="stylesheet" href="/css/style.css?v=10">
+    <link rel="stylesheet" href="/css/style.css?v=11">
     
     <!-- Schema Markup -->
     <script type="application/ld+json">
@@ -89,50 +89,41 @@
     <div class="spotlight-cursor" aria-hidden="true"></div>
 
     <div class="site-wrapper">
-        <!-- ═══ HEADER / NAVBAR: REFINED TOUR COMMAND BAR ═══ -->
+        <!-- ═══ HEADER / NAVBAR: PREVIOUS VERSION STRUCTURE ═══ -->
         <header class="navbar" role="banner">
             <a href="/es/" class="nav-brand-group" aria-label="Data2Gain Inicio">
                 <img src="/assets/logo-32.webp" srcset="/assets/logo-32.webp 32w, /assets/logo-64.webp 64w" sizes="32px" alt="Data2Gain Logo" class="nav-logo" width="32" height="32">
                 <span class="nav-brand-text">DATA<span class="text-gold">2</span>GAIN</span>
             </a>
 
-            <!-- Editorial Nav Links -->
-            <nav class="nav-menu" aria-label="Navegación principal">
-                <a href="#hero" class="nav-link" data-lang-es="Estrategia" data-lang-en="Strategy">Estrategia</a>
-                <a href="#strokes-gained" class="nav-link" data-lang-es="Strokes Gained" data-lang-en="Strokes Gained">Strokes Gained</a>
-                <a href="#scrolly-section" class="nav-link" data-lang-es="Telemetría" data-lang-en="Telemetry">Telemetría</a>
-                <a href="#ai-caddie" class="nav-link" data-lang-es="Caddie IA" data-lang-en="AI Caddie">Caddie IA</a>
-                <a href="#services" class="nav-link" data-lang-es="Servicios" data-lang-en="Services">Servicios</a>
+            <!-- Platform Segmented Selector -->
+            <nav class="platform-selector" role="group" aria-label="Plataforma">
+                <a href="https://app.data2gain.com" class="platform-btn active" target="_blank" rel="noopener">
+                    <span data-lang-es="Web App" data-lang-en="Web App">Web App</span>
+                </a>
+                <a href="https://apps.apple.com" class="platform-btn" target="_blank" rel="noopener" aria-label="iOS App">
+                    <span>iOS</span>
+                </a>
+                <a href="https://play.google.com" class="platform-btn" target="_blank" rel="noopener" aria-label="Android App">
+                    <span>Android</span>
+                </a>
             </nav>
 
-            <!-- Launch App CTA & Language Switcher -->
-            <div class="nav-actions-group">
-                <a href="https://app.data2gain.com" class="nav-launch-btn" target="_blank" rel="noopener">
-                    <span class="target-beacon green mini"></span>
-                    <span data-lang-es="Acceder a Web App" data-lang-en="Launch Web App">Acceder a Web App</span>
+            <!-- Language Switcher Flags Pill -->
+            <nav class="lang-switcher-pill" aria-label="Selector de idioma">
+                <a href="/es/" class="lang-flag-btn active" data-lang="es" aria-label="Español" title="Español" aria-current="page">
+                    <span class="flag-icon flag-es"></span>
                 </a>
-
-                <!-- Language Switcher Flags Pill -->
-                <nav class="lang-switcher-pill" aria-label="Selector de idioma">
-                    <a href="/es/" class="lang-flag-btn active" data-lang="es" aria-label="Español" title="Español" aria-current="page">
-                        <span class="flag-icon flag-es"></span>
-                    </a>
-                    <a href="/en/" class="lang-flag-btn" data-lang="en" aria-label="English" title="English">
-                        <span class="flag-icon flag-en"></span>
-                    </a>
-                </nav>
-            </div>
+                <a href="/en/" class="lang-flag-btn" data-lang="en" aria-label="English" title="English">
+                    <span class="flag-icon flag-en"></span>
+                </a>
+            </nav>
         </header>
 
         <main>
             <!-- ═══ 1. HERO IMMERSIVE (ASPIRATIONAL STROKES GAINED HOLE STRATEGY MAP) ═══ -->
             <section id="hero" class="hero-section ambient-grid" aria-labelledby="hero-title">
                 <div class="hero-header-wrap">
-                    <div class="hero-live-badge">
-                        <span class="target-beacon green mini"></span>
-                        <span class="mono-text" data-lang-es="TELEMETRÍA DE TOUR &amp; CADDIE IA" data-lang-en="TOUR TELEMETRY &amp; AI CADDIE">TELEMETRÍA DE TOUR &amp; CADDIE IA</span>
-                    </div>
-
                     <h1 id="hero-title" class="hero-title">
                         <span class="hero-title-main">
                             <span class="hero-title-primary" data-lang-es="Siente el golpe con intuición." data-lang-en="Feel the shot with intuition.">Siente el golpe con intuición.</span>
@@ -162,7 +153,7 @@
                         <button type="button" class="strategy-toggle-btn active" id="btn-strat-tactical" data-strat="tactical">
                             <span class="strat-radio-dot"></span>
                             <span class="strat-btn-content">
-                                <span class="strat-btn-label" data-lang-es="ESTRATEGIA RECOMENDADA IA" data-lang-en="AI RECOMMENDED STRATEGY">ESTRATEGIA RECOMENDADA IA</span>
+                                <span class="strat-btn-label" data-lang-es="ESTRATEGIA RECOMENDADA" data-lang-en="RECOMMENDED STRATEGY">ESTRATEGIA RECOMENDADA</span>
                                 <span class="strat-btn-sub" data-lang-es="Madera 3 a centro de calle" data-lang-en="3-Wood to fairway center">Madera 3 a centro de calle</span>
                             </span>
                             <span class="strat-delta-badge text-green">+0.42 SG</span>
@@ -228,7 +219,7 @@
                             <span class="target-beacon gold"></span>
                             <div class="hazard-card">
                                 <div class="hazard-badge-row">
-                                    <span class="hazard-type text-gold" data-lang-es="SECTOR BANDERA" data-lang-en="PIN SECTOR">SECTOR BANDERA</span>
+                                    <span class="hazard-type text-gold" data-lang-es="GREEN" data-lang-en="GREEN">GREEN</span>
                                     <span class="hazard-sg text-gold">+0.48 SG</span>
                                 </div>
                                 <span class="hazard-detail" data-lang-es="Subida suave · 1-Putt 44%" data-lang-en="Uphill putt · 1-Putt 44%">Subida suave · 1-Putt 44%</span>
@@ -342,7 +333,7 @@
                             <p id="sg-diag-message" data-lang-es="Frente a un jugador HCP 5, tu mayor fuga de golpes está en los tiros a green (-0.11 SG) y en putts de media distancia (-0.24 SG). Enfocar el 60% de tu práctica en proximidad a 150m reducirá tu hándicap en 2.1 golpes." data-lang-en="Against an HCP 5 player, your largest leak is on approach shots (-0.11 SG) and mid-range putts (-0.24 SG). Focusing 60% of practice on 150m proximity will lower your handicap by 2.1 strokes.">Frente a un jugador HCP 5, tu mayor fuga de golpes está en los tiros a green (-0.11 SG) y en putts de media distancia (-0.24 SG). Enfocar el 60% de tu práctica en proximidad a 150m reducirá tu hándicap en 2.1 golpes.</p>
                         </div>
                         <a href="https://app.data2gain.com" class="sg-diag-action" target="_blank" rel="noopener">
-                            <span data-lang-es="Analizar Mi Bolsa" data-lang-en="Analyze My Bag">Analizar Mi Bolsa</span>
+                            <span data-lang-es="Probar Data2Gain" data-lang-en="Try Data2Gain">Probar Data2Gain</span>
                             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
                         </a>
                     </div>
@@ -498,9 +489,6 @@
                         </div>
                         <div class="ai-card-body">
                             <img src="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20width='1264'%20height='960'%3E%3C/svg%3E" data-src-es="/assets/screens/es/screen-ai-chat-1-800.webp" data-src-en="/assets/screens/en/screen-ai-chat-1-800.webp" data-srcset-es="/assets/screens/es/screen-ai-chat-1-360.webp 360w, /assets/screens/es/screen-ai-chat-1-800.webp 800w" data-srcset-en="/assets/screens/en/screen-ai-chat-1-360.webp 360w, /assets/screens/en/screen-ai-chat-1-800.webp 800w" data-width-es="1264" data-height-es="960" data-width-en="1264" data-height-en="960" sizes="(max-width: 720px) calc(100vw - 72px), 400px" alt="Data2Gain AI Agent - Opciones de análisis y chat" class="ai-screen-img" width="1264" height="960" loading="lazy" decoding="async">
-                            <div class="floating-widget-v2 widget-pink" style="top: 25px; right: 20px;">
-                                🤖 <span data-lang-es="IA CADDIE ACTIVO" data-lang-en="AI CADDIE ACTIVE">IA CADDIE ACTIVO</span>
-                            </div>
                         </div>
                         <div class="ai-card-footer">
                             <span class="mono-text text-muted" data-lang-es="HISTORIAL COMPLETO · ANÁLISIS CONTEXTUAL" data-lang-en="FULL HISTORY · CONTEXTUAL ANALYSIS">HISTORIAL COMPLETO · ANÁLISIS CONTEXTUAL</span>
@@ -515,9 +503,6 @@
                         </div>
                         <div class="ai-card-body">
                             <img src="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20width='1264'%20height='1218'%3E%3C/svg%3E" data-src-es="/assets/screens/es/screen-ai-chat-2-800.webp" data-src-en="/assets/screens/en/screen-ai-chat-2-800.webp" data-srcset-es="/assets/screens/es/screen-ai-chat-2-360.webp 360w, /assets/screens/es/screen-ai-chat-2-800.webp 800w" data-srcset-en="/assets/screens/en/screen-ai-chat-2-360.webp 360w, /assets/screens/en/screen-ai-chat-2-800.webp 800w" data-width-es="1264" data-height-es="1218" data-width-en="1264" data-height-en="1218" sizes="(max-width: 720px) calc(100vw - 72px), 400px" alt="Data2Gain AI Agent - Recomendaciones y gráficos interactivos" class="ai-screen-img" width="1264" height="1218" loading="lazy" decoding="async">
-                            <div class="floating-widget-v2 widget-blue" style="bottom: 30px; left: 20px;">
-                                💡 <span data-lang-es="TIP: CALLE = +1.8 SG" data-lang-en="TIP: FAIRWAY = +1.8 SG">TIP: CALLE = +1.8 SG</span>
-                            </div>
                         </div>
                         <div class="ai-card-footer">
                             <span class="mono-text text-muted" data-lang-es="GRÁFICAS INTERACTIVAS · DATOS EN TIEMPO REAL" data-lang-en="INTERACTIVE CHARTS · REALTIME DATA">GRÁFICAS INTERACTIVAS · DATOS EN TIEMPO REAL</span>
