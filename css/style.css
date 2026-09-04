@@ -535,16 +535,8 @@ a {
     padding: 12px 20px;
     background: rgba(5, 7, 11, 0.94);
     border-bottom: 1px solid var(--border-subtle);
-    gap: 12px;
+    gap: 16px;
     flex-wrap: wrap;
-}
-
-.cockpit-top-row {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    width: 100%;
-    gap: 10px;
 }
 
 .cockpit-hole-badge {
@@ -558,33 +550,17 @@ a {
     color: var(--text-primary);
 }
 
-.cockpit-touch-prompt {
-    font-size: 0.6875rem;
-    font-weight: 700;
-    letter-spacing: 0.04em;
-    color: var(--accent-gold);
-    display: inline-flex;
-    align-items: center;
-    gap: 4px;
-    animation: promptPulse 2.4s infinite ease-in-out;
-}
-
-@keyframes promptPulse {
-    0%, 100% { opacity: 0.85; transform: translateX(0); }
-    50% { opacity: 1; transform: translateX(2px); }
-}
-
-/* Tactile Segmented Strategy Switcher */
+/* Tactile Segmented Strategy Switcher (Super clean, physical keycap feel) */
 .cockpit-strategy-switch {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    width: 100%;
     background: rgba(4, 6, 10, 0.95);
-    border: 1.5px solid rgba(255, 255, 255, 0.14);
+    border: 1.5px solid rgba(255, 255, 255, 0.16);
     border-radius: var(--radius-pill);
-    padding: 4px;
+    padding: 3px;
     gap: 6px;
-    box-shadow: inset 0 2px 6px rgba(0, 0, 0, 0.8);
+    box-shadow: inset 0 2px 8px rgba(0, 0, 0, 0.85);
+    min-width: 260px;
 }
 
 .cockpit-strat-btn {
@@ -592,51 +568,53 @@ a {
     align-items: center;
     justify-content: center;
     gap: 8px;
-    padding: 8px 14px;
-    min-height: 42px;
+    padding: 7px 12px;
+    min-height: 40px;
     border-radius: var(--radius-pill);
-    background: rgba(255, 255, 255, 0.05);
-    border: 1px solid rgba(255, 255, 255, 0.12);
+    background: rgba(255, 255, 255, 0.07);
+    border: 1.5px solid rgba(255, 255, 255, 0.18);
     color: var(--text-secondary);
     font-family: var(--font-sans);
     font-size: 0.75rem;
     font-weight: 700;
     cursor: pointer;
-    transition: all 0.2s var(--ease-spring);
+    transition: all 0.2s cubic-bezier(0.34, 1.56, 0.64, 1);
     white-space: nowrap;
     -webkit-tap-highlight-color: transparent;
-    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.4);
-}
-
-.cockpit-strat-btn:active {
-    transform: scale(0.96);
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.1);
 }
 
 .cockpit-strat-btn:hover {
-    color: var(--text-primary);
-    background: rgba(255, 255, 255, 0.09);
-    border-color: rgba(255, 255, 255, 0.25);
+    color: #FFFFFF;
+    background: rgba(255, 255, 255, 0.14);
+    border-color: rgba(255, 255, 255, 0.35);
+    transform: translateY(-1px);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.6);
+}
+
+.cockpit-strat-btn:active {
+    transform: scale(0.95);
 }
 
 .cockpit-strat-btn.active {
-    background: linear-gradient(180deg, rgba(0, 229, 153, 0.2) 0%, rgba(0, 229, 153, 0.08) 100%);
+    background: linear-gradient(180deg, rgba(0, 229, 153, 0.28) 0%, rgba(0, 229, 153, 0.1) 100%);
     border: 1.5px solid var(--accent-green);
     color: #FFFFFF;
-    box-shadow: 0 0 16px rgba(0, 229, 153, 0.35), inset 0 1px 0 rgba(255, 255, 255, 0.2);
+    box-shadow: 0 0 18px rgba(0, 229, 153, 0.38), inset 0 1px 0 rgba(255, 255, 255, 0.25);
 }
 
 .cockpit-strat-btn.active[data-strat="aggressive"] {
-    background: linear-gradient(180deg, rgba(255, 68, 88, 0.22) 0%, rgba(255, 68, 88, 0.1) 100%);
+    background: linear-gradient(180deg, rgba(255, 68, 88, 0.28) 0%, rgba(255, 68, 88, 0.1) 100%);
     border-color: var(--accent-red);
-    box-shadow: 0 0 16px rgba(255, 68, 88, 0.35), inset 0 1px 0 rgba(255, 255, 255, 0.2);
+    box-shadow: 0 0 18px rgba(255, 68, 88, 0.38), inset 0 1px 0 rgba(255, 255, 255, 0.25);
 }
 
 /* Tactile Radio Circle Indicator */
 .strat-radio-circle {
-    width: 12px;
-    height: 12px;
+    width: 11px;
+    height: 11px;
     border-radius: 50%;
-    border: 2px solid rgba(255, 255, 255, 0.35);
+    border: 1.5px solid rgba(255, 255, 255, 0.4);
     background: transparent;
     position: relative;
     flex-shrink: 0;
@@ -659,9 +637,96 @@ a {
     font-family: var(--font-mono);
     font-size: 0.6875rem;
     font-weight: 800;
-    padding: 2px 7px;
+    padding: 2px 6px;
     border-radius: var(--radius-pill);
-    background: rgba(255, 255, 255, 0.08);
+    background: rgba(255, 255, 255, 0.1);
+}
+
+/* ═════════════════════════════════════════════════════════════════
+   HOLE TELEMETRY FLIGHT TRAJECTORIES & IMPACT CONES (SVG)
+   ═════════════════════════════════════════════════════════════════ */
+.hole-telemetry-svg {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 2;
+}
+
+.svg-traj {
+    fill: none;
+    stroke-linecap: round;
+    transition: all 0.35s ease;
+}
+
+.svg-impact {
+    transform-origin: center;
+    transition: all 0.35s ease;
+}
+
+/* Tactical State (Madera 3 Highlighted) */
+.hero-cockpit-device.strat-tactical .traj-tactical {
+    stroke: #00E599;
+    stroke-width: 3.5;
+    opacity: 1;
+    filter: drop-shadow(0 0 6px rgba(0, 229, 153, 0.8));
+}
+.hero-cockpit-device.strat-tactical .impact-tactical {
+    fill: #00E599;
+    opacity: 0.9;
+    filter: drop-shadow(0 0 10px rgba(0, 229, 153, 0.95));
+}
+.hero-cockpit-device.strat-tactical .traj-aggressive {
+    stroke: rgba(255, 255, 255, 0.25);
+    stroke-width: 2;
+    stroke-dasharray: 6 6;
+    opacity: 0.35;
+}
+.hero-cockpit-device.strat-tactical .impact-aggressive {
+    fill: rgba(255, 255, 255, 0.2);
+    opacity: 0.25;
+}
+.hero-cockpit-device.strat-tactical .traj-water-miss {
+    opacity: 0;
+}
+.hero-cockpit-device.strat-tactical .impact-water-miss {
+    opacity: 0;
+}
+
+/* Aggressive State (Driver & Water Penalty Highlighted) */
+.hero-cockpit-device.strat-aggressive .traj-tactical {
+    stroke: rgba(255, 255, 255, 0.25);
+    stroke-width: 2;
+    stroke-dasharray: 6 6;
+    opacity: 0.35;
+}
+.hero-cockpit-device.strat-tactical .impact-tactical {
+    fill: rgba(255, 255, 255, 0.2);
+    opacity: 0.25;
+}
+.hero-cockpit-device.strat-aggressive .traj-aggressive {
+    stroke: #FFB300;
+    stroke-width: 3.5;
+    opacity: 1;
+    filter: drop-shadow(0 0 8px rgba(255, 179, 0, 0.8));
+}
+.hero-cockpit-device.strat-aggressive .impact-aggressive {
+    fill: #FFB300;
+    opacity: 0.9;
+    filter: drop-shadow(0 0 12px rgba(255, 179, 0, 0.9));
+}
+.hero-cockpit-device.strat-aggressive .traj-water-miss {
+    stroke: #FF4D6A;
+    stroke-width: 2.5;
+    stroke-dasharray: 5 5;
+    opacity: 0.95;
+    filter: drop-shadow(0 0 8px rgba(255, 77, 106, 0.85));
+}
+.hero-cockpit-device.strat-aggressive .impact-water-miss {
+    fill: #FF4D6A;
+    opacity: 0.9;
+    filter: drop-shadow(0 0 12px rgba(255, 77, 106, 0.95));
 }
 
 /* Inside Cockpit: Map Screen */
@@ -932,18 +997,74 @@ a {
     color: var(--text-secondary);
 }
 
-/* Coordinates for 4:3 fixed aspect ratio strokesaver */
-.tag-fairway { top: 70%; left: 48%; }
-.tag-fairway .hazard-card { border-color: rgba(0, 232, 157, 0.5); }
+/* Coordinates for 4:3 fixed aspect ratio strokesaver & Alternative Positions */
+.tag-fairway {
+    top: 70%;
+    left: 48%;
+    transition: all 0.35s ease;
+}
+.tag-fairway .hazard-card {
+    border-color: rgba(0, 232, 157, 0.6);
+}
 
-.tag-water { top: 55%; left: 65%; }
-.tag-water .hazard-card { border-color: rgba(255, 77, 106, 0.5); }
+.tag-driver-landing {
+    top: 45%;
+    left: 43%;
+    transition: all 0.35s ease;
+}
+.tag-driver-landing .hazard-card {
+    border-color: rgba(255, 179, 0, 0.6);
+}
+
+.tag-water {
+    top: 55%;
+    left: 65%;
+    transition: all 0.35s ease;
+}
+.tag-water .hazard-card {
+    border-color: rgba(255, 77, 106, 0.6);
+}
 
 .tag-bunker { top: 22%; left: 42%; }
 .tag-bunker .hazard-card { border-color: rgba(255, 179, 0, 0.5); }
 
 .tag-pin { top: 15%; left: 52%; }
 .tag-pin .hazard-card { border-color: rgba(255, 179, 0, 0.5); }
+
+/* Dynamic Alternative Highlighting: Tactical vs Aggressive */
+.hero-cockpit-device.strat-tactical #hazard-fairway {
+    opacity: 1;
+    transform: translateY(-50%) scale(1);
+    z-index: 6;
+}
+.hero-cockpit-device.strat-tactical #hazard-driver {
+    opacity: 0.35;
+    transform: translateY(-50%) scale(0.9);
+    filter: grayscale(40%);
+}
+.hero-cockpit-device.strat-tactical #hazard-water {
+    opacity: 0.55;
+}
+
+.hero-cockpit-device.strat-aggressive #hazard-fairway {
+    opacity: 0.35;
+    transform: translateY(-50%) scale(0.9);
+    filter: grayscale(40%);
+}
+.hero-cockpit-device.strat-aggressive #hazard-driver {
+    opacity: 1;
+    transform: translateY(-50%) scale(1);
+    z-index: 6;
+}
+.hero-cockpit-device.strat-aggressive #hazard-water {
+    opacity: 1;
+    transform: translateY(-50%) scale(1.05);
+    z-index: 6;
+}
+.hero-cockpit-device.strat-aggressive #hazard-water .hazard-card {
+    border-color: rgba(255, 68, 88, 0.9);
+    box-shadow: 0 0 20px rgba(255, 68, 88, 0.45);
+}
 
 .tag-cliff { display: none; } /* Removed from this image */
 
@@ -1147,7 +1268,7 @@ a {
     line-height: 1.6;
 }
 
-/* Control Pills */
+/* Control Pills with Strong Click Affordance */
 .sg-benchmark-control {
     display: flex;
     flex-direction: column;
@@ -1158,10 +1279,23 @@ a {
 }
 
 .sg-control-label {
-    font-size: 0.6875rem;
+    font-size: 0.75rem;
     font-weight: 700;
-    letter-spacing: 0.1em;
-    color: var(--text-muted);
+    letter-spacing: 0.08em;
+    color: var(--accent-gold);
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.sg-click-icon {
+    font-size: 0.875rem;
+    animation: iconBounce 2s infinite ease-in-out;
+}
+
+@keyframes iconBounce {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-2px); }
 }
 
 .sg-tabs-pill {
@@ -1169,11 +1303,12 @@ a {
     align-items: center;
     justify-content: center;
     flex-wrap: wrap;
-    gap: 6px;
+    gap: 8px;
     padding: 6px;
     border-radius: var(--radius-pill);
-    background: rgba(12, 17, 26, 0.85);
-    border: 1px solid var(--border-subtle);
+    background: rgba(10, 14, 22, 0.95);
+    border: 1.5px solid rgba(255, 255, 255, 0.16);
+    box-shadow: inset 0 2px 8px rgba(0, 0, 0, 0.8);
     backdrop-filter: blur(12px);
     -webkit-backdrop-filter: blur(12px);
     max-width: 100%;
@@ -1185,25 +1320,54 @@ a {
     font-weight: 700;
     letter-spacing: 0.04em;
     padding: 8px 16px;
+    min-height: 40px;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
     border-radius: var(--radius-pill);
-    background: transparent;
-    border: 1px solid transparent;
+    background: rgba(255, 255, 255, 0.06);
+    border: 1.5px solid rgba(255, 255, 255, 0.16);
     color: var(--text-secondary);
     cursor: pointer;
-    transition: all 0.2s var(--ease-spring);
+    transition: all 0.2s cubic-bezier(0.34, 1.56, 0.64, 1);
     white-space: nowrap;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.08);
+    -webkit-tap-highlight-color: transparent;
+}
+
+.sg-tab-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    border: 1.5px solid rgba(255, 255, 255, 0.4);
+    background: transparent;
+    flex-shrink: 0;
+    transition: all 0.2s ease;
 }
 
 .sg-tab-btn:hover {
-    color: var(--text-primary);
-    background: rgba(255, 255, 255, 0.05);
+    color: #FFFFFF;
+    background: rgba(0, 229, 153, 0.12);
+    border-color: rgba(0, 229, 153, 0.45);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 14px rgba(0, 229, 153, 0.25);
+}
+
+.sg-tab-btn:active {
+    transform: scale(0.95);
 }
 
 .sg-tab-btn.active {
-    background: rgba(0, 229, 153, 0.12);
-    border-color: var(--border-green);
-    color: var(--accent-green);
-    box-shadow: 0 0 16px rgba(0, 229, 153, 0.2);
+    background: linear-gradient(135deg, rgba(0, 229, 153, 0.25) 0%, rgba(0, 229, 153, 0.1) 100%);
+    border: 1.5px solid var(--accent-green);
+    color: #FFFFFF;
+    box-shadow: 0 0 18px rgba(0, 229, 153, 0.35), inset 0 1px 0 rgba(255, 255, 255, 0.25);
+}
+
+.sg-tab-btn.active .sg-tab-dot {
+    background: var(--accent-green);
+    border-color: var(--accent-green);
+    box-shadow: 0 0 8px var(--accent-green);
 }
 
 /* Bento Grid of 4 SG Categories */
@@ -1418,8 +1582,8 @@ a {
     .sg-tabs-pill {
         display: grid;
         grid-template-columns: repeat(3, 1fr);
-        gap: 5px;
-        padding: 5px;
+        gap: 6px;
+        padding: 6px;
         width: 100%;
         border-radius: var(--radius-md);
     }
@@ -1427,11 +1591,18 @@ a {
     .sg-tab-btn {
         padding: 8px 4px;
         font-size: 0.6875rem;
+        min-height: 38px;
         letter-spacing: 0.02em;
         text-align: center;
         justify-content: center;
+        gap: 5px;
         border-radius: var(--radius-sm);
         white-space: nowrap;
+    }
+
+    .sg-tab-dot {
+        width: 6px;
+        height: 6px;
     }
 
     /* Compact 2x2 grid on mobile */
@@ -2647,42 +2818,32 @@ img[data-src-es][data-src-en] {
     }
 
     .cockpit-header {
-        padding: 10px 12px;
+        padding: 8px 10px;
         flex-direction: column;
         align-items: stretch;
-        gap: 8px;
-    }
-
-    .cockpit-top-row {
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        width: 100%;
-        gap: 8px;
+        gap: 6px;
     }
 
     .cockpit-hole-badge {
         font-size: 0.6875rem;
-    }
-
-    .cockpit-touch-prompt {
-        font-size: 0.625rem;
+        justify-content: center;
     }
 
     .cockpit-strategy-switch {
         display: grid;
         grid-template-columns: 1fr 1fr;
         width: 100%;
-        gap: 5px;
-        padding: 3px;
+        min-width: 0;
+        gap: 4px;
+        padding: 2px;
     }
 
     .cockpit-strat-btn {
-        min-height: 42px;
-        padding: 8px 6px;
+        min-height: 38px;
+        padding: 6px 8px;
         font-size: 0.6875rem;
         justify-content: center;
-        gap: 6px;
+        gap: 5px;
     }
 
     .strat-radio-circle {
@@ -2692,7 +2853,7 @@ img[data-src-es][data-src-en] {
 
     .strat-pill-badge {
         font-size: 0.625rem;
-        padding: 1px 5px;
+        padding: 1px 4px;
     }
 
     .cinematic-frame.hole-map-frame {

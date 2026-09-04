@@ -150,33 +150,30 @@
                 </div>
 
                 <!-- ═══ UNIFIED COCKPIT: INTERACTIVE HOLE STRATEGY CONSOLE ═══ -->
-                <div class="hero-cockpit-device hero-stage-cinematic" data-tilt>
+                <div class="hero-cockpit-device hero-stage-cinematic strat-tactical" data-tilt>
                     <!-- Cockpit Device Header Bar -->
                     <div class="cockpit-header">
-                        <div class="cockpit-top-row">
-                            <div class="cockpit-hole-badge">
-                                <span class="target-beacon gold mini"></span>
-                                <span class="mono-text" data-lang-es="HOYO 14 · PAR 4 (418 YD)" data-lang-en="HOLE 14 · PAR 4 (418 YD)">HOLE 14 · PAR 4 (418 YD)</span>
-                            </div>
-                            <span class="cockpit-touch-prompt mono-text" data-lang-es="👆 Toca para alternar:" data-lang-en="👆 Tap to toggle:">👆 Tap to toggle:</span>
+                        <div class="cockpit-hole-badge">
+                            <span class="target-beacon gold mini"></span>
+                            <span class="mono-text" data-lang-es="HOYO 14 · PAR 4 (418 YD)" data-lang-en="HOLE 14 · PAR 4 (418 YD)">HOLE 14 · PAR 4 (418 YD)</span>
                         </div>
 
-                        <!-- Tactile Segmented Strategy Selector -->
+                        <!-- Tactile Segmented Strategy Selector (Super compact for mobile) -->
                         <div class="cockpit-strategy-switch" role="group" aria-label="Estrategia del hoyo">
                             <button type="button" class="cockpit-strat-btn active" id="btn-strat-tactical" data-strat="tactical" aria-pressed="true">
                                 <span class="strat-radio-circle"></span>
-                                <span class="strat-btn-name" data-lang-es="Recomendada (3W)" data-lang-en="Recommended (3W)">Recommended (3W)</span>
-                                <span class="strat-pill-badge text-green">+0.42 SG</span>
+                                <span class="strat-btn-name" data-lang-es="Recomendada" data-lang-en="Recommended">Recommended</span>
+                                <span class="strat-pill-badge text-green">+0.42</span>
                             </button>
                             <button type="button" class="cockpit-strat-btn" id="btn-strat-aggressive" data-strat="aggressive" aria-pressed="false">
                                 <span class="strat-radio-circle"></span>
-                                <span class="strat-btn-name" data-lang-es="Agresiva (Driver)" data-lang-en="Aggressive (Driver)">Aggressive (Driver)</span>
-                                <span class="strat-pill-badge text-red">-0.85 SG</span>
+                                <span class="strat-btn-name" data-lang-es="Agresiva" data-lang-en="Aggressive">Aggressive</span>
+                                <span class="strat-pill-badge text-red">-0.85</span>
                             </button>
                         </div>
                     </div>
 
-                    <!-- Cockpit Device Screen (Hole Map & Tactical Markers) -->
+                    <!-- Cockpit Device Screen (Hole Map & Simulated Strategic Alternative Positions) -->
                     <div class="cinematic-frame hole-map-frame">
                         <img src="/assets/hero-hole-sg-1200.webp" srcset="/assets/hero-hole-sg-480.webp 480w, /assets/hero-hole-sg-800.webp 800w, /assets/hero-hole-sg-1200.webp 1200w" sizes="(max-width: 767px) calc(100vw - 32px), (max-width: 1199px) calc(100vw - 48px), 1100px" alt="Championship hole map with Strokes Gained telemetry for every hazard and risk zone" class="hero-cinematic-img" width="1264" height="848" fetchpriority="high">
                         
@@ -184,31 +181,58 @@
                         <div class="cinematic-vignette" aria-hidden="true"></div>
                         <div class="cinematic-glass-shine" aria-hidden="true"></div>
 
-                        <!-- 1. Target: Fairway Landing Zone -->
+                        <!-- Flight Path Telemetry Trajectory Overlay (Simulates Shot Alternatives) -->
+                        <svg class="hole-telemetry-svg" viewBox="0 0 1000 670" preserveAspectRatio="none" aria-hidden="true">
+                            <!-- Tactical Madera 3 Trajectory (240y Safe Center) -->
+                            <path class="svg-traj traj-tactical" d="M 485 660 Q 482 560 480 470" />
+                            <circle class="svg-impact impact-tactical" cx="480" cy="470" r="14" />
+                            
+                            <!-- Aggressive Driver Trajectory (280y Down Fairway) -->
+                            <path class="svg-traj traj-aggressive" d="M 485 660 Q 460 470 430 300" />
+                            <circle class="svg-impact impact-aggressive" cx="430" cy="300" r="18" />
+
+                            <!-- Aggressive Driver Water Dispersion Miss (32% into Lake) -->
+                            <path class="svg-traj traj-water-miss" d="M 470 510 Q 550 450 650 370" />
+                            <circle class="svg-impact impact-water-miss" cx="650" cy="370" r="16" />
+                        </svg>
+
+                        <!-- Alternative 1: Madera 3 Landing Zone (Recomendada - 240 YD) -->
                         <div class="hole-hazard-tag tag-fairway" id="hazard-fairway">
                             <span class="target-beacon green" id="fairway-beacon"></span>
                             <div class="hazard-card">
                                 <div class="hazard-badge-row">
-                                    <span class="hazard-type text-green" id="fairway-strat-label" data-lang-es="CALLE ÓPTIMA (3W)" data-lang-en="OPTIMAL FAIRWAY (3W)">OPTIMAL FAIRWAY (3W)</span>
+                                    <span class="hazard-type text-green" id="fairway-strat-label" data-lang-es="CALLE SEGURA (3W)" data-lang-en="SAFE FAIRWAY (3W)">SAFE FAIRWAY (3W)</span>
                                     <span class="hazard-sg text-green" id="fairway-sg-val">+0.55 SG</span>
                                 </div>
-                                <span class="hazard-detail" id="fairway-strat-detail" data-lang-es="240y Carry · Dispersión 18y" data-lang-en="240y Carry · 18y Dispersion">240y Carry · 18y Dispersion</span>
+                                <span class="hazard-detail" id="fairway-strat-detail" data-lang-es="240y · Dispersión 18y" data-lang-en="240y · 18y Dispersion">240y · 18y Dispersion</span>
                             </div>
                         </div>
 
-                        <!-- 2. Hazard: Left Water Penalty -->
+                        <!-- Alternative 2: Driver Landing Zone (Agresiva - 280 YD) -->
+                        <div class="hole-hazard-tag tag-driver-landing" id="hazard-driver">
+                            <span class="target-beacon gold" id="driver-beacon"></span>
+                            <div class="hazard-card">
+                                <div class="hazard-badge-row">
+                                    <span class="hazard-type text-gold" id="driver-strat-label" data-lang-es="DRIVER AGRESIVO" data-lang-en="AGGRESSIVE DRIVER">AGGRESSIVE DRIVER</span>
+                                    <span class="hazard-sg text-gold" id="driver-sg-val">+0.12 SG</span>
+                                </div>
+                                <span class="hazard-detail" id="driver-strat-detail" data-lang-es="280y · Cuello estrecho" data-lang-en="280y · Narrow neck">280y · Narrow neck</span>
+                            </div>
+                        </div>
+
+                        <!-- 3. Left Water Hazard (Impacted by Driver Dispersion) -->
                         <div class="hole-hazard-tag tag-water card-left" id="hazard-water">
                             <span class="target-beacon red" id="water-beacon"></span>
                             <div class="hazard-card">
                                 <div class="hazard-badge-row">
-                                    <span class="hazard-type text-red" data-lang-es="OBSTÁCULO AGUA" data-lang-en="WATER HAZARD">WATER HAZARD</span>
+                                    <span class="hazard-type text-red" id="water-strat-label" data-lang-es="OBSTÁCULO AGUA" data-lang-en="WATER HAZARD">WATER HAZARD</span>
                                     <span class="hazard-sg text-red" id="water-sg-val">-1.82 SG</span>
                                 </div>
                                 <span class="hazard-detail" id="water-strat-detail" data-lang-es="0% riesgo con Madera 3" data-lang-en="0% risk with 3-Wood">0% risk with 3-Wood</span>
                             </div>
                         </div>
 
-                        <!-- 3. Hazard: Greenside Bunker -->
+                        <!-- 4. Hazard: Greenside Bunker -->
                         <div class="hole-hazard-tag tag-bunker">
                             <span class="target-beacon gold"></span>
                             <div class="hazard-card">
@@ -220,7 +244,7 @@
                             </div>
                         </div>
 
-                        <!-- 4. Target: Green Safe Sector / Pin Position -->
+                        <!-- 5. Target: Green Safe Sector / Pin Position -->
                         <div class="hole-hazard-tag tag-pin card-left">
                             <span class="target-beacon gold"></span>
                             <div class="hazard-card">
@@ -253,16 +277,37 @@
                         <p data-lang-es="Strokes Gained desglosa cada golpe frente a miles de rondas de referencia. Selecciona un nivel y descubre exactamente en qué área estás regalando golpes al campo." data-lang-en="Strokes Gained breaks down every shot against thousands of benchmark rounds. Select a level and discover exactly where you are giving away strokes to the course.">Strokes Gained breaks down every shot against thousands of benchmark rounds. Select a level and discover exactly where you are giving away strokes to the course.</p>
                     </div>
 
-                    <!-- Reference Level Tabs -->
+                    <!-- Reference Level Tabs with Click Affordance -->
                     <div class="sg-benchmark-control">
-                        <span class="sg-control-label mono-text" data-lang-es="NIVEL DE COMPARACIÓN:" data-lang-en="COMPARISON BENCHMARK:">COMPARISON BENCHMARK:</span>
+                        <span class="sg-control-label mono-text">
+                            <span class="sg-click-icon">🎯</span>
+                            <span data-lang-es="SELECCIONA TU NIVEL O META:" data-lang-en="SELECT YOUR LEVEL OR TARGET:">SELECT YOUR LEVEL OR TARGET:</span>
+                        </span>
                         <div class="sg-tabs-pill" role="tablist" aria-label="Nivel de referencia Strokes Gained">
-                            <button type="button" class="sg-tab-btn" data-ref="pga" role="tab" aria-selected="false">PGA TOUR</button>
-                            <button type="button" class="sg-tab-btn" data-ref="hcp0" role="tab" aria-selected="false">HCP 0 (SCRATCH)</button>
-                            <button type="button" class="sg-tab-btn active" data-ref="hcp5" role="tab" aria-selected="true">HCP 5</button>
-                            <button type="button" class="sg-tab-btn" data-ref="hcp10" role="tab" aria-selected="false">HCP 10</button>
-                            <button type="button" class="sg-tab-btn" data-ref="hcp15" role="tab" aria-selected="false">HCP 15</button>
-                            <button type="button" class="sg-tab-btn" data-ref="hcp20" role="tab" aria-selected="false">HCP 20</button>
+                            <button type="button" class="sg-tab-btn" data-ref="pga" role="tab" aria-selected="false">
+                                <span class="sg-tab-dot"></span>
+                                <span>PGA TOUR</span>
+                            </button>
+                            <button type="button" class="sg-tab-btn" data-ref="hcp0" role="tab" aria-selected="false">
+                                <span class="sg-tab-dot"></span>
+                                <span>HCP 0</span>
+                            </button>
+                            <button type="button" class="sg-tab-btn active" data-ref="hcp5" role="tab" aria-selected="true">
+                                <span class="sg-tab-dot"></span>
+                                <span>HCP 5</span>
+                            </button>
+                            <button type="button" class="sg-tab-btn" data-ref="hcp10" role="tab" aria-selected="false">
+                                <span class="sg-tab-dot"></span>
+                                <span>HCP 10</span>
+                            </button>
+                            <button type="button" class="sg-tab-btn" data-ref="hcp15" role="tab" aria-selected="false">
+                                <span class="sg-tab-dot"></span>
+                                <span>HCP 15</span>
+                            </button>
+                            <button type="button" class="sg-tab-btn" data-ref="hcp20" role="tab" aria-selected="false">
+                                <span class="sg-tab-dot"></span>
+                                <span>HCP 20</span>
+                            </button>
                         </div>
                     </div>
 

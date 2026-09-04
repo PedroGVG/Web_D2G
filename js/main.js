@@ -250,6 +250,13 @@ function initHeroStrategySwitch() {
     const fairwayLabel = document.getElementById('fairway-strat-label');
     const fairwaySg = document.getElementById('fairway-sg-val');
     const fairwayDetail = document.getElementById('fairway-strat-detail');
+
+    const driverLabel = document.getElementById('driver-strat-label');
+    const driverSg = document.getElementById('driver-sg-val');
+    const driverDetail = document.getElementById('driver-strat-detail');
+
+    const waterLabel = document.getElementById('water-strat-label');
+    const waterSg = document.getElementById('water-sg-val');
     const waterDetail = document.getElementById('water-strat-detail');
     
     if (!btnTactical || !btnAggressive || !heroStage) return;
@@ -280,14 +287,27 @@ function initHeroStrategySwitch() {
                 hudStratDisp.textContent = lang === 'en' ? '18 YD (SAFE ZONE)' : '18 YD (ZONA SEGURA)';
             }
             if (fairwayLabel) {
-                fairwayLabel.textContent = lang === 'en' ? 'OPTIMAL FAIRWAY (3W)' : 'CALLE ÓPTIMA (3W)';
+                fairwayLabel.textContent = lang === 'en' ? 'SAFE FAIRWAY (3W)' : 'CALLE SEGURA (3W)';
             }
             if (fairwaySg) {
                 fairwaySg.textContent = '+0.55 SG';
                 fairwaySg.className = 'hazard-sg text-green';
             }
             if (fairwayDetail) {
-                fairwayDetail.textContent = lang === 'en' ? '240y Carry · 18y Dispersion' : '240y Carry · Dispersión 18y';
+                fairwayDetail.textContent = lang === 'en' ? '240y · 18y Dispersion' : '240y · Dispersión 18y';
+            }
+            if (driverLabel) {
+                driverLabel.textContent = lang === 'en' ? 'DRIVER (ALTERNATIVE)' : 'DRIVER (ALTERNATIVA)';
+            }
+            if (driverDetail) {
+                driverDetail.textContent = lang === 'en' ? '280y · High Risk' : '280y · Riesgo alto';
+            }
+            if (waterLabel) {
+                waterLabel.textContent = lang === 'en' ? 'WATER HAZARD' : 'OBSTÁCULO AGUA';
+            }
+            if (waterSg) {
+                waterSg.textContent = '-1.82 SG';
+                waterSg.className = 'hazard-sg text-red';
             }
             if (waterDetail) {
                 waterDetail.textContent = lang === 'en' ? '0% risk with 3-Wood' : '0% riesgo con Madera 3';
@@ -305,14 +325,27 @@ function initHeroStrategySwitch() {
                 hudStratDisp.textContent = lang === 'en' ? '38 YD (PENALTY CONE)' : '38 YD (CONO DE PENALIZACIÓN)';
             }
             if (fairwayLabel) {
-                fairwayLabel.textContent = lang === 'en' ? 'FAIRWAY / ROUGH' : 'CALLE / ROUGH';
-            }
-            if (fairwaySg) {
-                fairwaySg.textContent = '+0.12 SG';
-                fairwaySg.className = 'hazard-sg text-gold';
+                fairwayLabel.textContent = lang === 'en' ? '3W (CONSERVATIVE)' : '3W (CONSERVADORA)';
             }
             if (fairwayDetail) {
-                fairwayDetail.textContent = lang === 'en' ? '275y Carry · 38y Dispersion' : '275y Carry · Dispersión 38y';
+                fairwayDetail.textContent = lang === 'en' ? '240y · Safe Center' : '240y · Centro seguro';
+            }
+            if (driverLabel) {
+                driverLabel.textContent = lang === 'en' ? 'AGGRESSIVE DRIVER' : 'DRIVER AGRESIVO';
+            }
+            if (driverSg) {
+                driverSg.textContent = '+0.12 SG';
+                driverSg.className = 'hazard-sg text-gold';
+            }
+            if (driverDetail) {
+                driverDetail.textContent = lang === 'en' ? '280y · 38y Dispersion' : '280y · Dispersión 38y';
+            }
+            if (waterLabel) {
+                waterLabel.textContent = lang === 'en' ? '⚠️ WATER PENALTY' : '⚠️ PELIGRO AGUA';
+            }
+            if (waterSg) {
+                waterSg.textContent = '-1.82 SG';
+                waterSg.className = 'hazard-sg text-red';
             }
             if (waterDetail) {
                 waterDetail.textContent = lang === 'en' ? '32% Water Hazard Probability' : '32% Probabilidad de agua';
