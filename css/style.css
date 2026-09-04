@@ -1679,8 +1679,10 @@ a {
 
 .scrolly-intro {
     max-width: 780px;
-    margin: 0 auto 4rem;
+    margin: 0 auto 5.5rem;
     text-align: center;
+    position: relative;
+    z-index: 2;
 }
 
 .scrolly-intro h2 {
@@ -1698,6 +1700,7 @@ a {
     position: relative;
     max-width: 1200px;
     margin: 0 auto;
+    clear: both;
 }
 
 /* Split Layout (Desktop) */
@@ -1717,18 +1720,21 @@ a {
     .scrolly-sticky-col {
         position: sticky;
         top: 110px;
-        height: calc(100vh - 140px);
+        height: auto;
+        min-height: min(580px, calc(100vh - 140px));
         display: flex;
-        align-items: center;
+        align-items: flex-start;
         justify-content: center;
+        padding-top: 1.25rem;
+        z-index: 1;
     }
 
     .scrolly-narrative-column {
-        padding: 0 0 20vh 0;
+        padding: 0 0 15vh 0;
     }
 
     .narrative-step {
-        min-height: 75vh;
+        min-height: 70vh;
         display: flex;
         flex-direction: column;
         justify-content: center;
@@ -1759,7 +1765,8 @@ a {
 /* Telemetry Deck Frame in Sticky Col */
 .telemetry-deck-frame {
     position: relative;
-    width: min(440px, 100%);
+    width: min(440px, calc((100vh - 170px) * (9 / 13)), 100%);
+    max-height: calc(100vh - 150px);
     aspect-ratio: 9 / 13;
     border-radius: var(--radius-lg);
     background: rgba(8, 12, 18, 0.9);
