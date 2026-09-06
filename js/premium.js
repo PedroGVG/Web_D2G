@@ -26,16 +26,53 @@ nav?.addEventListener('focusout',event=>{if(event.relatedTarget&&!event.relatedT
 mobile.addEventListener('change',()=>setMenu(false));
 
 const strategyCopy={
-  controlled:{title:t('Una zona de caída más amplia.','A wider landing area.'),description:t('La madera 3 se queda antes del estrechamiento. Menos distancia, más margen para el siguiente golpe.','The 3-wood lands before the fairway narrows. Less distance, more room for your next shot.'),distance:'240 yd',risk:t('Menor','Lower'),marker:t('Más margen de calle','More fairway to work with')},
-  aggressive:{title:t('Más cerca. Con menos margen.','Closer. With less room.'),description:t('El driver gana distancia, pero su zona de caída se acerca al agua y a la parte estrecha de la calle. Valora el riesgo antes de elegir.','The driver gains distance, but its landing area is closer to the water and the narrow fairway. Weigh the risk before choosing.'),distance:'280 yd',risk:t('Mayor','Higher'),marker:t('Menos margen junto al agua','Less room beside the water')}
+  controlled:{
+    title:t('Estrategia de Control: Margen óptimo','Controlled Strategy: Optimal Margin'),
+    description:t('Madera 3 a zona ancha de calle, evitando todo peligro de agua, seguida de hierro cómodo a centro de green.','3-Wood to wide landing zone, eliminating water hazard, followed by controlled iron to center green.'),
+    sg:'+0.42 SG',
+    distance:'240 yd',
+    risk:t('Menor (0% agua)','Lower (0% water)'),
+    marker:t('Madera 3: Calle ancha · 0% agua','3-Wood: Wide fairway · 0% water'),
+    'green-marker':t('Centro de Green: Par asegurado (+0.42 SG)','Center Green: Safe Par (+0.42 SG)'),
+    tee:t('Madera 3 · 240 yd a calle ancha','3-Wood · 240 yd safe fairway'),
+    'tee-sub':t('0% riesgo de obstáculo de agua','0% water hazard penalty risk'),
+    approach:t('Hierro 7 · 178 yd a centro de green','7-Iron · 178 yd to green center'),
+    'approach-sub':t('Zona amplia · Gran tolerancia de dispersión','Wide sector · High dispersion margin'),
+    green:t('2 Putts controlados ➔ PAR Seguro','2 Controlled putts ➔ Safe PAR'),
+    'green-sub':t('+0.42 Strokes Gained vs resto de jugadores','+0.42 Strokes Gained vs field average')
+  },
+  aggressive:{
+    title:t('Estrategia Agresiva: Alto riesgo junto al agua','Aggressive Strategy: High risk near water'),
+    description:t('El driver busca ganar 40 yardas pero expone una zona de caída crítica: 32% de dispersión cae al obstáculo de agua.','Driver seeks 40 extra yards but exposes a critical landing zone: 32% dispersion miss into water hazard.'),
+    sg:'−0.65 SG',
+    distance:'280 yd',
+    risk:t('Crítico (32% agua)','Critical (32% water)'),
+    marker:t('Driver: Cuello estrecho · 32% agua','Driver: Narrow neck · 32% water'),
+    'green-marker':t('Bandera corta protegida: Volatilidad (−0.65 SG)','Tucked pin: High volatility (−0.65 SG)'),
+    tee:t('Driver · 280 yd a cuello estrecho','Driver · 280 yd narrow fairway neck'),
+    'tee-sub':t('32% de dispersión directa a obstáculo de agua (-1.82 SG)','32% direct dispersion into water hazard (-1.82 SG)'),
+    approach:t('Wedge · 138 yd a bandera corta protegida','Wedge · 138 yd to tucked pin over bunker'),
+    'approach-sub':t('Margen estrecho de error · Riesgo de bunker y rough denso','Narrow error margin · Bunker & thick rough hazard'),
+    green:t('Putt comprometido o drop ➔ Bogey / Doble Bogey','Compromised putt or drop ➔ Bogey / Double Bogey'),
+    'green-sub':t('−0.65 Strokes Gained medio por penalizaciones y fallos','−0.65 Strokes Gained average due to penalties & misses')
+  }
 };
 document.querySelectorAll('[data-strategy]').forEach(button=>button.addEventListener('click',()=>{
   const key=button.dataset.strategy;
   const copy=strategyCopy[key];
   if(!copy)return;
   document.querySelectorAll('[data-strategy]').forEach(item=>item.setAttribute('aria-pressed',String(item===button)));
-  document.querySelector('[data-course-strategy]').dataset.courseStrategy=key;
-  for(const [field,value] of Object.entries(copy))document.querySelector(`[data-strategy-${field}]`).textContent=value;
+  const visual=document.querySelector('[data-course-strategy]');
+  if(visual)visual.dataset.courseStrategy=key;
+  const sgEl=document.querySelector('[data-strategy-sg]');
+  if(sgEl){
+    sgEl.textContent=copy.sg;
+    sgEl.className=`strategy-sg-tag ${key==='controlled'?'text-green':'text-red'}`;
+  }
+  for(const [field,value] of Object.entries(copy)){
+    const el=document.querySelector(`[data-strategy-${field}]`);
+    if(el)el.textContent=value;
+  }
   track('strategy_change',{strategy:key});
 }));
 
