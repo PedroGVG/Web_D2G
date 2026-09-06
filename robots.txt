@@ -1,0 +1,6 @@
+User-agent: *
+Allow: /
+Disallow: /backups/
+Disallow: /scripts/
+Disallow: /tests/
+Sitemap: https://data2gain.com/sitemap.xml

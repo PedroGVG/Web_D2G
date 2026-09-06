@@ -2,8 +2,14 @@ RewriteEngine On
 RewriteBase /
 Options -MultiViews
 
+# Backups and authoring files must never be served by the production host.
+RewriteRule ^(?:backups|scripts|tests|\.agent|\.git)(?:/|$) - [F,L]
+
 AddType image/x-icon .ico
 AddType application/manifest+json .webmanifest
+AddType text/javascript .mjs
+AddType font/ttf .ttf
+AddType image/webp .webp
 
 # Preserve old campaign and language URLs while consolidating indexing.
 RewriteCond %{QUERY_STRING} (^|&)lang=en(&|$) [NC]

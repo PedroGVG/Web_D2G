@@ -1,0 +1,12 @@
+{
+  "name": "data2gain-web",
+  "version": "3.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "build": "node scripts/build-site.mjs",
+    "start": "node scripts/serve.mjs",
+    "check": "node --test tests/site.test.mjs"
+  },
+  "engines": { "node": ">=20" }
+}
