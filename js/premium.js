@@ -153,3 +153,68 @@ document.querySelectorAll('[data-zoom]').forEach(button=>button.addEventListener
 dialog?.querySelector('.dialog-close').addEventListener('click',()=>dialog.close());
 dialog?.addEventListener('click',event=>{if(event.target===dialog){const rect=dialog.getBoundingClientRect();if(event.clientX<rect.left||event.clientX>rect.right||event.clientY<rect.top||event.clientY>rect.bottom)dialog.close()}});
 dialog?.addEventListener('close',()=>zoomTrigger?.focus());
+
+// Language preference persistence & smart language suggestion
+function initLanguagePreferences() {
+  document.querySelectorAll('.languages a[lang]').forEach(link => {
+    link.addEventListener('click', () => {
+      const chosen = link.getAttribute('lang');
+      if (chosen === 'es' || chosen === 'en') {
+        try {
+          localStorage.setItem('d2g_lang', chosen);
+          document.cookie = `d2g_lang=${chosen};path=/;max-age=31536000;SameSite=Lax`;
+        } catch (e) {}
+      }
+    });
+  });
+
+  try {
+    const saved = localStorage.getItem('d2g_lang');
+    const dismissed = sessionStorage.getItem('d2g_lang_dismissed');
+    if (!saved && !dismissed) {
+      const langs = (navigator.languages && navigator.languages.length) ? navigator.languages : [navigator.language || navigator.userLanguage || ''];
+      let esIdx = -1, enIdx = -1;
+      for (let i = 0; i < langs.length; i++) {
+        const c = (langs[i] || '').toLowerCase();
+        if (esIdx === -1 && (c === 'es' || c.indexOf('es-') === 0 || c.indexOf('es_') === 0)) esIdx = i;
+        if (enIdx === -1 && (c === 'en' || c.indexOf('en-') === 0 || c.indexOf('en_') === 0)) enIdx = i;
+      }
+      const preferred = (esIdx !== -1 && (enIdx === -1 || esIdx <= enIdx)) ? 'es' : 'en';
+      if (preferred !== language) {
+        const altLink = document.querySelector(`.languages a[lang="${preferred}"]`);
+        if (altLink) {
+          const banner = document.createElement('aside');
+          banner.className = 'lang-notice';
+          banner.setAttribute('role', 'status');
+          banner.setAttribute('aria-live', 'polite');
+          const isEnTarget = preferred === 'en';
+          const msg = isEnTarget
+            ? 'This page is in Spanish. Would you like to view it in English?'
+            : 'Esta página está en inglés. ¿Deseas verla en español?';
+          const btnText = isEnTarget ? 'View in English' : 'Ver en español';
+          banner.innerHTML = `
+            <div class="container lang-notice-inner">
+              <span class="lang-notice-msg">${msg}</span>
+              <div class="lang-notice-actions">
+                <a class="lang-notice-btn" href="${altLink.getAttribute('href')}">${btnText}</a>
+                <button type="button" class="lang-notice-close" aria-label="${isEnTarget ? 'Dismiss' : 'Cerrar'}">✕</button>
+              </div>
+            </div>
+          `;
+          banner.querySelector('.lang-notice-btn')?.addEventListener('click', () => {
+            try {
+              localStorage.setItem('d2g_lang', preferred);
+              document.cookie = `d2g_lang=${preferred};path=/;max-age=31536000;SameSite=Lax`;
+            } catch (e) {}
+          });
+          banner.querySelector('.lang-notice-close')?.addEventListener('click', () => {
+            banner.remove();
+            try { sessionStorage.setItem('d2g_lang_dismissed', '1'); } catch (e) {}
+          });
+          document.body.prepend(banner);
+        }
+      }
+    }
+  } catch (e) {}
+}
+initLanguagePreferences();

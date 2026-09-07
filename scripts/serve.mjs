@@ -12,6 +12,24 @@ createServer(async(req,res)=>{
     let filename=resolve(root,`.${pathname}`);
     if(!filename.startsWith(resolve(root)+sep) && filename!==resolve(root)) {res.writeHead(403).end();return;}
     if(pathname.split('/').some(part=>part.startsWith('.'))) {res.writeHead(404).end();return;}
+    if (pathname === '/') {
+      const cookieLang = req.headers.cookie?.match(/\bd2g_lang=(es|en)\b/)?.[1];
+      let targetLang = cookieLang;
+      if (!targetLang) {
+        const accept = (req.headers['accept-language'] || '').toLowerCase();
+        const esMatch = accept.match(/(?:^|[,;])\s*(es(?:-[a-z0-9]+)?)(?:;q=([0-9.]+))?/i);
+        const enMatch = accept.match(/(?:^|[,;])\s*(en(?:-[a-z0-9]+)?)(?:;q=([0-9.]+))?/i);
+        if (esMatch) {
+          const esQ = esMatch[2] ? parseFloat(esMatch[2]) : 1.0;
+          const enQ = enMatch ? (enMatch[2] ? parseFloat(enMatch[2]) : 1.0) : 0;
+          targetLang = esQ >= enQ ? 'es' : 'en';
+        } else {
+          targetLang = 'en';
+        }
+      }
+      res.writeHead(302, { Location: `/${targetLang}/${url.search}` }).end();
+      return;
+    }
     const info=await stat(filename);
     if(info.isDirectory()) {
       if(!pathname.endsWith('/')) {res.writeHead(301,{Location:pathname+'/'+url.search}).end();return;}

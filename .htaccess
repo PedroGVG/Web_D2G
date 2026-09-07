@@ -24,5 +24,27 @@ RewriteRule ^v2/?$ /es/ [R=301,L]
 RewriteCond %{THE_REQUEST} \s/+(.*/)?index\.html(?:[?\s]) [NC]
 RewriteRule ^(.*/)?index\.html$ /$1 [R=301,L,NE]
 
-# Spanish is the default locale; both languages have their own indexable URL.
-RewriteRule ^$ /es/ [R=301,L]
+# Language negotiation for root URL:
+# 1. Stored user preference via cookie
+RewriteCond %{HTTP_COOKIE} \bd2g_lang=es\b [NC]
+RewriteRule ^$ /es/ [R=302,L]
+
+RewriteCond %{HTTP_COOKIE} \bd2g_lang=en\b [NC]
+RewriteRule ^$ /en/ [R=302,L]
+
+# 2. Browser Accept-Language detection
+# Matches any Spanish language variety (es, es-ES, es-MX, es-AR, etc.)
+RewriteCond %{HTTP:Accept-Language} ^es [NC]
+RewriteRule ^$ /es/ [R=302,L]
+
+# Regional preferences where Spanish is preferred over English
+RewriteCond %{HTTP:Accept-Language} ^(?:ca|gl|eu)[^;]*,.*?\bes [NC]
+RewriteRule ^$ /es/ [R=302,L]
+
+# 3. Default: if not any kind of Spanish, redirect to English
+RewriteRule ^$ /en/ [R=302,L]
+
+# Inform caches and CDNs that root redirects vary based on Accept-Language and Cookie
+<IfModule mod_headers.c>
+  Header always merge Vary "Accept-Language, Cookie" "expr=%{REQUEST_URI} =~ m#^/$#"
+</IfModule>

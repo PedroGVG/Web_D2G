@@ -59,3 +59,50 @@ test('Public package excludes source and backups; CSS font URLs resolve locally'
   const htaccess=await readFile(path.join(dist,'.htaccess'),'utf8');
   assert.ok(htaccess.includes('backups|scripts|tests'));
 });
+test('Root language negotiation and detection redirects Spanish to /es/ and non-Spanish to /en/',async()=>{
+  const rootIndex=await readFile(path.join(dist,'index.html'),'utf8');
+  assert.ok(rootIndex.includes('localStorage.getItem("d2g_lang")'));
+  assert.ok(rootIndex.includes('navigator.languages'));
+  assert.ok(rootIndex.includes('window.location.replace'));
+
+  const htaccess=await readFile(path.join(dist,'.htaccess'),'utf8');
+  assert.ok(htaccess.includes('d2g_lang=es'));
+  assert.ok(htaccess.includes('d2g_lang=en'));
+  assert.ok(htaccess.includes('HTTP:Accept-Language'));
+  assert.ok(htaccess.includes('RewriteRule ^$ /es/ [R=302,L]'));
+  assert.ok(htaccess.includes('RewriteRule ^$ /en/ [R=302,L]'));
+
+  function resolveLanguage(languages,savedCookie=null){
+    if(savedCookie==='es'||savedCookie==='en')return savedCookie;
+    const list=Array.isArray(languages)?languages:[languages||''];
+    let esIdx=-1,enIdx=-1;
+    for(let i=0;i<list.length;i++){
+      const c=(list[i]||'').toLowerCase();
+      if(esIdx===-1&&(c==='es'||c.startsWith('es-')||c.startsWith('es_')))esIdx=i;
+      if(enIdx===-1&&(c==='en'||c.startsWith('en-')||c.startsWith('en_')))enIdx=i;
+    }
+    return (esIdx!==-1&&(enIdx===-1||esIdx<=enIdx))?'es':'en';
+  }
+
+  assert.equal(resolveLanguage(['es-ES']),'es');
+  assert.equal(resolveLanguage(['es-MX']),'es');
+  assert.equal(resolveLanguage(['es-AR']),'es');
+  assert.equal(resolveLanguage(['es-CO']),'es');
+  assert.equal(resolveLanguage(['es-US']),'es');
+  assert.equal(resolveLanguage(['es-419']),'es');
+  assert.equal(resolveLanguage(['es']),'es');
+  assert.equal(resolveLanguage(['ca-ES','es-ES']),'es');
+
+  assert.equal(resolveLanguage(['en-US']),'en');
+  assert.equal(resolveLanguage(['en-GB']),'en');
+  assert.equal(resolveLanguage(['fr-FR']),'en');
+  assert.equal(resolveLanguage(['de-DE']),'en');
+  assert.equal(resolveLanguage(['it-IT']),'en');
+  assert.equal(resolveLanguage(['pt-BR']),'en');
+  assert.equal(resolveLanguage(['ja-JP']),'en');
+  assert.equal(resolveLanguage(['en-US','es-ES']),'en');
+  assert.equal(resolveLanguage([]),'en');
+
+  assert.equal(resolveLanguage(['es-ES'],'en'),'en');
+  assert.equal(resolveLanguage(['en-US'],'es'),'es');
+});
