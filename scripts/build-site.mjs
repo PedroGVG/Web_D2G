@@ -110,126 +110,128 @@ function how() {
 
 function audiences() {
   return `<section class="section section-light audience-section"><div class="container"><div class="section-heading"><div>${eyebrow(t('02 / Una ambición compartida','02 / One shared ambition'))}<h2>${t('Mejor golf.<br>Desde tu perspectiva.','Better golf.<br>From your perspective.')}</h2></div><p>${t('Dos formas de llegar al mismo lugar:<br>entender el juego para hacerlo crecer.','Two ways to get to the same place:<br>understand the game to help it grow.')}</p></div><div class="audience-grid">
-    <a class="audience-card" href="${route('players')}" data-track="audience_players"><img src="/assets/editorial/player-drive.webp" srcset="/assets/editorial/player-drive-800.webp 800w, /assets/editorial/player-drive.webp 1200w" sizes="(max-width: 760px) 92vw, 48vw" alt="${t('Golfista ejecutando un golpe en el campo al atardecer','Golfer hitting a shot on the course at sunset')}" width="1200" height="669" loading="lazy"><div class="audience-content"><span class="eyebrow">${t('Tu próxima mejor ronda','Your next better round')}</span><h3>${t('Soy jugador','I am a player')}</h3><p>${t('Conoce tus puntos fuertes.<br>Trabaja donde más importa.','Know your strengths.<br>Work where it matters most.')}</p><span class="text-link">${t('Descubre tu ventaja','Find your advantage')}${arrow}</span></div></a>
-    <a class="audience-card" href="${route('coaches')}" data-track="audience_coaches"><img src="/assets/editorial/coaching.jpg" alt="${t('Instructor guiando a una alumna en la práctica de golf','Instructor guiding a student during golf practice')}" width="1400" height="1845" loading="lazy"><div class="audience-content"><span class="eyebrow">${t('100% Gratuito para coaches','100% Free for coaches')}</span><h3>${t('Soy coach','I am a coach')}</h3><p>${t('Diagnostica con certeza objetiva y optimiza cada sesión.<br>Convierte los datos de campo de tus alumnos en un plan de mejora medible.','Diagnose with objective certainty and optimize every session.<br>Turn your players\' on-course data into a measurable improvement plan.')}</p><span class="text-link">${t('Acceder gratis a la plataforma','Free platform access')}${arrow}</span></div></a>
+    <a class="audience-card" href="${route('players')}" data-track="audience_players"><img src="/assets/editorial/player-drive.webp" srcset="/assets/editorial/player-drive-800.webp 800w, /assets/editorial/player-drive.webp 1200w" sizes="(max-width: 760px) 92vw, 48vw" alt="${t('Golfista aficionado siguiendo el vuelo de su bola en el campo','Amateur golfer watching his ball flight on the course')}" width="896" height="1200" loading="lazy"><div class="audience-content"><span class="eyebrow">${t('Tu próxima mejor ronda','Your next better round')}</span><h3>${t('Soy jugador','I am a player')}</h3><p>${t('Conoce tus puntos fuertes.<br>Trabaja donde más importa.','Know your strengths.<br>Work where it matters most.')}</p><span class="text-link">${t('Descubre tu ventaja','Find your advantage')}${arrow}</span></div></a>
+    <a class="audience-card" href="${route('coaches')}" data-track="audience_coaches"><img src="/assets/editorial/coaching.jpg" alt="${t('Instructor guiando a una alumna en la práctica de golf','Instructor guiding a student during golf practice')}" width="1400" height="1845" loading="lazy"><div class="audience-content"><span class="eyebrow">${t('100% Gratuito para coaches','100% Free for coaches')}</span><h3>${t('Soy coach','I am a coach')}</h3><p>${t('Diagnostica con certeza y convierte los datos de campo de tus alumnos en un plan de mejora medible.','Diagnose with certainty and turn your players\' on-course data into a measurable improvement plan.')}</p><span class="text-link">${t('Acceder gratis a la plataforma','Free platform access')}${arrow}</span></div></a>
     </div></div></section>`;
 }
 
 function strategy() {
-  return `<section class="section strategy-section" id="demo"><div class="container">
-    <div class="strategy-header">
+  return `<section class="section strategy-section" id="demo">
+    <div class="container strategy-header-compact">
       <div class="sim-pill-badge"><span class="sim-beacon"></span>${t('SIMULACIÓN CONCEPTUAL · NO DISPONIBLE EN LA APP','CONCEPTUAL SIMULATION · NOT IN THE APP')}</div>
-      <div class="strategy-heading-grid">
-        <div>
-          ${eyebrow(t('03 / Estrategia de Tour · Tee a Green','03 / Tour Strategy · Tee to Green'))}
-          <h2>${t('Un mismo hoyo.<br>Dos decisiones <em>estadísticas.</em>','One hole.<br>Two statistical <em>decisions.</em>')}</h2>
-        </div>
-        <p class="strategy-lead">${t('Compara directamente en el mapa táctico la diferencia entre atacar por inercia o jugar con tu dispersión real. Menos distancia forzada suele significar mayor margen y mejor resultado en la tarjeta.','Compare directly on the tactical map the difference between attacking blindly or playing with true dispersion. Less forced distance often means wider margin and lower scores.')}</p>
-      </div>
-
-      <div class="strategy-controls" role="group" aria-label="${t('Estrategia del hoyo','Hole strategy')}">
-        <button type="button" data-strategy="controlled" aria-pressed="true">
-          <span class="control-tag tag-green">${t('+0.42 SG · Margen Óptimo','+0.42 SG · Optimal Margin')}</span>
-          <strong>${t('Control Inteligente','Smart Control')}</strong>
-          <span class="control-desc">${t('Madera 3 + Hierro ➔ Par seguro (0% agua)','3-Wood + Iron ➔ Safe Par (0% water)')}</span>
-        </button>
-        <button type="button" data-strategy="aggressive" aria-pressed="false">
-          <span class="control-tag tag-red">${t('−0.65 SG · Alto Riesgo','−0.65 SG · High Risk')}</span>
-          <strong>${t('Riesgo Innecesario','Unnecessary Risk')}</strong>
-          <span class="control-desc">${t('Driver al cuello estrecho ➔ 32% agua','Driver to narrow neck ➔ 32% water')}</span>
-        </button>
-      </div>
+      <p class="eyebrow">${t('03 / Estrategia de Tour · Tee a Green','03 / Tour Strategy · Tee to Green')}</p>
+      <h2>${t('Un mismo hoyo. Dos decisiones <em>estadísticas.</em>','One hole. Two statistical <em>decisions.</em>')}</h2>
+      <p class="strategy-lead-compact">${t('Atacar por inercia o jugar con tu dispersión real. Comprueba directamente en el mapa táctico cómo cambia la tarjeta:','Attacking blindly vs playing with your true dispersion. See directly on the tactical map how the scorecard changes:')}</p>
     </div>
 
-    <div class="course-stage" data-course-strategy="controlled">
-      <div class="course-board">
-        <div class="course-top-bar">
-          <span class="course-badge">PAR 4 · 418 YDS</span>
-          <span class="course-sim-text">${t('MAPA TÁCTICO INTERACTIVO TEE A GREEN','TACTICAL TEE-TO-GREEN INTERACTIVE MAP')}</span>
-        </div>
+    <div class="course-stage-fullbleed" data-course-strategy="controlled">
+      <div class="course-canvas-wrap">
+        <img class="course-photo" src="/assets/hero-hole-sg-1200.webp" srcset="/assets/hero-hole-sg-480.webp 480w, /assets/hero-hole-sg-800.webp 800w, /assets/hero-hole-sg-1200.webp 1200w" sizes="100vw" width="1200" height="805" loading="lazy" alt="${t('Mapa táctico de hoyo de golf a pantalla completa','Full-screen tactical golf hole map')}">
 
-        <div class="course-canvas-wrap">
-          <img class="course-photo" src="/assets/hero-hole-sg-1200.webp" srcset="/assets/hero-hole-sg-480.webp 480w, /assets/hero-hole-sg-800.webp 800w, /assets/hero-hole-sg-1200.webp 1200w" sizes="(max-width: 760px) 95vw, 980px" width="1200" height="805" loading="lazy" alt="${t('Mapa táctico de hoyo de golf con lago y bunkers','Tactical golf hole map with lake and bunkers')}">
-
-          <svg class="course-svg-overlay" viewBox="0 0 1200 805" aria-hidden="true">
-            <!-- CONTROLLED STRATEGY GRAPHICS -->
-            <g class="strat-group-controlled">
-              <path class="tracer tracer-controlled" d="M612 684 Q610 540 606 426"/>
-              <ellipse class="dispersion-ellipse disp-controlled" cx="606" cy="426" rx="44" ry="60"/>
-              <path class="tracer tracer-approach-controlled" d="M606 426 Q610 275 615 150"/>
-              <circle class="target-ring target-controlled" cx="615" cy="150" r="32"/>
-              <circle class="target-center-dot" cx="615" cy="150" r="4.5"/>
-            </g>
-
-            <!-- AGGRESSIVE STRATEGY GRAPHICS -->
-            <g class="strat-group-aggressive">
-              <path class="tracer tracer-aggressive" d="M612 684 Q590 470 558 300"/>
-              <ellipse class="dispersion-ellipse disp-aggressive" cx="558" cy="300" rx="50" ry="72"/>
-              <path class="tracer tracer-miss" d="M578 430 Q620 360 659 286"/>
-              <circle class="hazard-splash" cx="659" cy="286" r="24"/>
-              <path class="tracer tracer-approach-aggressive" d="M558 300 Q585 205 615 140"/>
-              <circle class="target-hazard-pin" cx="615" cy="140" r="22"/>
-            </g>
-          </svg>
-
-          <!-- TACTICAL MAP PINS (Aligned strictly with course geometry) -->
-          <div class="course-map-pins">
-            <!-- Pin: Tee Box (x: 51%, y: 85%) -->
-            <div class="course-tactical-pin pin-tee" style="top:85%;left:51%">
-              <span class="tactical-dot"></span>
-              <div class="tactical-card">
-                <span class="tactical-sub">${t('Salida','Tee Shot')}</span>
-                <strong data-pin-tee>${t('Madera 3 · 240 yd','3-Wood · 240 yd')}</strong>
-              </div>
-            </div>
-
-            <!-- Pin: Fairway Landing Zone (x: 50.5%, y: 53%) -->
-            <div class="course-tactical-pin pin-landing" style="top:53%;left:50.5%">
-              <span class="tactical-dot"></span>
-              <div class="tactical-card">
-                <span class="tactical-badge tag-green" data-pin-landing-tag>${t('0% Riesgo de Agua','0% Water Risk')}</span>
-                <strong data-pin-landing>${t('Calle Ancha · Margen Total','Wide Fairway · Full Margin')}</strong>
-              </div>
-            </div>
-
-            <!-- Pin: Water Hazard Alert (x: 55%, y: 35.5%) -->
-            <div class="course-tactical-pin pin-water" style="top:35.5%;left:55%">
-              <span class="tactical-dot dot-red"></span>
-              <div class="tactical-card card-alert">
-                <span class="tactical-badge tag-red">${t('32% Dispersión al Agua','32% Water Miss')}</span>
-                <strong>${t('Penalización (−1.82 SG)','Penalty (−1.82 SG)')}</strong>
-              </div>
-            </div>
-
-            <!-- Pin: Green & Outcome (x: 51.25%, y: 18.6%) -->
-            <div class="course-tactical-pin pin-green" style="top:18.6%;left:51.25%">
-              <span class="tactical-dot dot-target"></span>
-              <div class="tactical-card">
-                <span class="tactical-badge tag-green" data-pin-green-tag>${t('+0.42 SG vs Campo','+0.42 SG vs Field')}</span>
-                <strong data-pin-green>${t('Centro de Green ➔ Par Asegurado','Green Center ➔ Safe Par')}</strong>
-              </div>
-            </div>
+        <!-- STRATEGY BUTTONS INTEGRATED DIRECTLY ON THE MAP -->
+        <div class="course-hud-top">
+          <div class="course-hud-badge">
+            <span>PAR 4 · 418 YDS</span>
+          </div>
+          <div class="strategy-controls-hud" role="group" aria-label="${t('Estrategia del hoyo','Hole strategy')}">
+            <button type="button" data-strategy="controlled" aria-pressed="true">
+              <span class="hud-dot dot-green"></span>
+              <span class="hud-btn-copy">
+                <strong>${t('Control Inteligente','Smart Control')}</strong>
+                <span class="hud-btn-stat text-green">${t('+0.42 SG · 0% agua','+0.42 SG · 0% water')}</span>
+              </span>
+            </button>
+            <button type="button" data-strategy="aggressive" aria-pressed="false">
+              <span class="hud-dot dot-red"></span>
+              <span class="hud-btn-copy">
+                <strong>${t('Riesgo Innecesario','Unnecessary Risk')}</strong>
+                <span class="hud-btn-stat text-red">${t('−0.65 SG · 32% agua','−0.65 SG · 32% water')}</span>
+              </span>
+            </button>
           </div>
         </div>
 
-        <!-- TACTICAL SUMMARY BAR (Comparison Takeaways) -->
-        <div class="strategy-summary-bar">
-          <div class="summary-col">
-            <span class="summary-eyebrow">${t('Margen de Salida','Tee Margin')}</span>
-            <strong class="summary-val text-green" data-summary-tee>${t('100% Calle Segura (0% Agua)','100% Safe Fairway (0% Water)')}</strong>
+        <!-- SVG FLIGHT TRACERS AND DISPERSION OVERLAY -->
+        <svg class="course-svg-overlay" viewBox="0 0 1200 805" aria-hidden="true">
+          <!-- CONTROLLED STRATEGY GRAPHICS -->
+          <g class="strat-group-controlled">
+            <path class="tracer tracer-controlled" d="M612 684 Q610 540 606 426"/>
+            <ellipse class="dispersion-ellipse disp-controlled" cx="606" cy="426" rx="44" ry="60"/>
+            <path class="tracer tracer-approach-controlled" d="M606 426 Q610 275 615 150"/>
+            <circle class="target-ring target-controlled" cx="615" cy="150" r="32"/>
+            <circle class="target-center-dot" cx="615" cy="150" r="4.5"/>
+          </g>
+
+          <!-- AGGRESSIVE STRATEGY GRAPHICS -->
+          <g class="strat-group-aggressive">
+            <path class="tracer tracer-aggressive" d="M612 684 Q590 470 558 300"/>
+            <ellipse class="dispersion-ellipse disp-aggressive" cx="558" cy="300" rx="50" ry="72"/>
+            <path class="tracer tracer-miss" d="M578 430 Q620 360 659 286"/>
+            <circle class="hazard-splash" cx="659" cy="286" r="24"/>
+            <path class="tracer tracer-approach-aggressive" d="M558 300 Q585 205 615 140"/>
+            <circle class="target-hazard-pin" cx="615" cy="140" r="22"/>
+          </g>
+        </svg>
+
+        <!-- TACTICAL MAP PINS -->
+        <div class="course-map-pins">
+          <!-- Pin: Tee Box (x: 51%, y: 85%) -->
+          <div class="course-tactical-pin pin-tee" style="top:85%;left:51%">
+            <span class="tactical-dot"></span>
+            <div class="tactical-card">
+              <span class="tactical-sub">${t('Salida','Tee')}</span>
+              <strong data-pin-tee>${t('Madera 3 · 240 yd','3-Wood · 240 yd')}</strong>
+            </div>
           </div>
-          <div class="summary-col">
-            <span class="summary-eyebrow">${t('Tiro a Green','Approach Shot')}</span>
-            <strong class="summary-val" data-summary-approach>${t('Hierro 7 controlado a centro','Controlled 7-Iron to center')}</strong>
+
+          <!-- Pin: Fairway Landing Zone (x: 50.5%, y: 53%) -->
+          <div class="course-tactical-pin pin-landing" style="top:53%;left:50.5%">
+            <span class="tactical-dot"></span>
+            <div class="tactical-card">
+              <span class="tactical-badge tag-green" data-pin-landing-tag>${t('0% Riesgo de Agua','0% Water Risk')}</span>
+              <strong data-pin-landing>${t('Calle Ancha · Margen Total','Wide Fairway · Full Margin')}</strong>
+            </div>
           </div>
-          <div class="summary-col">
-            <span class="summary-eyebrow">${t('Resultado Estadístico','Statistical Result')}</span>
-            <strong class="summary-val text-green" data-summary-score>${t('PAR Seguro (+0.42 SG)','Safe PAR (+0.42 SG)')}</strong>
+
+          <!-- Pin: Water Hazard Alert (x: 55%, y: 35.5%) -->
+          <div class="course-tactical-pin pin-water" style="top:35.5%;left:55%">
+            <span class="tactical-dot dot-red"></span>
+            <div class="tactical-card card-alert">
+              <span class="tactical-badge tag-red">${t('32% Dispersión al Agua','32% Water Miss')}</span>
+              <strong>${t('Penalización (−1.82 SG)','Penalty (−1.82 SG)')}</strong>
+            </div>
+          </div>
+
+          <!-- Pin: Green & Outcome (x: 51.25%, y: 18.6%) -->
+          <div class="course-tactical-pin pin-green" style="top:18.6%;left:51.25%">
+            <span class="tactical-dot dot-target"></span>
+            <div class="tactical-card">
+              <span class="tactical-badge tag-green" data-pin-green-tag>${t('+0.42 SG vs Campo','+0.42 SG vs Field')}</span>
+              <strong data-pin-green>${t('Centro de Green ➔ Par Asegurado','Green Center ➔ Safe Par')}</strong>
+            </div>
+          </div>
+        </div>
+
+        <!-- FLOATING TELEMETRY HUD DIRECTLY ON MAP -->
+        <div class="course-hud-bottom">
+          <div class="hud-metric">
+            <span class="hud-metric-label">${t('Salida','Tee')}</span>
+            <strong class="text-green" data-summary-tee>${t('100% Calle (0% Agua)','100% Fairway (0% Water)')}</strong>
+          </div>
+          <div class="hud-metric-divider" aria-hidden="true"></div>
+          <div class="hud-metric">
+            <span class="hud-metric-label">${t('Aproximación','Approach')}</span>
+            <strong data-summary-approach>${t('Hierro 7 a centro','7-Iron to center')}</strong>
+          </div>
+          <div class="hud-metric-divider" aria-hidden="true"></div>
+          <div class="hud-metric">
+            <span class="hud-metric-label">${t('Resultado','Result')}</span>
+            <strong class="text-green" data-summary-score>${t('PAR Seguro (+0.42 SG)','Safe PAR (+0.42 SG)')}</strong>
           </div>
         </div>
       </div>
     </div>
-  </div></section>`;
+  </section>`;
 }
 
 function screenshot(name, alt, extra = '') {

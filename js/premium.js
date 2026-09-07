@@ -34,11 +34,11 @@ const strategyData={
     pinGreenTag:t('+0.42 SG vs Campo','+0.42 SG vs Field'),
     pinGreenTagClass:'tactical-badge tag-green',
     pinGreen:t('Centro de Green ➔ Par Asegurado','Green Center ➔ Safe Par'),
-    summaryTee:t('100% Calle Segura (0% Agua)','100% Safe Fairway (0% Water)'),
-    summaryTeeClass:'summary-val text-green',
-    summaryApproach:t('Hierro 7 controlado a centro','Controlled 7-Iron to center'),
+    summaryTee:t('100% Calle (0% Agua)','100% Fairway (0% Water)'),
+    summaryTeeClass:'text-green',
+    summaryApproach:t('Hierro 7 a centro','7-Iron to center'),
     summaryScore:t('PAR Seguro (+0.42 SG)','Safe PAR (+0.42 SG)'),
-    summaryScoreClass:'summary-val text-green'
+    summaryScoreClass:'text-green'
   },
   aggressive:{
     pinTee:t('Driver · 280 yd forzado','Forced Driver · 280 yd'),
@@ -49,10 +49,10 @@ const strategyData={
     pinGreenTagClass:'tactical-badge tag-red',
     pinGreen:t('Bandera Corta ➔ Riesgo de Bogey','Tucked Pin ➔ High Bogey Risk'),
     summaryTee:t('32% Peligro de Agua (−1.82 SG)','32% Water Hazard (−1.82 SG)'),
-    summaryTeeClass:'summary-val text-red',
-    summaryApproach:t('Wedge comprometido a bandera corta','Compromised Wedge to tucked pin'),
+    summaryTeeClass:'text-red',
+    summaryApproach:t('Wedge forzado a bandera','Forced Wedge to pin'),
     summaryScore:t('BOGEY o Peor (−0.65 SG)','BOGEY or Worse (−0.65 SG)'),
-    summaryScoreClass:'summary-val text-red'
+    summaryScoreClass:'text-red'
   }
 };
 document.querySelectorAll('[data-strategy]').forEach(button=>button.addEventListener('click',()=>{
