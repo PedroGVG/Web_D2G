@@ -152,7 +152,7 @@ function strategy() {
         </div>
 
         <!-- SVG FLIGHT TRACERS AND DISPERSION OVERLAY -->
-        <svg class="course-svg-overlay" viewBox="0 0 1200 805" aria-hidden="true">
+        <svg class="course-svg-overlay" viewBox="0 0 1200 805" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
           <!-- CONTROLLED STRATEGY GRAPHICS -->
           <g class="strat-group-controlled">
             <path class="tracer tracer-controlled" d="M612 684 Q610 540 606 426"/>
@@ -445,7 +445,7 @@ function closing(page) {
   const coach = page === 'coaches';
   return `<section class="closing"><div class="container closing-inner">
     ${eyebrow(coach ? t('100% Gratis para coaches y academias','100% Free for coaches & academies') : t('El próximo golpe empieza aquí','Your next shot starts here'))}
-    <h2>${coach ? t('Tu criterio profesional.<br><em>Ahora con datos de Tour.</em>','Your coaching expertise.<br><em>Now with Tour data.</em>') : t('Juega con intuición.<br><em>Decide con perspectiva.</em>','Play with intuition.<br><em>Decide with perspective.</em>')}</h2>
+    <h2>${coach ? t('Tu criterio profesional.<br><em>Ahora con datos de Tour.</em>','Your coaching expertise.<br><em>Now with Tour data.</em>') : t('Juega con intuición.<br><em>Decide con datos.</em>','Play with intuition.<br><em>Decide with data.</em>')}</h2>
     <div class="hero-actions">${coach ? link(app, t('Acceder Gratis como Coach','Get Free Coach Access'), 'gold', 'coach_app') : link(route('players'), t('Soy jugador','I am a player'), 'gold', 'audience_players') + link(route('coaches'), t('Soy coach (Gratis)','I am a coach (Free)'), 'outline', 'audience_coaches')}</div>
   </div></section>`;
 }
