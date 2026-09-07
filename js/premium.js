@@ -25,54 +25,77 @@ document.addEventListener('click',event=>{if(nav?.classList.contains('is-open')&
 nav?.addEventListener('focusout',event=>{if(event.relatedTarget&&!event.relatedTarget.closest('.site-header'))setMenu(false)});
 mobile.addEventListener('change',()=>setMenu(false));
 
-const strategyCopy={
+const strategyData={
   controlled:{
-    title:t('Estrategia de Control: Margen óptimo','Controlled Strategy: Optimal Margin'),
-    description:t('Madera 3 a zona ancha de calle, evitando todo peligro de agua, seguida de hierro cómodo a centro de green.','3-Wood to wide landing zone, eliminating water hazard, followed by controlled iron to center green.'),
-    sg:'+0.42 SG',
-    distance:'240 yd',
-    risk:t('Menor (0% agua)','Lower (0% water)'),
-    marker:t('Madera 3: Calle ancha · 0% agua','3-Wood: Wide fairway · 0% water'),
-    'green-marker':t('Centro de Green: Par asegurado (+0.42 SG)','Center Green: Safe Par (+0.42 SG)'),
-    tee:t('Madera 3 · 240 yd a calle ancha','3-Wood · 240 yd safe fairway'),
-    'tee-sub':t('0% riesgo de obstáculo de agua','0% water hazard penalty risk'),
-    approach:t('Hierro 7 · 178 yd a centro de green','7-Iron · 178 yd to green center'),
-    'approach-sub':t('Zona amplia · Gran tolerancia de dispersión','Wide sector · High dispersion margin'),
-    green:t('2 Putts controlados ➔ PAR Seguro','2 Controlled putts ➔ Safe PAR'),
-    'green-sub':t('+0.42 Strokes Gained vs resto de jugadores','+0.42 Strokes Gained vs field average')
+    pinTee:t('Madera 3 · 240 yd','3-Wood · 240 yd'),
+    pinLandingTag:t('0% Riesgo de Agua','0% Water Risk'),
+    pinLandingTagClass:'tactical-badge tag-green',
+    pinLanding:t('Calle Ancha · Margen Total','Wide Fairway · Full Margin'),
+    pinGreenTag:t('+0.42 SG vs Campo','+0.42 SG vs Field'),
+    pinGreenTagClass:'tactical-badge tag-green',
+    pinGreen:t('Centro de Green ➔ Par Asegurado','Green Center ➔ Safe Par'),
+    summaryTee:t('100% Calle Segura (0% Agua)','100% Safe Fairway (0% Water)'),
+    summaryTeeClass:'summary-val text-green',
+    summaryApproach:t('Hierro 7 controlado a centro','Controlled 7-Iron to center'),
+    summaryScore:t('PAR Seguro (+0.42 SG)','Safe PAR (+0.42 SG)'),
+    summaryScoreClass:'summary-val text-green'
   },
   aggressive:{
-    title:t('Estrategia Agresiva: Alto riesgo junto al agua','Aggressive Strategy: High risk near water'),
-    description:t('El driver busca ganar 40 yardas pero expone una zona de caída crítica: 32% de dispersión cae al obstáculo de agua.','Driver seeks 40 extra yards but exposes a critical landing zone: 32% dispersion miss into water hazard.'),
-    sg:'−0.65 SG',
-    distance:'280 yd',
-    risk:t('Crítico (32% agua)','Critical (32% water)'),
-    marker:t('Driver: Cuello estrecho · 32% agua','Driver: Narrow neck · 32% water'),
-    'green-marker':t('Bandera corta protegida: Volatilidad (−0.65 SG)','Tucked pin: High volatility (−0.65 SG)'),
-    tee:t('Driver · 280 yd a cuello estrecho','Driver · 280 yd narrow fairway neck'),
-    'tee-sub':t('32% de dispersión directa a obstáculo de agua (-1.82 SG)','32% direct dispersion into water hazard (-1.82 SG)'),
-    approach:t('Wedge · 138 yd a bandera corta protegida','Wedge · 138 yd to tucked pin over bunker'),
-    'approach-sub':t('Margen estrecho de error · Riesgo de bunker y rough denso','Narrow error margin · Bunker & thick rough hazard'),
-    green:t('Putt comprometido o drop ➔ Bogey / Doble Bogey','Compromised putt or drop ➔ Bogey / Double Bogey'),
-    'green-sub':t('−0.65 Strokes Gained medio por penalizaciones y fallos','−0.65 Strokes Gained average due to penalties & misses')
+    pinTee:t('Driver · 280 yd forzado','Forced Driver · 280 yd'),
+    pinLandingTag:t('32% Dispersión al Agua','32% Dispersion to Water'),
+    pinLandingTagClass:'tactical-badge tag-red',
+    pinLanding:t('Cuello Estrecho · Alto Riesgo','Narrow Fairway · High Risk'),
+    pinGreenTag:t('−0.65 SG vs Campo','−0.65 SG vs Field'),
+    pinGreenTagClass:'tactical-badge tag-red',
+    pinGreen:t('Bandera Corta ➔ Riesgo de Bogey','Tucked Pin ➔ High Bogey Risk'),
+    summaryTee:t('32% Peligro de Agua (−1.82 SG)','32% Water Hazard (−1.82 SG)'),
+    summaryTeeClass:'summary-val text-red',
+    summaryApproach:t('Wedge comprometido a bandera corta','Compromised Wedge to tucked pin'),
+    summaryScore:t('BOGEY o Peor (−0.65 SG)','BOGEY or Worse (−0.65 SG)'),
+    summaryScoreClass:'summary-val text-red'
   }
 };
 document.querySelectorAll('[data-strategy]').forEach(button=>button.addEventListener('click',()=>{
   const key=button.dataset.strategy;
-  const copy=strategyCopy[key];
-  if(!copy)return;
+  const data=strategyData[key];
+  if(!data)return;
   document.querySelectorAll('[data-strategy]').forEach(item=>item.setAttribute('aria-pressed',String(item===button)));
   const visual=document.querySelector('[data-course-strategy]');
   if(visual)visual.dataset.courseStrategy=key;
-  const sgEl=document.querySelector('[data-strategy-sg]');
-  if(sgEl){
-    sgEl.textContent=copy.sg;
-    sgEl.className=`strategy-sg-tag ${key==='controlled'?'text-green':'text-red'}`;
+
+  const pinTee=document.querySelector('[data-pin-tee]');
+  if(pinTee)pinTee.textContent=data.pinTee;
+
+  const pinLandingTag=document.querySelector('[data-pin-landing-tag]');
+  if(pinLandingTag){
+    pinLandingTag.textContent=data.pinLandingTag;
+    pinLandingTag.className=data.pinLandingTagClass;
   }
-  for(const [field,value] of Object.entries(copy)){
-    const el=document.querySelector(`[data-strategy-${field}]`);
-    if(el)el.textContent=value;
+  const pinLanding=document.querySelector('[data-pin-landing]');
+  if(pinLanding)pinLanding.textContent=data.pinLanding;
+
+  const pinGreenTag=document.querySelector('[data-pin-green-tag]');
+  if(pinGreenTag){
+    pinGreenTag.textContent=data.pinGreenTag;
+    pinGreenTag.className=data.pinGreenTagClass;
   }
+  const pinGreen=document.querySelector('[data-pin-green]');
+  if(pinGreen)pinGreen.textContent=data.pinGreen;
+
+  const summaryTee=document.querySelector('[data-summary-tee]');
+  if(summaryTee){
+    summaryTee.textContent=data.summaryTee;
+    summaryTee.className=data.summaryTeeClass;
+  }
+  const summaryApproach=document.querySelector('[data-summary-approach]');
+  if(summaryApproach)summaryApproach.textContent=data.summaryApproach;
+
+  const summaryScore=document.querySelector('[data-summary-score]');
+  if(summaryScore){
+    summaryScore.textContent=data.summaryScore;
+    summaryScore.className=data.summaryScoreClass;
+  }
+
   track('strategy_change',{strategy:key});
 }));
 

@@ -14,10 +14,16 @@ const esc = text => String(text).replaceAll('&', '&amp;').replaceAll('"', '&quot
 const arrow = '<svg viewBox="0 0 24 24" aria-hidden="true" fill="none"><path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>';
 const diagonal = '<svg viewBox="0 0 24 24" aria-hidden="true" fill="none"><path d="M6 18 18 6M6 6h12v12" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>';
 const check = '<svg viewBox="0 0 24 24" aria-hidden="true" fill="none"><path d="m5 12 4 4 10-10" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>';
+const flagEs = '<svg class="lang-flag" viewBox="0 0 640 480" width="16" height="12" aria-hidden="true"><path fill="#c60b1e" d="M0 0h640v480H0z"/><path fill="#ffc400" d="M0 120h640v240H0z"/></svg>';
+const flagGb = '<svg class="lang-flag" viewBox="0 0 60 30" width="16" height="10" aria-hidden="true"><rect width="60" height="30" fill="#012169"/><path d="M0 0L60 30M60 0L0 30" stroke="#fff" stroke-width="6"/><path d="M0 0L60 30M60 0L0 30" stroke="#C8102E" stroke-width="4"/><path d="M30 0v30M0 15h60" stroke="#fff" stroke-width="10"/><path d="M30 0v30M0 15h60" stroke="#C8102E" stroke-width="6"/></svg>';
+const appleIcon = '<svg class="platform-icon" viewBox="0 0 24 24" aria-hidden="true" fill="currentColor"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.81-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M15.97 6.37c.62-.75 1.04-1.8 0.92-2.85-.9.04-1.99.6-2.64 1.35-.57.65-1.06 1.7-0.93 2.73 1 .08 2.03-.48 2.65-1.23z"/></svg>';
+const googlePlayIcon = '<svg class="platform-icon" viewBox="0 0 24 24" aria-hidden="true" fill="currentColor"><path d="M3.609 1.814L13.792 12 3.61 22.186a2.38 2.38 0 0 1-.22-.395c-.244-.59-.39-1.312-.39-2.19V4.4c0-.877.146-1.6.39-2.19.064-.15.138-.284.22-.396zm1.424-1.05a2.53 2.53 0 0 1 1.488.293l10.87 6.208-2.894 2.893L5.033.764zm0 22.472l9.464-9.464 2.894 2.893-10.87 6.208a2.53 2.53 0 0 1-1.488.293zm11.758-7.398l3.414-1.95a1.69 1.69 0 0 0 0-2.936l-3.414-1.95-2.227 2.227 2.227 2.227z"/></svg>';
+const webAppIcon = '<svg class="platform-icon" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="4" width="18" height="16" rx="3"/><path d="M3 9h18M8 6.5h.01M11 6.5h.01M14 6.5h.01"/></svg>';
 const link = (href, text, kind = 'gold', tracking = '') => `<a class="button button-${kind}" href="${esc(href)}"${tracking ? ` data-track="${tracking}"` : ''}>${text}${arrow}</a>`;
 const mail = subject => `mailto:info@data2gain.com?subject=${encodeURIComponent(subject)}`;
 const eyebrow = text => `<p class="eyebrow">${text}</p>`;
 const brand = () => `<span class="brand"><img src="/assets/logo-64.webp" width="32" height="32" alt=""><span>DATA<span class="brand-two">2</span>GAIN</span></span>`;
+const platformStrip = () => `<div class="platform-strip" aria-label="${t('Plataformas disponibles','Available platforms')}"><span class="platform-caption">${t('Disponible en:','Available on:')}</span><div class="platform-badges"><a class="platform-badge" href="${app}" data-track="store_apple" aria-label="Apple App Store">${appleIcon}<span>App Store</span></a><a class="platform-badge" href="${app}" data-track="store_android" aria-label="Google Play">${googlePlayIcon}<span>Google Play</span></a><a class="platform-badge" href="${app}" data-track="store_webapp" aria-label="Web App">${webAppIcon}<span>Web App</span></a></div></div>`;
 
 function header(page) {
   return `<a class="skip-link" href="#main">${t('Saltar al contenido', 'Skip to content')}</a>
@@ -29,7 +35,7 @@ function header(page) {
       <a href="${route('coaches')}"${page === 'coaches' ? ' aria-current="page"' : ''}>Coaches</a>
       <a href="${route('home')}#como-funciona">${t('Cómo funciona','How it works')}</a>
       <a href="${route('home')}#precios">${t('Precios','Pricing')}</a>
-      <div class="nav-utilities"><div class="languages" aria-label="${t('Idioma','Language')}"><a href="${route(page,'es')}" lang="es" hreflang="es" aria-label="Español"${lang === 'es' ? ' aria-current="true"' : ''}>ES</a><span aria-hidden="true">/</span><a href="${route(page,'en')}" lang="en" hreflang="en" aria-label="English"${lang === 'en' ? ' aria-current="true"' : ''}>EN</a></div>
+      <div class="nav-utilities"><div class="languages" aria-label="${t('Idioma','Language')}"><a href="${route(page,'es')}" lang="es" hreflang="es" aria-label="Español"${lang === 'es' ? ' aria-current="true"' : ''}>${flagEs}<span>ES</span></a><span class="lang-divider" aria-hidden="true">/</span><a href="${route(page,'en')}" lang="en" hreflang="en" aria-label="English"${lang === 'en' ? ' aria-current="true"' : ''}>${flagGb}<span>EN</span></a></div>
       <a class="nav-access" href="${app}" data-track="app_open">${t('Acceder','Sign in')}${diagonal}</a></div>
     </nav>
   </div></header>`;
@@ -56,10 +62,10 @@ function hero(page) {
     : t('Para jugadores', 'For players');
 
   const desc = home
-    ? t('Encuentra el patrón. Conoce tus distancias reales y descubre exactamente dónde ganas o pierdes golpes con insights que ninguna otra herramienta puede darte. Analítica avanzada de golf para jugadores y coaches.', 'Find the pattern. Know your real distances and discover exactly where you gain or lose strokes with insights no other tool can give you. Advanced golf analytics for players and coaches.')
+    ? t('Encuentra el patrón. Descubre exactamente dónde ganas o pierdes golpes con insights predictivos que ninguna otra herramienta puede darte. Analítica de precisión para jugadores y coaches.', 'Find the pattern. Discover exactly where you gain or lose strokes with predictive insights no other tool can give you. Precision golf analytics for players and coaches.')
     : coach
     ? t('Incorpora la analítica más avanzada de Strokes Gained y dispersión a tus clases. Una plataforma completa y 100% gratuita para entrenadores, diseñada para complementar tu criterio sin solicitar demos ni barreras.', 'Bring advanced Strokes Gained and dispersion analytics into your coaching. A full platform 100% free for coaches, built to enhance your expertise with no demo requests or barriers.')
-    : t('Tus rondas cuentan una historia. Descubre tus patrones con Strokes Gained, distancias reales y una IA que pone tus datos en contexto.', 'Your rounds tell a story. Discover your patterns with Strokes Gained, real club distances and AI that puts your data in context.');
+    : t('Tus rondas cuentan una historia. Descubre tus patrones con Strokes Gained, telemetría de dispersión y una IA que pone tus datos en contexto.', 'Your rounds tell a story. Discover your patterns with Strokes Gained, dispersion telemetry and AI that puts your data in context.');
 
   const actions = home
     ? link(route('players'), t('Para jugadores', 'For players'), 'gold', 'audience_players') + link(route('coaches'), t('Para coaches (Gratis)', 'For coaches (Free)'), 'outline', 'audience_coaches')
@@ -73,21 +79,30 @@ function hero(page) {
     ? t('100% Gratuito para instructores y academias · Acceso directo e inmediato', '100% Free for instructors and academies · Direct instant access')
     : t('8,95 €/mes · Todas las funciones PRO · Cancela cuando quieras', '€8.95/month · All PRO features · Cancel anytime');
 
+  const peekAlt = t('Vista del análisis de dispersión', 'Dispersion analysis preview');
+  const insightIcon = coach
+    ? `<span class="insight-icon">${diagonal}</span>`
+    : `<img class="hero-product-peek" src="/assets/screens/${lang}/screen-dispersion-360.webp" width="78" height="86" alt="${esc(peekAlt)}">`;
+  const insightEyebrow = coach ? t('Al servicio de tu criterio', 'Built around your expertise') : t('Dentro de Data2Gain', 'Inside Data2Gain');
+  const insightStrong = coach ? t('Diagnóstico objetivo de cada alumno', 'Objective diagnosis for each player') : t('Encuentra el patrón en tus datos', 'Find the pattern in your data');
+  const insightDetail = coach ? t('Planes de práctica basados en datos', 'Data-backed practice routines') : t('Dispersión · Strokes Gained · IA', 'Dispersion · Strokes Gained · AI');
+
   return `<section class="hero ${home ? 'hero-home' : 'hero-detail'}"><div class="container hero-grid"><div class="hero-copy">
     ${eyebrow(eyebrowText)}
     <h1>${title}</h1><p class="hero-description">${desc}</p>
     <div class="hero-actions">${actions}</div>
+    ${platformStrip()}
     <p class="hero-footnote">${footnote}</p>
     </div><div class="hero-visual ${coach ? 'hero-coaching' : ''}"><img class="hero-photo" src="/assets/editorial/${coach ? 'coaching.jpg' : 'golfer.webp'}" alt="${coach ? t('Un instructor acompaña a una joven golfista durante una sesión de práctica','An instructor guides a young golfer during practice') : t('Golfista terminando su swing con la luz del atardecer','Golfer finishing a swing in the evening light')}" width="${coach ? 1400 : 1600}" height="${coach ? 1845 : 1067}" fetchpriority="high">
     <div class="photo-caption"><span>${t('Una nueva forma de ver el golf','A new perspective on golf')}</span><span>01 — D2G</span></div>
-    <a class="hero-insight" href="${coach ? '#enfoque' : '#producto'}">${coach ? `<span class="insight-icon">${diagonal}</span>` : `<img class="hero-product-peek" src="/assets/screens/${lang}/screen-dispersion-360.webp" width="78" height="86" alt="${t('Vista del análisis de dispersión','Dispersion analysis preview')}">`}<div><span class="eyebrow">${coach ? t('Al servicio de tu criterio','Built around your expertise') : t('Dentro de Data2Gain','Inside Data2Gain')}</span><strong>${coach ? t('Cada jugador tiene su historia.','Every player has a story.') : t('Tus patrones, a la vista.','Your patterns, in focus.')}</strong><span class="insight-detail">${coach ? t('Dale contexto con sus datos','Put their data into context') : t('Dispersión · Strokes Gained · IA','Dispersion · Strokes Gained · AI')}</span></div></a>
+    <a class="hero-insight" href="${coach ? '#enfoque' : '#producto'}">${insightIcon}<div><span class="eyebrow">${insightEyebrow}</span><strong>${insightStrong}</strong><span class="insight-detail">${insightDetail}</span></div></a>
     </div></div><div class="container hero-baseline"><span>${t('SIENTE EL GOLPE. ENTIENDE EL JUEGO.','FEEL THE SHOT. UNDERSTAND THE GAME.')}</span><a href="${coach ? '#enfoque' : '#como-funciona'}">${t('Explora Data2Gain','Explore Data2Gain')}<span aria-hidden="true">↓</span></a></div></section>`;
 }
 
 function how() {
   const steps = [
     [t('Juega. Registra.','Play. Record.'),t('Añade tu ronda a Data2Gain. Todo empieza por tus propios golpes.','Add your round to Data2Gain. It all starts with your own shots.')],
-    [t('Encuentra el patrón.','Find the pattern.'),t('Conoce tus distancias reales y descubre dónde ganas o pierdes golpes con insights avanzados.','Know your real distances and discover where you gain or lose strokes with advanced insights.')],
+    [t('Encuentra el patrón.','Find the pattern.'),t('Descubre exactamente dónde ganas o pierdes golpes e identifica patrones ocultos con insights avanzados.','Discover exactly where you gain or lose strokes and uncover hidden tendencies with advanced insights.')],
     [t('Decide el siguiente paso.','Choose your next step.'),t('Lleva una prioridad clara a tu próxima práctica o sesión con tu coach.','Take a clear priority into your next practice or coaching session.')]
   ];
   return `<section class="section section-light" id="como-funciona"><div class="container"><div class="section-heading horizontal">${eyebrow(t('01 / Del dato a la decisión','01 / From data to decisions'))}<h2>${t('Más claridad.<br>En cada paso.','More clarity.<br>At every step.')}</h2><p>${t('No necesitas saber de estadística.<br>Solo querer entender mejor tu golf.','You do not need to be a statistician.<br>Just curious about your golf.')}</p></div><div class="steps">${steps.map(([title,body],i)=>`<article class="step"><span class="step-number">0${i+1}</span><h3>${title}</h3><p>${body}</p></article>`).join('')}</div></div></section>`;
@@ -95,92 +110,126 @@ function how() {
 
 function audiences() {
   return `<section class="section section-light audience-section"><div class="container"><div class="section-heading"><div>${eyebrow(t('02 / Una ambición compartida','02 / One shared ambition'))}<h2>${t('Mejor golf.<br>Desde tu perspectiva.','Better golf.<br>From your perspective.')}</h2></div><p>${t('Dos formas de llegar al mismo lugar:<br>entender el juego para hacerlo crecer.','Two ways to get to the same place:<br>understand the game to help it grow.')}</p></div><div class="audience-grid">
-    <a class="audience-card" href="${route('players')}" data-track="audience_players"><img src="/assets/editorial/golfer.webp" alt="${t('Golfista en el campo al atardecer','Golfer on the course at sunset')}" width="1600" height="1067" loading="lazy"><div class="audience-content"><span class="eyebrow">${t('Tu próxima mejor ronda','Your next better round')}</span><h3>${t('Soy jugador','I am a player')}</h3><p>${t('Conoce tus puntos fuertes.<br>Trabaja donde más importa.','Know your strengths.<br>Work where it matters most.')}</p><span class="text-link">${t('Descubre tu ventaja','Find your advantage')}${arrow}</span></div></a>
-    <a class="audience-card" href="${route('coaches')}" data-track="audience_coaches"><img src="/assets/editorial/coaching.jpg" alt="${t('Instructor guiando a una alumna en la práctica de golf','Instructor guiding a student during golf practice')}" width="1400" height="1845" loading="lazy"><div class="audience-content"><span class="eyebrow">${t('100% Gratuito para coaches','100% Free for coaches')}</span><h3>${t('Soy coach','I am a coach')}</h3><p>${t('Dale contexto a cada ronda.<br>Orienta cada entrenamiento sin coste alguno.','Give every round context.<br>Give every session direction at zero cost.')}</p><span class="text-link">${t('Acceder gratis a la plataforma','Free platform access')}${arrow}</span></div></a>
+    <a class="audience-card" href="${route('players')}" data-track="audience_players"><img src="/assets/editorial/player-drive.webp" srcset="/assets/editorial/player-drive-800.webp 800w, /assets/editorial/player-drive.webp 1200w" sizes="(max-width: 760px) 92vw, 48vw" alt="${t('Golfista ejecutando un golpe en el campo al atardecer','Golfer hitting a shot on the course at sunset')}" width="1200" height="669" loading="lazy"><div class="audience-content"><span class="eyebrow">${t('Tu próxima mejor ronda','Your next better round')}</span><h3>${t('Soy jugador','I am a player')}</h3><p>${t('Conoce tus puntos fuertes.<br>Trabaja donde más importa.','Know your strengths.<br>Work where it matters most.')}</p><span class="text-link">${t('Descubre tu ventaja','Find your advantage')}${arrow}</span></div></a>
+    <a class="audience-card" href="${route('coaches')}" data-track="audience_coaches"><img src="/assets/editorial/coaching.jpg" alt="${t('Instructor guiando a una alumna en la práctica de golf','Instructor guiding a student during golf practice')}" width="1400" height="1845" loading="lazy"><div class="audience-content"><span class="eyebrow">${t('100% Gratuito para coaches','100% Free for coaches')}</span><h3>${t('Soy coach','I am a coach')}</h3><p>${t('Diagnostica con certeza objetiva y optimiza cada sesión.<br>Convierte los datos de campo de tus alumnos en un plan de mejora medible.','Diagnose with objective certainty and optimize every session.<br>Turn your players\' on-course data into a measurable improvement plan.')}</p><span class="text-link">${t('Acceder gratis a la plataforma','Free platform access')}${arrow}</span></div></a>
     </div></div></section>`;
 }
 
 function strategy() {
-  return `<section class="section strategy-section" id="demo"><div class="container strategy-grid"><div class="strategy-copy">
-    <div class="sim-pill-badge"><span class="sim-beacon"></span>${t('SIMULACIÓN CONCEPTUAL · NO DISPONIBLE EN LA APP','CONCEPTUAL SIMULATION · NOT IN THE APP')}</div>
-    <h2>${t('Un mismo hoyo.<br>Dos formas<br>de <em>jugarlo.</em>','One hole.<br>Two ways<br>to <em>play it.</em>')}</h2>
-    <p class="strategy-lead">${t('Compara 2 estrategias de principio a fin (Salida ➔ Aproximación ➔ Green). Menos distancia suele significar mayor margen y mejor resultado en la tarjeta.','Compare 2 full strategies from tee to green. Less distance often means wider margin and better score.')}</p>
-    
-    <div class="strategy-controls" role="group" aria-label="${t('Estrategia del hoyo','Hole strategy')}">
-      <button type="button" data-strategy="controlled" aria-pressed="true">${t('Control Seguro','Safe Control')}<span>${t('Madera 3 + Hierro','3-Wood + Iron')}</span></button>
-      <button type="button" data-strategy="aggressive" aria-pressed="false">${t('Distancia Agresiva','Aggressive Distance')}<span>${t('Driver + Wedge','Driver + Wedge')}</span></button>
+  return `<section class="section strategy-section" id="demo"><div class="container">
+    <div class="strategy-header">
+      <div class="sim-pill-badge"><span class="sim-beacon"></span>${t('SIMULACIÓN CONCEPTUAL · NO DISPONIBLE EN LA APP','CONCEPTUAL SIMULATION · NOT IN THE APP')}</div>
+      <div class="strategy-heading-grid">
+        <div>
+          ${eyebrow(t('03 / Estrategia de Tour · Tee a Green','03 / Tour Strategy · Tee to Green'))}
+          <h2>${t('Un mismo hoyo.<br>Dos decisiones <em>estadísticas.</em>','One hole.<br>Two statistical <em>decisions.</em>')}</h2>
+        </div>
+        <p class="strategy-lead">${t('Compara directamente en el mapa táctico la diferencia entre atacar por inercia o jugar con tu dispersión real. Menos distancia forzada suele significar mayor margen y mejor resultado en la tarjeta.','Compare directly on the tactical map the difference between attacking blindly or playing with true dispersion. Less forced distance often means wider margin and lower scores.')}</p>
+      </div>
+
+      <div class="strategy-controls" role="group" aria-label="${t('Estrategia del hoyo','Hole strategy')}">
+        <button type="button" data-strategy="controlled" aria-pressed="true">
+          <span class="control-tag tag-green">${t('+0.42 SG · Margen Óptimo','+0.42 SG · Optimal Margin')}</span>
+          <strong>${t('Control Inteligente','Smart Control')}</strong>
+          <span class="control-desc">${t('Madera 3 + Hierro ➔ Par seguro (0% agua)','3-Wood + Iron ➔ Safe Par (0% water)')}</span>
+        </button>
+        <button type="button" data-strategy="aggressive" aria-pressed="false">
+          <span class="control-tag tag-red">${t('−0.65 SG · Alto Riesgo','−0.65 SG · High Risk')}</span>
+          <strong>${t('Riesgo Innecesario','Unnecessary Risk')}</strong>
+          <span class="control-desc">${t('Driver al cuello estrecho ➔ 32% agua','Driver to narrow neck ➔ 32% water')}</span>
+        </button>
+      </div>
     </div>
 
-    <div class="strategy-result" aria-live="polite" aria-atomic="true">
-      <div class="strategy-flow-badge"><span class="eyebrow">${t('Secuencia completa (Tee a Green)','Complete Sequence (Tee to Green)')}</span><strong data-strategy-sg class="strategy-sg-tag text-green">+0.42 SG</strong></div>
-      <h3 data-strategy-title>${t('Estrategia de Control: Margen óptimo','Controlled Strategy: Optimal Margin')}</h3>
-      <p data-strategy-description>${t('Madera 3 a zona ancha de calle, evitando todo peligro de agua, seguida de hierro cómodo a centro de green.','3-Wood to wide landing zone, eliminating water hazard, followed by controlled iron to center green.')}</p>
-      
-      <div class="strategy-timeline">
-        <div class="timeline-step">
-          <span class="timeline-dot">1</span>
-          <div class="timeline-info">
-            <span class="timeline-label">${t('Salida (Tee)','Off the Tee')}</span>
-            <strong data-strategy-tee>${t('Madera 3 · 240 yd a calle ancha','3-Wood · 240 yd safe fairway')}</strong>
-            <span class="timeline-sub text-green" data-strategy-tee-sub>${t('0% riesgo de obstáculo de agua','0% water hazard penalty risk')}</span>
+    <div class="course-stage" data-course-strategy="controlled">
+      <div class="course-board">
+        <div class="course-top-bar">
+          <span class="course-badge">PAR 4 · 418 YDS</span>
+          <span class="course-sim-text">${t('MAPA TÁCTICO INTERACTIVO TEE A GREEN','TACTICAL TEE-TO-GREEN INTERACTIVE MAP')}</span>
+        </div>
+
+        <div class="course-canvas-wrap">
+          <img class="course-photo" src="/assets/hero-hole-sg-1200.webp" srcset="/assets/hero-hole-sg-480.webp 480w, /assets/hero-hole-sg-800.webp 800w, /assets/hero-hole-sg-1200.webp 1200w" sizes="(max-width: 760px) 95vw, 980px" width="1200" height="805" loading="lazy" alt="${t('Mapa táctico de hoyo de golf con lago y bunkers','Tactical golf hole map with lake and bunkers')}">
+
+          <svg class="course-svg-overlay" viewBox="0 0 1200 805" aria-hidden="true">
+            <!-- CONTROLLED STRATEGY GRAPHICS -->
+            <g class="strat-group-controlled">
+              <path class="tracer tracer-controlled" d="M612 684 Q610 540 606 426"/>
+              <ellipse class="dispersion-ellipse disp-controlled" cx="606" cy="426" rx="44" ry="60"/>
+              <path class="tracer tracer-approach-controlled" d="M606 426 Q610 275 615 150"/>
+              <circle class="target-ring target-controlled" cx="615" cy="150" r="32"/>
+              <circle class="target-center-dot" cx="615" cy="150" r="4.5"/>
+            </g>
+
+            <!-- AGGRESSIVE STRATEGY GRAPHICS -->
+            <g class="strat-group-aggressive">
+              <path class="tracer tracer-aggressive" d="M612 684 Q590 470 558 300"/>
+              <ellipse class="dispersion-ellipse disp-aggressive" cx="558" cy="300" rx="50" ry="72"/>
+              <path class="tracer tracer-miss" d="M578 430 Q620 360 659 286"/>
+              <circle class="hazard-splash" cx="659" cy="286" r="24"/>
+              <path class="tracer tracer-approach-aggressive" d="M558 300 Q585 205 615 140"/>
+              <circle class="target-hazard-pin" cx="615" cy="140" r="22"/>
+            </g>
+          </svg>
+
+          <!-- TACTICAL MAP PINS (Aligned strictly with course geometry) -->
+          <div class="course-map-pins">
+            <!-- Pin: Tee Box (x: 51%, y: 85%) -->
+            <div class="course-tactical-pin pin-tee" style="top:85%;left:51%">
+              <span class="tactical-dot"></span>
+              <div class="tactical-card">
+                <span class="tactical-sub">${t('Salida','Tee Shot')}</span>
+                <strong data-pin-tee>${t('Madera 3 · 240 yd','3-Wood · 240 yd')}</strong>
+              </div>
+            </div>
+
+            <!-- Pin: Fairway Landing Zone (x: 50.5%, y: 53%) -->
+            <div class="course-tactical-pin pin-landing" style="top:53%;left:50.5%">
+              <span class="tactical-dot"></span>
+              <div class="tactical-card">
+                <span class="tactical-badge tag-green" data-pin-landing-tag>${t('0% Riesgo de Agua','0% Water Risk')}</span>
+                <strong data-pin-landing>${t('Calle Ancha · Margen Total','Wide Fairway · Full Margin')}</strong>
+              </div>
+            </div>
+
+            <!-- Pin: Water Hazard Alert (x: 55%, y: 35.5%) -->
+            <div class="course-tactical-pin pin-water" style="top:35.5%;left:55%">
+              <span class="tactical-dot dot-red"></span>
+              <div class="tactical-card card-alert">
+                <span class="tactical-badge tag-red">${t('32% Dispersión al Agua','32% Water Miss')}</span>
+                <strong>${t('Penalización (−1.82 SG)','Penalty (−1.82 SG)')}</strong>
+              </div>
+            </div>
+
+            <!-- Pin: Green & Outcome (x: 51.25%, y: 18.6%) -->
+            <div class="course-tactical-pin pin-green" style="top:18.6%;left:51.25%">
+              <span class="tactical-dot dot-target"></span>
+              <div class="tactical-card">
+                <span class="tactical-badge tag-green" data-pin-green-tag>${t('+0.42 SG vs Campo','+0.42 SG vs Field')}</span>
+                <strong data-pin-green>${t('Centro de Green ➔ Par Asegurado','Green Center ➔ Safe Par')}</strong>
+              </div>
+            </div>
           </div>
         </div>
-        <div class="timeline-step">
-          <span class="timeline-dot">2</span>
-          <div class="timeline-info">
-            <span class="timeline-label">${t('Aproximación','Approach')}</span>
-            <strong data-strategy-approach>${t('Hierro 7 · 178 yd a centro de green','7-Iron · 178 yd to green center')}</strong>
-            <span class="timeline-sub" data-strategy-approach-sub>${t('Zona amplia · Gran tolerancia de dispersión','Wide sector · High dispersion margin')}</span>
+
+        <!-- TACTICAL SUMMARY BAR (Comparison Takeaways) -->
+        <div class="strategy-summary-bar">
+          <div class="summary-col">
+            <span class="summary-eyebrow">${t('Margen de Salida','Tee Margin')}</span>
+            <strong class="summary-val text-green" data-summary-tee>${t('100% Calle Segura (0% Agua)','100% Safe Fairway (0% Water)')}</strong>
           </div>
-        </div>
-        <div class="timeline-step">
-          <span class="timeline-dot">3</span>
-          <div class="timeline-info">
-            <span class="timeline-label">${t('En Green & Resultado','On Green & Score')}</span>
-            <strong data-strategy-green>${t('2 Putts controlados ➔ PAR Seguro','2 Controlled putts ➔ Safe PAR')}</strong>
-            <span class="timeline-sub text-green" data-strategy-green-sub>${t('+0.42 Strokes Gained vs resto de jugadores','+0.42 Strokes Gained vs field average')}</span>
+          <div class="summary-col">
+            <span class="summary-eyebrow">${t('Tiro a Green','Approach Shot')}</span>
+            <strong class="summary-val" data-summary-approach>${t('Hierro 7 controlado a centro','Controlled 7-Iron to center')}</strong>
+          </div>
+          <div class="summary-col">
+            <span class="summary-eyebrow">${t('Resultado Estadístico','Statistical Result')}</span>
+            <strong class="summary-val text-green" data-summary-score>${t('PAR Seguro (+0.42 SG)','Safe PAR (+0.42 SG)')}</strong>
           </div>
         </div>
       </div>
     </div>
-  </div>
-  
-  <div class="course-visual" data-course-strategy="controlled">
-    <div class="course-top">
-      <span class="course-sim-tag">${t('SIMULADOR CONCEPTUAL · NO ESTÁ EN LA APP','CONCEPTUAL SIMULATOR · NOT IN APP')}</span>
-      <span>PAR 4 / 418 YD</span>
-    </div>
-    <img src="/assets/hero-hole-sg-1200.webp" srcset="/assets/hero-hole-sg-480.webp 480w, /assets/hero-hole-sg-800.webp 800w, /assets/hero-hole-sg-1200.webp 1200w" sizes="(max-width: 760px) 92vw, 52vw" width="1264" height="848" loading="lazy" alt="${t('Simulación de estrategia en hoyo con obstáculo de agua','Hole strategy simulation with water hazard')}">
-    
-    <svg class="course-path" viewBox="0 0 1264 848" aria-hidden="true">
-      <path class="route-controlled" d="M610 800 Q610 620 602 535"/>
-      <ellipse class="landing-controlled" cx="602" cy="535" rx="36" ry="54"/>
-      <path class="route-controlled-approach" d="M602 535 Q560 300 520 150"/>
-      <circle class="green-target-controlled" cx="520" cy="150" r="26"/>
-      
-      <path class="route-aggressive" d="M610 800 Q590 550 550 348"/>
-      <ellipse class="landing-aggressive" cx="550" cy="348" rx="46" ry="68"/>
-      <path class="route-aggressive-miss" d="M575 490 Q630 435 690 380"/>
-      <circle class="water-hazard-impact" cx="690" cy="380" r="16"/>
-      <path class="route-aggressive-approach" d="M550 348 Q530 220 500 130"/>
-      <circle class="pin-target-aggressive" cx="500" cy="130" r="18"/>
-    </svg>
-
-    <div class="course-marker">
-      <span class="marker-dot"></span>
-      <strong data-strategy-marker>${t('Madera 3: Calle ancha · 0% agua','3-Wood: Wide fairway · 0% water')}</strong>
-    </div>
-
-    <div class="course-marker course-marker-green">
-      <span class="marker-dot-green"></span>
-      <strong data-strategy-green-marker>${t('Centro de Green: Par asegurado (+0.42 SG)','Center Green: Safe Par (+0.42 SG)')}</strong>
-    </div>
-
-    <div class="course-bottom">
-      <span class="legend-dot"></span>
-      <span>${t('Recorrido simulado Tee a Green · Demostración visual conceptual fuera de la app','Simulated Tee to Green path · Conceptual visual demo outside the app')}</span>
-    </div>
-  </div></div></section>`;
+  </div></section>`;
 }
 
 function screenshot(name, alt, extra = '') {
@@ -200,7 +249,7 @@ function product() {
   ];
   const descriptions = [
     t('Visualiza tu dispersión real palo a palo mediante scatter plots y elipses de impacto en radar. Identifica tendencias de dispersión lateral (push o pull) y deja de apuntar a donde deseas que vaya la bola: apunta donde tu estadística objetiva maximiza el margen y reduce los riesgos del campo.', 'Visualize your true dispersion club by club via scatter plots and radar impact ellipses. Spot lateral dispersion patterns (push or pull) and stop aiming where you hope the ball goes: aim where your objective stats maximize margin and avoid course hazards.'),
-    t('Conoce tus yardas reales de vuelo en situaciones reales de juego. Detecta solapamientos de distancia y brechas críticas (gaps) entre maderas, híbridos y hierros largos para seleccionar palo en cada golpe con total seguridad.', 'Know your exact carry yardages under real playing conditions. Detect distance overlaps and critical yardage gaps between woods, hybrids, and long irons to select clubs on every shot with absolute confidence.'),
+    t('Conoce tu distancia real de vuelo en situaciones reales de juego. Detecta solapamientos de distancia y brechas críticas (gaps) entre maderas, híbridos y hierros largos para seleccionar palo en cada golpe con total seguridad.', 'Know your true carry distance under real playing conditions. Detect distance overlaps and critical yardage gaps between woods, hybrids, and long irons to select clubs on every shot with absolute confidence.'),
     t('Telemetría profunda en las cuatro áreas del juego: Salidas (Tee), Aproximación, Juego Corto y Green. En el putt, desglosa tu rendimiento por matrices de caída y pendiente (slope), porcentajes de emboque por tramos de distancia y Strokes Gained real para erradicar el tripateo y entrenar con foco de élite.', 'In-depth telemetry across all four game areas: Off the Tee, Approach, Short Game, and Putting. On the green, break down performance through slope and break matrices, make percentages by distance brackets, and real Strokes Gained to eliminate 3-putts and practice with elite focus.')
   ];
   const images = ['screen-dispersion','screen-gap','screen-putt'];
@@ -416,7 +465,7 @@ function info() {
 
 function document(page) {
   const titles = { home:t('Data2Gain | Tu juego. Tus datos. Tu ventaja.','Data2Gain | Your game. Your data. Your advantage.'), players:t('Data2Gain para jugadores | Entiende tu golf','Data2Gain for players | Understand your golf'), coaches:t('Data2Gain para coaches y academias (100% Gratis)','Data2Gain for coaches & academies (100% Free)'), info:t('Información y contacto | Data2Gain','Information & contact | Data2Gain') };
-  const description = page === 'coaches' ? t('Analítica de golf avanzada 100% gratuita para coaches y academias. Strokes Gained, dispersión y telemetría de tus alumnos sin coste.','Advanced golf analytics 100% free for coaches and academies. Strokes Gained, dispersion and player telemetry at zero cost.') : t('Encuentra el patrón. Conoce tus distancias reales y descubre dónde ganas o pierdes golpes. Strokes Gained, dispersión y análisis con IA para jugadores y coaches.','Find the pattern. Know your real distances and discover where you gain or lose strokes. Strokes Gained, dispersion and AI analysis for players and coaches.');
+  const description = page === 'coaches' ? t('Analítica de golf avanzada 100% gratuita para coaches y academias. Strokes Gained, dispersión y telemetría de tus alumnos sin coste.','Advanced golf analytics 100% free for coaches and academies. Strokes Gained, dispersion and player telemetry at zero cost.') : t('Encuentra el patrón. Descubre dónde ganas o pierdes golpes con insights avanzados. Strokes Gained, dispersión y análisis con IA para jugadores y coaches.','Find the pattern. Discover where you gain or lose strokes with advanced insights. Strokes Gained, dispersion and AI analysis for players and coaches.');
   const content = page === 'home' ? hero(page)+how()+audiences()+strategy()+product()+ai()+pricing()+faq()+closing(page) : page === 'players' ? hero(page)+how()+benchmark()+product()+ai()+pricing()+faq()+closing(page) : page === 'coaches' ? hero(page)+coachContent()+closing(page) : info();
   const schema = { '@context':'https://schema.org', '@type': page === 'info' ? 'ContactPage' : 'WebPage', name:titles[page], description, url:origin+route(page), inLanguage:lang, isPartOf:{'@type':'WebSite',name:'Data2Gain',url:origin} };
   return `<!doctype html>\n<html lang="${lang}"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>${titles[page]}</title><meta name="description" content="${esc(description)}"><meta name="theme-color" content="#101412"><link rel="canonical" href="${origin+route(page)}"><link rel="alternate" hreflang="es" href="${origin+route(page,'es')}"><link rel="alternate" hreflang="en" href="${origin+route(page,'en')}"><link rel="alternate" hreflang="x-default" href="${origin+route(page,'es')}"><link rel="icon" href="/favicon.ico" sizes="any"><link rel="apple-touch-icon" href="/apple-touch-icon.png"><link rel="manifest" href="/site-${lang}.webmanifest"><meta property="og:type" content="website"><meta property="og:title" content="${titles[page]}"><meta property="og:description" content="${esc(description)}"><meta property="og:url" content="${origin+route(page)}"><meta property="og:image" content="https://data2gain.com/assets/hero-hole-sg.jpg"><meta property="og:locale" content="${lang==='es'?'es_ES':'en_US'}"><meta name="twitter:card" content="summary_large_image"><meta name="twitter:title" content="${titles[page]}"><meta name="twitter:description" content="${esc(description)}"><meta name="twitter:image" content="https://data2gain.com/assets/hero-hole-sg.jpg"><link rel="stylesheet" href="/css/premium.css?v=3"><script type="application/ld+json">${JSON.stringify(schema)}</script><script type="module" src="/js/premium.js?v=3"></script></head><body class="page-${page}">${header(page)}<main id="main">${content}</main>${footer()}</body></html>\n`;
