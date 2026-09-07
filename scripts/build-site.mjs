@@ -109,7 +109,7 @@ function how() {
 }
 
 function audiences() {
-  return `<section class="section section-light audience-section"><div class="container"><div class="section-heading"><div>${eyebrow(t('02 / Una ambición compartida','02 / One shared ambition'))}<h2>${t('Mejor golf.<br>Desde tu perspectiva.','Better golf.<br>From your perspective.')}</h2></div><p>${t('Dos formas de llegar al mismo lugar:<br>entender el juego para hacerlo crecer.','Two ways to get to the same place:<br>understand the game to help it grow.')}</p></div><div class="audience-grid">
+  return `<section class="section section-light audience-section"><div class="container"><div class="section-heading"><div>${eyebrow(t('02 / Una ambición compartida','02 / One shared ambition'))}<h2>${t('Para quienes juegan.<br>Y para quienes enseñan.','For those who play.<br>And those who teach.')}</h2></div><p>${t('Dos perfiles, una misma meta:<br>entender el dato para tomar mejores decisiones en el campo.','Two perspectives, one shared goal:<br>using data to make better decisions on the course.')}</p></div><div class="audience-grid">
     <a class="audience-card" href="${route('players')}" data-track="audience_players"><img src="/assets/editorial/player-drive.webp" srcset="/assets/editorial/player-drive-800.webp 800w, /assets/editorial/player-drive.webp 1200w" sizes="(max-width: 760px) 92vw, 48vw" alt="${t('Golfista aficionado siguiendo el vuelo de su bola en el campo','Amateur golfer watching his ball flight on the course')}" width="896" height="1200" loading="lazy"><div class="audience-content"><span class="eyebrow">${t('Tu próxima mejor ronda','Your next better round')}</span><h3>${t('Soy jugador','I am a player')}</h3><p>${t('Conoce tus puntos fuertes.<br>Trabaja donde más importa.','Know your strengths.<br>Work where it matters most.')}</p><span class="text-link">${t('Descubre tu ventaja','Find your advantage')}${arrow}</span></div></a>
     <a class="audience-card" href="${route('coaches')}" data-track="audience_coaches"><img src="/assets/editorial/coaching.jpg" alt="${t('Instructor guiando a una alumna en la práctica de golf','Instructor guiding a student during golf practice')}" width="1400" height="1845" loading="lazy"><div class="audience-content"><span class="eyebrow">${t('100% Gratuito para coaches','100% Free for coaches')}</span><h3>${t('Soy coach','I am a coach')}</h3><p>${t('Diagnostica con certeza y convierte los datos de campo de tus alumnos en un plan de mejora medible.','Diagnose with certainty and turn your players\' on-course data into a measurable improvement plan.')}</p><span class="text-link">${t('Acceder gratis a la plataforma','Free platform access')}${arrow}</span></div></a>
     </div></div></section>`;
@@ -261,7 +261,7 @@ function product() {
 function benchmark() {
   const values = compareRound('5').values;
   const labels = [t('Salidas','Off the tee'),t('Aproximación','Approach'),t('Juego corto','Short game'),'Putting'];
-  return `<section class="section benchmark-section" id="strokes-gained"><div class="container benchmark-grid"><div>${eyebrow(t('Tu juego, en contexto','Your game, in context'))}<h2>${t('Elige tu referencia.<br>Entiende tu<br><em>rendimiento.</em>','Choose a benchmark.<br>Understand your<br><em>performance.</em>')}</h2><p>${t('Strokes Gained compara los golpes ganados o perdidos frente a un nivel de referencia. Aquí ves la misma ronda de ejemplo comparada con distintos niveles.','Strokes Gained compares strokes gained or lost against a benchmark. Here, the same sample round is compared with different levels.')}</p><p class="demo-label">${t('Datos ilustrativos. No es un diagnóstico personal.','Illustrative data. This is not a personal assessment.')}</p><label class="select-label" for="benchmark-select">${t('Nivel de referencia','Reference level')}</label><select id="benchmark-select">${[['tour','Tour'],['0','HCP 0'],['5','HCP 5'],['10','HCP 10'],['15','HCP 15'],['20','HCP 20']].map(([key,label])=>`<option value="${key}"${key === '5' ? ' selected' : ''}>${label}</option>`).join('')}</select></div><div class="benchmark-chart"><div class="chart-heading"><span>${t('MISMA RONDA / OTRA PERSPECTIVA','SAME ROUND / ANOTHER PERSPECTIVE')}</span><span data-benchmark-label>VS HCP 5</span></div><div class="benchmark-rows">${labels.map((label,i)=>`<div class="benchmark-row"><span>${label}</span><div class="diverging-track"><span class="zero-line"></span><span data-sg-bar="${i}" class="sg-bar ${values[i]<0?'negative':'positive'}" style="--bar-size:${Math.min(Math.abs(values[i])/2*50,50)}%"></span></div><strong data-sg-value="${i}">${values[i]>0?'+':''}${values[i].toFixed(2)}</strong></div>`).join('')}</div><div class="chart-axis"><span>− SG</span><span>0</span><span>+ SG</span></div><p class="benchmark-insight" data-benchmark-insight aria-live="polite">${t('Frente a HCP 5, el putting es el área con más margen en esta ronda de ejemplo.','Against HCP 5, putting offers the most room for improvement in this sample round.')}</p><div class="round-facts"><span><strong>${round.distance} yd</strong>${t('Distancia de salida','Driving distance')}</span><span><strong>${round.fairways}%</strong>${t('Calles alcanzadas','Fairways hit')}</span><span>${t('Los datos de la ronda<br>se mantienen iguales.','The round data<br>stays the same.')}</span></div></div></div></section>`;
+  return `<section class="section benchmark-section" id="strokes-gained"><div class="container benchmark-grid"><div>${eyebrow(t('Tu juego, en contexto','Your game, in context'))}<h2>${t('Elige tu referencia.<br>Entiende tu<br><em>rendimiento.</em>','Choose a benchmark.<br>Understand your<br><em>performance.</em>')}</h2><div class="benchmark-control"><div class="benchmark-control-meta"><label class="select-label" for="benchmark-select"><span class="pulse-beacon" aria-hidden="true"></span>${t('Nivel de referencia','Reference level')}</label><span class="interactive-hint">${t('Interactivo · Pruébalo','Interactive · Try it')}</span></div><div class="select-pulse-wrapper"><select id="benchmark-select" class="pulse-heartbeat" aria-label="${t('Nivel de referencia para Strokes Gained','Reference level for Strokes Gained')}">${[['tour','Tour'],['0','HCP 0'],['5','HCP 5'],['10','HCP 10'],['15','HCP 15'],['20','HCP 20']].map(([key,label])=>`<option value="${key}"${key === '5' ? ' selected' : ''}>${label}</option>`).join('')}</select><svg class="select-arrow-icon" viewBox="0 0 24 24" aria-hidden="true" fill="none"><path d="m7 10 5 5 5-5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div></div><p>${t('Strokes Gained compara los golpes ganados o perdidos frente a un nivel de referencia. Aquí ves la misma ronda de ejemplo comparada con distintos niveles.','Strokes Gained compares strokes gained or lost against a benchmark. Here, the same sample round is compared with different levels.')}</p><p class="demo-label">${t('Datos ilustrativos. No es un diagnóstico personal.','Illustrative data. This is not a personal assessment.')}</p></div><div class="benchmark-chart"><div class="chart-heading"><span>${t('MISMA RONDA / OTRA PERSPECTIVA','SAME ROUND / ANOTHER PERSPECTIVE')}</span><span data-benchmark-label>VS HCP 5</span></div><div class="benchmark-rows">${labels.map((label,i)=>`<div class="benchmark-row"><span>${label}</span><div class="diverging-track"><span class="zero-line"></span><span data-sg-bar="${i}" class="sg-bar ${values[i]<0?'negative':'positive'}" style="--bar-size:${Math.min(Math.abs(values[i])/2*50,50)}%"></span></div><strong data-sg-value="${i}">${values[i]>0?'+':''}${values[i].toFixed(2)}</strong></div>`).join('')}</div><div class="chart-axis"><span>− SG</span><span>0</span><span>+ SG</span></div><p class="benchmark-insight" data-benchmark-insight aria-live="polite">${t('Frente a HCP 5, el putting es el área con más margen en esta ronda de ejemplo.','Against HCP 5, putting offers the most room for improvement in this sample round.')}</p><div class="round-facts"><span><strong>${round.distance} yd</strong>${t('Distancia de salida','Driving distance')}</span><span><strong>${round.fairways}%</strong>${t('Calles alcanzadas','Fairways hit')}</span><span>${t('Los datos de la ronda<br>se mantienen iguales.','The round data<br>stays the same.')}</span></div></div></div></section>`;
 }
 
 function aiConsole() {
@@ -269,143 +269,215 @@ function aiConsole() {
     <div class="ai-console-header">
       <div class="ai-console-title">
         <span class="agent-live-dot"></span>
-        <span class="mono-text">D2G CADDIE AGENT · ${t('ANÁLISIS DE RENDIMIENTO','PERFORMANCE ANALYSIS')}</span>
+        <span class="mono-text">D2G CADDIE AGENT · ${t('ANÁLISIS EN TIEMPO REAL','REAL-TIME ANALYSIS')}</span>
       </div>
       <div class="ai-console-meta">
         <span class="meta-tag">${t('5 RONDAS ANALIZADAS · VS HCP 5','5 ROUNDS ANALYZED · VS HCP 5')}</span>
       </div>
     </div>
 
+    <!-- Interactive Prompt Selector Tabs -->
+    <div class="ai-prompt-tabs" role="tablist" aria-label="${t('Seleccionar consulta para el agente IA','Select query for AI agent')}">
+      <button type="button" class="ai-prompt-btn is-active" role="tab" id="ai-tab-0" aria-selected="true" aria-controls="ai-panel-0" tabindex="0" data-ai-prompt="0">
+        <span class="ai-prompt-num">01</span>
+        <span>${t('Balance SG','SG Balance')}</span>
+      </button>
+      <button type="button" class="ai-prompt-btn" role="tab" id="ai-tab-1" aria-selected="false" aria-controls="ai-panel-1" tabindex="-1" data-ai-prompt="1">
+        <span class="ai-prompt-num">02</span>
+        <span>${t('Dispersión H7-H8','7-8 Iron Dispersion')}</span>
+      </button>
+      <button type="button" class="ai-prompt-btn" role="tab" id="ai-tab-2" aria-selected="false" aria-controls="ai-panel-2" tabindex="-1" data-ai-prompt="2">
+        <span class="ai-prompt-num">03</span>
+        <span>${t('Plan 45 min','45-Min Routine')}</span>
+      </button>
+    </div>
+
     <div class="ai-console-body">
-      <!-- User question bubble -->
-      <div class="chat-msg chat-msg-user">
-        <div class="chat-msg-avatar">👤</div>
-        <div class="chat-bubble user-bubble">
-          <p>${t('¿En qué áreas estoy perdiendo más golpes frente a HCP 5 y qué debería priorizar en mi próxima sesión?','In which areas am I losing the most strokes against HCP 5 and what should I prioritize in my next practice session?')}</p>
+      <!-- Scenario 0: Strokes Gained Balance -->
+      <div class="ai-scenario" id="ai-panel-0" role="tabpanel" aria-labelledby="ai-tab-0" tabindex="0">
+        <div class="chat-msg chat-msg-user">
+          <div class="chat-msg-avatar">👤</div>
+          <div class="chat-bubble user-bubble">
+            <p>${t('¿En qué áreas estoy perdiendo más golpes frente a HCP 5 y qué debería priorizar?','Where am I losing the most strokes against HCP 5 and what should I prioritize?')}</p>
+          </div>
+        </div>
+
+        <div class="chat-msg chat-msg-agent">
+          <div class="chat-msg-avatar agent-avatar">${brand()}</div>
+          <div class="chat-bubble agent-bubble">
+            <div class="agent-badge-row">
+              <span class="agent-name">DATA2GAIN AI</span>
+              <span class="agent-tag">${t('Diagnóstico Predictivo','Predictive Diagnosis')}</span>
+            </div>
+            <p class="agent-text">${t('Analizando tus últimas 5 rondas: tu principal fuga se concentra en <strong>Aproximación (120-160 m)</strong> con <em>−1.42 SG</em> y en <strong>Putting de media distancia (3-6 m)</strong> con <em>−0.88 SG</em> (24% 3-putts). En cambio, tus salidas son sólidas (<em>+0.35 SG</em>).','Analyzing your last 5 rounds: your primary leaks are in <strong>Approach (120-160m)</strong> with <em>−1.42 SG</em> and <strong>Mid-range Putting (3-6m)</strong> with <em>−0.88 SG</em> (24% 3-putts). Off the tee remains a solid strength (<em>+0.35 SG</em>).')}</p>
+
+            <div class="ai-chart-card">
+              <div class="ai-chart-header">
+                <span class="mono-text">${t('BALANCE STROKES GAINED (VS HCP 5)','STROKES GAINED BALANCE (VS HCP 5)')}</span>
+                <span class="ai-chart-unit">${t('SG / Ronda','SG / Round')}</span>
+              </div>
+              <div class="ai-chart-bars">
+                <div class="ai-chart-row">
+                  <span class="ai-bar-label">${t('Salidas (Tee)','Off the Tee')}</span>
+                  <div class="ai-bar-track"><span class="ai-zero-line"></span><span class="ai-bar ai-bar-pos" style="width: 18%; left: 50%;"></span></div>
+                  <strong class="ai-bar-val text-green">+0.35</strong>
+                </div>
+                <div class="ai-chart-row">
+                  <span class="ai-bar-label">${t('Aproximación 120-160m','Approach 120-160m')}</span>
+                  <div class="ai-bar-track"><span class="ai-zero-line"></span><span class="ai-bar ai-bar-neg" style="width: 44%; right: 50%;"></span></div>
+                  <strong class="ai-bar-val text-red">−1.42</strong>
+                </div>
+                <div class="ai-chart-row">
+                  <span class="ai-bar-label">${t('Juego Corto (<40m)','Short Game (<40m)')}</span>
+                  <div class="ai-bar-track"><span class="ai-zero-line"></span><span class="ai-bar ai-bar-neg" style="width: 8%; right: 50%;"></span></div>
+                  <strong class="ai-bar-val text-neutral">−0.15</strong>
+                </div>
+                <div class="ai-chart-row">
+                  <span class="ai-bar-label">${t('Putting (3 a 6m)','Putting (3-6m)')}</span>
+                  <div class="ai-bar-track"><span class="ai-zero-line"></span><span class="ai-bar ai-bar-neg" style="width: 28%; right: 50%;"></span></div>
+                  <strong class="ai-bar-val text-red">−0.88</strong>
+                </div>
+              </div>
+            </div>
+
+            <div class="ai-actions-wrap">
+              <span class="ai-actions-title">${t('EXPLORAR EN DETALLE:','EXPLORE IN DETAIL:')}</span>
+              <div class="ai-action-chips">
+                <button type="button" class="action-chip" data-ai-target="1">🎯 ${t('Ver dispersión Hierros 7 y 8','View 7 & 8 Iron Dispersion')}</button>
+                <button type="button" class="action-chip" data-ai-target="2">📋 ${t('Generar rutina de práctica (45 min)','Generate 45-min Practice Routine')}</button>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
 
-      <!-- Agent response bubble -->
-      <div class="chat-msg chat-msg-agent">
-        <div class="chat-msg-avatar agent-avatar">${brand()}</div>
-        <div class="chat-bubble agent-bubble">
-          <div class="agent-badge-row">
-            <span class="agent-name">DATA2GAIN AI</span>
-            <span class="agent-tag">${t('Diagnóstico Predictivo','Predictive Diagnosis')}</span>
+      <!-- Scenario 1: Dispersion Telemetry H7-H8 -->
+      <div class="ai-scenario" id="ai-panel-1" role="tabpanel" aria-labelledby="ai-tab-1" tabindex="0" hidden>
+        <div class="chat-msg chat-msg-user">
+          <div class="chat-msg-avatar">👤</div>
+          <div class="chat-bubble user-bubble">
+            <p>${t('¿Por qué pierdo tantos golpes en aproximación con los hierros 7 y 8?','Why am I losing so many strokes on approach with 7 & 8 irons?')}</p>
           </div>
+        </div>
 
-          <p class="agent-text">${t('Analizando tus últimas 5 rondas (+1.8 SG perdidos por vuelta frente a HCP 5): Tu principal fuga de golpes se concentra en <strong>Aproximación (120-160 m)</strong> con <em>−1.42 SG</em> y en <strong>Putting de media distancia (3-6 m)</strong> con <em>−0.88 SG</em> debido a una alta tasa de 3-putts (24%). En cambio, tus salidas son una fortaleza estable (<em>+0.35 SG</em>).','Analyzing your last 5 rounds (+1.8 SG lost per round against HCP 5): Your primary stroke leaks are concentrated in <strong>Approach (120-160m)</strong> with <em>−1.42 SG</em> and <strong>Mid-range Putting (3-6m)</strong> with <em>−0.88 SG</em> due to a 24% 3-putt rate. Off the tee, however, is a solid strength (<em>+0.35 SG</em>).')}</p>
-
-          <!-- 1. Simulated SG Graphic Bar Chart -->
-          <div class="ai-chart-card">
-            <div class="ai-chart-header">
-              <span class="mono-text">${t('BALANCE STROKES GAINED POR CATEGORÍA (VS HCP 5)','STROKES GAINED BALANCE BY CATEGORY (VS HCP 5)')}</span>
-              <span class="ai-chart-unit">SG / Ronda</span>
+        <div class="chat-msg chat-msg-agent">
+          <div class="chat-msg-avatar agent-avatar">${brand()}</div>
+          <div class="chat-bubble agent-bubble">
+            <div class="agent-badge-row">
+              <span class="agent-name">DATA2GAIN AI</span>
+              <span class="agent-tag">${t('Telemetría de Radar','Radar Telemetry')}</span>
             </div>
-            <div class="ai-chart-bars">
-              <div class="ai-chart-row">
-                <span class="ai-bar-label">${t('Salidas (Tee)','Off the Tee')}</span>
-                <div class="ai-bar-track">
-                  <span class="ai-zero-line"></span>
-                  <span class="ai-bar ai-bar-pos" style="width: 18%; left: 50%;"></span>
-                </div>
-                <strong class="ai-bar-val text-green">+0.35</strong>
+            <p class="agent-text">${t('El radar detecta un patrón sistemático de <strong>fallo push a la derecha (+14 m)</strong> por cara abierta <em>+1.8° al impacto</em>. Solo logras un <strong>28% GIR</strong> frente al 58% de referencia HCP 5, costándote <em>−1.42 SG por vuelta</em>.','Radar detects a systematic <strong>push miss to the right (+14m)</strong> due to an open clubface <em>+1.8° at impact</em>. You achieve only <strong>28% GIR</strong> vs 58% HCP 5 benchmark, costing <em>−1.42 SG per round</em>.')}</p>
+
+            <div class="ai-radar-card">
+              <div class="ai-radar-header">
+                <span class="mono-text">${t('TELEMETRÍA DE IMPACTO · HIERROS 7 Y 8','IMPACT TELEMETRY · 7 & 8 IRONS')}</span>
+                <span class="ai-chart-unit">Radar D2G</span>
               </div>
-              <div class="ai-chart-row">
-                <span class="ai-bar-label">${t('Aproximación 120-160m','Approach 120-160m')}</span>
-                <div class="ai-bar-track">
-                  <span class="ai-zero-line"></span>
-                  <span class="ai-bar ai-bar-neg" style="width: 44%; right: 50%;"></span>
+              <div class="ai-radar-grid">
+                <div class="ai-radar-stat">
+                  <strong>28%</strong>
+                  <span>${t('GIR (vs 58% HCP 5)','GIR (vs 58% HCP 5)')}</span>
+                  <span class="badge-status badge-red">${t('Fuga crítica','Critical leak')}</span>
                 </div>
-                <strong class="ai-bar-val text-red">−1.42</strong>
+                <div class="ai-radar-stat">
+                  <strong>+14 m</strong>
+                  <span>${t('Dispersión lateral push','Lateral push miss')}</span>
+                  <span class="badge-status badge-red">${t('Fallo der.','Miss right')}</span>
+                </div>
+                <div class="ai-radar-stat">
+                  <strong>142 m</strong>
+                  <span>${t('Carry medio H7 (±3m)','Average H7 carry (±3m)')}</span>
+                  <span class="badge-status badge-green">${t('Distancia sólida','Solid distance')}</span>
+                </div>
+                <div class="ai-radar-stat">
+                  <strong>+1.8°</strong>
+                  <span>${t('Cara abierta impacto','Open face at impact')}</span>
+                  <span class="badge-status badge-neutral">${t('Ajustar cara','Face angle')}</span>
+                </div>
               </div>
-              <div class="ai-chart-row">
-                <span class="ai-bar-label">${t('Juego Corto (<40m)','Short Game (<40m)')}</span>
-                <div class="ai-bar-track">
-                  <span class="ai-zero-line"></span>
-                  <span class="ai-bar ai-bar-neg" style="width: 8%; right: 50%;"></span>
+
+              <div class="ai-bias-wrap">
+                <div class="ai-bias-meta">
+                  <span>${t('← Izquierda (Pull)','← Left (Pull)')}</span>
+                  <span>${t('Objetivo (0 m)','Target (0 m)')}</span>
+                  <span class="text-red">${t('+14 m Derecha (Push) →','+14 m Right (Push) →')}</span>
                 </div>
-                <strong class="ai-bar-val text-neutral">−0.15</strong>
+                <div class="ai-bias-track">
+                  <span class="ai-bias-center"></span>
+                  <span class="ai-bias-dot"></span>
+                </div>
               </div>
-              <div class="ai-chart-row">
-                <span class="ai-bar-label">${t('Putting (3 a 6m)','Putting (3-6m)')}</span>
-                <div class="ai-bar-track">
-                  <span class="ai-zero-line"></span>
-                  <span class="ai-bar ai-bar-neg" style="width: 28%; right: 50%;"></span>
-                </div>
-                <strong class="ai-bar-val text-red">−0.88</strong>
+            </div>
+
+            <div class="ai-actions-wrap">
+              <span class="ai-actions-title">${t('EXPLORAR EN DETALLE:','EXPLORE IN DETAIL:')}</span>
+              <div class="ai-action-chips">
+                <button type="button" class="action-chip" data-ai-target="2">📋 ${t('Diseñar rutina de corrección H7-H8','Design 7-8 Iron Correction Drill')}</button>
+                <button type="button" class="action-chip" data-ai-target="0">⚖️ ${t('Volver al balance general SG','Return to SG Balance')}</button>
               </div>
             </div>
           </div>
+        </div>
+      </div>
 
-          <!-- 2. Simulated Structured Data Table -->
-          <div class="ai-table-card">
-            <div class="ai-table-title">${t('DESGLOSE TELEMÉTRICO Y MÉTRICAS CLAVE','TELEMETRY BREAKDOWN & KEY METRICS')}</div>
-            <table class="ai-data-table">
-              <thead>
-                <tr>
-                  <th>${t('Área del juego','Game Area')}</th>
-                  <th>${t('Dato observado','Observed Metric')}</th>
-                  <th>SG</th>
-                  <th>${t('Diagnóstico','Diagnosis')}</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr class="row-alert">
-                  <td><strong>${t('Aproximación','Approach')}</strong> (H7-H8)</td>
-                  <td>28% GIR · Fallo der. (+14m)</td>
-                  <td class="text-red">−1.42</td>
-                  <td><span class="badge-status badge-red">${t('Fuga crítica','Critical leak')}</span></td>
-                </tr>
-                <tr class="row-alert">
-                  <td><strong>Putting</strong> (3 a 6m)</td>
-                  <td>18% 1-putt / 24% 3-putts</td>
-                  <td class="text-red">−0.88</td>
-                  <td><span class="badge-status badge-red">${t('Control velocidad','Speed control')}</span></td>
-                </tr>
-                <tr>
-                  <td><strong>${t('Juego Corto','Short Game')}</strong> (&lt;40m)</td>
-                  <td>58% Up &amp; Down</td>
-                  <td class="text-neutral">−0.15</td>
-                  <td><span class="badge-status badge-neutral">${t('En media','Average')}</span></td>
-                </tr>
-                <tr class="row-good">
-                  <td><strong>${t('Salidas','Off the Tee')}</strong> (Driver/3W)</td>
-                  <td>68% Calles · 248 yd avg</td>
-                  <td class="text-green">+0.35</td>
-                  <td><span class="badge-status badge-green">${t('Fortaleza','Strength')}</span></td>
-                </tr>
-              </tbody>
-            </table>
+      <!-- Scenario 2: Practice Routine 45 Min -->
+      <div class="ai-scenario" id="ai-panel-2" role="tabpanel" aria-labelledby="ai-tab-2" tabindex="0" hidden>
+        <div class="chat-msg chat-msg-user">
+          <div class="chat-msg-avatar">👤</div>
+          <div class="chat-bubble user-bubble">
+            <p>${t('Diseña una sesión de práctica de 45 min para corregir la fuga antes del fin de semana.','Design a 45-min practice session to fix these leaks before the weekend.')}</p>
           </div>
+        </div>
 
-          <!-- 3. Actionable Recommendations -->
-          <div class="ai-recommendations">
-            <span class="rec-title">${t('PLAN DE ACCIÓN RECOMENDADO PARA TU SESIÓN:','RECOMMENDED PRACTICE ACTION PLAN:')}</span>
-            <ul class="rec-list">
-              <li>🎯 <strong>${t('Radar de Aproximación:','Approach Radar:')}</strong> ${t('Calibrar Hierros 7 y 8 a dianas de 135-150 m con foco en cerrar el ángulo de cara al impacto para corregir la dispersión push hacia la derecha.','Calibrate 7 & 8 irons to 135-150m targets focusing on squaring clubface at impact to eliminate push dispersion to the right.')}</li>
-              <li>⛳ <strong>${t('Control de Distancia en Green:','Green Distance Control:')}</strong> ${t('Realizar test ladder a 5 metros para asegurar que la bola de primer putt no rebase los 60 cm pasados el hoyo, erradicando los 3-putts.','Run 5m ladder drill ensuring first putt finishes within 2 feet beyond the cup, eradicating 3-putts.')}</li>
-            </ul>
-          </div>
+        <div class="chat-msg chat-msg-agent">
+          <div class="chat-msg-avatar agent-avatar">${brand()}</div>
+          <div class="chat-bubble agent-bubble">
+            <div class="agent-badge-row">
+              <span class="agent-name">DATA2GAIN AI</span>
+              <span class="agent-tag">${t('Prescripción de Práctica','Practice Prescription')}</span>
+            </div>
+            <p class="agent-text">${t('Sesión dividida en 2 bloques de alta intensidad enfocados exactamente en tus mayores fugas telemétricas para recuperar hasta <strong>+2.3 golpes por vuelta</strong>.','Structured 2-block high-intensity session targeting your exact telemetry leaks to recover up to <strong>+2.3 strokes per round</strong>.')}</p>
 
-          <!-- 4. Next Analysis Interactive Action Chips -->
-          <div class="ai-actions-wrap">
-            <span class="ai-actions-title">${t('SIGUIENTES ANÁLISIS RECOMENDADOS:','NEXT RECOMMENDED ANALYSES:')}</span>
-            <div class="ai-action-chips">
-              <span class="action-chip">📊 ${t('Ver dispersión Hierros 7 y 8','View 7-8 Iron Dispersion')}</span>
-              <span class="action-chip">🕳️ ${t('Matriz de caída (Slope) en putts 3-6m','Slope Matrix in 3-6m Putts')}</span>
-              <span class="action-chip">📋 ${t('Generar rutina de práctica para Approach','Generate Approach Practice Routine')}</span>
+            <div class="ai-practice-card">
+              <div class="ai-practice-list">
+                <div class="ai-drill-card">
+                  <div class="ai-drill-head">
+                    <span class="ai-drill-tag">⏱️ ${t('BLOQUE 1 · 25 MIN (RADAR H7-H8)','BLOCK 1 · 25 MIN (7-8 IRONS)')}</span>
+                    <span class="ai-drill-target">${t('Objetivo: ≥5/7 diana','Goal: ≥5/7 on target')}</span>
+                  </div>
+                  <strong class="ai-drill-title">${t('Calibración de ángulo de cara a 140 metros','Clubface angle calibration to 140m targets')}</strong>
+                  <span class="ai-drill-desc">${t('3 series de 7 bolas con foco en cuadrar cara al impacto. Erradicar la dispersión push hacia la derecha.','3 sets of 7 shots focusing on squaring clubface at impact to eliminate lateral push dispersion.')}</span>
+                </div>
+
+                <div class="ai-drill-card">
+                  <div class="ai-drill-head">
+                    <span class="ai-drill-tag">⛳ ${t('BLOQUE 2 · 20 MIN (GREEN LADDER)','BLOCK 2 · 20 MIN (GREEN LADDER)')}</span>
+                    <span class="ai-drill-target">${t('Objetivo: 0 tripateos','Goal: 0 3-putts')}</span>
+                  </div>
+                  <strong class="ai-drill-title">${t('Test ladder de velocidad en 4, 5 y 6 metros','Speed control ladder test at 4, 5 and 6 meters')}</strong>
+                  <span class="ai-drill-desc">${t('10 putts alternando distancias. Criterio de éxito: ninguna bola puede quedar corta ni rebasar los 50 cm del hoyo.','10 putts alternating distances. Success criteria: no putt left short or beyond 2 feet past the cup.')}</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="ai-actions-wrap">
+              <span class="ai-actions-title">${t('EXPLORAR EN DETALLE:','EXPLORE IN DETAIL:')}</span>
+              <div class="ai-action-chips">
+                <button type="button" class="action-chip" data-ai-target="0">⚖️ ${t('Volver al balance general SG','Return to SG Balance')}</button>
+                <button type="button" class="action-chip" data-ai-target="1">🎯 ${t('Ver telemetría de Hierros 7 y 8','View 7 & 8 Iron Dispersion')}</button>
+              </div>
             </div>
           </div>
         </div>
       </div>
     </div>
 
-    <!-- Simulated Prompt Input Bar -->
+    <!-- Interactive Prompt Input Bar -->
     <div class="ai-console-footer">
-      <div class="ai-input-box">
-        <span class="input-placeholder">${t('Haz una pregunta sobre tus rondas, palos o estrategia...','Ask any question about your rounds, clubs or strategy...')}</span>
-        <button type="button" class="ai-send-btn" aria-label="${t('Enviar consulta','Send query')}">
+      <div class="ai-input-box" role="button" tabindex="0" aria-label="${t('Siguiente consulta interactiva','Next interactive query')}">
+        <span class="input-placeholder" data-ai-placeholder>${t('Preguntar sobre tus rondas, palos o estrategia...','Ask any question about your rounds, clubs or strategy...')}</span>
+        <button type="button" class="ai-send-btn" aria-label="${t('Siguiente consulta','Next query')}">
           <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.2"><path d="m5 12 14-7-4 14-3-4-7-3z"/></svg>
         </button>
       </div>
@@ -435,8 +507,7 @@ function faq() {
     [t('¿Necesito saber de estadística?','Do I need to understand statistics?'),t('No. Strokes Gained pone tu rendimiento en contexto: un valor positivo indica golpes ganados frente a la referencia y uno negativo, golpes perdidos. Los gráficos interactivos, tablas y el agente IA te ayudan a interpretar el análisis de forma visual y directa.','No. Strokes Gained puts your performance into context: a positive value means strokes gained against your benchmark; a negative value means strokes lost. Interactive charts, tables and the AI agent help you interpret the analysis in a clear, direct way.')],
     [t('¿Cuánto cuesta Data2Gain para coaches?','How much does Data2Gain cost for coaches?'),t('Para coaches y academias de golf la plataforma es 100% gratuita. No tienes que solicitar demostraciones ni pagar cuotas mensuales. Puedes darte de alta de forma inmediata en la app web y empezar a supervisar las rondas y la telemetría de tus alumnos sin barreras.','For golf coaches and academies the platform is 100% free. You do not need to request demos or pay monthly fees. You can sign up immediately in the web app and start tracking player telemetry with zero friction.')],
     [t('¿Cómo empiezo a usar Data2Gain como jugador?','How do I start using Data2Gain as a player?'),t('Accede a la app web en app.data2gain.com, sigue el proceso de alta y añade tus rondas. Puedes probar la analítica y suscribirte a Data2Gain PRO por solo 8,95 €/mes, cancelable cuando quieras.','Open the web app at app.data2gain.com, sign up and add your rounds. You can explore the analytics and subscribe to Data2Gain PRO for just €8.95/month, cancelable anytime.')],
-    [t('¿Dónde puedo utilizar Data2Gain?','Where can I use Data2Gain?'),t('Puedes utilizar Data2Gain en su Web App (accesible desde cualquier navegador en móvil, tablet u ordenador en app.data2gain.com) y en sus aplicaciones nativas para Android y Apple (iOS).','You can use Data2Gain via its Web App (accessible from any browser on phone, tablet or desktop at app.data2gain.com) and in native apps for Android and Apple (iOS).')],
-    [t('¿Los ejemplos de la web muestran mis resultados?','Do the website examples show my results?'),t('No. La demostración interactiva del hoyo es una simulación conceptual externa que no está en la app. Las capturas y la simulación del chat IA usan datos ilustrativos para mostrar el potencial de la analítica. Tus datos reales se generarán con las rondas que introduzcas en la plataforma.','No. The interactive hole demo is an external conceptual simulation not included in the app. Screenshots and the AI chat simulation use illustrative data to demonstrate analytics capabilities. Your real data will be generated from the rounds you enter into the platform.')]
+    [t('¿Dónde puedo utilizar Data2Gain?','Where can I use Data2Gain?'),t('Puedes utilizar Data2Gain en su Web App (accesible desde cualquier navegador en móvil, tablet u ordenador en app.data2gain.com) y en sus aplicaciones nativas para Android y Apple (iOS).','You can use Data2Gain via its Web App (accessible from any browser on phone, tablet or desktop at app.data2gain.com) and in native apps for Android and Apple (iOS).')]
   ];
   return `<section class="section section-light faq-section"><div class="container faq-grid"><div>${eyebrow(t('Antes de empezar','Before you begin'))}<h2>${t('Las cosas,<br>claras.','Let’s make<br>things clear.')}</h2><p>${t('Si te queda alguna duda, hablamos.','If you have another question, get in touch.')}</p><a class="text-link" href="mailto:info@data2gain.com">info@data2gain.com${diagonal}</a></div><div class="faq-list">${items.map(([q,a])=>`<details><summary>${q}<span aria-hidden="true">+</span></summary><p>${a}</p></details>`).join('')}</div></div></section>`;
 }
@@ -456,8 +527,8 @@ function coachContent() {
     [t('Durante la sesión','During the session'),t('Haz visible tu explicación.','Make your explanation visible.'),t('Apóyate en distancias, dispersión y Strokes Gained para explicar una prioridad. Los datos acompañan tu criterio profesional.','Use distances, dispersion and Strokes Gained to explain a priority. Data supports your professional judgement.')],
     [t('Después de la sesión','After the session'),t('Vuelve a los datos. Revisa el progreso.','Return to the data. Review progress.'),t('Usa las nuevas rondas como punto de partida para la siguiente conversación y ajusta el foco del entrenamiento.','Use new rounds as a starting point for your next conversation and adjust the focus of practice.')]
   ];
-  return `<section class="section section-light" id="enfoque"><div class="container"><div class="section-heading"><div>${eyebrow(t('Datos al servicio del coaching','Data in service of coaching'))}<h2>${t('La conversación cambia<br>cuando ves el juego.','The conversation changes<br>when you can see the game.')}</h2></div></div><div class="coach-steps">${blocks.map(([k,h,p],i)=>`<article><span class="step-number">0${i+1}</span>${eyebrow(k)}<h3>${h}</h3><p>${p}</p></article>`).join('')}</div></div></section>
-  <section class="section coach-product"><div class="container ai-grid"><div>${eyebrow(t('Una referencia compartida','A shared reference'))}<h2>${t('Sus patrones.<br>Tu interpretación.','Their patterns.<br>Your interpretation.')}</h2><p>${t('El análisis de dispersión ayuda a poner una imagen a las tendencias de cada palo. Una herramienta para conversar, priorizar y trabajar con el jugador.','Dispersion analysis helps put a picture to each club’s tendencies. A tool for conversation, priorities and working with your player.')}</p><p class="demo-label">${t('Plataforma 100% gratuita para entrenadores. Sin solicitud de demos ni esperas.','100% free platform for coaches. No demo requests, no delays.')}</p>${link(app,t('Acceder Gratis como Coach','Get Free Coach Access'),'gold','coach_app')}</div><div class="coach-screen">${screenshot('screen-dispersion',t('Análisis de dispersión del jugador','Player dispersion analysis'))}</div></div></section>
+  return `<section class="section section-light" id="enfoque"><div class="container"><div class="section-heading"><div>${eyebrow(t('Datos al servicio del coaching','Data in service of coaching'))}<h2>${t('La conversación cambia<br>cuando ves el juego.','The conversation changes<br>when you can see the game.')}</h2></div></div><div class="coach-steps">${blocks.map(([k,h,p],i)=>`<article class="coach-step-card"><div class="coach-step-header"><span class="coach-step-num">0${i+1}</span><strong class="coach-step-phase">${k}</strong></div><h3>${h}</h3><p>${p}</p></article>`).join('')}</div></div></section>
+  <section class="section coach-product"><div class="container ai-grid"><div>${eyebrow(t('Una referencia compartida','A shared reference'))}<h2>${t('Sus datos.<br>Tu experiencia.','Their data.<br>Your experience.')}</h2><p>${t('El análisis de dispersión ayuda a poner una imagen a las tendencias de cada palo. Una herramienta para conversar, priorizar y trabajar con el jugador.','Dispersion analysis helps put a picture to each club’s tendencies. A tool for conversation, priorities and working with your player.')}</p><p class="demo-label">${t('Plataforma 100% gratuita para entrenadores. Sin solicitud de demos ni esperas.','100% free platform for coaches. No demo requests, no delays.')}</p>${link(app,t('Acceder Gratis como Coach','Get Free Coach Access'),'gold','coach_app')}</div><div class="coach-screen">${screenshot('screen-dispersion',t('Análisis de dispersión del jugador','Player dispersion analysis'))}</div></div></section>
   <section class="section section-light"><div class="container"><div class="section-heading"><div>${eyebrow(t('Servicios especializados opcionales','Optional specialized services'))}<h2>${t('Del análisis<br>a tu método.','From analysis<br>to your method.')}</h2><p>${t('La plataforma es 100% gratuita para coaches. Si además deseas acompañamiento personalizado:','The platform is 100% free for coaches. If you also want personalized support:')}</p></div></div><div class="services-list">${[[t('Consultoría Estratégica','Strategic Consulting'),t('Te ayudamos a interpretar los datos y a incorporarlos a la planificación de alto rendimiento con tus jugadores.','Get help interpreting data and bringing it into high-performance planning with your players.')],[t('Formación y Workshops','Workshops & Training'),t('Sesiones para academias que quieren integrar Strokes Gained y análisis predictivo en su enseñanza.','Sessions for academies looking to integrate Strokes Gained and predictive analytics into their coaching.')]].map(([h,p],i)=>`<article><span class="service-number">0${i+1}</span><div><h3>${h}</h3><p>${p}</p></div><a class="text-link" href="${mail(h)}" data-track="coach_contact">${t('Consultar por email','Enquire by email')}${diagonal}</a></article>`).join('')}</div></div></section>`;
 }
 
@@ -470,7 +541,7 @@ function document(page) {
   const description = page === 'coaches' ? t('Analítica de golf avanzada 100% gratuita para coaches y academias. Strokes Gained, dispersión y telemetría de tus alumnos sin coste.','Advanced golf analytics 100% free for coaches and academies. Strokes Gained, dispersion and player telemetry at zero cost.') : t('Encuentra el patrón. Descubre dónde ganas o pierdes golpes con insights avanzados. Strokes Gained, dispersión y análisis con IA para jugadores y coaches.','Find the pattern. Discover where you gain or lose strokes with advanced insights. Strokes Gained, dispersion and AI analysis for players and coaches.');
   const content = page === 'home' ? hero(page)+how()+audiences()+strategy()+product()+ai()+pricing()+faq()+closing(page) : page === 'players' ? hero(page)+how()+benchmark()+product()+ai()+pricing()+faq()+closing(page) : page === 'coaches' ? hero(page)+coachContent()+closing(page) : info();
   const schema = { '@context':'https://schema.org', '@type': page === 'info' ? 'ContactPage' : 'WebPage', name:titles[page], description, url:origin+route(page), inLanguage:lang, isPartOf:{'@type':'WebSite',name:'Data2Gain',url:origin} };
-  return `<!doctype html>\n<html lang="${lang}"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>${titles[page]}</title><meta name="description" content="${esc(description)}"><meta name="theme-color" content="#101412"><link rel="canonical" href="${origin+route(page)}"><link rel="alternate" hreflang="es" href="${origin+route(page,'es')}"><link rel="alternate" hreflang="en" href="${origin+route(page,'en')}"><link rel="alternate" hreflang="x-default" href="${origin+route(page,'es')}"><link rel="icon" href="/favicon.ico" sizes="any"><link rel="apple-touch-icon" href="/apple-touch-icon.png"><link rel="manifest" href="/site-${lang}.webmanifest"><meta property="og:type" content="website"><meta property="og:title" content="${titles[page]}"><meta property="og:description" content="${esc(description)}"><meta property="og:url" content="${origin+route(page)}"><meta property="og:image" content="https://data2gain.com/assets/hero-hole-sg.jpg"><meta property="og:locale" content="${lang==='es'?'es_ES':'en_US'}"><meta name="twitter:card" content="summary_large_image"><meta name="twitter:title" content="${titles[page]}"><meta name="twitter:description" content="${esc(description)}"><meta name="twitter:image" content="https://data2gain.com/assets/hero-hole-sg.jpg"><link rel="stylesheet" href="/css/premium.css?v=4"><script type="application/ld+json">${JSON.stringify(schema)}</script><script type="module" src="/js/premium.js?v=4"></script></head><body class="page-${page}">${header(page)}<main id="main">${content}</main>${footer()}</body></html>\n`;
+  return `<!doctype html>\n<html lang="${lang}"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>${titles[page]}</title><meta name="description" content="${esc(description)}"><meta name="theme-color" content="#101412"><link rel="canonical" href="${origin+route(page)}"><link rel="alternate" hreflang="es" href="${origin+route(page,'es')}"><link rel="alternate" hreflang="en" href="${origin+route(page,'en')}"><link rel="alternate" hreflang="x-default" href="${origin+route(page,'es')}"><link rel="icon" href="/favicon.ico" sizes="any"><link rel="apple-touch-icon" href="/apple-touch-icon.png"><link rel="manifest" href="/site-${lang}.webmanifest"><meta property="og:type" content="website"><meta property="og:title" content="${titles[page]}"><meta property="og:description" content="${esc(description)}"><meta property="og:url" content="${origin+route(page)}"><meta property="og:image" content="https://data2gain.com/assets/hero-hole-sg.jpg"><meta property="og:locale" content="${lang==='es'?'es_ES':'en_US'}"><meta name="twitter:card" content="summary_large_image"><meta name="twitter:title" content="${titles[page]}"><meta name="twitter:description" content="${esc(description)}"><meta name="twitter:image" content="https://data2gain.com/assets/hero-hole-sg.jpg"><link rel="stylesheet" href="/css/premium.css?v=5"><script type="application/ld+json">${JSON.stringify(schema)}</script><script type="module" src="/js/premium.js?v=4"></script></head><body class="page-${page}">${header(page)}<main id="main">${content}</main>${footer()}</body></html>\n`;
 }
 
 await mkdir(path.join(root,'dist'),{recursive:true});

@@ -125,6 +125,7 @@ tabs.forEach((tab,index)=>{
 
 const selector=document.getElementById('benchmark-select');
 selector?.addEventListener('change',()=>{
+  selector.classList.remove('pulse-heartbeat');
   const { values,focus }=compareRound(selector.value);
   const reference=selector.selectedOptions[0].textContent;
   document.querySelector('[data-benchmark-label]').textContent=`VS ${reference}`;
@@ -218,3 +219,94 @@ function initLanguagePreferences() {
   } catch (e) {}
 }
 initLanguagePreferences();
+
+// Interactive AI Caddie Console
+function initAiConsole() {
+  const promptTabs = [...document.querySelectorAll('.ai-prompt-btn')];
+  const panels = [...document.querySelectorAll('.ai-scenario')];
+  const actionChips = document.querySelectorAll('.action-chip[data-ai-target]');
+  const sendBtn = document.querySelector('.ai-send-btn');
+  const inputBox = document.querySelector('.ai-input-box');
+  const placeholder = document.querySelector('[data-ai-placeholder]');
+
+  if (!promptTabs.length || !panels.length) return;
+
+  const placeholders = language === 'es' ? [
+    'Preguntar sobre tus rondas, palos o estrategia...',
+    '¿Por qué fallo con los hierros 7 y 8 en aproximación?',
+    'Generar plan de práctica de 45 minutos...'
+  ] : [
+    'Ask about your rounds, clubs or strategy...',
+    'Why am I missing with 7 & 8 irons on approach?',
+    'Generate 45-min practice routine...'
+  ];
+
+  function setScenario(index, focusTab = false) {
+    promptTabs.forEach((tab, i) => {
+      const active = i === index;
+      tab.classList.toggle('is-active', active);
+      tab.setAttribute('aria-selected', String(active));
+      tab.tabIndex = active ? 0 : -1;
+    });
+
+    panels.forEach((panel, i) => {
+      panel.hidden = i !== index;
+    });
+
+    if (placeholder && placeholders[index]) {
+      placeholder.textContent = placeholders[index];
+    }
+
+    if (focusTab && promptTabs[index]) {
+      promptTabs[index].focus();
+    }
+
+    track('ai_prompt_change', { promptIndex: index });
+  }
+
+  promptTabs.forEach((tab, index) => {
+    tab.addEventListener('click', () => setScenario(index));
+    tab.addEventListener('keydown', event => {
+      let next = index;
+      if (event.key === 'ArrowRight') next = (index + 1) % promptTabs.length;
+      else if (event.key === 'ArrowLeft') next = (index - 1 + promptTabs.length) % promptTabs.length;
+      else if (event.key === 'Home') next = 0;
+      else if (event.key === 'End') next = promptTabs.length - 1;
+      else return;
+      event.preventDefault();
+      setScenario(next, true);
+    });
+  });
+
+  actionChips.forEach(chip => {
+    chip.addEventListener('click', () => {
+      const target = Number.parseInt(chip.dataset.aiTarget, 10);
+      if (!Number.isNaN(target) && target >= 0 && target < promptTabs.length) {
+        setScenario(target, true);
+      }
+    });
+  });
+
+  function cycleNext() {
+    const current = promptTabs.findIndex(t => t.getAttribute('aria-selected') === 'true');
+    const next = (current + 1) % promptTabs.length;
+    setScenario(next, false);
+  }
+
+  sendBtn?.addEventListener('click', event => {
+    event.stopPropagation();
+    cycleNext();
+  });
+
+  inputBox?.addEventListener('click', () => {
+    cycleNext();
+  });
+
+  inputBox?.addEventListener('keydown', event => {
+    if (event.key === 'Enter' || event.key === ' ') {
+      event.preventDefault();
+      cycleNext();
+    }
+  });
+}
+initAiConsole();
