@@ -413,7 +413,7 @@ function aiConsole() {
 
             <div class="ai-radar-card">
               <div class="ai-radar-header">
-                <span class="mono-text">${t('TELEMETRÍA · HIERROS 7 Y 8','TELEMETRY · 7 & 8 IRONS')}</span>
+                <span class="mono-text">${t('TELEMETRÍA · H7-H8','TELEMETRY · 7-8 IRONS')}</span>
                 <span class="ai-chart-unit">Radar D2G</span>
               </div>
               <div class="ai-radar-grid">
@@ -429,13 +429,13 @@ function aiConsole() {
                 </div>
                 <div class="ai-radar-stat">
                   <strong>142 m</strong>
-                  <span>${t('Carry medio H7 (±3m)','Average H7 carry (±3m)')}</span>
-                  <span class="badge-status badge-green">${t('Distancia sólida','Solid distance')}</span>
+                  <span>${t('Carry medio H7','Average H7 carry')}</span>
+                  <span class="badge-status badge-green">${t('Dist. sólida','Solid dist.')}</span>
                 </div>
                 <div class="ai-radar-stat">
                   <strong>+1.8°</strong>
-                  <span>${t('Cara abierta impacto','Open face at impact')}</span>
-                  <span class="badge-status badge-neutral">${t('Ajustar cara','Face angle')}</span>
+                  <span>${t('Cara al impacto','Face at impact')}</span>
+                  <span class="badge-status badge-neutral">${t('Cara abierta','Open face')}</span>
                 </div>
               </div>
 
@@ -456,7 +456,7 @@ function aiConsole() {
               <span class="ai-actions-title">${t('EXPLORAR EN DETALLE:','EXPLORE IN DETAIL:')}</span>
               <div class="ai-action-chips">
                 <button type="button" class="action-chip" data-ai-target="2">📋 ${t('Rutina de corrección H7-H8','7-8 Iron Correction Drill')}</button>
-                <button type="button" class="action-chip" data-ai-target="0">⚖️ ${t('Volver al balance general SG','Return to SG Balance')}</button>
+                <button type="button" class="action-chip" data-ai-target="0">⚖️ ${t('Ver balance Strokes Gained','View Strokes Gained Balance')}</button>
               </div>
             </div>
           </div>
@@ -587,7 +587,7 @@ function document(page) {
   const description = page === 'coaches' ? t('Analítica de golf avanzada 100% gratuita para coaches y academias. Strokes Gained, dispersión y telemetría de tus alumnos sin coste.','Advanced golf analytics 100% free for coaches and academies. Strokes Gained, dispersion and player telemetry at zero cost.') : t('Encuentra el patrón. Telemetría de Tour, dispersión real y análisis con IA para transformar tus datos en mejores decisiones en el campo.','Find the pattern. Tour telemetry, true dispersion and AI analysis to turn your data into better on-course decisions.');
   const content = page === 'home' ? hero(page)+how()+audiences()+strategy()+product()+ai()+pricing()+faq()+closing(page) : page === 'players' ? hero(page)+how()+benchmark()+product()+ai()+pricing()+faq()+closing(page) : page === 'coaches' ? hero(page)+coachContent()+closing(page) : info();
   const schema = { '@context':'https://schema.org', '@type': page === 'info' ? 'ContactPage' : 'WebPage', name:titles[page], description, url:origin+route(page), inLanguage:lang, isPartOf:{'@type':'WebSite',name:'Data2Gain',url:origin} };
-  return `<!doctype html>\n<html lang="${lang}"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>${titles[page]}</title><meta name="description" content="${esc(description)}"><meta name="theme-color" content="#101412"><link rel="canonical" href="${origin+route(page)}"><link rel="alternate" hreflang="es" href="${origin+route(page,'es')}"><link rel="alternate" hreflang="en" href="${origin+route(page,'en')}"><link rel="alternate" hreflang="x-default" href="${origin+route(page,'es')}"><link rel="icon" href="/favicon.ico" sizes="any"><link rel="apple-touch-icon" href="/apple-touch-icon.png"><link rel="manifest" href="/site-${lang}.webmanifest"><meta property="og:type" content="website"><meta property="og:title" content="${titles[page]}"><meta property="og:description" content="${esc(description)}"><meta property="og:url" content="${origin+route(page)}"><meta property="og:image" content="https://data2gain.com/assets/hero-hole-sg.jpg"><meta property="og:locale" content="${lang==='es'?'es_ES':'en_US'}"><meta name="twitter:card" content="summary_large_image"><meta name="twitter:title" content="${titles[page]}"><meta name="twitter:description" content="${esc(description)}"><meta name="twitter:image" content="https://data2gain.com/assets/hero-hole-sg.jpg"><link rel="stylesheet" href="/css/premium.css?v=6"><script type="application/ld+json">${JSON.stringify(schema)}</script><script type="module" src="/js/premium.js?v=4"></script></head><body class="page-${page}">${header(page)}<main id="main">${content}</main>${footer()}</body></html>\n`;
+  return `<!doctype html>\n<html lang="${lang}"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>${titles[page]}</title><meta name="description" content="${esc(description)}"><meta name="theme-color" content="#101412"><link rel="canonical" href="${origin+route(page)}"><link rel="alternate" hreflang="es" href="${origin+route(page,'es')}"><link rel="alternate" hreflang="en" href="${origin+route(page,'en')}"><link rel="alternate" hreflang="x-default" href="${origin+route(page,'es')}"><link rel="icon" href="/favicon.ico" sizes="any"><link rel="apple-touch-icon" href="/apple-touch-icon.png"><link rel="manifest" href="/site-${lang}.webmanifest"><meta property="og:type" content="website"><meta property="og:title" content="${titles[page]}"><meta property="og:description" content="${esc(description)}"><meta property="og:url" content="${origin+route(page)}"><meta property="og:image" content="https://data2gain.com/assets/hero-hole-sg.jpg"><meta property="og:locale" content="${lang==='es'?'es_ES':'en_US'}"><meta name="twitter:card" content="summary_large_image"><meta name="twitter:title" content="${titles[page]}"><meta name="twitter:description" content="${esc(description)}"><meta name="twitter:image" content="https://data2gain.com/assets/hero-hole-sg.jpg"><link rel="stylesheet" href="/css/premium.css?v=7"><script type="application/ld+json">${JSON.stringify(schema)}</script><script type="module" src="/js/premium.js?v=5"></script></head><body class="page-${page}">${header(page)}<main id="main">${content}</main>${footer()}</body></html>\n`;
 }
 
 await mkdir(path.join(root,'dist'),{recursive:true});
