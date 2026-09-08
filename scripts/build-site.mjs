@@ -147,109 +147,118 @@ function strategy() {
       <p class="strategy-lead-compact">${t('Atacar por inercia o jugar con tu dispersión real. Comprueba directamente en el mapa táctico cómo cambia la tarjeta:','Attacking blindly vs playing with your true dispersion. See directly on the tactical map how the scorecard changes:')}</p>
     </div>
 
-    <div class="course-stage-fullbleed" data-course-strategy="controlled">
-      <div class="course-canvas-wrap">
-        <img class="course-photo" src="/assets/hero-hole-sg-1200.webp" srcset="/assets/hero-hole-sg-480.webp 480w, /assets/hero-hole-sg-800.webp 800w, /assets/hero-hole-sg-1200.webp 1200w" sizes="(max-width: 760px) 100vw, 780px" width="1200" height="805" loading="lazy" alt="${t('Mapa táctico de hoyo de golf a pantalla completa','Full-screen tactical golf hole map')}">
-
-        <!-- STRATEGY BUTTONS INTEGRATED DIRECTLY ON THE MAP -->
-        <div class="course-hud-top">
-          <div class="course-hud-badge">
-            <span>PAR 4 · 418 YDS</span>
-          </div>
-          <div class="strategy-controls-hud" role="group" aria-label="${t('Estrategia del hoyo','Hole strategy')}">
-            <button type="button" data-strategy="controlled" aria-pressed="true">
-              <span class="hud-dot dot-green"></span>
-              <span class="hud-btn-copy">
-                <strong>${t('Control Inteligente','Smart Control')}</strong>
-                <span class="hud-btn-stat text-green">${t('+0.42 SG · 0% agua','+0.42 SG · 0% water')}</span>
-              </span>
-            </button>
-            <button type="button" data-strategy="aggressive" aria-pressed="false">
-              <span class="hud-dot dot-red"></span>
-              <span class="hud-btn-copy">
-                <strong>${t('Riesgo Innecesario','Unnecessary Risk')}</strong>
-                <span class="hud-btn-stat text-red">${t('−0.65 SG · 32% agua','−0.65 SG · 32% water')}</span>
-              </span>
-            </button>
-          </div>
+    <div class="strategy-scroll-track" id="strategy-track">
+      <div class="strategy-sticky-stage">
+        <div class="strategy-scroll-cue" aria-hidden="true">
+          <span class="scroll-cue-beacon"></span>
+          <span class="scroll-cue-text" data-strategy-scroll-text>${t('Haz scroll para ver la opción alternativa','Scroll to view alternative option')}</span>
+          <span class="scroll-cue-arrow" data-strategy-scroll-arrow>↓</span>
         </div>
+        <div class="course-stage-fullbleed" data-course-strategy="controlled">
+          <div class="course-canvas-wrap">
+            <img class="course-photo" src="/assets/hero-hole-sg-1200.webp" srcset="/assets/hero-hole-sg-480.webp 480w, /assets/hero-hole-sg-800.webp 800w, /assets/hero-hole-sg-1200.webp 1200w" sizes="(max-width: 760px) 100vw, 780px" width="1200" height="805" loading="lazy" alt="${t('Mapa táctico de hoyo de golf a pantalla completa','Full-screen tactical golf hole map')}">
 
-        <!-- SVG FLIGHT TRACERS AND DISPERSION OVERLAY -->
-        <svg class="course-svg-overlay" viewBox="0 0 1200 805" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
-          <!-- CONTROLLED STRATEGY GRAPHICS -->
-          <g class="strat-group-controlled">
-            <path class="tracer tracer-controlled" d="M612 684 Q610 540 606 426"/>
-            <ellipse class="dispersion-ellipse disp-controlled" cx="606" cy="426" rx="44" ry="60"/>
-            <path class="tracer tracer-approach-controlled" d="M606 426 Q610 275 615 150"/>
-            <circle class="target-ring target-controlled" cx="615" cy="150" r="32"/>
-            <circle class="target-center-dot" cx="615" cy="150" r="4.5"/>
-          </g>
-
-          <!-- AGGRESSIVE STRATEGY GRAPHICS -->
-          <g class="strat-group-aggressive">
-            <path class="tracer tracer-aggressive" d="M612 684 Q590 470 558 300"/>
-            <ellipse class="dispersion-ellipse disp-aggressive" cx="558" cy="300" rx="50" ry="72"/>
-            <path class="tracer tracer-miss" d="M578 430 Q620 360 659 286"/>
-            <circle class="hazard-splash" cx="659" cy="286" r="24"/>
-            <path class="tracer tracer-approach-aggressive" d="M558 300 Q585 205 615 140"/>
-            <circle class="target-hazard-pin" cx="615" cy="140" r="22"/>
-          </g>
-        </svg>
-
-        <!-- TACTICAL MAP PINS -->
-        <div class="course-map-pins">
-          <!-- Pin: Tee Box (x: 51%, y: 85%) -->
-          <div class="course-tactical-pin pin-tee" style="top:85%;left:51%">
-            <span class="tactical-dot"></span>
-            <div class="tactical-card">
-              <span class="tactical-sub">${t('Salida','Tee')}</span>
-              <strong data-pin-tee>${t('Madera 3 · 240 yd','3-Wood · 240 yd')}</strong>
+            <!-- STRATEGY BUTTONS INTEGRATED DIRECTLY ON THE MAP -->
+            <div class="course-hud-top">
+              <div class="course-hud-badge">
+                <span>PAR 4 · 418 YDS</span>
+              </div>
+              <div class="strategy-controls-hud" role="group" aria-label="${t('Estrategia del hoyo','Hole strategy')}">
+                <button type="button" data-strategy="controlled" aria-pressed="true">
+                  <span class="hud-dot dot-green"></span>
+                  <span class="hud-btn-copy">
+                    <strong>${t('Control Inteligente','Smart Control')}</strong>
+                    <span class="hud-btn-stat text-green">${t('+0.42 SG · 0% agua','+0.42 SG · 0% water')}</span>
+                  </span>
+                </button>
+                <button type="button" data-strategy="aggressive" aria-pressed="false">
+                  <span class="hud-dot dot-red"></span>
+                  <span class="hud-btn-copy">
+                    <strong>${t('Riesgo Innecesario','Unnecessary Risk')}</strong>
+                    <span class="hud-btn-stat text-red">${t('−0.65 SG · 32% agua','−0.65 SG · 32% water')}</span>
+                  </span>
+                </button>
+              </div>
             </div>
-          </div>
 
-          <!-- Pin: Fairway Landing Zone (x: 50.5%, y: 53%) -->
-          <div class="course-tactical-pin pin-landing" style="top:53%;left:50.5%">
-            <span class="tactical-dot"></span>
-            <div class="tactical-card">
-              <span class="tactical-badge tag-green" data-pin-landing-tag>${t('0% Riesgo de Agua','0% Water Risk')}</span>
-              <strong data-pin-landing>${t('Calle Ancha · Margen Total','Wide Fairway · Full Margin')}</strong>
+            <!-- SVG FLIGHT TRACERS AND DISPERSION OVERLAY -->
+            <svg class="course-svg-overlay" viewBox="0 0 1200 805" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+              <!-- CONTROLLED STRATEGY GRAPHICS -->
+              <g class="strat-group-controlled">
+                <path class="tracer tracer-controlled" d="M612 684 Q610 540 606 426"/>
+                <ellipse class="dispersion-ellipse disp-controlled" cx="606" cy="426" rx="44" ry="60"/>
+                <path class="tracer tracer-approach-controlled" d="M606 426 Q610 275 615 150"/>
+                <circle class="target-ring target-controlled" cx="615" cy="150" r="32"/>
+                <circle class="target-center-dot" cx="615" cy="150" r="4.5"/>
+              </g>
+
+              <!-- AGGRESSIVE STRATEGY GRAPHICS -->
+              <g class="strat-group-aggressive">
+                <path class="tracer tracer-aggressive" d="M612 684 Q590 470 558 300"/>
+                <ellipse class="dispersion-ellipse disp-aggressive" cx="558" cy="300" rx="50" ry="72"/>
+                <path class="tracer tracer-miss" d="M578 430 Q620 360 659 286"/>
+                <circle class="hazard-splash" cx="659" cy="286" r="24"/>
+                <path class="tracer tracer-approach-aggressive" d="M558 300 Q585 205 615 140"/>
+                <circle class="target-hazard-pin" cx="615" cy="140" r="22"/>
+              </g>
+            </svg>
+
+            <!-- TACTICAL MAP PINS -->
+            <div class="course-map-pins">
+              <!-- Pin: Tee Box (x: 51%, y: 85%) -->
+              <div class="course-tactical-pin pin-tee" style="top:85%;left:51%">
+                <span class="tactical-dot"></span>
+                <div class="tactical-card">
+                  <span class="tactical-sub">${t('Salida','Tee')}</span>
+                  <strong data-pin-tee>${t('Madera 3 · 240 yd','3-Wood · 240 yd')}</strong>
+                </div>
+              </div>
+
+              <!-- Pin: Fairway Landing Zone (x: 50.5%, y: 53%) -->
+              <div class="course-tactical-pin pin-landing" style="top:53%;left:50.5%">
+                <span class="tactical-dot"></span>
+                <div class="tactical-card">
+                  <span class="tactical-badge tag-green" data-pin-landing-tag>${t('0% Riesgo de Agua','0% Water Risk')}</span>
+                  <strong data-pin-landing>${t('Calle Ancha · Margen Total','Wide Fairway · Full Margin')}</strong>
+                </div>
+              </div>
+
+              <!-- Pin: Water Hazard Alert (x: 55%, y: 35.5%) -->
+              <div class="course-tactical-pin pin-water" style="top:35.5%;left:55%">
+                <span class="tactical-dot dot-red"></span>
+                <div class="tactical-card card-alert">
+                  <span class="tactical-badge tag-red">${t('32% Dispersión al Agua','32% Water Miss')}</span>
+                  <strong>${t('Penalización (−1.82 SG)','Penalty (−1.82 SG)')}</strong>
+                </div>
+              </div>
+
+              <!-- Pin: Green & Outcome (x: 51.25%, y: 18.6%) -->
+              <div class="course-tactical-pin pin-green" style="top:18.6%;left:51.25%">
+                <span class="tactical-dot dot-target"></span>
+                <div class="tactical-card">
+                  <span class="tactical-badge tag-green" data-pin-green-tag>${t('+0.42 SG vs Campo','+0.42 SG vs Field')}</span>
+                  <strong data-pin-green>${t('Centro de Green ➔ Par Asegurado','Green Center ➔ Safe Par')}</strong>
+                </div>
+              </div>
             </div>
-          </div>
 
-          <!-- Pin: Water Hazard Alert (x: 55%, y: 35.5%) -->
-          <div class="course-tactical-pin pin-water" style="top:35.5%;left:55%">
-            <span class="tactical-dot dot-red"></span>
-            <div class="tactical-card card-alert">
-              <span class="tactical-badge tag-red">${t('32% Dispersión al Agua','32% Water Miss')}</span>
-              <strong>${t('Penalización (−1.82 SG)','Penalty (−1.82 SG)')}</strong>
+            <!-- FLOATING TELEMETRY HUD DIRECTLY ON MAP -->
+            <div class="course-hud-bottom">
+              <div class="hud-metric">
+                <span class="hud-metric-label">${t('Salida','Tee')}</span>
+                <strong class="text-green" data-summary-tee>${t('100% Calle (0% Agua)','100% Fairway (0% Water)')}</strong>
+              </div>
+              <div class="hud-metric-divider" aria-hidden="true"></div>
+              <div class="hud-metric">
+                <span class="hud-metric-label">${t('Aproximación','Approach')}</span>
+                <strong data-summary-approach>${t('Hierro 7 a centro','7-Iron to center')}</strong>
+              </div>
+              <div class="hud-metric-divider" aria-hidden="true"></div>
+              <div class="hud-metric">
+                <span class="hud-metric-label">${t('Resultado','Result')}</span>
+                <strong class="text-green" data-summary-score>${t('PAR Seguro (+0.42 SG)','Safe PAR (+0.42 SG)')}</strong>
+              </div>
             </div>
-          </div>
-
-          <!-- Pin: Green & Outcome (x: 51.25%, y: 18.6%) -->
-          <div class="course-tactical-pin pin-green" style="top:18.6%;left:51.25%">
-            <span class="tactical-dot dot-target"></span>
-            <div class="tactical-card">
-              <span class="tactical-badge tag-green" data-pin-green-tag>${t('+0.42 SG vs Campo','+0.42 SG vs Field')}</span>
-              <strong data-pin-green>${t('Centro de Green ➔ Par Asegurado','Green Center ➔ Safe Par')}</strong>
-            </div>
-          </div>
-        </div>
-
-        <!-- FLOATING TELEMETRY HUD DIRECTLY ON MAP -->
-        <div class="course-hud-bottom">
-          <div class="hud-metric">
-            <span class="hud-metric-label">${t('Salida','Tee')}</span>
-            <strong class="text-green" data-summary-tee>${t('100% Calle (0% Agua)','100% Fairway (0% Water)')}</strong>
-          </div>
-          <div class="hud-metric-divider" aria-hidden="true"></div>
-          <div class="hud-metric">
-            <span class="hud-metric-label">${t('Aproximación','Approach')}</span>
-            <strong data-summary-approach>${t('Hierro 7 a centro','7-Iron to center')}</strong>
-          </div>
-          <div class="hud-metric-divider" aria-hidden="true"></div>
-          <div class="hud-metric">
-            <span class="hud-metric-label">${t('Resultado','Result')}</span>
-            <strong class="text-green" data-summary-score>${t('PAR Seguro (+0.42 SG)','Safe PAR (+0.42 SG)')}</strong>
           </div>
         </div>
       </div>
@@ -278,7 +287,21 @@ function product() {
     t('Telemetría completa en las cuatro áreas del juego y análisis de putt por pendiente para erradicar el tripateo.', 'Complete telemetry across all four game areas and slope-based putting analysis to eliminate 3-putts.')
   ];
   const images = ['screen-dispersion','screen-gap','screen-putt'];
-  return `<section class="section section-light product-section" id="producto"><div class="container"><div class="section-heading"><div>${eyebrow(t('04 / Dentro de Data2Gain','04 / Inside Data2Gain'))}<h2>${t('La diferencia está<br>en lo que descubres.','The difference is<br>what you discover.')}</h2></div><p>${t('Pantallas del producto.<br>Conclusiones que puedes llevar al campo.','Screens from the product.<br>Insights you can take to the course.')}</p></div><div class="product-tabs" role="tablist" aria-label="${t('Explorar funciones','Explore features')}">${tabs.map((text,i)=>`<button id="product-tab-${i}" type="button" role="tab" aria-selected="${i === 0}" aria-controls="product-panel-${i}" tabindex="${i === 0 ? '0' : '-1'}" data-product-tab="${i}"><span>0${i+1}</span>${text}</button>`).join('')}</div>${tabs.map((_,i)=>`<div class="product-panel" id="product-panel-${i}" role="tabpanel" aria-labelledby="product-tab-${i}" tabindex="0"${i ? ' hidden' : ''}><div class="product-screen">${screenshot(images[i],tabs[i])}<p class="screen-caption">${t('Captura de Data2Gain · Ejemplo de análisis','Data2Gain screenshot · Example analysis')}</p></div><div class="product-copy"><h3>${titles[i]}</h3><p>${descriptions[i]}</p><a class="text-link" href="${app}" data-track="app_open">${t('Explorar la app','Explore the app')}${arrow}</a></div></div>`).join('')}</div></section>`;
+  return `<section class="section section-light product-section" id="producto">
+    <div class="container">
+      <div class="section-heading">
+        <div>${eyebrow(t('04 / Dentro de Data2Gain','04 / Inside Data2Gain'))}<h2>${t('La diferencia está<br>en lo que descubres.','The difference is<br>what you discover.')}</h2></div>
+        <p>${t('Pantallas del producto.<br>Conclusiones que puedes llevar al campo.','Screens from the product.<br>Insights you can take to the course.')}</p>
+      </div>
+      <div class="product-tabs-bar">
+        <div class="product-tabs-eyecue"><span class="eyecue-beacon" aria-hidden="true"></span>${t('Explora cada pantalla interactiva · Haz clic en 02 o 03:','Explore each interactive screen · Click 02 or 03:')}</div>
+        <div class="product-tabs" role="tablist" aria-label="${t('Explorar funciones','Explore features')}">
+          ${tabs.map((text,i)=>`<button id="product-tab-${i}" type="button" role="tab" aria-selected="${i === 0}" aria-controls="product-panel-${i}" tabindex="${i === 0 ? '0' : '-1'}" data-product-tab="${i}"><span class="tab-num">0${i+1}</span><span class="tab-label">${text}</span><span class="tab-click-pill" data-tab-hint="${i}"${i === 0 ? ' style="display:none"' : ''} aria-hidden="true"><span class="tab-pulse-dot"></span>${t('Ver','View')}</span></button>`).join('')}
+        </div>
+      </div>
+      ${tabs.map((_,i)=>`<div class="product-panel" id="product-panel-${i}" role="tabpanel" aria-labelledby="product-tab-${i}" tabindex="0"${i ? ' hidden' : ''}><div class="product-screen">${screenshot(images[i],tabs[i])}<p class="screen-caption">${t('Captura de Data2Gain · Ejemplo de análisis','Data2Gain screenshot · Example analysis')}</p></div><div class="product-copy"><h3>${titles[i]}</h3><p>${descriptions[i]}</p><a class="text-link" href="${app}" data-track="app_open">${t('Explorar la app','Explore the app')}${arrow}</a></div></div>`).join('')}
+    </div>
+  </section>`;
 }
 
 function benchmark() {
@@ -532,7 +555,7 @@ function faq() {
     [t('¿Cómo empiezo a usar Data2Gain como jugador?','How do I start using Data2Gain as a player?'),t('Accede a la app web en app.data2gain.com, sigue el proceso de alta y añade tus rondas. Puedes probar la analítica y suscribirte a Data2Gain PRO por solo 8,95 €/mes, cancelable cuando quieras.','Open the web app at app.data2gain.com, sign up and add your rounds. You can explore the analytics and subscribe to Data2Gain PRO for just €8.95/month, cancelable anytime.')],
     [t('¿Dónde puedo utilizar Data2Gain?','Where can I use Data2Gain?'),t('Puedes utilizar Data2Gain en su Web App (accesible desde cualquier navegador en móvil, tablet u ordenador en app.data2gain.com) y en sus aplicaciones nativas para Android y Apple (iOS).','You can use Data2Gain via its Web App (accessible from any browser on phone, tablet or desktop at app.data2gain.com) and in native apps for Android and Apple (iOS).')]
   ];
-  return `<section class="section section-light faq-section"><div class="container faq-grid"><div>${eyebrow(t('Antes de empezar','Before you begin'))}<h2>${t('Las cosas,<br>claras.','Let’s make<br>things clear.')}</h2><p>${t('Si te queda alguna duda, hablamos.','If you have another question, get in touch.')}</p><a class="text-link" href="mailto:info@data2gain.com">info@data2gain.com${diagonal}</a></div><div class="faq-list">${items.map(([q,a])=>`<details><summary>${q}<span aria-hidden="true">+</span></summary><p>${a}</p></details>`).join('')}</div></div></section>`;
+  return `<section class="section section-light faq-section"><div class="container faq-grid"><div>${eyebrow(t('Antes de empezar','Before you begin'))}<h2>${t('Preguntas<br>frecuentes.','Frequently asked<br>questions.')}</h2><p>${t('Si te queda alguna duda, hablamos.','If you have another question, get in touch.')}</p><a class="text-link" href="mailto:info@data2gain.com">info@data2gain.com${diagonal}</a></div><div class="faq-list">${items.map(([q,a])=>`<details><summary>${q}<span aria-hidden="true">+</span></summary><p>${a}</p></details>`).join('')}</div></div></section>`;
 }
 
 function closing(page) {

@@ -38,7 +38,9 @@ const strategyData={
     summaryTeeClass:'text-green',
     summaryApproach:t('Hierro 7 a centro','7-Iron to center'),
     summaryScore:t('PAR Seguro (+0.42 SG)','Safe PAR (+0.42 SG)'),
-    summaryScoreClass:'text-green'
+    summaryScoreClass:'text-green',
+    scrollText:t('Haz scroll para ver la opción alternativa','Scroll to view alternative option'),
+    scrollArrow:'↓'
   },
   aggressive:{
     pinTee:t('Driver · 280 yd forzado','Forced Driver · 280 yd'),
@@ -52,14 +54,23 @@ const strategyData={
     summaryTeeClass:'text-red',
     summaryApproach:t('Wedge forzado a bandera','Forced Wedge to pin'),
     summaryScore:t('BOGEY o Peor (−0.65 SG)','BOGEY or Worse (−0.65 SG)'),
-    summaryScoreClass:'text-red'
+    summaryScoreClass:'text-red',
+    scrollText:t('Haz scroll hacia arriba para volver a control','Scroll up to return to smart control'),
+    scrollArrow:'↑'
   }
 };
-document.querySelectorAll('[data-strategy]').forEach(button=>button.addEventListener('click',()=>{
-  const key=button.dataset.strategy;
+
+let currentStrategy='controlled';
+let isManualScrollLocked=false;
+let manualScrollTimer=null;
+
+function applyStrategy(key,fromScroll=false){
+  if(key===currentStrategy && fromScroll)return;
+  currentStrategy=key;
   const data=strategyData[key];
   if(!data)return;
-  document.querySelectorAll('[data-strategy]').forEach(item=>item.setAttribute('aria-pressed',String(item===button)));
+
+  document.querySelectorAll('[data-strategy]').forEach(item=>item.setAttribute('aria-pressed',String(item.dataset.strategy===key)));
   const visual=document.querySelector('[data-course-strategy]');
   if(visual)visual.dataset.courseStrategy=key;
 
@@ -96,8 +107,69 @@ document.querySelectorAll('[data-strategy]').forEach(button=>button.addEventList
     summaryScore.className=data.summaryScoreClass;
   }
 
-  track('strategy_change',{strategy:key});
+  const scrollText=document.querySelector('[data-strategy-scroll-text]');
+  if(scrollText)scrollText.textContent=data.scrollText;
+
+  const scrollArrow=document.querySelector('[data-strategy-scroll-arrow]');
+  if(scrollArrow)scrollArrow.textContent=data.scrollArrow;
+
+  track('strategy_change',{strategy:key,trigger:fromScroll?'scroll':'click'});
+}
+
+const strategyTrack=document.getElementById('strategy-track');
+
+document.querySelectorAll('[data-strategy]').forEach(button=>button.addEventListener('click',()=>{
+  const key=button.dataset.strategy;
+  isManualScrollLocked=true;
+  clearTimeout(manualScrollTimer);
+  applyStrategy(key,false);
+
+  if(strategyTrack){
+    const rect=strategyTrack.getBoundingClientRect();
+    const scrollTop=window.scrollY||window.pageYOffset;
+    const headerOffset=window.innerWidth<=760?72:88;
+    const totalScroll=strategyTrack.offsetHeight-window.innerHeight;
+    if(totalScroll>0){
+      const targetProgress=key==='controlled'?0.15:0.85;
+      const targetY=scrollTop+rect.top-headerOffset+(totalScroll*targetProgress);
+      window.scrollTo({top:targetY,behavior:'smooth'});
+    }
+  }
+
+  manualScrollTimer=setTimeout(()=>{
+    isManualScrollLocked=false;
+  },800);
 }));
+
+if(strategyTrack){
+  let ticking=false;
+  function onStrategyScroll(){
+    if(isManualScrollLocked)return;
+    const rect=strategyTrack.getBoundingClientRect();
+    const headerOffset=window.innerWidth<=760?72:88;
+    const totalScroll=strategyTrack.offsetHeight-window.innerHeight;
+    if(totalScroll<=0)return;
+
+    const scrolled=headerOffset-rect.top;
+    const progress=scrolled/totalScroll;
+
+    if(progress>0.52){
+      applyStrategy('aggressive',true);
+    }else if(progress<0.48){
+      applyStrategy('controlled',true);
+    }
+  }
+
+  window.addEventListener('scroll',()=>{
+    if(!ticking){
+      window.requestAnimationFrame(()=>{
+        onStrategyScroll();
+        ticking=false;
+      });
+      ticking=true;
+    }
+  },{passive:true});
+}
 
 const tabs=[...document.querySelectorAll('[data-product-tab]')];
 function activateProduct(index,focus=false){
@@ -105,7 +177,10 @@ function activateProduct(index,focus=false){
     const selected=i===index;
     tab.setAttribute('aria-selected',String(selected));
     tab.tabIndex=selected?0:-1;
-    document.getElementById(tab.getAttribute('aria-controls')).hidden=!selected;
+    const panel=document.getElementById(tab.getAttribute('aria-controls'));
+    if(panel)panel.hidden=!selected;
+    const hint=tab.querySelector('.tab-click-pill');
+    if(hint)hint.style.display=selected?'none':'inline-flex';
   });
   if(focus)tabs[index].focus();
   track('product_view',{feature:tabs[index].dataset.productTab});
