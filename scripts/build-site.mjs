@@ -288,10 +288,14 @@ function product() {
         <div>${eyebrow(t('04 / Dentro de Data2Gain','04 / Inside Data2Gain'))}<h2>${t('La diferencia está<br>en lo que descubres.','The difference is<br>what you discover.')}</h2></div>
         <p>${t('Pantallas del producto.<br>Conclusiones que puedes llevar al campo.','Screens from the product.<br>Insights you can take to the course.')}</p>
       </div>
-      <div class="product-tabs" role="tablist" aria-label="${t('Explorar funciones','Explore features')}">
-        ${tabs.map((text,i)=>`<button id="product-tab-${i}" type="button" role="tab" aria-selected="${i === 0}" aria-controls="product-panel-${i}" tabindex="${i === 0 ? '0' : '-1'}" data-product-tab="${i}"><span class="tab-num">0${i+1}</span><span class="tab-label">${text}</span></button>`).join('')}
+      <div class="product-scroll-track" id="product-track">
+        <div class="product-sticky-stage">
+          <div class="product-tabs" role="tablist" aria-label="${t('Explorar funciones','Explore features')}">
+            ${tabs.map((text,i)=>`<button id="product-tab-${i}" type="button" role="tab" aria-selected="${i === 0}" aria-controls="product-panel-${i}" tabindex="${i === 0 ? '0' : '-1'}" data-product-tab="${i}"><span class="tab-num">0${i+1}</span><span class="tab-label">${text}</span></button>`).join('')}
+          </div>
+          ${tabs.map((_,i)=>`<div class="product-panel" id="product-panel-${i}" role="tabpanel" aria-labelledby="product-tab-${i}" tabindex="0"${i ? ' hidden' : ''}><div class="product-screen">${screenshot(images[i],tabs[i])}<p class="screen-caption">${t('Captura de Data2Gain · Ejemplo de análisis','Data2Gain screenshot · Example analysis')}</p></div><div class="product-copy"><h3>${titles[i]}</h3><p>${descriptions[i]}</p><a class="text-link" href="${app}" data-track="app_open">${t('Explorar la app','Explore the app')}${arrow}</a></div></div>`).join('')}
+        </div>
       </div>
-      ${tabs.map((_,i)=>`<div class="product-panel" id="product-panel-${i}" role="tabpanel" aria-labelledby="product-tab-${i}" tabindex="0"${i ? ' hidden' : ''}><div class="product-screen">${screenshot(images[i],tabs[i])}<p class="screen-caption">${t('Captura de Data2Gain · Ejemplo de análisis','Data2Gain screenshot · Example analysis')}</p></div><div class="product-copy"><h3>${titles[i]}</h3><p>${descriptions[i]}</p><a class="text-link" href="${app}" data-track="app_open">${t('Explorar la app','Explore the app')}${arrow}</a></div></div>`).join('')}
     </div>
   </section>`;
 }
