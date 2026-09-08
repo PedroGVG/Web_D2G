@@ -37,6 +37,7 @@ function header(page) {
       <a href="${route('home')}#precios">${t('Precios','Pricing')}</a>
       <div class="nav-utilities"><div class="languages" aria-label="${t('Idioma','Language')}"><a href="${route(page,'es')}" lang="es" hreflang="es" aria-label="Español"${lang === 'es' ? ' aria-current="true"' : ''}>${flagEs}<span>ES</span></a><span class="lang-divider" aria-hidden="true">/</span><a href="${route(page,'en')}" lang="en" hreflang="en" aria-label="English"${lang === 'en' ? ' aria-current="true"' : ''}>${flagGb}<span>EN</span></a></div>
       <a class="nav-access" href="${app}" data-track="app_open">${t('Acceder','Sign in')}${diagonal}</a></div>
+      <div class="nav-mobile-platforms">${platformStrip()}</div>
     </nav>
   </div></header>`;
 }
