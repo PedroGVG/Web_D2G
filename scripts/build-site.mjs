@@ -100,17 +100,14 @@ function hero(page) {
   const photoAlt = coach
     ? t('Un instructor acompaña a una joven golfista durante una sesión de práctica', 'An instructor guides a young golfer during practice')
     : home
-    ? t('Strokesaver del siglo XXII con telemetría LIDAR y análisis topográfico de hoyo', '22nd-century strokesaver with LIDAR telemetry and topographic hole analysis')
+    ? t('Gemelo digital y telemetría 3D de golf con trazador balístico de bola', 'Digital twin and 3D golf telemetry with ballistic ball flight tracer')
     : t('Golfista terminando su swing con la luz del atardecer', 'Golfer finishing a swing in the evening light');
 
   const photoWidth = coach ? 1400 : (home ? 1376 : 1600);
   const photoHeight = coach ? 1845 : (home ? 768 : 1067);
 
-  const photoCaption1 = home
-    ? t('Strokesaver Siglo XXII · Telemetría LIDAR', '22nd-Century Strokesaver · LIDAR Telemetry')
-    : t('Una nueva forma de ver el golf', 'A new perspective on golf');
-
-  const photoCaption2 = home ? 'H16 — PAR 4' : '01 — D2G';
+  const photoCaption1 = t('Una nueva forma de ver el golf', 'A new perspective on golf');
+  const photoCaption2 = '01 — D2G';
 
   return `<section class="hero ${home ? 'hero-home' : 'hero-detail'}"><div class="container hero-grid"><div class="hero-copy">
     ${eyebrow(eyebrowText)}
