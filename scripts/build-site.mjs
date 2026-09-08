@@ -386,7 +386,7 @@ function aiConsole() {
               <span class="ai-actions-title">${t('EXPLORAR EN DETALLE:','EXPLORE IN DETAIL:')}</span>
               <div class="ai-action-chips">
                 <button type="button" class="action-chip" data-ai-target="1">🎯 ${t('Ver dispersión Hierros 7 y 8','View 7 & 8 Iron Dispersion')}</button>
-                <button type="button" class="action-chip" data-ai-target="2">📋 ${t('Generar rutina de práctica (45 min)','Generate 45-min Practice Routine')}</button>
+                <button type="button" class="action-chip" data-ai-target="2">📋 ${t('Rutina de práctica (45 min)','45-min Practice Routine')}</button>
               </div>
             </div>
           </div>
@@ -413,7 +413,7 @@ function aiConsole() {
 
             <div class="ai-radar-card">
               <div class="ai-radar-header">
-                <span class="mono-text">${t('TELEMETRÍA DE IMPACTO · HIERROS 7 Y 8','IMPACT TELEMETRY · 7 & 8 IRONS')}</span>
+                <span class="mono-text">${t('TELEMETRÍA · HIERROS 7 Y 8','TELEMETRY · 7 & 8 IRONS')}</span>
                 <span class="ai-chart-unit">Radar D2G</span>
               </div>
               <div class="ai-radar-grid">
@@ -441,9 +441,9 @@ function aiConsole() {
 
               <div class="ai-bias-wrap">
                 <div class="ai-bias-meta">
-                  <span>${t('← Izquierda (Pull)','← Left (Pull)')}</span>
-                  <span>${t('Objetivo (0 m)','Target (0 m)')}</span>
-                  <span class="text-red">${t('+14 m Derecha (Push) →','+14 m Right (Push) →')}</span>
+                  <span>${t('← Pull','← Pull')}</span>
+                  <span>${t('Objetivo','Target')}</span>
+                  <span class="text-red">${t('+14 m Push →','+14 m Push →')}</span>
                 </div>
                 <div class="ai-bias-track">
                   <span class="ai-bias-center"></span>
@@ -455,7 +455,7 @@ function aiConsole() {
             <div class="ai-actions-wrap">
               <span class="ai-actions-title">${t('EXPLORAR EN DETALLE:','EXPLORE IN DETAIL:')}</span>
               <div class="ai-action-chips">
-                <button type="button" class="action-chip" data-ai-target="2">📋 ${t('Diseñar rutina de corrección H7-H8','Design 7-8 Iron Correction Drill')}</button>
+                <button type="button" class="action-chip" data-ai-target="2">📋 ${t('Rutina de corrección H7-H8','7-8 Iron Correction Drill')}</button>
                 <button type="button" class="action-chip" data-ai-target="0">⚖️ ${t('Volver al balance general SG','Return to SG Balance')}</button>
               </div>
             </div>
@@ -507,7 +507,7 @@ function aiConsole() {
               <span class="ai-actions-title">${t('EXPLORAR EN DETALLE:','EXPLORE IN DETAIL:')}</span>
               <div class="ai-action-chips">
                 <button type="button" class="action-chip" data-ai-target="0">⚖️ ${t('Volver al balance general SG','Return to SG Balance')}</button>
-                <button type="button" class="action-chip" data-ai-target="1">🎯 ${t('Ver telemetría de Hierros 7 y 8','View 7 & 8 Iron Dispersion')}</button>
+                <button type="button" class="action-chip" data-ai-target="1">🎯 ${t('Ver dispersión Hierros 7 y 8','View 7 & 8 Iron Dispersion')}</button>
               </div>
             </div>
           </div>
