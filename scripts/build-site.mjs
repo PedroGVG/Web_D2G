@@ -100,7 +100,7 @@ function hero(page) {
   const photoAlt = coach
     ? t('Un instructor acompaña a una joven golfista durante una sesión de práctica', 'An instructor guides a young golfer during practice')
     : home
-    ? t('Gemelo digital y telemetría 3D de golf con trazador balístico de bola', 'Digital twin and 3D golf telemetry with ballistic ball flight tracer')
+    ? t('Strokesaver con zonas de riesgo táctico y valores de Strokes Gained', 'Strokesaver with tactical risk zones and Strokes Gained values')
     : t('Golfista terminando su swing con la luz del atardecer', 'Golfer finishing a swing in the evening light');
 
   const photoWidth = coach ? 1400 : (home ? 1376 : 1600);
