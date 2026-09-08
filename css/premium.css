@@ -53,6 +53,7 @@
 .hero-strokesaver-stage .hero-photo{object-fit:cover;object-position:center;transition:transform .6s cubic-bezier(0.16,1,0.3,1)}
 .hero-strokesaver-stage:hover .hero-photo{transform:scale(1.02)}
 .hero-strokesaver-stage:after{background:radial-gradient(circle at center,transparent 50%,rgba(6,9,7,0.5) 100%),linear-gradient(180deg,rgba(6,9,7,0.1) 0%,transparent 40%,rgba(6,9,7,0.75) 100%)}
+.hero-strokesaver-stage .hero-insight{display:none}
 .hero-actions .hero-cta-main{min-width:180px}
 .hero-actions .hero-cta-coach{background:rgba(22,31,24,.6);border:1px solid rgba(197,160,89,.35);color:#eeeee5}
 .hero-actions .hero-cta-coach:hover{background:#253327;border-color:var(--gold);color:#ffffff}

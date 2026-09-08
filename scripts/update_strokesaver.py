@@ -3,7 +3,7 @@
 from pathlib import Path
 from PIL import Image, ImageOps
 
-SOURCE_IMAGE = Path(r"C:\Users\Pit\.gemini\antigravity\brain\f3e34cdc-f247-4556-9bd7-43ddf6d825e4\d2g_brand_strokesaver_1788889086513.jpg")
+SOURCE_IMAGE = Path(r"C:\Users\Pit\.gemini\antigravity\brain\f3e34cdc-f247-4556-9bd7-43ddf6d825e4\golfer_sg_clean_1788890112729.jpg")
 TARGET_DIR = Path(__file__).resolve().parents[1] / "assets" / "editorial"
 
 def main():
