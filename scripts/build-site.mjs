@@ -272,14 +272,14 @@ function product() {
     t('Todas las Áreas & Matriz de Putting','All Game Areas & Putting Matrix')
   ];
   const titles = [
-    t('Scatter Plots y elipses.<br>Apunta con certeza estadística.','Scatter plots and ellipses.<br>Aim with statistical certainty.'),
-    t('Distancias reales de carry.<br>Sin solapamientos ni huecos.','True carry distances.<br>No gaps, no guesswork.'),
-    t('Desglose de cada área.<br>Matriz de slope y Strokes Gained.','Every area broken down.<br>Slope matrix and Strokes Gained.')
+    t('Scatter Plots y elipses. <br>Apunta con certeza estadística.','Scatter plots and ellipses. <br>Aim with statistical certainty.'),
+    t('Distancias reales de carry. <br>Sin solapamientos ni huecos.','True carry distances. <br>No gaps, no guesswork.'),
+    t('Desglose de cada área. <br>Matriz de slope y Strokes Gained.','Every area broken down. <br>Slope matrix and Strokes Gained.')
   ];
   const descriptions = [
-    t('Visualiza la dispersión real de cada palo con scatter plots y elipses para apuntar con margen óptimo.', 'Visualize true club dispersion with scatter plots and radar ellipses to aim with optimal margin.'),
-    t('Mide el carry real de tu bolsa en el campo para eliminar solapamientos y brechas de distancia.', 'Measure true on-course carry to eliminate distance overlaps and gaps between clubs.'),
-    t('Telemetría completa en las cuatro áreas del juego y análisis de putt por pendiente para erradicar el tripateo.', 'Complete telemetry across all four game areas and slope-based putting analysis to eliminate 3-putts.')
+    t('Dispersión real de cada palo para apuntar con margen óptimo y evitar fallos críticos.', 'True club dispersion to aim with optimal margin and avoid costly misses.'),
+    t('Mide el carry real de tu bolsa en el campo para eliminar dudas entre palos.', 'Measure true on-course carry to remove club distance doubts.'),
+    t('Telemetría en las cuatro áreas y matriz de caída para erradicar el tripateo.', 'Full-game telemetry and slope matrix to eliminate 3-putts.')
   ];
   const images = ['screen-dispersion','screen-gap','screen-putt'];
   return `<section class="section section-light product-section" id="producto">
