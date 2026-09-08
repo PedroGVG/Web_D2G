@@ -149,11 +149,6 @@ function strategy() {
 
     <div class="strategy-scroll-track" id="strategy-track">
       <div class="strategy-sticky-stage">
-        <div class="strategy-scroll-cue" aria-hidden="true">
-          <span class="scroll-cue-beacon"></span>
-          <span class="scroll-cue-text" data-strategy-scroll-text>${t('Haz scroll para ver la opción alternativa','Scroll to view alternative option')}</span>
-          <span class="scroll-cue-arrow" data-strategy-scroll-arrow>↓</span>
-        </div>
         <div class="course-stage-fullbleed" data-course-strategy="controlled">
           <div class="course-canvas-wrap">
             <img class="course-photo" src="/assets/hero-hole-sg-1200.webp" srcset="/assets/hero-hole-sg-480.webp 480w, /assets/hero-hole-sg-800.webp 800w, /assets/hero-hole-sg-1200.webp 1200w" sizes="(max-width: 760px) 100vw, 780px" width="1200" height="805" loading="lazy" alt="${t('Mapa táctico de hoyo de golf a pantalla completa','Full-screen tactical golf hole map')}">
@@ -293,11 +288,8 @@ function product() {
         <div>${eyebrow(t('04 / Dentro de Data2Gain','04 / Inside Data2Gain'))}<h2>${t('La diferencia está<br>en lo que descubres.','The difference is<br>what you discover.')}</h2></div>
         <p>${t('Pantallas del producto.<br>Conclusiones que puedes llevar al campo.','Screens from the product.<br>Insights you can take to the course.')}</p>
       </div>
-      <div class="product-tabs-bar">
-        <div class="product-tabs-eyecue"><span class="eyecue-beacon" aria-hidden="true"></span>${t('Explora cada pantalla interactiva · Haz clic en 02 o 03:','Explore each interactive screen · Click 02 or 03:')}</div>
-        <div class="product-tabs" role="tablist" aria-label="${t('Explorar funciones','Explore features')}">
-          ${tabs.map((text,i)=>`<button id="product-tab-${i}" type="button" role="tab" aria-selected="${i === 0}" aria-controls="product-panel-${i}" tabindex="${i === 0 ? '0' : '-1'}" data-product-tab="${i}"><span class="tab-num">0${i+1}</span><span class="tab-label">${text}</span><span class="tab-click-pill" data-tab-hint="${i}"${i === 0 ? ' style="display:none"' : ''} aria-hidden="true"><span class="tab-pulse-dot"></span>${t('Ver','View')}</span></button>`).join('')}
-        </div>
+      <div class="product-tabs" role="tablist" aria-label="${t('Explorar funciones','Explore features')}">
+        ${tabs.map((text,i)=>`<button id="product-tab-${i}" type="button" role="tab" aria-selected="${i === 0}" aria-controls="product-panel-${i}" tabindex="${i === 0 ? '0' : '-1'}" data-product-tab="${i}"><span class="tab-num">0${i+1}</span><span class="tab-label">${text}</span></button>`).join('')}
       </div>
       ${tabs.map((_,i)=>`<div class="product-panel" id="product-panel-${i}" role="tabpanel" aria-labelledby="product-tab-${i}" tabindex="0"${i ? ' hidden' : ''}><div class="product-screen">${screenshot(images[i],tabs[i])}<p class="screen-caption">${t('Captura de Data2Gain · Ejemplo de análisis','Data2Gain screenshot · Example analysis')}</p></div><div class="product-copy"><h3>${titles[i]}</h3><p>${descriptions[i]}</p><a class="text-link" href="${app}" data-track="app_open">${t('Explorar la app','Explore the app')}${arrow}</a></div></div>`).join('')}
     </div>

@@ -38,9 +38,7 @@ const strategyData={
     summaryTeeClass:'text-green',
     summaryApproach:t('Hierro 7 a centro','7-Iron to center'),
     summaryScore:t('PAR Seguro (+0.42 SG)','Safe PAR (+0.42 SG)'),
-    summaryScoreClass:'text-green',
-    scrollText:t('Haz scroll para ver la opción alternativa','Scroll to view alternative option'),
-    scrollArrow:'↓'
+    summaryScoreClass:'text-green'
   },
   aggressive:{
     pinTee:t('Driver · 280 yd forzado','Forced Driver · 280 yd'),
@@ -54,9 +52,7 @@ const strategyData={
     summaryTeeClass:'text-red',
     summaryApproach:t('Wedge forzado a bandera','Forced Wedge to pin'),
     summaryScore:t('BOGEY o Peor (−0.65 SG)','BOGEY or Worse (−0.65 SG)'),
-    summaryScoreClass:'text-red',
-    scrollText:t('Haz scroll hacia arriba para volver a control','Scroll up to return to smart control'),
-    scrollArrow:'↑'
+    summaryScoreClass:'text-red'
   }
 };
 
@@ -106,12 +102,6 @@ function applyStrategy(key,fromScroll=false){
     summaryScore.textContent=data.summaryScore;
     summaryScore.className=data.summaryScoreClass;
   }
-
-  const scrollText=document.querySelector('[data-strategy-scroll-text]');
-  if(scrollText)scrollText.textContent=data.scrollText;
-
-  const scrollArrow=document.querySelector('[data-strategy-scroll-arrow]');
-  if(scrollArrow)scrollArrow.textContent=data.scrollArrow;
 
   track('strategy_change',{strategy:key,trigger:fromScroll?'scroll':'click'});
 }
@@ -179,8 +169,6 @@ function activateProduct(index,focus=false){
     tab.tabIndex=selected?0:-1;
     const panel=document.getElementById(tab.getAttribute('aria-controls'));
     if(panel)panel.hidden=!selected;
-    const hint=tab.querySelector('.tab-click-pill');
-    if(hint)hint.style.display=selected?'none':'inline-flex';
   });
   if(focus)tabs[index].focus();
   track('product_view',{feature:tabs[index].dataset.productTab});
