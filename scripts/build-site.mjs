@@ -62,13 +62,13 @@ function hero(page) {
     : t('Para jugadores', 'For players');
 
   const desc = home
-    ? t('Descubre dónde ganas o pierdes golpes con analítica de precisión y telemetría de Tour.', 'Discover where you gain or lose strokes with precision analytics and Tour telemetry.')
+    ? t('Ve más allá de las estadísticas convencionales: telemetría de Tour y analítica de precisión para decidir con certeza.', 'Go beyond conventional statistics: Tour telemetry and precision analytics to decide with confidence.')
     : coach
     ? t('Strokes Gained y telemetría de dispersión para tus clases, en una plataforma 100% gratuita.', 'Strokes Gained and dispersion telemetry for your lessons on a 100% free platform.')
     : t('Descubre tus patrones de juego con Strokes Gained, dispersión real e IA aplicada a tus datos.', 'Uncover your playing patterns with Strokes Gained, true dispersion and game-context AI.');
 
   const actions = home
-    ? link(route('players'), t('Para jugadores', 'For players'), 'gold', 'audience_players') + link(route('coaches'), t('Para coaches (Gratis)', 'For coaches (Free)'), 'outline', 'audience_coaches')
+    ? link(route('players'), t('Para jugadores', 'For players'), 'gold hero-cta-main', 'audience_players') + link(route('coaches'), t('Para coaches (Gratis)', 'For coaches (Free)'), 'outline hero-cta-coach', 'audience_coaches')
     : coach
     ? link(app, t('Acceder Gratis como Coach', 'Get Free Coach Access'), 'gold', 'coach_app')
     : link(app, t('Empezar con Data2Gain', 'Get started with Data2Gain'), 'gold', 'app_open');
@@ -87,14 +87,39 @@ function hero(page) {
   const insightStrong = coach ? t('Diagnóstico objetivo de cada alumno', 'Objective diagnosis for each player') : t('Encuentra el patrón en tus datos', 'Find the pattern in your data');
   const insightDetail = coach ? t('Planes de práctica basados en datos', 'Data-backed practice routines') : t('Dispersión · Strokes Gained · IA', 'Dispersion · Strokes Gained · AI');
 
+  const photoSrc = coach
+    ? '/assets/editorial/coaching.jpg'
+    : home
+    ? '/assets/editorial/strokesaver-22c.webp'
+    : '/assets/editorial/golfer.webp';
+
+  const photoSrcset = home
+    ? ' srcset="/assets/editorial/strokesaver-22c-800.webp 800w, /assets/editorial/strokesaver-22c.webp 1376w" sizes="(max-width: 760px) 100vw, 52vw"'
+    : '';
+
+  const photoAlt = coach
+    ? t('Un instructor acompaña a una joven golfista durante una sesión de práctica', 'An instructor guides a young golfer during practice')
+    : home
+    ? t('Strokesaver del siglo XXII con telemetría LIDAR y análisis topográfico de hoyo', '22nd-century strokesaver with LIDAR telemetry and topographic hole analysis')
+    : t('Golfista terminando su swing con la luz del atardecer', 'Golfer finishing a swing in the evening light');
+
+  const photoWidth = coach ? 1400 : (home ? 1376 : 1600);
+  const photoHeight = coach ? 1845 : (home ? 768 : 1067);
+
+  const photoCaption1 = home
+    ? t('Strokesaver Siglo XXII · Telemetría LIDAR', '22nd-Century Strokesaver · LIDAR Telemetry')
+    : t('Una nueva forma de ver el golf', 'A new perspective on golf');
+
+  const photoCaption2 = home ? 'H16 — PAR 4' : '01 — D2G';
+
   return `<section class="hero ${home ? 'hero-home' : 'hero-detail'}"><div class="container hero-grid"><div class="hero-copy">
     ${eyebrow(eyebrowText)}
     <h1>${title}</h1><p class="hero-description">${desc}</p>
     <div class="hero-actions">${actions}</div>
     ${platformStrip()}
     <p class="hero-footnote">${footnote}</p>
-    </div><div class="hero-visual ${coach ? 'hero-coaching' : ''}"><img class="hero-photo" src="/assets/editorial/${coach ? 'coaching.jpg' : 'golfer.webp'}" alt="${coach ? t('Un instructor acompaña a una joven golfista durante una sesión de práctica','An instructor guides a young golfer during practice') : t('Golfista terminando su swing con la luz del atardecer','Golfer finishing a swing in the evening light')}" width="${coach ? 1400 : 1600}" height="${coach ? 1845 : 1067}" fetchpriority="high">
-    <div class="photo-caption"><span>${t('Una nueva forma de ver el golf','A new perspective on golf')}</span><span>01 — D2G</span></div>
+    </div><div class="hero-visual ${coach ? 'hero-coaching' : (home ? 'hero-strokesaver-stage' : '')}"><img class="hero-photo" src="${photoSrc}"${photoSrcset} alt="${esc(photoAlt)}" width="${photoWidth}" height="${photoHeight}" fetchpriority="high">
+    <div class="photo-caption"><span>${photoCaption1}</span><span>${photoCaption2}</span></div>
     <a class="hero-insight" href="${coach ? '#enfoque' : '#producto'}">${insightIcon}<div><span class="eyebrow">${insightEyebrow}</span><strong>${insightStrong}</strong><span class="insight-detail">${insightDetail}</span></div></a>
     </div></div><div class="container hero-baseline"><span>${t('SIENTE EL GOLPE. ENTIENDE EL JUEGO.','FEEL THE SHOT. UNDERSTAND THE GAME.')}</span><a href="${coach ? '#enfoque' : '#como-funciona'}">${t('Explora Data2Gain','Explore Data2Gain')}<span aria-hidden="true">↓</span></a></div></section>`;
 }
@@ -102,7 +127,7 @@ function hero(page) {
 function how() {
   const steps = [
     [t('Juega. Registra.','Play. Record.'),t('Registra tu ronda en la app golpe a golpe en pocos minutos.','Record your round shot by shot in just a few minutes.')],
-    [t('Encuentra el patrón.','Find the pattern.'),t('Visualiza al instante dónde ganas o pierdes golpes frente a tu referencia.','Instantly see where you gain or lose strokes against your benchmark.')],
+    [t('Encuentra el patrón.','Find the pattern.'),t('Descubre patrones profundos y la causa real detrás de cada fallo.','Uncover deep patterns and the true cause behind every miss.')],
     [t('Decide el siguiente paso.','Choose your next step.'),t('Convierte los datos en un plan de práctica con foco inmediato.','Turn your data into a focused practice routine right away.')]
   ];
   return `<section class="section section-light" id="como-funciona"><div class="container"><div class="section-heading horizontal">${eyebrow(t('01 / Del dato a la decisión','01 / From data to decisions'))}<h2>${t('Más claridad.<br>En cada paso.','More clarity.<br>At every step.')}</h2><p>${t('No necesitas saber de estadística.<br>Solo querer entender mejor tu golf.','You do not need to be a statistician.<br>Just curious about your golf.')}</p></div><div class="steps">${steps.map(([title,body],i)=>`<article class="step"><span class="step-number">0${i+1}</span><h3>${title}</h3><p>${body}</p></article>`).join('')}</div></div></section>`;
@@ -538,7 +563,7 @@ function info() {
 
 function document(page) {
   const titles = { home:t('Data2Gain | Tu juego. Tus datos. Tu ventaja.','Data2Gain | Your game. Your data. Your advantage.'), players:t('Data2Gain para jugadores | Entiende tu golf','Data2Gain for players | Understand your golf'), coaches:t('Data2Gain para coaches y academias (100% Gratis)','Data2Gain for coaches & academies (100% Free)'), info:t('Información y contacto | Data2Gain','Information & contact | Data2Gain') };
-  const description = page === 'coaches' ? t('Analítica de golf avanzada 100% gratuita para coaches y academias. Strokes Gained, dispersión y telemetría de tus alumnos sin coste.','Advanced golf analytics 100% free for coaches and academies. Strokes Gained, dispersion and player telemetry at zero cost.') : t('Encuentra el patrón. Descubre dónde ganas o pierdes golpes con insights avanzados. Strokes Gained, dispersión y análisis con IA para jugadores y coaches.','Find the pattern. Discover where you gain or lose strokes with advanced insights. Strokes Gained, dispersion and AI analysis for players and coaches.');
+  const description = page === 'coaches' ? t('Analítica de golf avanzada 100% gratuita para coaches y academias. Strokes Gained, dispersión y telemetría de tus alumnos sin coste.','Advanced golf analytics 100% free for coaches and academies. Strokes Gained, dispersion and player telemetry at zero cost.') : t('Encuentra el patrón. Telemetría de Tour, dispersión real y análisis con IA para transformar tus datos en mejores decisiones en el campo.','Find the pattern. Tour telemetry, true dispersion and AI analysis to turn your data into better on-course decisions.');
   const content = page === 'home' ? hero(page)+how()+audiences()+strategy()+product()+ai()+pricing()+faq()+closing(page) : page === 'players' ? hero(page)+how()+benchmark()+product()+ai()+pricing()+faq()+closing(page) : page === 'coaches' ? hero(page)+coachContent()+closing(page) : info();
   const schema = { '@context':'https://schema.org', '@type': page === 'info' ? 'ContactPage' : 'WebPage', name:titles[page], description, url:origin+route(page), inLanguage:lang, isPartOf:{'@type':'WebSite',name:'Data2Gain',url:origin} };
   return `<!doctype html>\n<html lang="${lang}"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>${titles[page]}</title><meta name="description" content="${esc(description)}"><meta name="theme-color" content="#101412"><link rel="canonical" href="${origin+route(page)}"><link rel="alternate" hreflang="es" href="${origin+route(page,'es')}"><link rel="alternate" hreflang="en" href="${origin+route(page,'en')}"><link rel="alternate" hreflang="x-default" href="${origin+route(page,'es')}"><link rel="icon" href="/favicon.ico" sizes="any"><link rel="apple-touch-icon" href="/apple-touch-icon.png"><link rel="manifest" href="/site-${lang}.webmanifest"><meta property="og:type" content="website"><meta property="og:title" content="${titles[page]}"><meta property="og:description" content="${esc(description)}"><meta property="og:url" content="${origin+route(page)}"><meta property="og:image" content="https://data2gain.com/assets/hero-hole-sg.jpg"><meta property="og:locale" content="${lang==='es'?'es_ES':'en_US'}"><meta name="twitter:card" content="summary_large_image"><meta name="twitter:title" content="${titles[page]}"><meta name="twitter:description" content="${esc(description)}"><meta name="twitter:image" content="https://data2gain.com/assets/hero-hole-sg.jpg"><link rel="stylesheet" href="/css/premium.css?v=6"><script type="application/ld+json">${JSON.stringify(schema)}</script><script type="module" src="/js/premium.js?v=4"></script></head><body class="page-${page}">${header(page)}<main id="main">${content}</main>${footer()}</body></html>\n`;
