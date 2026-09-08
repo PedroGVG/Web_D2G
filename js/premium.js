@@ -360,8 +360,13 @@ function initAiConsole() {
   const sendBtn = document.querySelector('.ai-send-btn');
   const inputBox = document.querySelector('.ai-input-box');
   const placeholder = document.querySelector('[data-ai-placeholder]');
+  const aiTrack = document.getElementById('ai-track');
 
   if (!promptTabs.length || !panels.length) return;
+
+  let currentAiIndex = 0;
+  let isAiManualScrollLocked = false;
+  let aiManualScrollTimer = null;
 
   const placeholders = language === 'es' ? [
     'Preguntar sobre tus rondas, palos o estrategia...',
@@ -373,7 +378,10 @@ function initAiConsole() {
     'Generate 45-min practice routine...'
   ];
 
-  function setScenario(index, focusTab = false) {
+  function setScenario(index, focusTab = false, fromScroll = false) {
+    if (fromScroll && index === currentAiIndex) return;
+    currentAiIndex = index;
+
     promptTabs.forEach((tab, i) => {
       const active = i === index;
       tab.classList.toggle('is-active', active);
@@ -389,15 +397,41 @@ function initAiConsole() {
       placeholder.textContent = placeholders[index];
     }
 
+    if (window.innerWidth <= 760) {
+      promptTabs[index]?.scrollIntoView({ behavior: 'smooth', inline: 'center', block: 'nearest' });
+    }
+
     if (focusTab && promptTabs[index]) {
       promptTabs[index].focus();
     }
 
-    track('ai_prompt_change', { promptIndex: index });
+    track('ai_prompt_change', { promptIndex: index, trigger: fromScroll ? 'scroll' : 'click' });
+  }
+
+  function selectAiScenario(index, focusTab = false) {
+    isAiManualScrollLocked = true;
+    clearTimeout(aiManualScrollTimer);
+    setScenario(index, focusTab);
+
+    if (aiTrack && window.innerWidth <= 760) {
+      const rect = aiTrack.getBoundingClientRect();
+      const scrollTop = window.scrollY || window.pageYOffset;
+      const headerOffset = 72;
+      const totalScroll = aiTrack.offsetHeight - window.innerHeight;
+      if (totalScroll > 0) {
+        const targetProgress = index === 0 ? 0.12 : index === 1 ? 0.50 : 0.88;
+        const targetY = scrollTop + rect.top - headerOffset + (totalScroll * targetProgress);
+        window.scrollTo({ top: targetY, behavior: 'smooth' });
+      }
+    }
+
+    aiManualScrollTimer = setTimeout(() => {
+      isAiManualScrollLocked = false;
+    }, 750);
   }
 
   promptTabs.forEach((tab, index) => {
-    tab.addEventListener('click', () => setScenario(index));
+    tab.addEventListener('click', () => selectAiScenario(index));
     tab.addEventListener('keydown', event => {
       let next = index;
       if (event.key === 'ArrowRight') next = (index + 1) % promptTabs.length;
@@ -406,7 +440,7 @@ function initAiConsole() {
       else if (event.key === 'End') next = promptTabs.length - 1;
       else return;
       event.preventDefault();
-      setScenario(next, true);
+      selectAiScenario(next, true);
     });
   });
 
@@ -414,7 +448,7 @@ function initAiConsole() {
     chip.addEventListener('click', () => {
       const target = Number.parseInt(chip.dataset.aiTarget, 10);
       if (!Number.isNaN(target) && target >= 0 && target < promptTabs.length) {
-        setScenario(target, true);
+        selectAiScenario(target, true);
       }
     });
   });
@@ -422,7 +456,7 @@ function initAiConsole() {
   function cycleNext() {
     const current = promptTabs.findIndex(t => t.getAttribute('aria-selected') === 'true');
     const next = (current + 1) % promptTabs.length;
-    setScenario(next, false);
+    selectAiScenario(next, false);
   }
 
   sendBtn?.addEventListener('click', event => {
@@ -440,5 +474,43 @@ function initAiConsole() {
       cycleNext();
     }
   });
+
+  if (aiTrack) {
+    let aiTicking = false;
+    function onAiScroll() {
+      if (window.innerWidth > 760 || isAiManualScrollLocked) return;
+      const rect = aiTrack.getBoundingClientRect();
+      const headerOffset = 72;
+      const totalScroll = aiTrack.offsetHeight - window.innerHeight;
+      if (totalScroll <= 0) return;
+
+      const scrolled = headerOffset - rect.top;
+      const progress = scrolled / totalScroll;
+
+      let targetScenario = currentAiIndex;
+      if (currentAiIndex === 0) {
+        if (progress >= 0.33) targetScenario = 1;
+      } else if (currentAiIndex === 1) {
+        if (progress < 0.28) targetScenario = 0;
+        else if (progress >= 0.66) targetScenario = 2;
+      } else if (currentAiIndex === 2) {
+        if (progress < 0.62) targetScenario = 1;
+      }
+
+      if (targetScenario !== currentAiIndex) {
+        setScenario(targetScenario, false, true);
+      }
+    }
+
+    window.addEventListener('scroll', () => {
+      if (!aiTicking) {
+        window.requestAnimationFrame(() => {
+          onAiScroll();
+          aiTicking = false;
+        });
+        aiTicking = true;
+      }
+    }, { passive: true });
+  }
 }
 initAiConsole();

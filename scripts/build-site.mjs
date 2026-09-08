@@ -534,7 +534,11 @@ function ai() {
     <p>${t('Conecta tus preguntas con el análisis de tus rondas. El agente de Data2Gain te ayuda a interpretar los datos, identifica fugas críticas con gráficos y tablas, y te recomienda qué trabajar después.','Connect your questions with your round analysis. The Data2Gain agent helps you interpret the data, spots critical leaks with charts and tables, and recommends what to work on next.')}</p>
     <a class="text-link" href="${app}" data-track="app_open">${t('Probar el agente IA en la app','Try the AI agent in the app')}${arrow}</a>
   </div>
-  ${aiConsole()}
+  <div class="ai-scroll-track" id="ai-track">
+    <div class="ai-sticky-stage">
+      ${aiConsole()}
+    </div>
+  </div>
   </div></section>`;
 }
 
