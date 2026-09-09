@@ -117,3 +117,31 @@
   .ai-real-grid .ai-card-body{box-sizing:border-box}
   .ai-real-grid .ai-screen-img{width:100%;max-width:none;aspect-ratio:4 / 3;object-fit:cover;object-position:top center}
 }
+
+/* Readable, consistent type scale: supporting copy never drops below 12px. */
+.eyebrow,.platform-caption,.hero-footnote,.photo-caption,.hero-insight .eyebrow,
+.insight-detail,.hero-baseline,.screen-caption,.ai-console-title,.ai-console-meta .meta-tag,
+.sim-pill-badge,.course-hud-badge,.hud-btn-stat,.hud-metric-label,.tactical-sub,
+.tactical-badge,.footer-bottom{font-size:12px}
+.main-nav{font-size:15px}.languages{font-size:13px}.lang-divider{font-size:12px}
+.platform-badge,.button,.audience-content .text-link,.zoom-indicator,.product-detail p{font-size:14px}
+.tactical-card strong,.hud-metric strong,.hud-btn-copy strong{font-size:14px}
+
+@media(max-width:760px){
+  .page-home .hero-home .hero-copy .eyebrow,.page-home .hero-home .hero-footnote,
+  .page-home .hero-home .photo-caption,.nav-mobile-platforms .platform-caption{font-size:12px}
+  .page-home .hero-home .hero-actions .hero-cta-main,.page-home .hero-home .hero-actions .hero-cta-coach,
+  .nav-mobile-platforms .platform-badge{font-size:13px}
+  .ai-prompt-btn,.chat-bubble,.agent-text,.ai-bar-val,.ai-drill-desc,.action-chip{font-size:12px}
+  .ai-chart-header .mono-text,.ai-radar-header .mono-text,.ai-bar-label,.ai-bias-meta,
+  .ai-radar-stat span,.ai-radar-stat .badge-status{font-size:10px}
+  .tactical-card strong,.hud-btn-copy strong,.hud-metric strong{font-size:12px}
+  .tactical-sub,.tactical-badge,.hud-btn-stat,.hud-metric-label{font-size:10px}
+}
+
+@media(max-width:374px){
+  .chart-heading,.tactical-card strong,.hud-btn-copy strong,.hud-metric strong,
+  .sim-pill-badge,.hud-btn-stat{font-size:10px}
+  .page-home .hero-home .hero-actions .hero-cta-main,.page-home .hero-home .hero-actions .hero-cta-coach,
+  .platform-badge{font-size:12px}
+}
