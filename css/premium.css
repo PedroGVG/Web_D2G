@@ -120,7 +120,7 @@
 
 /* Readable, consistent type scale: supporting copy never drops below 12px. */
 .eyebrow,.platform-caption,.hero-footnote,.photo-caption,.hero-insight .eyebrow,
-.insight-detail,.hero-baseline,.screen-caption,.ai-console-title,.ai-console-meta .meta-tag,
+.insight-detail,.hero-baseline,.ai-console-title,.ai-console-meta .meta-tag,
 .sim-pill-badge,.course-hud-badge,.hud-btn-stat,.hud-metric-label,.tactical-sub,
 .tactical-badge,.footer-bottom{font-size:12px}
 .main-nav{font-size:15px}.languages{font-size:13px}.lang-divider{font-size:12px}
