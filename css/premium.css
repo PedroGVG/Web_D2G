@@ -146,6 +146,6 @@
   .platform-badge{font-size:12px}
 }
 
-/* Keep the page locked to the viewport: vertical scroll only. */
-html,body{width:100%;max-width:100%;overflow-x:hidden;overscroll-behavior-x:none}
+/* Lock lateral movement without creating a scroll container that breaks sticky stages. */
+html,body{width:100%;max-width:100%;overflow-x:clip;overscroll-behavior-x:none}
 body{touch-action:pan-y}
