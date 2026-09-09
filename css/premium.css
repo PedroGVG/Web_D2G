@@ -145,3 +145,7 @@
   .page-home .hero-home .hero-actions .hero-cta-main,.page-home .hero-home .hero-actions .hero-cta-coach,
   .platform-badge{font-size:12px}
 }
+
+/* Keep the page locked to the viewport: vertical scroll only. */
+html,body{width:100%;max-width:100%;overflow-x:hidden;overscroll-behavior-x:none}
+body{touch-action:pan-y}
