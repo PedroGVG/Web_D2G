@@ -63,20 +63,34 @@
 
 /* Hero Visual - Mobile Layout (100% visible & sharp) */
 @media(max-width:760px){
+  /* Keep the opening scene dark for the full visible viewport, including on
+     mobile browsers whose address bar expands or collapses. */
+  .page-home .hero-home{
+    min-height:calc(100svh - 72px);
+    display:flex;
+    flex-direction:column;
+  }
+  .page-home .hero-home .hero-grid{
+    flex:1 0 auto;
+    justify-content:space-evenly;
+  }
+  @supports (height:100dvh){
+    .page-home .hero-home{min-height:calc(100dvh - 72px)}
+  }
   .page-home .hero-home{position:relative;background:#080c09}
-  .page-home .hero-home .hero-grid{display:flex;flex-direction:column;gap:14px;align-items:stretch;padding-block:20px 18px}
+  .page-home .hero-home .hero-grid{display:flex;flex-direction:column;gap:20px;align-items:stretch;padding-block:28px 24px}
   .page-home .hero-home .hero-copy{display:contents}
   .page-home .hero-home .hero-copy .eyebrow{order:1;align-self:flex-start;display:inline-flex;align-items:center;gap:8px;margin-bottom:0;font-size:10.5px;letter-spacing:.08em;color:#c5a059;background:rgba(22,31,24,.7);border:1px solid rgba(197,160,89,.25);padding:4px 10px;border-radius:4px;backdrop-filter:blur(6px)}
   .page-home .hero-home .hero-copy .eyebrow::before{content:'';width:6px;height:6px;border-radius:50%;background:#00e89d;box-shadow:0 0 8px #00e89d;flex-shrink:0}
   .page-home .hero-home h1{order:2;font-size:clamp(28px,7.4vw,42px);line-height:1.1;letter-spacing:-.03em;max-width:520px;margin:0}
   .page-home .hero-home h1 em{color:#e0be77;font-style:normal;display:block}
   .page-home .hero-home .hero-description{display:none}
-  .page-home .hero-home .hero-visual{order:3;position:relative;width:100%;height:auto;aspect-ratio:16/9;margin-top:2px;border-radius:8px;overflow:hidden;border:1px solid rgba(197,160,89,.4);background:#060907;box-shadow:0 16px 40px rgba(0,0,0,.8),0 0 28px rgba(0,232,157,.08)}
+  .page-home .hero-home .hero-visual{order:3;position:relative;width:100%;height:auto;aspect-ratio:16/9;margin-top:6px;border-radius:8px;overflow:hidden;border:1px solid rgba(197,160,89,.4);background:#060907;box-shadow:0 16px 40px rgba(0,0,0,.8),0 0 28px rgba(0,232,157,.08)}
   .page-home .hero-home .hero-photo{position:relative;width:100%;height:100%;object-fit:cover;object-position:center;opacity:1;filter:contrast(1.05) brightness(1.02);display:block;transform:none}
   .page-home .hero-home .hero-visual:after{content:'';position:absolute;inset:0;pointer-events:none;background:radial-gradient(circle at center,transparent 65%,rgba(6,9,7,.35) 100%)}
   .page-home .hero-home .photo-caption{position:absolute;bottom:10px;left:12px;right:12px;top:auto;z-index:2;display:flex;justify-content:space-between;font-family:var(--mono);font-size:9px;letter-spacing:.05em;color:#d6ded4;background:rgba(10,15,12,.75);border:1px solid rgba(197,160,89,.2);padding:4px 10px;border-radius:4px;backdrop-filter:blur(6px)}
   .page-home .hero-home .hero-insight{display:none}
-  .page-home .hero-home .hero-actions{order:4;display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:2px;width:100%}
+  .page-home .hero-home .hero-actions{order:4;display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:6px;width:100%}
   .page-home .hero-home .hero-actions .hero-cta-main{min-height:44px;padding:10px 6px;font-size:clamp(11.5px,3.1vw,13.5px);font-weight:600;border-radius:6px;box-shadow:0 8px 24px rgba(197,160,89,.25);justify-content:center;width:100%;white-space:nowrap;gap:5px}
   .page-home .hero-home .hero-actions .hero-cta-main svg{width:15px;height:15px}
   .page-home .hero-home .hero-actions .hero-cta-coach{min-height:44px;padding:10px 6px;font-size:clamp(11px,2.9vw,12.5px);background:rgba(18,25,20,.65);border:1px solid rgba(197,160,89,.35);color:#eeeee5;justify-content:center;border-radius:6px;backdrop-filter:blur(4px);width:100%;white-space:nowrap;gap:5px}
@@ -92,8 +106,8 @@
   .nav-mobile-platforms .platform-badge:hover{border-color:var(--gold);color:#ffffff}
   .nav-mobile-platforms .platform-icon{width:14px;height:14px;color:var(--gold-bright)}
 
-  .page-home .hero-home .hero-footnote{order:5;font-size:10.5px;line-height:1.45;margin-top:2px;color:#7a8679;text-align:center}
-  .page-home .hero-home .hero-baseline{position:relative;z-index:2;border-top:1px solid rgba(255,255,255,.08);padding-block:14px 18px}
+  .page-home .hero-home .hero-footnote{order:5;font-size:10.5px;line-height:1.45;margin-top:6px;color:#7a8679;text-align:center}
+  .page-home .hero-home .hero-baseline{position:relative;z-index:2;margin-top:auto;border-top:1px solid rgba(255,255,255,.08);padding-block:16px 20px}
 }
 
 /* Mobile screenshot frames: keep every capture on the same visual footprint. */
