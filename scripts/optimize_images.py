@@ -7,13 +7,13 @@ Run from the repository root after installing Pillow:
 
 from pathlib import Path
 
-from PIL import Image, ImageOps
+from PIL import Image, ImageFilter, ImageOps
 
 
 ROOT = Path(__file__).resolve().parents[1]
 
 
-def write_variants(source: str, widths: tuple[int, ...], quality: int = 85) -> None:
+def write_variants(source: str, widths: tuple[int, ...], quality: int = 85, allow_upscale: bool = False) -> None:
     source_path = ROOT / source
 
     with Image.open(source_path) as opened:
@@ -21,11 +21,13 @@ def write_variants(source: str, widths: tuple[int, ...], quality: int = 85) -> N
         stem = source_path.with_suffix("")
 
         for width in widths:
-            if width > image.width:
+            if width > image.width and not allow_upscale:
                 continue
 
             height = round(image.height * width / image.width)
             resized = image.resize((width, height), Image.Resampling.LANCZOS)
+            if width > image.width:
+                resized = resized.filter(ImageFilter.UnsharpMask(radius=1.2, percent=115, threshold=1))
             output = stem.with_name(f"{stem.name}-{width}").with_suffix(".webp")
             output.parent.mkdir(parents=True, exist_ok=True)
             resized.save(
@@ -52,7 +54,7 @@ def main() -> None:
     )
     for language in ("es", "en"):
         for filename in screenshots:
-            write_variants(f"assets/screens/{language}/{filename}", (360, 800), quality=86)
+            write_variants(f"assets/screens/{language}/{filename}", (360, 800, 1200, 1600), quality=94, allow_upscale=True)
 
     for name in ("carlos", "sarah"):
         write_variants(f"assets/testimonial-{name}.jpg", (52, 104), quality=84)
