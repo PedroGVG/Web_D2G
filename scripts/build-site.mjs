@@ -262,7 +262,7 @@ function strategy() {
 }
 
 function screenshot(name, alt, extra = '') {
-  return `<button class="screenshot-button ${extra}" type="button" data-zoom="/assets/screens/${lang}/${name}.png" aria-label="${esc(t('Ampliar: ','Enlarge: ')+alt)}"><img src="/assets/screens/${lang}/${name}-800.webp" srcset="/assets/screens/${lang}/${name}-360.webp 360w, /assets/screens/${lang}/${name}-800.webp 800w" sizes="(max-width: 760px) 88vw, 44vw" alt="${esc(alt)}" width="800" height="900" loading="lazy"><span class="zoom-indicator">${diagonal}<span>${t('Ampliar','Enlarge')}</span></span></button>`;
+  return `<button class="screenshot-button ${extra}" type="button" data-zoom="/assets/screens/${lang}/${name}.png" aria-label="${esc(t('Ampliar: ','Enlarge: ')+alt)}"><img src="/assets/screens/${lang}/${name}-800.webp" srcset="/assets/screens/${lang}/${name}-360.webp 360w, /assets/screens/${lang}/${name}-800.webp 800w" sizes="(max-width: 760px) 88vw, (max-width: 1100px) 58vw, 820px" alt="${esc(alt)}" width="800" height="900" loading="lazy"><span class="zoom-indicator">${diagonal}<span>${t('Ampliar','Enlarge')}</span></span></button>`;
 }
 
 function product() {
