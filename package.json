@@ -8,5 +8,5 @@
     "start": "node scripts/serve.mjs",
     "check": "node --test tests/site.test.mjs"
   },
-  "engines": { "node": "22.x" }
+  "engines": { "node": ">=22.0.0" }
 }
