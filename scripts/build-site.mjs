@@ -108,7 +108,6 @@ function hero(page) {
   const photoHeight = coach ? 1845 : (home ? 768 : 1067);
 
   const photoCaption1 = t('Una nueva forma de ver el golf', 'A new perspective on golf');
-  const photoCaption2 = '01 — D2G';
 
   return `<section class="hero ${home ? 'hero-home' : 'hero-detail'}"><div class="container hero-grid"><div class="hero-copy">
     ${eyebrow(eyebrowText)}
@@ -117,7 +116,7 @@ function hero(page) {
     ${platformStrip()}
     <p class="hero-footnote">${footnote}</p>
     </div><div class="hero-visual ${coach ? 'hero-coaching' : (home ? 'hero-strokesaver-stage' : '')}"><img class="hero-photo" src="${photoSrc}"${photoSrcset} alt="${esc(photoAlt)}" width="${photoWidth}" height="${photoHeight}" fetchpriority="high">
-    <div class="photo-caption"><span>${photoCaption1}</span><span>${photoCaption2}</span></div>
+    <div class="photo-caption"><span>${photoCaption1}</span></div>
     <a class="hero-insight" href="${coach ? '#enfoque' : '#producto'}">${insightIcon}<div><span class="eyebrow">${insightEyebrow}</span><strong>${insightStrong}</strong><span class="insight-detail">${insightDetail}</span></div></a>
     </div></div><div class="container hero-baseline"><span>${t('SIENTE EL GOLPE. ENTIENDE EL JUEGO.','FEEL THE SHOT. UNDERSTAND THE GAME.')}</span><a href="${coach ? '#enfoque' : '#como-funciona'}">${t('Explora Data2Gain','Explore Data2Gain')}<span aria-hidden="true">↓</span></a></div></section>`;
 }
