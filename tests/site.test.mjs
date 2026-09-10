@@ -19,9 +19,9 @@ test('Every benchmark compares the same round; returned values cannot mutate the
   assert.throws(()=>compareRound('invalid'),RangeError);
   assert.throws(()=>compareRound('__proto__'),RangeError);
 });
-test('All nine public pages have valid local links, resources, anchors, metadata and language routes',async()=>{
+test('All twelve public pages have valid local links, resources, anchors, metadata and language routes',async()=>{
   const publicPages=await pages();
-  assert.equal(publicPages.length,9);
+  assert.equal(publicPages.length,12);
   for(const file of publicPages){
     const html=await readFile(file,'utf8');
     const locale=file.includes(`${path.sep}en${path.sep}`)?'en':'es';

@@ -18,6 +18,11 @@ RewriteRule ^$ /en/ [R=301,L,NE,QSD]
 RewriteCond %{QUERY_STRING} (^|&)lang=es(&|$) [NC]
 RewriteRule ^$ /es/ [R=301,L,NE,QSD]
 
+RewriteRule ^terminos/?$ /terminos-y-condiciones/ [R=301,L]
+RewriteRule ^terminos-condiciones/?$ /terminos-y-condiciones/ [R=301,L]
+RewriteRule ^terms/?$ /en/terms/ [R=301,L]
+RewriteRule ^terms-and-conditions/?$ /en/terms/ [R=301,L]
+
 RewriteRule ^v2/?$ /es/ [R=301,L]
 
 # Remove index.html from the root and localized public URLs.

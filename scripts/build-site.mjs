@@ -6,10 +6,13 @@ import { compareRound, round } from '../js/demo-data.mjs';
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const origin = 'https://data2gain.com';
 const app = 'https://app.data2gain.com/';
-const slugs = { es: { home: '', players: 'jugadores/', coaches: 'coaches/', info: 'informacion/' }, en: { home: '', players: 'players/', coaches: 'coaches/', info: 'information/' } };
+const slugs = { es: { home: '', players: 'jugadores/', coaches: 'coaches/', info: 'informacion/', terms: 'terminos-y-condiciones/' }, en: { home: '', players: 'players/', coaches: 'coaches/', info: 'information/', terms: 'terms/' } };
 let lang = 'es';
 const t = (es, en) => lang === 'es' ? es : en;
-const route = (page, locale = lang) => `/${locale}/${slugs[locale][page]}`;
+const route = (page, locale = lang) => {
+  if (page === 'terms' && locale === 'es') return '/terminos-y-condiciones/';
+  return `/${locale}/${slugs[locale][page]}`;
+};
 const esc = text => String(text).replaceAll('&', '&amp;').replaceAll('"', '&quot;').replaceAll('<', '&lt;').replaceAll('>', '&gt;');
 const arrow = '<svg viewBox="0 0 24 24" aria-hidden="true" fill="none"><path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>';
 const diagonal = '<svg viewBox="0 0 24 24" aria-hidden="true" fill="none"><path d="M6 18 18 6M6 6h12v12" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>';
@@ -43,7 +46,7 @@ function header(page) {
 }
 
 function footer() {
-  return `<footer class="site-footer"><div class="container"><div class="footer-top"><div><a class="brand-link" href="${route('home')}" aria-label="${t('Data2Gain, inicio','Data2Gain, home')}">${brand()}</a><p>${t('Tu juego. Tus datos. Tu siguiente paso.','Your game. Your data. Your next step.')}</p></div><nav aria-label="${t('Enlaces del pie','Footer navigation')}"><a href="${route('players')}">${t('Jugadores','Players')}</a><a href="${route('coaches')}">Coaches</a><a href="${route('home')}#precios">${t('Precios','Pricing')}</a><a href="mailto:info@data2gain.com">${t('Contacto','Contact')}</a></nav></div><div class="footer-bottom"><span>© 2026 Data2Gain</span><a href="${route('info')}">${t('Información y contacto','Information & contact')}</a><span class="footer-location">${t('Golf, con perspectiva.','A new perspective on golf.')}</span></div></div></footer>
+  return `<footer class="site-footer"><div class="container"><div class="footer-top"><div><a class="brand-link" href="${route('home')}" aria-label="${t('Data2Gain, inicio','Data2Gain, home')}">${brand()}</a><p>${t('Tu juego. Tus datos. Tu siguiente paso.','Your game. Your data. Your next step.')}</p></div><nav aria-label="${t('Enlaces del pie','Footer navigation')}"><a href="${route('players')}">${t('Jugadores','Players')}</a><a href="${route('coaches')}">Coaches</a><a href="${route('home')}#precios">${t('Precios','Pricing')}</a><a href="mailto:info@data2gain.com">${t('Contacto','Contact')}</a></nav></div><div class="footer-bottom"><span>© 2026 Data2Gain</span><a href="${route('info')}">${t('Información y contacto','Information & contact')}</a><a href="${route('terms')}">${t('Términos y condiciones','Terms & Conditions')}</a><span class="footer-location">${t('Golf, con perspectiva.','A new perspective on golf.')}</span></div></div></footer>
   <dialog class="image-dialog" aria-labelledby="image-dialog-title"><div class="dialog-top"><p id="image-dialog-title">${t('Detalle del producto','Product detail')}</p><button type="button" class="dialog-close" aria-label="${t('Cerrar imagen','Close image')}">×</button></div><img alt=""></dialog>`;
 }
 
@@ -577,16 +580,181 @@ function coachContent() {
   <section class="section section-light"><div class="container"><div class="section-heading"><div>${eyebrow(t('Servicios especializados opcionales','Optional specialized services'))}<h2>${t('Del análisis<br>a tu método.','From analysis<br>to your method.')}</h2><p>${t('La plataforma es 100% gratuita para coaches. Si además deseas acompañamiento personalizado:','The platform is 100% free for coaches. If you also want personalized support:')}</p></div></div><div class="services-list">${[[t('Consultoría Estratégica','Strategic Consulting'),t('Te ayudamos a interpretar los datos y a incorporarlos a la planificación de alto rendimiento con tus jugadores.','Get help interpreting data and bringing it into high-performance planning with your players.')],[t('Formación y Workshops','Workshops & Training'),t('Sesiones para academias que quieren integrar Strokes Gained y análisis predictivo en su enseñanza.','Sessions for academies looking to integrate Strokes Gained and predictive analytics into their coaching.')]].map(([h,p],i)=>`<article><span class="service-number">0${i+1}</span><div><h3>${h}</h3><p>${p}</p></div><a class="text-link" href="${mail(h)}" data-track="coach_contact">${t('Consultar por email','Enquire by email')}${diagonal}</a></article>`).join('')}</div></div></section>`;
 }
 
+function terms() {
+  return `<section class="section section-light info-page terms-page"><div class="container narrow">
+    ${eyebrow(t('Aviso Legal y Condiciones de Servicio', 'Legal Notice & Terms of Service'))}
+    <h1>${t('Términos y<br>Condiciones.', 'Terms &<br>Conditions.')}</h1>
+    <p class="lead">${t('Condiciones generales de uso, contratación y exención de responsabilidad de la plataforma y aplicaciones Data2Gain.', 'General terms of use, subscription and liability disclaimers for Data2Gain platform and applications.')}</p>
+
+    <div class="terms-meta-card">
+      <div class="terms-meta-item">
+        <span class="terms-meta-label">${t('URL Oficial Permanente', 'Permanent Official URL')}</span>
+        <strong>https://data2gain.com/terminos-y-condiciones/</strong>
+      </div>
+      <div class="terms-meta-item">
+        <span class="terms-meta-label">${t('Última actualización', 'Last updated')}</span>
+        <span>${t('10 de septiembre de 2026 · Versión 1.0 en vigor', 'September 10, 2026 · Version 1.0 in effect')}</span>
+      </div>
+    </div>
+
+    <div class="legal-callout">
+      <strong>${t('AVISO IMPORTANTE PARA EL USUARIO:', 'IMPORTANT NOTICE FOR USERS:')}</strong>
+      <p>${t('Data2Gain es un software de cálculo matemático, estadístico y telemétrico para golf. El uso de la plataforma es voluntario y bajo su exclusiva responsabilidad. Data2Gain NO garantiza mejoras en el juego ni descenso de hándicap, NO asume responsabilidad alguna por golpes, decisiones tácticas, apuestas o lesiones físicas, y limita su responsabilidad patrimonial máxima al importe efectivamente abonado en los últimos 12 meses o a 50,00 €, la cifra que sea menor (o 0 € para planes gratuitos o coaches).', 'Data2Gain is mathematical, statistical and telemetry software for golf. Use of the platform is voluntary and at your own risk. Data2Gain does NOT guarantee game improvement or handicap reduction, assumes NO liability for shots, tactical decisions, wagers or physical injuries, and limits its maximum liability to the amount actually paid in the last 12 months or €50.00, whichever is lower (or €0 for free or coach plans).')}</p>
+    </div>
+
+    <article id="titular">
+      <h2>1. ${t('Identificación del Titular y Objeto del Servicio', 'Service Operator Identification & Purpose')}</h2>
+      <p>${t('Los presentes Términos y Condiciones de Uso (en adelante, los "Términos") regulan con carácter vinculante el acceso, descarga, instalación, navegación, suscripción y utilización del sitio web oficial (data2gain.com), de la aplicación web (app.data2gain.com), de las aplicaciones móviles nativas para dispositivos iOS y Android, así como de cualquier herramienta, algoritmo o servicio provisto bajo la denominación comercial <strong>Data2Gain</strong> (en adelante, "Data2Gain" o "el Prestador").', 'These Terms and Conditions of Use (the "Terms") govern on a legally binding basis the access, download, installation, browsing, subscription and use of the official website (data2gain.com), web application (app.data2gain.com), native mobile applications for iOS and Android, and any tool, algorithm or service provided under the brand name <strong>Data2Gain</strong> ("Data2Gain" or the "Provider").')}</p>
+      <p>${t('Para cualquier notificación, duda legal o comunicación relativa a estos Términos, el usuario puede dirigirse formalmente a la dirección de correo electrónico: <a href="mailto:info@data2gain.com">info@data2gain.com</a>.', 'For any notification, legal inquiry or communication concerning these Terms, users may contact: <a href="mailto:info@data2gain.com">info@data2gain.com</a>.')}</p>
+    </article>
+
+    <article id="aceptacion">
+      <h2>2. ${t('Aceptación Plena e Incondicional', 'Full and Unconditional Acceptance')}</h2>
+      <p>${t('El acceso, navegación, creación de cuenta de usuario, introducción de tarjetas de golf o uso continuado de cualquier funcionalidad atribuye la condición de Usuario e implica la aceptación plena, expresa y sin reservas de la totalidad de estos Términos, así como de la Política de Privacidad vinculada.', 'Accessing, browsing, creating a user account, submitting scorecards or continuing to use any feature confers User status and implies full, express and unreserved acceptance of all these Terms and the associated Privacy Policy.')}</p>
+      <p>${t('Si el usuario no estuviera de acuerdo con alguna de las cláusulas, deberá abstenerse de acceder o utilizar la plataforma, cancelar su cuenta y desinstalar cualquier aplicación vinculada.', 'If the user does not agree with any provision, they must immediately cease accessing or using the platform, cancel their account and uninstall any linked application.')}</p>
+    </article>
+
+    <article id="naturaleza">
+      <h2>3. ${t('Naturaleza del Software: Herramienta Exclusivamente Analítica y Formativa', 'Nature of the Software: Purely Analytical and Educational Tool')}</h2>
+      <p>${t('Data2Gain es un software de computación matemática que procesa información aportada por los usuarios para generar análisis retrospectivos, visualizaciones telemétricas de dispersión de golpes, modelos de Strokes Gained, estimaciones de distancias por palo y sugerencias asistidas por inteligencia artificial.', 'Data2Gain is mathematical computing software that processes user-submitted information to generate retrospective analytics, visual shot dispersion telemetry, Strokes Gained models, club carry distance estimates and AI-assisted suggestions.')}</p>
+      <p>${t('El servicio se suministra con propósitos exclusivamente analíticos, recreativos y de apoyo al entrenamiento deportivo. Data2Gain no presta servicios de asesoramiento profesional colegiado, médico ni financiero.', 'The service is provided strictly for analytical, recreational and athletic training support purposes. Data2Gain does not provide certified professional coaching, medical or financial advice.')}</p>
+    </article>
+
+    <article id="exclusion-rendimiento">
+      <h2>4. ${t('Exclusión Rotunda de Garantías de Rendimiento Deportivo y Hándicap', 'Express Disclaimer of Sporting Results and Handicap Guarantees')}</h2>
+      <div class="legal-callout callout-warning">
+        <p><strong>${t('EXENCIÓN DE RESPONSABILIDAD DEPORTIVA:', 'SPORTING DISCLAIMER:')}</strong> ${t('El rendimiento en el golf está supeditado a múltiples variables físicas, técnicas, meteorológicas, psicológicas, azarosas y al estado cambiante del recorrido. Data2Gain NO garantiza, asegura ni promete en ningún caso un descenso, mejora o modificación del hándicap, resultados en torneos, tarjetas con un número determinado de golpes ni la consecución de objetivos deportivos.', 'Golf performance depends on multiple physical, technical, weather, psychological, course and random variables. Data2Gain does NOT guarantee, ensure or promise in any case a reduction, improvement or modification of handicap, tournament scoring, specific scorecard numbers or sporting objectives.')}</p>
+      </div>
+      <p>${t('Ninguna métrica telemétrica, simulación conceptual, comparador de Strokes Gained ni rutina de entrenamiento prescrita por el sistema o por el agente de inteligencia artificial constituye una promesa o garantía de éxito deportivo.', 'No telemetry metric, conceptual simulation, Strokes Gained benchmark or practice drill prescribed by the system or AI agent constitutes a promise or guarantee of sporting success.')}</p>
+    </article>
+
+    <article id="decisiones-campo">
+      <h2>5. ${t('Exención de Responsabilidad en Decisiones de Campo, Reglas y Apuestas', 'Disclaimer on On-Course Decisions, Tournament Rules, and Wagers')}</h2>
+      <p>${t('<strong>Autonomía en el campo:</strong> La selección de palos, línea de tiro, zona de caída y valoración táctica del riesgo corresponden de manera libre, soberana y exclusiva al golfista o a su coach. Data2Gain declina toda responsabilidad por golpes defectuosos, penalizaciones, pérdidas de bolas, daños al material o vueltas insatisfactorias.', '<strong>On-course autonomy:</strong> Club selection, shot line, landing target and tactical risk assessment are the free, sovereign and exclusive responsibility of the golfer or coach. Data2Gain disclaims all liability for mis-hits, penalties, lost balls, equipment damage or unsatisfactory rounds.')}</p>
+      <p>${t('<strong>Reglas de Golf (R&A y USGA):</strong> Es responsabilidad exclusiva del usuario verificar si el uso de dispositivos móviles, software telemétrico o funciones de asistencia está permitido durante competiciones oficiales conforme a las Reglas de Golf de la R&A y de la USGA, así como por las Reglas Locales del comité del torneo. Data2Gain no asume ninguna responsabilidad por descalificaciones, penalizaciones de golpes o sanciones arbitrales.', '<strong>Rules of Golf (R&A and USGA):</strong> It is the user\'s sole responsibility to verify whether the use of mobile devices, telemetry software or assistance features is permitted during official competitions under R&A and USGA Rules of Golf and local tournament committee rules. Data2Gain assumes no liability for disqualifications, penalty strokes or arbitral sanctions.')}</p>
+      <p>${t('<strong>Apuestas y disputas económicas:</strong> Queda terminantemente prohibido utilizar Data2Gain con fines de apuestas ilegales o juego de azar. Data2Gain no asume responsabilidad alguna por pérdidas pecuniarias, apuestas privadas perdidas, premios deportivos no alcanzados o litigios financieros entre jugadores.', '<strong>Wagers and financial disputes:</strong> Using Data2Gain for illegal betting or gambling is strictly prohibited. Data2Gain assumes no responsibility for financial losses, lost private bets, missed prize money or monetary disputes between players.')}</p>
+    </article>
+
+    <article id="salud-lesiones">
+      <h2>6. ${t('Exención de Responsabilidad sobre Salud Física y Lesiones', 'Disclaimer Regarding Physical Health, Fitness, and Injuries')}</h2>
+      <p>${t('La práctica del golf y los ejercicios de repetición biomecánica exigen esfuerzo físico. Las rutinas, planes de práctica o bloques de entrenamiento sugeridos por la plataforma o el asistente de IA tienen finalidad puramente informativa.', 'Golf and biomechanical repetition require physical effort. Practice routines, plans or drills suggested by the platform or AI assistant are for informational purposes only.')}</p>
+      <p>${t('El usuario es el único responsable de valorar su propia condición física. Data2Gain queda totalmente exonerada de cualquier responsabilidad por molestias musculares, lesiones articulares, lumbalgias, accidentes con palos o bolas o cualquier daño a la integridad física derivado de la práctica del golf o de la ejecución de rutinas descritas.', 'The user is solely responsible for assessing their physical fitness. Data2Gain is fully exonerated from any liability for muscular discomfort, joint injuries, back pain, accidents with clubs or balls, or any physical injury resulting from playing golf or executing described drills.')}</p>
+    </article>
+
+    <article id="datos-cartografia">
+      <h2>7. ${t('Exactitud de los Datos de Entrada, Cartografía y Telemetría GPS', 'Input Data Accuracy, Course Mapping, and GPS Telemetry')}</h2>
+      <p>${t('<strong>Datos introducidos por el usuario:</strong> La fidelidad de los informes y cálculos depende de la exactitud de los datos introducidos por el usuario. Data2Gain no verifica ni se responsabiliza de incoherencias, tecleos erróneos o distancias incorrectamente registradas.', '<strong>User-entered data:</strong> The accuracy of reports and calculations depends entirely on the precision of data entered by users. Data2Gain neither verifies nor assumes liability for inconsistencies, typing mistakes or misreported distances.')}</p>
+      <p>${t('<strong>Cartografía y posicionamiento GPS:</strong> Las imágenes satelitales, mapas de hoyos y distancias a banderas dependen de servicios cartográficos externos y del hardware GPS del dispositivo del usuario. Los campos de golf pueden modificar barras de salida, greenes y obstáculos sin previo aviso. Data2Gain no garantiza la precisión milimétrica o infalibilidad en tiempo real de las coordenadas mostradas.', '<strong>Course mapping and GPS:</strong> Satellite imagery, hole layouts and pin distances rely on third-party map providers and the user device GPS hardware. Golf courses may alter tee markers, greens and hazards without notice. Data2Gain does not guarantee millimeter precision or real-time infallibility of displayed coordinates.')}</p>
+    </article>
+
+    <article id="inteligencia-artificial">
+      <h2>8. ${t('Uso del Agente de Inteligencia Artificial (Caddie Agent)', 'Use of Artificial Intelligence Agent (Caddie Agent)')}</h2>
+      <p>${t('El módulo de agente inteligente de Data2Gain analiza patrones de juego mediante modelos computacionales de lenguaje y analítica predictiva. El usuario acepta que los modelos de inteligencia artificial pueden formular interpretaciones imprecisas o recomendaciones subóptimas.', 'The Data2Gain smart agent module analyzes playing patterns using computational language and predictive analytics models. The user accepts that AI models may produce inaccurate interpretations or non-optimal recommendations.')}</p>
+      <p>${t('Las sugerencias de la IA deben evaluarse siempre según el criterio profesional del usuario o de su instructor titulado. Data2Gain no asume responsabilidad alguna por decisiones técnicas o estratégicas adoptadas con base en las respuestas del asistente IA.', 'AI suggestions must always be evaluated according to the user\'s or certified instructor\'s professional judgment. Data2Gain assumes no responsibility for technical or strategic decisions made based on AI assistant responses.')}</p>
+    </article>
+
+    <article id="propiedad-intelectual">
+      <h2>9. ${t('Propiedad Intelectual e Industrial: Blindaje Absoluto para Data2Gain', 'Intellectual Property: Full Protection for Data2Gain')}</h2>
+      <p>${t('Todos los derechos de propiedad intelectual e industrial sobre la plataforma, código fuente, algoritmos matemáticos, fórmulas de Strokes Gained, bases de datos, marcas ("Data2Gain", "D2G"), diseños, logotipos e interfaces gráficas pertenecen en exclusiva a Data2Gain o a sus licenciantes legítimos.', 'All intellectual and industrial property rights in the platform, source code, mathematical algorithms, Strokes Gained formulas, databases, trademarks ("Data2Gain", "D2G"), designs, logos and graphical interfaces belong exclusively to Data2Gain or its licensors.')}</p>
+      <p>${t('Se concede al usuario una licencia de uso personal, no exclusiva, intransferible, revocable y no sublicenciable para el uso de la app.', 'Users are granted a personal, non-exclusive, non-transferable, revocable and non-sublicensable license to use the app.')}</p>
+      <p><strong>${t('PROHIBICIONES ESTRICTAS:', 'STRICT PROHIBITIONS:')}</strong> ${t('Queda terminantemente prohibido descompilar, realizar ingeniería inversa, desensamblar, copiar, clonar, revender, alquilar, sublicenciar, extraer de forma automatizada (scraping o data mining) o crear obras derivadas basadas en el software, las pantallas o los algoritmos de Data2Gain. El incumplimiento dará lugar a cuantas acciones legales civiles y penales correspondan.', 'It is strictly forbidden to decompile, reverse engineer, disassemble, copy, clone, resell, rent, sublicense, scrape, data-mine, or create derivative works based on Data2Gain software, screens, or algorithms. Violations will trigger appropriate civil and criminal legal actions.')}</p>
+    </article>
+
+    <article id="licencia-datos">
+      <h2>10. ${t('Licencia Mundial sobre Datos de Juego y Telemetría Anónima', 'Worldwide License on Game Data and Anonymized Telemetry')}</h2>
+      <p>${t('El usuario conserva la titularidad sobre sus datos identificativos personales conforme a la legislación de protección de datos (RGPD).', 'Users retain ownership of their personal identifying data under applicable data protection laws (GDPR).')}</p>
+      <p>${t('No obstante, al registrar rondas, golpes, distancias y telemetría en la plataforma, el usuario otorga a Data2Gain una <strong>licencia mundial, irrevocable, perpetua, no exclusiva, gratuita, transferible y sublicenciable</strong> para recopilar, anonimizar, procesar, agregar y explotar estadísticamente dichos datos de juego con la finalidad de entrenar modelos de inteligencia artificial, calcular benchmarks agregados, mejorar los algoritmos del sistema y desarrollar nuevas funcionalidades.', 'However, by registering rounds, shots, distances and telemetry on the platform, the user grants Data2Gain a <strong>worldwide, irrevocable, perpetual, non-exclusive, royalty-free, transferable and sublicensable license</strong> to collect, anonymize, process, aggregate and statistically exploit such game data to train AI models, calculate aggregate benchmarks, refine algorithms and develop new features.')}</p>
+    </article>
+
+    <article id="suscripciones-pagos">
+      <h2>11. ${t('Suscripciones, Pagos y Política de No Reembolso', 'Subscriptions, Billing, and No-Refund Policy')}</h2>
+      <p>${t('<strong>Suscripción Data2Gain PRO para jugadores:</strong> Se factura periódicamente por adelantado (tarifa de referencia: 8,95 €/mes, o la tarifa vigente al contratar). Se renueva automáticamente de forma indefinida salvo cancelación previa antes de la fecha de renovación a través de los ajustes de cuenta o desde las tiendas de aplicaciones oficiales (Apple App Store o Google Play Store).', '<strong>Data2Gain PRO subscription for players:</strong> Billed periodically in advance (reference price: €8.95/month, or the price active upon checkout). Renews automatically indefinitely unless cancelled prior to the renewal date via account settings or official app stores (Apple App Store or Google Play Store).')}</p>
+      <p>${t('<strong>Renuncia al derecho de desistimiento y exclusión de reembolsos:</strong> Dado que el suministro de contenido digital y acceso a la plataforma comienza de forma inmediata tras el pago, el usuario consiente expresamente el inicio del servicio y reconoce la pérdida de su derecho de desistimiento, no procediendo reembolsos, devoluciones ni abonos prorrateados por períodos mensuales transcurridos o fracciones no consumidas, salvo exigencia imperativa legal.', '<strong>Waiver of withdrawal and no refunds:</strong> Because digital service delivery begins immediately upon payment, the user expressly consents to service commencement and acknowledges waiver of withdrawal rights; no refunds, returns or prorated credits apply for elapsed monthly periods or unused fractions, unless required by mandatory law.')}</p>
+      <p>${t('<strong>Plan gratuito para coaches:</strong> El acceso sin coste (0 €) para instructores y academias de golf se ofrece de manera promocional. Data2Gain se reserva expresamente el derecho potestativo de modificar, limitar o discontinuar este plan en el futuro con un preaviso mínimo de 30 días naturales.', '<strong>Free coach plan:</strong> Zero-cost access (€0) for golf instructors and academies is offered on a promotional basis. Data2Gain expressly reserves the right to modify, restrict or discontinue this plan in the future upon at least 30 days\' prior notice.')}</p>
+    </article>
+
+    <article id="disponibilidad">
+      <h2>12. ${t('Disponibilidad del Servicio "Tal Cual" y Mantenimiento', 'Service Availability "As Is" and Maintenance')}</h2>
+      <p>${t('La plataforma y sus aplicaciones se proporcionan estrictamente "TAL CUAL" ("AS IS") y "SEGÚN DISPONIBILIDAD" ("AS AVAILABLE"), sin garantías de operatividad ininterrumpida, ausencia de caídas, errores o incompatibilidad con determinados dispositivos.', 'The platform and applications are provided strictly "AS IS" and "AS AVAILABLE", without warranties of uninterrupted operation, absence of downtime, bugs or device incompatibility.')}</p>
+      <p>${t('Data2Gain se reserva la potestad de actualizar, modificar, limitar o suspender temporalmente el acceso por motivos de mantenimiento o seguridad técnica sin que ello genere derecho a compensación o indemnización alguna.', 'Data2Gain reserves the power to update, modify, restrict or temporarily suspend access for maintenance or technical security reasons without generating any right to compensation.')}</p>
+    </article>
+
+    <article id="limite-responsabilidad">
+      <h2>13. ${t('Límite Máximo de Responsabilidad Patrimonial de Data2Gain', 'Maximum Financial Liability Cap for Data2Gain')}</h2>
+      <div class="legal-callout callout-warning">
+        <p><strong>${t('TECHO INDEMNIZATORIO MÁXIMO:', 'MAXIMUM LIABILITY CEILING:')}</strong> ${t('EN LA MEDIDA MÁXIMA PERMITIDA POR LA LEY APLICABLE, DATA2GAIN NO SERÁ RESPONSABLE POR DAÑOS INDIRECTOS, PUNITIVOS, CONSECUENCIALES, LUCRO CESANTE, PÉRDIDA DE OPORTUNIDADES, DAÑO REPUTACIONAL O PÉRDIDA DE DATOS.', 'TO THE MAXIMUM EXTENT PERMITTED BY APPLICABLE LAW, DATA2GAIN SHALL NOT BE LIABLE FOR INDIRECT, PUNITIVE, CONSEQUENTIAL, LOSS OF PROFIT, MISSED OPPORTUNITIES, REPUTATIONAL DAMAGE OR LOSS OF DATA.')}</p>
+      </div>
+      <p>${t('LA RESPONSABILIDAD TOTAL Y AGREGADA DE DATA2GAIN FRENTE AL USUARIO POR CUALQUIER CONCEPTO O RECLAMACIÓN CONTRACTUAL O EXTRACONTRACTUAL DERIVADA DEL USO O IMPOSIBILIDAD DE USO DE LA PLATAFORMA QUEDA ESTRICTAMENTE LIMITADA A LA CANTIDAD TOTAL EFECTIVAMENTE ABONADA POR EL USUARIO A DATA2GAIN DURANTE LOS DOCE (12) MESES PREVIOS AL EVENTO GENERADOR DE LA RESPONSABILIDAD, O A LA CANTIDAD FIJA DE <strong>CINCUENTA EUROS (50,00 €)</strong>, LA CIFRA QUE RESULTE MENOR. EN CASO DE USUARIOS DE CUENTAS GRATUITAS O COACHES SIN CUOTA, EL LÍMITE DE RESPONSABILIDAD MÁXIMA SE FIJA EN <strong>CERO EUROS (0,00 €)</strong>.', 'DATA2GAIN\'S TOTAL AGGREGATE LIABILITY TO THE USER FOR ANY CLAIM OR DAMAGE ARISING OUT OF OR RELATING TO THE PLATFORM SHALL BE STRICTLY LIMITED TO THE AMOUNT ACTUALLY PAID BY THE USER TO DATA2GAIN IN THE TWELVE (12) MONTHS PRECEDING THE CLAIM, OR <strong>FIFTY EUROS (€50.00)</strong>, WHICHEVER IS LOWER. FOR FREE USERS AND COACHES WITHOUT SUBSCRIPTION FEES, MAXIMUM LIABILITY IS FIXED AT <strong>ZERO EUROS (€0.00)</strong>.')}</p>
+    </article>
+
+    <article id="indemnidad">
+      <h2>14. ${t('Obligación de Indemnidad por Parte del Usuario', 'User Indemnification Obligation')}</h2>
+      <p>${t('El usuario se compromete a mantener indemne, defender y exonerar de toda responsabilidad a Data2Gain, sus administradores, socios y personal frente a cualesquiera demandas, reclamaciones, sanciones, daños, pérdidas y costes (incluidos honorarios razonables de abogados y costas procesales) derivados del uso indebido de la plataforma, el incumplimiento de estos Términos, la infracción de derechos de terceros o la vulneración de normativas deportivas o legales aplicables.', 'The user agrees to indemnify, defend, and hold harmless Data2Gain, its managers, partners and personnel against any claims, sanctions, damages, losses and costs (including reasonable attorney fees and legal costs) arising from misuse of the platform, breach of these Terms, third-party rights violations or non-compliance with sporting or legal regulations.')}</p>
+    </article>
+
+    <article id="suspension">
+      <h2>15. ${t('Facultad de Suspensión y Cancelación Unilateral de Cuentas', 'Unilateral Account Suspension and Termination')}</h2>
+      <p>${t('Data2Gain se reserva el derecho de suspender, bloquear o cancelar la cuenta y el acceso a la plataforma de cualquier usuario de forma inmediata y sin necesidad de preaviso ni derecho a reembolso alguno si detecta indicios fundados de fraude, uso abusivo, extracción automatizada de datos, ingeniería inversa o cualquier quebrantamiento sustancial de las obligaciones aquí previstas.', 'Data2Gain reserves the right to suspend, block or cancel the account and platform access of any user immediately without prior notice or refund if it detects evidence of fraud, abusive usage, automated scraping, reverse engineering or material breach of these Terms.')}</p>
+    </article>
+
+    <article id="modificaciones">
+      <h2>16. ${t('Modificación de los Términos y Salvaguarda Legal', 'Terms Modifications and Severability')}</h2>
+      <p>${t('Data2Gain podrá modificar y actualizar los presentes Términos en cualquier momento. Las actualizaciones se publicarán de forma inalterable y permanente en esta misma URL oficial. El acceso continuado tras la publicación constituirá la aceptación vinculante de las modificaciones.', 'Data2Gain may modify and update these Terms at any time. Updates will be permanently published at this official URL. Continued use following publication constitutes binding acceptance.')}</p>
+      <p>${t('Si cualquier cláusula fuera declarada nula, inválida o ineficaz por autoridad competente, las restantes estipulaciones mantendrán plenamente su validez y vigencia vinculante.', 'If any provision is declared null, invalid or unenforceable by competent authority, the remaining stipulations shall retain full validity and binding effect.')}</p>
+    </article>
+
+    <article id="jurisdiccion">
+      <h2>17. ${t('Legislación Aplicable y Sumisión a Fuero Judicial', 'Governing Law and Jurisdiction')}</h2>
+      <p>${t('Los presentes Términos se rigen e interpretan con arreglo a la legislación común del Reino de España.', 'These Terms are governed and construed in accordance with the laws of the Kingdom of Spain.')}</p>
+      <p>${t('Para la resolución de cuantas controversias, discrepancias o litigios pudieran suscitarse en relación con la plataforma, las partes se someten de forma expresa a la jurisdicción exclusiva de los Juzgados y Tribunales de la ciudad de Madrid (España), con renuncia expresa a cualquier otro fuero que pudiera corresponderles, salvo disposición legal imperativa en materia de consumidores.', 'For the resolution of any disputes or claims arising in connection with the platform, the parties expressly submit to the exclusive jurisdiction of the Courts and Tribunals of the city of Madrid, Spain, waiving any other forum, except as provided by mandatory consumer legislation.')}</p>
+    </article>
+
+    <article id="contacto">
+      <h2>18. ${t('Contacto Legal y Consultas', 'Legal Contact & Inquiries')}</h2>
+      <p>${t('Para cualquier duda o notificación legal sobre estos Términos y Condiciones, contacte con:', 'For any questions or legal correspondence regarding these Terms, contact:')} <a href="mailto:info@data2gain.com">info@data2gain.com</a>.</p>
+      <div class="terms-actions">
+        ${link(app, t('Ir a la aplicación', 'Open the application'), 'dark', 'app_open')}
+      </div>
+    </article>
+  </div></section>`;
+}
+
 function info() {
   return `<section class="section section-light info-page"><div class="container narrow">${eyebrow('Data2Gain')}<h1>${t('Información<br>y contacto.','Information<br>& contact.')}</h1><p class="lead">${t('Un punto de contacto para tus preguntas sobre Data2Gain.','A point of contact for your questions about Data2Gain.')}</p><article><h2>${t('Contacta con nosotros','Get in touch')}</h2><p>${t('Para información sobre la app, formación, condiciones de servicio o privacidad, escribe a','For information about the app, training, service terms or privacy, email')} <a href="mailto:info@data2gain.com">info@data2gain.com</a>.</p></article><article><h2>${t('Esta web y la aplicación','This website and the application')}</h2><p>${t('Esta web presenta Data2Gain y ejemplos de sus análisis. El acceso a la plataforma y la contratación se realizan en la aplicación. Revisa allí las condiciones aplicables antes de contratar.','This website presents Data2Gain and examples of its analysis. Platform access and subscriptions take place in the application. Review the applicable terms there before subscribing.')}</p>${link(app,t('Ir a la aplicación','Open the application'),'dark','app_open')}</article><article><h2>${t('Navegación y privacidad','Browsing and privacy')}</h2><p>${t('Los controles de demostración funcionan en tu navegador y no envían los valores seleccionados a un servidor. Esta versión de la web no incorpora formularios, cookies analíticas ni rastreadores publicitarios. Al contactar por email o acceder a la aplicación se abre un servicio distinto.','Demo controls run in your browser and do not send selected values to a server. This version of the website has no forms, analytics cookies or advertising trackers. Email contact and application links open a separate service.')}</p><p>${t('Para consultar la información legal completa o ejercer una solicitud sobre tus datos, contacta con info@data2gain.com.','For full legal information or requests concerning your data, contact info@data2gain.com.')}</p></article><article><h2>${t('Sobre las demostraciones','About the demonstrations')}</h2><p>${t('El mapa del hoyo es una simulación conceptual externa que no forma parte de la app. El comparador de Strokes Gained y la simulación de la conversación de IA contienen datos ilustrativos. No son un diagnóstico personal ni una garantía de mejora. Las fotografías ilustran la práctica del golf y no representan testimonios ni avales de sus protagonistas.','The hole map is an external conceptual simulation not included in the app. The Strokes Gained benchmark and AI conversation simulation contain illustrative data. They are not a personal assessment or a guarantee of improvement. Photos illustrate golf and do not represent testimonials or endorsements by the people pictured.')}</p></article><article><h2>${t('Créditos de fotografía','Photography credits')}</h2><p><a href="https://unsplash.com/photos/bJkezZ4W_So">Braden Egli / Unsplash</a> · <a href="https://www.pexels.com/photo/1325652/">Jopwell / Pexels</a>.</p></article></div></section>`;
 }
 
 function document(page) {
-  const titles = { home:t('Data2Gain | Tu juego. Tus datos. Tu ventaja.','Data2Gain | Your game. Your data. Your advantage.'), players:t('Data2Gain para jugadores | Entiende tu golf','Data2Gain for players | Understand your golf'), coaches:t('Data2Gain para coaches y academias (100% Gratis)','Data2Gain for coaches & academies (100% Free)'), info:t('Información y contacto | Data2Gain','Information & contact | Data2Gain') };
-  const description = page === 'coaches' ? t('Analítica de golf avanzada 100% gratuita para coaches y academias. Strokes Gained, dispersión y telemetría de tus alumnos sin coste.','Advanced golf analytics 100% free for coaches and academies. Strokes Gained, dispersion and player telemetry at zero cost.') : t('Encuentra el patrón. Telemetría de Tour, dispersión real y análisis con IA para transformar tus datos en mejores decisiones en el campo.','Find the pattern. Tour telemetry, true dispersion and AI analysis to turn your data into better on-course decisions.');
-  const content = page === 'home' ? hero(page)+how()+audiences()+strategy()+product()+ai()+pricing()+faq()+closing(page) : page === 'players' ? hero(page)+how()+benchmark()+product()+ai()+pricing()+faq()+closing(page) : page === 'coaches' ? hero(page)+coachContent()+closing(page) : info();
-  const schema = { '@context':'https://schema.org', '@type': page === 'info' ? 'ContactPage' : 'WebPage', name:titles[page], description, url:origin+route(page), inLanguage:lang, isPartOf:{'@type':'WebSite',name:'Data2Gain',url:origin} };
-  return `<!doctype html>\n<html lang="${lang}"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>${titles[page]}</title><meta name="description" content="${esc(description)}"><meta name="theme-color" content="#101412"><link rel="canonical" href="${origin+route(page)}"><link rel="alternate" hreflang="es" href="${origin+route(page,'es')}"><link rel="alternate" hreflang="en" href="${origin+route(page,'en')}"><link rel="alternate" hreflang="x-default" href="${origin+route(page,'es')}"><link rel="icon" href="/favicon.ico" sizes="any"><link rel="apple-touch-icon" href="/apple-touch-icon.png"><link rel="manifest" href="/site-${lang}.webmanifest"><meta property="og:type" content="website"><meta property="og:title" content="${titles[page]}"><meta property="og:description" content="${esc(description)}"><meta property="og:url" content="${origin+route(page)}"><meta property="og:image" content="https://data2gain.com/assets/hero-hole-sg.jpg"><meta property="og:locale" content="${lang==='es'?'es_ES':'en_US'}"><meta name="twitter:card" content="summary_large_image"><meta name="twitter:title" content="${titles[page]}"><meta name="twitter:description" content="${esc(description)}"><meta name="twitter:image" content="https://data2gain.com/assets/hero-hole-sg.jpg"><link rel="stylesheet" href="/css/premium.css?v=10"><script type="application/ld+json">${JSON.stringify(schema)}</script><script type="module" src="/js/premium.js?v=6"></script></head><body class="page-${page}">${header(page)}<main id="main">${content}</main>${footer()}</body></html>\n`;
+  const titles = {
+    home: t('Data2Gain | Tu juego. Tus datos. Tu ventaja.','Data2Gain | Your game. Your data. Your advantage.'),
+    players: t('Data2Gain para jugadores | Entiende tu golf','Data2Gain for players | Understand your golf'),
+    coaches: t('Data2Gain para coaches y academias (100% Gratis)','Data2Gain for coaches & academies (100% Free)'),
+    info: t('Información y contacto | Data2Gain','Information & contact | Data2Gain'),
+    terms: t('Términos y Condiciones de Uso | Data2Gain','Terms and Conditions of Use | Data2Gain')
+  };
+  const description = page === 'coaches'
+    ? t('Analítica de golf avanzada 100% gratuita para coaches y academias. Strokes Gained, dispersión y telemetría de tus alumnos sin coste.','Advanced golf analytics 100% free for coaches and academies. Strokes Gained, dispersion and player telemetry at zero cost.')
+    : page === 'terms'
+    ? t('Términos y condiciones oficiales de uso de la plataforma, aplicaciones y servicios de analítica de golf Data2Gain.','Official terms and conditions of use for Data2Gain golf analytics platform, applications and services.')
+    : t('Encuentra el patrón. Telemetría de Tour, dispersión real y análisis con IA para transformar tus datos en mejores decisiones en el campo.','Find the pattern. Tour telemetry, true dispersion and AI analysis to turn your data into better on-course decisions.');
+  const content = page === 'home'
+    ? hero(page)+how()+audiences()+strategy()+product()+ai()+pricing()+faq()+closing(page)
+    : page === 'players'
+    ? hero(page)+how()+benchmark()+product()+ai()+pricing()+faq()+closing(page)
+    : page === 'coaches'
+    ? hero(page)+coachContent()+closing(page)
+    : page === 'terms'
+    ? terms()
+    : info();
+  const schema = {
+    '@context':'https://schema.org',
+    '@type': page === 'info' ? 'ContactPage' : 'WebPage',
+    name:titles[page],
+    description,
+    url:origin+route(page),
+    inLanguage:lang,
+    isPartOf:{'@type':'WebSite',name:'Data2Gain',url:origin}
+  };
+  return `<!doctype html>\n<html lang="${lang}"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>${titles[page]}</title><meta name="description" content="${esc(description)}"><meta name="theme-color" content="#101412"><link rel="canonical" href="${origin+route(page)}"><link rel="alternate" hreflang="es" href="${origin+route(page,'es')}"><link rel="alternate" hreflang="en" href="${origin+route(page,'en')}"><link rel="alternate" hreflang="x-default" href="${origin+route(page,'es')}"><link rel="icon" href="/favicon.ico" sizes="any"><link rel="apple-touch-icon" href="/apple-touch-icon.png"><link rel="manifest" href="/site-${lang}.webmanifest"><meta property="og:type" content="website"><meta property="og:title" content="${titles[page]}"><meta property="og:description" content="${esc(description)}"><meta property="og:url" content="${origin+route(page)}"><meta property="og:image" content="https://data2gain.com/assets/hero-hole-sg.jpg"><meta property="og:locale" content="${lang==='es'?'es_ES':'en_US'}"><meta name="twitter:card" content="summary_large_image"><meta name="twitter:title" content="${titles[page]}"><meta name="twitter:description" content="${esc(description)}"><meta name="twitter:image" content="https://data2gain.com/assets/hero-hole-sg.jpg"><link rel="stylesheet" href="/css/premium.css?v=11"><script type="application/ld+json">${JSON.stringify(schema)}</script><script type="module" src="/js/premium.js?v=6"></script></head><body class="page-${page}">${header(page)}<main id="main">${content}</main>${footer()}</body></html>\n`;
 }
 
 await mkdir(path.join(root,'dist'),{recursive:true});
@@ -604,6 +772,13 @@ for (const locale of ['es','en']) {
     if(locale==='es' && page==='home') {
       const rootHtml = html.replace('<head>', '<head><script>(function(){try{var s=localStorage.getItem("d2g_lang");var es=false;if(s==="es")es=true;else if(s==="en")es=false;else{var l=(navigator.languages&&navigator.languages.length)?navigator.languages:[navigator.language||navigator.userLanguage||""];var ei=-1,ni=-1;for(var i=0;i<l.length;i++){var c=(l[i]||"").toLowerCase();if(ei===-1&&(c==="es"||c.indexOf("es-")===0||c.indexOf("es_")===0))ei=i;if(ni===-1&&(c==="en"||c.indexOf("en-")===0||c.indexOf("en_")===0))ni=i;}es=(ei!==-1&&(ni===-1||ei<=ni));}var target=es?"/es/":"/en/";var dest=target+window.location.search+window.location.hash;if(window.location.pathname==="/"||window.location.pathname.endsWith("/index.html")){window.location.replace(dest);}}catch(e){}})();</script>');
       for(const base of [root,path.join(root,'dist')]) await writeFile(path.join(base,'index.html'),rootHtml);
+    }
+    if(locale==='es' && page==='terms') {
+      const rootTermsRelative = 'terminos-y-condiciones/index.html';
+      for(const base of [root,path.join(root,'dist')]) {
+        await mkdir(path.dirname(path.join(base,rootTermsRelative)),{recursive:true});
+        await writeFile(path.join(base,rootTermsRelative),html);
+      }
     }
   }
 }

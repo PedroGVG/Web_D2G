@@ -139,6 +139,24 @@
   .tactical-sub,.tactical-badge,.hud-btn-stat,.hud-metric-label{font-size:10px}
 }
 
+/* Terms & Conditions styles */
+.terms-page{padding-top:40px}
+.terms-meta-card{display:flex;flex-wrap:wrap;gap:24px;background:#e8ece2;border:1px solid #c5ccbe;border-radius:8px;padding:18px 24px;margin:24px 0 32px}
+.terms-meta-item{display:flex;flex-direction:column;gap:4px}
+.terms-meta-label{font-family:var(--mono);font-size:10px;text-transform:uppercase;letter-spacing:.06em;color:#6e7a68}
+.terms-meta-item strong{font-family:var(--mono);font-size:13px;color:var(--ink);word-break:break-all}
+.terms-meta-item span{font-size:13px;color:var(--body-ink)}
+.legal-callout{background:#fdf9ed;border-left:4px solid var(--gold);border-radius:0 6px 6px 0;padding:18px 22px;margin:24px 0 28px;font-size:15px;line-height:1.65;color:#4a422f}
+.legal-callout strong{display:block;color:#78613a;font-family:var(--mono);font-size:11px;letter-spacing:.05em;margin-bottom:6px}
+.callout-warning{background:#fdf2f2;border-left-color:var(--red);color:#5c2929}
+.callout-warning strong{color:#9c3333}
+.terms-page article{padding:28px 0;border-top:1px solid var(--paper-line)}
+.terms-page article h2{font-size:23px;margin-bottom:14px;color:#18211a;letter-spacing:-.02em}
+.terms-page article p{font-size:16px;line-height:1.8;margin-top:12px;color:var(--body-ink)}
+.terms-page article strong{color:#151c17}
+.terms-page article a{color:var(--ink);text-decoration:underline;text-underline-offset:4px}
+.terms-actions{margin-top:24px}
+
 @media(max-width:374px){
   .chart-heading,.tactical-card strong,.hud-btn-copy strong,.hud-metric strong,
   .sim-pill-badge,.hud-btn-stat{font-size:10px}

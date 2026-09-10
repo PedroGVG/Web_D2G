@@ -29,7 +29,7 @@ npm start
 
 Publicar exclusivamente el contenido de `dist/`, incluyendo `.htaccess`. No publicar toda la carpeta del proyecto. No hay despliegue automático en data2gain.com.
 
-Rutas: `/es/`, `/es/jugadores/`, `/es/coaches/`, `/es/informacion/`, y `/en/`, `/en/players/`, `/en/coaches/`, `/en/information/`. Se conservan las redirecciones Apache de idioma y `/v2/`.
+Rutas: `/es/`, `/es/jugadores/`, `/es/coaches/`, `/es/informacion/`, `/terminos-y-condiciones/` (también `/es/terminos-y-condiciones/`), y `/en/`, `/en/players/`, `/en/coaches/`, `/en/information/`, `/en/terms/`. Se conservan las redirecciones Apache y Vercel de idioma, `/v2/` y alias de términos.
 
 ## Contenido y medición
 

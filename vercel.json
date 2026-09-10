@@ -4,6 +4,26 @@
   "cleanUrls": true,
   "redirects": [
     {
+      "source": "/terminos",
+      "destination": "/terminos-y-condiciones/",
+      "permanent": true
+    },
+    {
+      "source": "/terminos-condiciones",
+      "destination": "/terminos-y-condiciones/",
+      "permanent": true
+    },
+    {
+      "source": "/terms",
+      "destination": "/en/terms/",
+      "permanent": true
+    },
+    {
+      "source": "/terms-and-conditions",
+      "destination": "/en/terms/",
+      "permanent": true
+    },
+    {
       "source": "/v2",
       "destination": "/es/",
       "permanent": true
