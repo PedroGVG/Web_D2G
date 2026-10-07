@@ -168,6 +168,12 @@
 html,body{width:100%;max-width:100%;overflow-x:clip;overscroll-behavior-x:none}
 body{touch-action:pan-y}
 
+/* Keep the green outcome below the strategy controls without moving its map marker. */
+@media(min-width:761px){
+  .pin-green{align-items:flex-start;transform:translate(8px,-6px)}
+  .pin-green .tactical-card{max-width:none}
+}
+
 /* Product captures: show the full portrait screenshot within the sticky stage. */
 .product-section .product-screen{width:100%;box-sizing:border-box}
 .product-section .product-screen .screenshot-button{
