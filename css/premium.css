@@ -194,3 +194,20 @@ body{touch-action:pan-y}
     width:min(100%,calc(min(52vh,420px) * 465 / 820));
   }
 }
+
+/* Keep language flags beside the menu button on mobile. */
+.mobile-header-controls{display:none}
+@media(max-width:760px){
+  .header-inner{gap:8px}
+  .mobile-header-controls{display:flex;align-items:center;gap:8px;margin-left:auto;flex-shrink:0}
+  .mobile-header-controls .languages{gap:0}
+  .mobile-header-controls .languages a{width:32px;height:44px;padding:0;justify-content:center}
+  .mobile-header-controls .lang-flag{width:20px;height:14px}
+  .mobile-header-controls .languages span{display:none}
+  .mobile-header-controls .menu-toggle{flex-shrink:0}
+  .nav-utilities .languages{display:none}
+}
+@media(max-width:360px){
+  .site-header .brand{font-size:15px;gap:6px}
+  .mobile-header-controls{gap:4px}
+}
