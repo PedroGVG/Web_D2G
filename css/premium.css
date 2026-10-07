@@ -167,3 +167,24 @@
 /* Lock lateral movement without creating a scroll container that breaks sticky stages. */
 html,body{width:100%;max-width:100%;overflow-x:clip;overscroll-behavior-x:none}
 body{touch-action:pan-y}
+
+/* Product captures: show the full portrait screenshot within the sticky stage. */
+.product-section .product-screen{width:100%;box-sizing:border-box}
+.product-section .product-screen .screenshot-button{
+  width:min(100%,calc(clamp(380px,64vh,700px) * 465 / 820));
+  aspect-ratio:465 / 820;
+  margin-inline:auto;
+  flex:none;
+}
+.product-section .product-screen .screenshot-button img{
+  display:block;
+  width:100%;
+  height:100%;
+  object-fit:contain;
+  object-position:center;
+}
+@media(max-width:760px){
+  .product-section .product-screen .screenshot-button{
+    width:min(100%,calc(min(52vh,420px) * 465 / 820));
+  }
+}
