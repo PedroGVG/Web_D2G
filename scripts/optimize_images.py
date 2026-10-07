@@ -47,6 +47,9 @@ def main() -> None:
 
     screenshots = (
         "screen-dispersion.png",
+        "screen-product-dispersion.png",
+        "screen-product-consistency.png",
+        "screen-product-statistics.png",
         "screen-gap.png",
         "screen-putt.png",
         "screen-ai-chat-1.png",

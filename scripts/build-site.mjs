@@ -270,20 +270,20 @@ function screenshot(name, alt, extra = '') {
 function product() {
   const tabs = [
     t('Radar de Dispersión','Dispersion Radar'),
-    t('Bag Mapping y Distancias','Bag Mapping & Distances'),
-    t('Todas las Áreas & Matriz de Putting','All Game Areas & Putting Matrix')
+    t('Consistencia','Consistency'),
+    t('Estadísticas','Statistics')
   ];
   const titles = [
     t('Scatter Plots y elipses. <br>Apunta con certeza estadística.','Scatter plots and ellipses. <br>Aim with statistical certainty.'),
-    t('Distancias reales de carry. <br>Sin solapamientos ni huecos.','True carry distances. <br>No gaps, no guesswork.'),
-    t('Desglose de cada área. <br>Matriz de slope y Strokes Gained.','Every area broken down. <br>Slope matrix and Strokes Gained.')
+    t('Consistencia en cada área. <br>Descubre dónde eres más regular.','Consistency in every area. <br>Discover where you are most reliable.'),
+    t('Estadísticas de tu juego. <br>Del resultado a las oportunidades.','Your game statistics. <br>From scores to opportunities.')
   ];
   const descriptions = [
     t('Dispersión real de cada palo para apuntar con margen óptimo y evitar fallos críticos.', 'True club dispersion to aim with optimal margin and avoid costly misses.'),
-    t('Mide el carry real de tu bolsa en el campo para eliminar dudas entre palos.', 'Measure true on-course carry to remove club distance doubts.'),
-    t('Telemetría en las cuatro áreas y matriz de caída para erradicar el tripateo.', 'Full-game telemetry and slope matrix to eliminate 3-putts.')
+    t('Compara tu consistencia desde el tee, en approach, juego corto y putting para identificar qué áreas necesitan trabajo.', 'Compare your consistency off the tee, on approach, in the short game and in putting to identify areas to work on.'),
+    t('Explora la distribución de resultados, el embudo de conversión y los Strokes Gained para entender dónde ganas y pierdes golpes.', 'Explore score distribution, the conversion funnel and Strokes Gained to understand where you gain and lose strokes.')
   ];
-  const images = ['screen-dispersion','screen-gap','screen-putt'];
+  const images = ['screen-product-dispersion','screen-product-consistency','screen-product-statistics'];
   return `<section class="section section-light product-section" id="producto">
     <div class="container">
       <div class="section-heading">
