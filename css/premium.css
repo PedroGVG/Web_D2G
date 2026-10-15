@@ -284,3 +284,8 @@ h1,h2{font-family:var(--display);text-wrap:balance}
   .footer-bottom{flex-wrap:wrap;gap:4px 20px}
 }
 .ai-teaser-inner{align-items:center}
+@media(min-width:761px){
+  /* El mapa ocupa la altura disponible mientras está fijado, sin hueco debajo */
+  .strategy-sticky-stage{top:80px}
+  .course-canvas-wrap{max-width:min(1120px,calc((100vh - 150px) * 1200 / 805))}
+}
