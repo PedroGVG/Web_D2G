@@ -273,8 +273,10 @@ h1,h2{font-family:var(--display);text-wrap:balance}
   .tactical-card{white-space:normal}
   .strategy-scroll-track{height:auto}
   .strategy-sticky-stage{position:static}
+  .sim-pill-badge{white-space:normal;max-width:100%;text-align:left}
   /* IA */
   .ai-prompt-btn{font-size:12px}
+  .ai-console-meta{display:none}
   .action-chip{font-size:13px}
   .ai-teaser{padding:56px 0}
   .ai-teaser-inner{grid-template-columns:1fr;gap:16px}
