@@ -28,30 +28,30 @@ mobile.addEventListener('change',()=>setMenu(false));
 const strategyData={
   controlled:{
     pinTee:t('Madera 3 · 240 yd','3-Wood · 240 yd'),
-    pinLandingTag:t('0% Riesgo de Agua','0% Water Risk'),
+    pinLandingTag:t('0% riesgo de agua','0% water risk'),
     pinLandingTagClass:'tactical-badge tag-green',
-    pinLanding:t('Calle Ancha · Margen Total','Wide Fairway · Full Margin'),
-    pinGreenTag:t('+0.42 SG vs Campo','+0.42 SG vs Field'),
+    pinLanding:t('Calle ancha · margen total','Wide fairway · full margin'),
+    pinGreenTag:t('+0.42 SG vs. campo','+0.42 SG vs field'),
     pinGreenTagClass:'tactical-badge tag-green',
-    pinGreen:t('Centro de Green ➔ Par Asegurado','Green Center ➔ Safe Par'),
-    summaryTee:t('100% Calle (0% Agua)','100% Fairway (0% Water)'),
+    pinGreen:t('Centro del green → par asegurado','Green center → safe par'),
+    summaryTee:t('100% calle (0% agua)','100% fairway (0% water)'),
     summaryTeeClass:'text-green',
     summaryApproach:t('Hierro 7 a centro','7-Iron to center'),
-    summaryScore:t('PAR Seguro (+0.42 SG)','Safe PAR (+0.42 SG)'),
+    summaryScore:t('Par seguro (+0.42 SG)','Safe par (+0.42 SG)'),
     summaryScoreClass:'text-green'
   },
   aggressive:{
-    pinTee:t('Driver · 280 yd forzado','Forced Driver · 280 yd'),
-    pinLandingTag:t('32% Dispersión al Agua','32% Dispersion to Water'),
+    pinTee:t('Driver · 280 yd forzado','Forced driver · 280 yd'),
+    pinLandingTag:t('32% de dispersión al agua','32% dispersion to water'),
     pinLandingTagClass:'tactical-badge tag-red',
-    pinLanding:t('Cuello Estrecho · Alto Riesgo','Narrow Fairway · High Risk'),
-    pinGreenTag:t('−0.65 SG vs Campo','−0.65 SG vs Field'),
+    pinLanding:t('Calle estrecha · riesgo alto','Narrow fairway · high risk'),
+    pinGreenTag:t('−0.65 SG vs. campo','−0.65 SG vs field'),
     pinGreenTagClass:'tactical-badge tag-red',
-    pinGreen:t('Bandera Corta ➔ Riesgo de Bogey','Tucked Pin ➔ High Bogey Risk'),
-    summaryTee:t('32% Peligro de Agua (−1.82 SG)','32% Water Hazard (−1.82 SG)'),
+    pinGreen:t('Bandera corta → riesgo de bogey','Tucked pin → high bogey risk'),
+    summaryTee:t('32% riesgo de agua (−1.82 SG)','32% water hazard (−1.82 SG)'),
     summaryTeeClass:'text-red',
-    summaryApproach:t('Wedge forzado a bandera','Forced Wedge to pin'),
-    summaryScore:t('BOGEY o Peor (−0.65 SG)','BOGEY or Worse (−0.65 SG)'),
+    summaryApproach:t('Wedge forzado a bandera','Forced wedge to pin'),
+    summaryScore:t('Bogey o peor (−0.65 SG)','Bogey or worse (−0.65 SG)'),
     summaryScoreClass:'text-red'
   }
 };
@@ -114,7 +114,7 @@ document.querySelectorAll('[data-strategy]').forEach(button=>button.addEventList
   clearTimeout(manualScrollTimer);
   applyStrategy(key,false);
 
-  if(strategyTrack){
+  if(strategyTrack&&!mobile.matches){
     const rect=strategyTrack.getBoundingClientRect();
     const scrollTop=window.scrollY||window.pageYOffset;
     const headerOffset=window.innerWidth<=760?72:88;
@@ -134,7 +134,7 @@ document.querySelectorAll('[data-strategy]').forEach(button=>button.addEventList
 if(strategyTrack){
   let ticking=false;
   function onStrategyScroll(){
-    if(isManualScrollLocked)return;
+    if(isManualScrollLocked||mobile.matches)return;
     const rect=strategyTrack.getBoundingClientRect();
     const headerOffset=window.innerWidth<=760?72:88;
     const totalScroll=strategyTrack.offsetHeight-window.innerHeight;
@@ -163,9 +163,6 @@ if(strategyTrack){
 
 const tabs=[...document.querySelectorAll('[data-product-tab]')];
 let currentProductIndex=0;
-let isProductManualScrollLocked=false;
-let productManualScrollTimer=null;
-const productTrack=document.getElementById('product-track');
 
 function activateProduct(index,focus=false,fromScroll=false){
   if(index===currentProductIndex && fromScroll)return;
@@ -185,25 +182,7 @@ function activateProduct(index,focus=false,fromScroll=false){
 }
 
 function selectProductTab(index,focus=false){
-  isProductManualScrollLocked=true;
-  clearTimeout(productManualScrollTimer);
   activateProduct(index,focus);
-
-  if(productTrack){
-    const rect=productTrack.getBoundingClientRect();
-    const scrollTop=window.scrollY||window.pageYOffset;
-    const headerOffset=window.innerWidth<=760?72:88;
-    const totalScroll=productTrack.offsetHeight-window.innerHeight;
-    if(totalScroll>0){
-      const targetProgress=index===0?0.12:index===1?0.50:0.88;
-      const targetY=scrollTop+rect.top-headerOffset+(totalScroll*targetProgress);
-      window.scrollTo({top:targetY,behavior:'smooth'});
-    }
-  }
-
-  productManualScrollTimer=setTimeout(()=>{
-    isProductManualScrollLocked=false;
-  },750);
 }
 
 tabs.forEach((tab,index)=>{
@@ -221,49 +200,6 @@ tabs.forEach((tab,index)=>{
     selectProductTab(next,true);
   });
 });
-
-if(productTrack){
-  let productTicking=false;
-  function onProductScroll(){
-    if(isProductManualScrollLocked)return;
-    const rect=productTrack.getBoundingClientRect();
-    const headerOffset=window.innerWidth<=760?72:88;
-    const totalScroll=productTrack.offsetHeight-window.innerHeight;
-    if(totalScroll<=0)return;
-
-    const scrolled=headerOffset-rect.top;
-    const progress=scrolled/totalScroll;
-
-    let targetTab=currentProductIndex;
-    if(progress<0.28){
-      targetTab=0;
-    }else if(progress>=0.66){
-      targetTab=2;
-    }else if(currentProductIndex===0 && progress>=0.33){
-      targetTab=1;
-    }else if(currentProductIndex===2 && progress<0.62){
-      targetTab=1;
-    }else if(currentProductIndex===1){
-      targetTab=1;
-    }
-
-    if(targetTab!==currentProductIndex){
-      activateProduct(targetTab,false,true);
-    }
-  }
-
-  window.addEventListener('scroll',()=>{
-    if(!productTicking){
-      window.requestAnimationFrame(()=>{
-        onProductScroll();
-        productTicking=false;
-      });
-      productTicking=true;
-    }
-  },{passive:true});
-
-  onProductScroll();
-}
 
 const selector=document.getElementById('benchmark-select');
 selector?.addEventListener('change',()=>{
@@ -367,26 +303,11 @@ function initAiConsole() {
   const promptTabs = [...document.querySelectorAll('.ai-prompt-btn')];
   const panels = [...document.querySelectorAll('.ai-scenario')];
   const actionChips = document.querySelectorAll('.action-chip[data-ai-target]');
-  const sendBtn = document.querySelector('.ai-send-btn');
-  const inputBox = document.querySelector('.ai-input-box');
-  const placeholder = document.querySelector('[data-ai-placeholder]');
-  const aiTrack = document.getElementById('ai-track');
+  const nextBtn = document.querySelector('.ai-next-btn');
 
   if (!promptTabs.length || !panels.length) return;
 
   let currentAiIndex = 0;
-  let isAiManualScrollLocked = false;
-  let aiManualScrollTimer = null;
-
-  const placeholders = language === 'es' ? [
-    'Preguntar sobre tus rondas, palos o estrategia...',
-    '¿Por qué fallo con los hierros 7 y 8 en aproximación?',
-    'Generar plan de práctica de 45 minutos...'
-  ] : [
-    'Ask about your rounds, clubs or strategy...',
-    'Why am I missing with 7 & 8 irons on approach?',
-    'Generate 45-min practice routine...'
-  ];
 
   function setScenario(index, focusTab = false, fromScroll = false) {
     if (fromScroll && index === currentAiIndex) return;
@@ -403,10 +324,6 @@ function initAiConsole() {
       panel.hidden = i !== index;
     });
 
-    if (placeholder && placeholders[index]) {
-      placeholder.textContent = placeholders[index];
-    }
-
     if (window.innerWidth <= 760) {
       promptTabs[index]?.scrollIntoView({ behavior: 'smooth', inline: 'center', block: 'nearest' });
     }
@@ -419,25 +336,7 @@ function initAiConsole() {
   }
 
   function selectAiScenario(index, focusTab = false) {
-    isAiManualScrollLocked = true;
-    clearTimeout(aiManualScrollTimer);
     setScenario(index, focusTab);
-
-    if (aiTrack && window.innerWidth <= 760) {
-      const rect = aiTrack.getBoundingClientRect();
-      const scrollTop = window.scrollY || window.pageYOffset;
-      const headerOffset = 72;
-      const totalScroll = aiTrack.offsetHeight - window.innerHeight;
-      if (totalScroll > 0) {
-        const targetProgress = index === 0 ? 0.12 : index === 1 ? 0.50 : 0.88;
-        const targetY = scrollTop + rect.top - headerOffset + (totalScroll * targetProgress);
-        window.scrollTo({ top: targetY, behavior: 'smooth' });
-      }
-    }
-
-    aiManualScrollTimer = setTimeout(() => {
-      isAiManualScrollLocked = false;
-    }, 750);
   }
 
   promptTabs.forEach((tab, index) => {
@@ -469,58 +368,6 @@ function initAiConsole() {
     selectAiScenario(next, false);
   }
 
-  sendBtn?.addEventListener('click', event => {
-    event.stopPropagation();
-    cycleNext();
-  });
-
-  inputBox?.addEventListener('click', () => {
-    cycleNext();
-  });
-
-  inputBox?.addEventListener('keydown', event => {
-    if (event.key === 'Enter' || event.key === ' ') {
-      event.preventDefault();
-      cycleNext();
-    }
-  });
-
-  if (aiTrack) {
-    let aiTicking = false;
-    function onAiScroll() {
-      if (window.innerWidth > 760 || isAiManualScrollLocked) return;
-      const rect = aiTrack.getBoundingClientRect();
-      const headerOffset = 72;
-      const totalScroll = aiTrack.offsetHeight - window.innerHeight;
-      if (totalScroll <= 0) return;
-
-      const scrolled = headerOffset - rect.top;
-      const progress = scrolled / totalScroll;
-
-      let targetScenario = currentAiIndex;
-      if (currentAiIndex === 0) {
-        if (progress >= 0.33) targetScenario = 1;
-      } else if (currentAiIndex === 1) {
-        if (progress < 0.28) targetScenario = 0;
-        else if (progress >= 0.66) targetScenario = 2;
-      } else if (currentAiIndex === 2) {
-        if (progress < 0.62) targetScenario = 1;
-      }
-
-      if (targetScenario !== currentAiIndex) {
-        setScenario(targetScenario, false, true);
-      }
-    }
-
-    window.addEventListener('scroll', () => {
-      if (!aiTicking) {
-        window.requestAnimationFrame(() => {
-          onAiScroll();
-          aiTicking = false;
-        });
-        aiTicking = true;
-      }
-    }, { passive: true });
-  }
+  nextBtn?.addEventListener('click', cycleNext);
 }
 initAiConsole();
