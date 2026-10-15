@@ -62,7 +62,7 @@ function hero(page) {
   const home = page === 'home';
   const coach = page === 'coaches';
   const title = home
-    ? t('Registra tus rondas.<br><em>Descubre dónde ganas y pierdes golpes.</em>', 'Log your rounds.<br><em>See where you gain and lose strokes.</em>')
+    ? t('Siente el golpe con intuición.<br><em>Decide la estrategia con datos.</em>', 'Feel the shot with intuition.<br><em>Decide strategy with data.</em>')
     : coach
     ? t('Tu criterio.<br>Sus datos.<br><em>Gratis para coaches.</em>', 'Your expertise.<br>Their data.<br><em>Free for coaches.</em>')
     : t('Conoce tu juego.<br>Encuentra tu<br><em>siguiente paso.</em>', 'Know your game.<br>Find your<br><em>next step.</em>');
@@ -74,9 +74,9 @@ function hero(page) {
     : t('Para jugadores', 'For players');
 
   const desc = home
-    ? t('Data2Gain convierte cada ronda en análisis Strokes Gained, dispersión real por palo y recomendaciones con IA para decidir mejor en el campo.', 'Data2Gain turns every round into Strokes Gained analysis, true club dispersion and AI recommendations so you decide better on the course.')
+    ? t('Ve más allá de las estadísticas convencionales: precisión de Tour y analítica avanzada para decidir con certeza.', 'Go beyond conventional statistics: Tour-level precision and advanced analytics to decide with confidence.')
     : coach
-    ? t('Strokes Gained y telemetría de dispersión de tus alumnos para preparar y explicar cada clase, sin coste.', 'Your players’ Strokes Gained and dispersion telemetry to prepare and explain every lesson, at no cost.')
+    ? t('Strokes Gained y dispersión de tus alumnos, con datos objetivos para preparar y explicar cada clase, sin coste.', 'Your players’ Strokes Gained and dispersion, with objective data to prepare and explain every lesson, at no cost.')
     : t('Descubre tus patrones de juego con Strokes Gained, dispersión real e IA aplicada a tus datos.', 'Uncover your playing patterns with Strokes Gained, true dispersion and game-context AI.');
 
   const actions = home
@@ -112,7 +112,7 @@ function hero(page) {
   const photoAlt = coach
     ? t('Un instructor acompaña a una joven golfista durante una sesión de práctica', 'An instructor guides a young golfer during practice')
     : home
-    ? t('Joven golfista al atardecer con telemetría de Strokes Gained en transparencia', 'Young golfer at golden hour with translucent Strokes Gained telemetry overlay')
+    ? t('Joven golfista al atardecer con datos de Strokes Gained en transparencia', 'Young golfer at golden hour with a translucent Strokes Gained data overlay')
     : t('Golfista terminando su swing con la luz del atardecer', 'Golfer finishing a swing in the evening light');
 
   const photoWidth = coach ? 1400 : (home ? 1376 : 1600);
@@ -141,7 +141,7 @@ function how() {
 function audiences() {
   return `<section class="section section-light audience-section"><div class="container"><div class="section-heading"><div>${eyebrow(t('Una ambición compartida','One shared ambition'))}<h2>${t('Para quienes juegan.<br>Y para quienes enseñan.','For those who play.<br>And those who teach.')}</h2></div><p>${t('Dos perfiles, una misma meta:<br>entender el dato para tomar mejores decisiones en el campo.','Two perspectives, one shared goal:<br>using data to make better decisions on the course.')}</p></div><div class="audience-grid">
     <a class="audience-card" href="${route('players')}" data-track="audience_players"><img src="/assets/editorial/player-drive.webp" srcset="/assets/editorial/player-drive-800.webp 800w, /assets/editorial/player-drive.webp 1200w" sizes="(max-width: 760px) 92vw, 48vw" alt="${t('Golfista aficionado siguiendo el vuelo de su bola en el campo','Amateur golfer watching his ball flight on the course')}" width="896" height="1200" loading="lazy"><div class="audience-content"><span class="eyebrow">${t('Tu próxima mejor ronda','Your next better round')}</span><h3>${t('Soy jugador','I am a player')}</h3><p>${t('Conoce tus puntos fuertes.<br>Trabaja donde más importa.','Know your strengths.<br>Work where it matters most.')}</p><span class="text-link">${t('Descubre tu ventaja','Find your advantage')}${arrow}</span></div></a>
-    <a class="audience-card" href="${route('coaches')}" data-track="audience_coaches"><img src="/assets/editorial/coaching.jpg" alt="${t('Instructor guiando a una alumna en la práctica de golf','Instructor guiding a student during golf practice')}" width="1400" height="1845" loading="lazy"><div class="audience-content"><span class="eyebrow">${t('Para quienes enseñan','For those who teach')}</span><h3>${t('Soy coach','I am a coach')}</h3><p>${t('Diagnostica el juego real de tus alumnos con telemetría objetiva. Gratis.','Diagnose your students\' on-course play with objective telemetry at zero cost.')}</p><span class="text-link">${t('Ver la plataforma para coaches','See the coaching platform')}${arrow}</span></div></a>
+    <a class="audience-card" href="${route('coaches')}" data-track="audience_coaches"><img src="/assets/editorial/coaching.jpg" alt="${t('Instructor guiando a una alumna en la práctica de golf','Instructor guiding a student during golf practice')}" width="1400" height="1845" loading="lazy"><div class="audience-content"><span class="eyebrow">${t('Para quienes enseñan','For those who teach')}</span><h3>${t('Soy coach','I am a coach')}</h3><p>${t('Diagnostica el juego real de tus alumnos con datos objetivos. Gratis.','Diagnose your students\' on-course play with objective data at zero cost.')}</p><span class="text-link">${t('Ver la plataforma para coaches','See the coaching platform')}${arrow}</span></div></a>
     </div></div></section>`;
 }
 
@@ -295,7 +295,7 @@ function product() {
         <div>${eyebrow(t('Dentro de Data2Gain','Inside Data2Gain'))}<h2>${t('La diferencia está<br>en lo que descubres.','The difference is<br>what you discover.')}</h2></div>
         <p>${t('Pantallas del producto.<br>Conclusiones que puedes llevar al campo.','Screens from the product.<br>Insights you can take to the course.')}</p>
       </div>
-      <div class="product-scroll-track">
+      <div class="product-scroll-track" id="product-track">
         <div class="product-sticky-stage">
           <div class="product-tabs" role="tablist" aria-label="${t('Explorar funciones','Explore features')}">
             ${tabs.map((text,i)=>`<button id="product-tab-${i}" type="button" role="tab" aria-selected="${i === 0}" aria-controls="product-panel-${i}" tabindex="${i === 0 ? '0' : '-1'}" data-product-tab="${i}"><span class="tab-num">0${i+1}</span><span class="tab-label">${text}</span></button>`).join('')}
@@ -414,13 +414,13 @@ function aiConsole() {
           <div class="chat-bubble agent-bubble">
             <div class="agent-badge-row">
               <span class="agent-name">DATA2GAIN AI</span>
-              <span class="agent-tag">${t('Telemetría de radar','Radar telemetry')}</span>
+              <span class="agent-tag">${t('Datos de radar','Radar data')}</span>
             </div>
             <p class="agent-text">${t('El radar detecta un patrón sistemático de <strong>fallo push a la derecha (+14 m)</strong> por cara abierta <em>+1.8° al impacto</em>. Solo logras un <strong>28% GIR</strong> frente al 58% de referencia HCP 5, costándote <em>−1.42 SG por vuelta</em>.','Radar detects a systematic <strong>push miss to the right (+14m)</strong> due to an open clubface <em>+1.8° at impact</em>. You achieve only <strong>28% GIR</strong> vs 58% HCP 5 benchmark, costing <em>−1.42 SG per round</em>.')}</p>
 
             <div class="ai-radar-card">
               <div class="ai-radar-header">
-                <span class="mono-text">${t('TELEMETRÍA · H7-H8','TELEMETRY · 7-8 IRONS')}</span>
+                <span class="mono-text">${t('DATOS DE JUEGO · H7-H8','GAME DATA · 7-8 IRONS')}</span>
                 <span class="ai-chart-unit">Radar D2G</span>
               </div>
               <div class="ai-radar-grid">
@@ -486,7 +486,7 @@ function aiConsole() {
               <span class="agent-name">DATA2GAIN AI</span>
               <span class="agent-tag">${t('Plan de práctica','Practice plan')}</span>
             </div>
-            <p class="agent-text">${t('Sesión dividida en 2 bloques de alta intensidad enfocados exactamente en tus mayores fugas telemétricas para recuperar hasta <strong>+2.3 golpes por vuelta</strong>.','Structured 2-block high-intensity session targeting your exact telemetry leaks to recover up to <strong>+2.3 strokes per round</strong>.')}</p>
+            <p class="agent-text">${t('Sesión dividida en 2 bloques de alta intensidad enfocados exactamente en tus mayores fugas según tus datos de juego para recuperar hasta <strong>+2.3 golpes por vuelta</strong>.','Structured 2-block high-intensity session targeting the exact leaks in your game data to recover up to <strong>+2.3 strokes per round</strong>.')}</p>
 
             <div class="ai-practice-card">
               <div class="ai-practice-list">
@@ -551,13 +551,13 @@ function aiTeaser() {
 function pricing() {
   return `<section class="section section-light pricing-section" id="precios"><div class="container"><div class="section-heading"><div>${eyebrow(t('Tu siguiente paso','Your next step'))}<h2>${t('Empieza por<br>entender tu juego.','Start by<br>understanding your game.')}</h2></div><p>${t('Elige el camino que encaja contigo.','Choose the path that fits you.')}</p></div><div class="pricing-grid"><article class="price-card"><div class="price-card-top"><span class="eyebrow">${t('Para jugadores','For players')}</span><span class="plan-badge">DATA2GAIN PRO</span></div><p class="price">${t('8,95 €','€8.95')}<span>${t('/ mes','/ month')}</span></p><p>${t('Todas las funciones PRO en un solo plan.','All PRO features in one plan.')}</p><ul class="check-list">${[t('Análisis Strokes Gained avanzado','Advanced Strokes Gained analysis'),t('Dispersión y distancias reales por palo','Real club dispersion and carry distances'),t('Agente IA interactivo y análisis de tus rondas','Interactive AI agent and round analysis'),t('Cancela cuando quieras sin permanencia','Cancel anytime with no commitment')].map(text=>`<li>${check}${text}</li>`).join('')}</ul>${link(app,t('Empezar con Data2Gain','Get started with Data2Gain'),'gold','app_open')}<p class="price-note">${t('Suscripción mensual. Cancela cuando quieras.','Monthly subscription. Cancel anytime.')}</p></article>
   
-  <article class="price-card price-coaches"><div class="price-card-top"><span class="eyebrow">${t('Para coaches y academias','For coaches & academies')}</span><span class="plan-badge plan-badge-free">${t('GRATIS','FREE')}</span></div><p class="price price-free">${t('0 €','€0')}<span>${t('gratis para siempre','free forever')}</span></p><p>${t('La plataforma completa para entrenadores, sin coste y con acceso inmediato. Sin solicitar demos ni esperas.','The complete coaching platform at zero cost with instant access. No demo requests, no delays.')}</p><ul class="check-list">${[t('Plataforma completa para coaches','Complete coaching platform'),t('Monitorización y análisis de alumnos ilimitados','Unlimited player tracking and telemetry'),t('Informes de dispersión, distancias y Strokes Gained','Dispersion, distance and Strokes Gained reports'),t('Acceso directo e inmediato (sin solicitar demo)','Instant direct access (no demo required)')].map(text=>`<li>${check}${text}</li>`).join('')}</ul>${link(app,t('Crear cuenta de coach gratis','Create free coach account'),'dark','coach_signup')}<p class="price-note">${t('Acceso inmediato para entrenadores e instructores de golf.','Instant access for golf coaches and instructors.')}</p></article></div></div></section>`;
+  <article class="price-card price-coaches"><div class="price-card-top"><span class="eyebrow">${t('Para coaches y academias','For coaches & academies')}</span><span class="plan-badge plan-badge-free">${t('GRATIS','FREE')}</span></div><p class="price price-free">${t('0 €','€0')}<span>${t('gratis para siempre','free forever')}</span></p><p>${t('La plataforma completa para entrenadores, sin coste y con acceso inmediato. Sin solicitar demos ni esperas.','The complete coaching platform at zero cost with instant access. No demo requests, no delays.')}</p><ul class="check-list">${[t('Plataforma completa para coaches','Complete coaching platform'),t('Monitorización y análisis de alumnos ilimitados','Unlimited player tracking and game data'),t('Informes de dispersión, distancias y Strokes Gained','Dispersion, distance and Strokes Gained reports'),t('Acceso directo e inmediato (sin solicitar demo)','Instant direct access (no demo required)')].map(text=>`<li>${check}${text}</li>`).join('')}</ul>${link(app,t('Crear cuenta de coach gratis','Create free coach account'),'dark','coach_signup')}<p class="price-note">${t('Acceso inmediato para entrenadores e instructores de golf.','Instant access for golf coaches and instructors.')}</p></article></div></div></section>`;
 }
 
 function faq() {
   const items = [
     [t('¿Necesito saber de estadística?','Do I need to understand statistics?'),t('No. Strokes Gained pone tu rendimiento en contexto: un valor positivo indica golpes ganados frente a la referencia y uno negativo, golpes perdidos. Los gráficos interactivos, tablas y el agente IA te ayudan a interpretar el análisis de forma visual y directa.','No. Strokes Gained puts your performance into context: a positive value means strokes gained against your benchmark; a negative value means strokes lost. Interactive charts, tables and the AI agent help you interpret the analysis in a clear, direct way.')],
-    [t('¿Cuánto cuesta Data2Gain para coaches?','How much does Data2Gain cost for coaches?'),t('Para coaches y academias de golf la plataforma es gratuita. No tienes que solicitar demostraciones ni pagar cuotas mensuales. Puedes darte de alta de forma inmediata en la app web y empezar a supervisar las rondas y la telemetría de tus alumnos sin barreras.','For golf coaches and academies the platform is free. You do not need to request demos or pay monthly fees. You can sign up immediately in the web app and start tracking player telemetry with zero friction.')],
+    [t('¿Cuánto cuesta Data2Gain para coaches?','How much does Data2Gain cost for coaches?'),t('Para coaches y academias de golf la plataforma es gratuita. No tienes que solicitar demostraciones ni pagar cuotas mensuales. Puedes darte de alta de forma inmediata en la app web y empezar a supervisar las rondas y los datos de juego de tus alumnos sin barreras.','For golf coaches and academies the platform is free. You do not need to request demos or pay monthly fees. You can sign up immediately in the web app and start tracking your players’ game data with zero friction.')],
     [t('¿Cómo empiezo a usar Data2Gain como jugador?','How do I start using Data2Gain as a player?'),t('Crea tu cuenta en app.data2gain.com, registra tu primera ronda y activa Data2Gain PRO por 8,95 €/mes. No hay permanencia: puedes cancelar cuando quieras desde los ajustes de tu cuenta o desde la tienda de aplicaciones.','Create your account at app.data2gain.com, log your first round and activate Data2Gain PRO for €8.95/month. There is no commitment: cancel anytime from your account settings or the app store.')],
     [t('¿Dónde puedo utilizar Data2Gain?','Where can I use Data2Gain?'),t('Puedes utilizar Data2Gain en su Web App (accesible desde cualquier navegador en móvil, tablet u ordenador en app.data2gain.com) y en sus aplicaciones nativas para Android y Apple (iOS).','You can use Data2Gain via its Web App (accessible from any browser on phone, tablet or desktop at app.data2gain.com) and in native apps for Android and Apple (iOS).')]
   ];
@@ -736,10 +736,10 @@ function document(page) {
     terms: t('Términos y Condiciones de Uso | Data2Gain','Terms and Conditions of Use | Data2Gain')
   };
   const description = page === 'coaches'
-    ? t('Analítica de golf avanzada 100% gratuita para coaches y academias. Strokes Gained, dispersión y telemetría de tus alumnos sin coste.','Advanced golf analytics 100% free for coaches and academies. Strokes Gained, dispersion and player telemetry at zero cost.')
+    ? t('Analítica de golf avanzada 100% gratuita para coaches y academias. Strokes Gained, dispersión y datos de juego de tus alumnos sin coste.','Advanced golf analytics 100% free for coaches and academies. Strokes Gained, dispersion and player game data at zero cost.')
     : page === 'terms'
     ? t('Términos y condiciones oficiales de uso de la plataforma, aplicaciones y servicios de analítica de golf Data2Gain.','Official terms and conditions of use for Data2Gain golf analytics platform, applications and services.')
-    : t('Encuentra el patrón. Telemetría de Tour, dispersión real y análisis con IA para transformar tus datos en mejores decisiones en el campo.','Find the pattern. Tour telemetry, true dispersion and AI analysis to turn your data into better on-course decisions.');
+    : t('Encuentra el patrón. Precisión de Tour, dispersión real y análisis con IA para transformar tus datos en mejores decisiones en el campo.','Find the pattern. Tour-level precision, true dispersion and AI analysis to turn your data into better on-course decisions.');
   const content = page === 'home'
     ? hero(page)+how()+product()+audiences()+strategy()+aiTeaser()+pricing()+faq()+closing(page)
     : page === 'players'
@@ -758,7 +758,7 @@ function document(page) {
     inLanguage:lang,
     isPartOf:{'@type':'WebSite',name:'Data2Gain',url:origin}
   };
-  return (`<!doctype html>\n<html lang="${lang}"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>${titles[page]}</title><meta name="description" content="${esc(description)}"><meta name="theme-color" content="#101412"><link rel="canonical" href="${origin+route(page)}"><link rel="alternate" hreflang="es" href="${origin+route(page,'es')}"><link rel="alternate" hreflang="en" href="${origin+route(page,'en')}"><link rel="alternate" hreflang="x-default" href="${origin+route(page,'es')}"><link rel="icon" href="/favicon.ico" sizes="any"><link rel="apple-touch-icon" href="/apple-touch-icon.png"><link rel="manifest" href="/site-${lang}.webmanifest"><meta property="og:type" content="website"><meta property="og:title" content="${titles[page]}"><meta property="og:description" content="${esc(description)}"><meta property="og:url" content="${origin+route(page)}"><meta property="og:image" content="https://data2gain.com/assets/hero-hole-sg.jpg"><meta property="og:locale" content="${lang==='es'?'es_ES':'en_US'}"><meta name="twitter:card" content="summary_large_image"><meta name="twitter:title" content="${titles[page]}"><meta name="twitter:description" content="${esc(description)}"><meta name="twitter:image" content="https://data2gain.com/assets/hero-hole-sg.jpg"><link rel="stylesheet" href="/css/premium.css?v=15"><script type="application/ld+json">${JSON.stringify(schema)}</script><script type="module" src="/js/premium.js?v=7"></script></head><body class="page-${page}">${header(page)}<main id="main">${content}</main>${footer()}</body></html>\n`).replace(/(\S)<br>/g, '$1 <br>');
+  return (`<!doctype html>\n<html lang="${lang}"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>${titles[page]}</title><meta name="description" content="${esc(description)}"><meta name="theme-color" content="#101412"><link rel="canonical" href="${origin+route(page)}"><link rel="alternate" hreflang="es" href="${origin+route(page,'es')}"><link rel="alternate" hreflang="en" href="${origin+route(page,'en')}"><link rel="alternate" hreflang="x-default" href="${origin+route(page,'es')}"><link rel="icon" href="/favicon.ico" sizes="any"><link rel="apple-touch-icon" href="/apple-touch-icon.png"><link rel="manifest" href="/site-${lang}.webmanifest"><meta property="og:type" content="website"><meta property="og:title" content="${titles[page]}"><meta property="og:description" content="${esc(description)}"><meta property="og:url" content="${origin+route(page)}"><meta property="og:image" content="https://data2gain.com/assets/hero-hole-sg.jpg"><meta property="og:locale" content="${lang==='es'?'es_ES':'en_US'}"><meta name="twitter:card" content="summary_large_image"><meta name="twitter:title" content="${titles[page]}"><meta name="twitter:description" content="${esc(description)}"><meta name="twitter:image" content="https://data2gain.com/assets/hero-hole-sg.jpg"><link rel="stylesheet" href="/css/premium.css?v=18"><script type="application/ld+json">${JSON.stringify(schema)}</script><script type="module" src="/js/premium.js?v=9"></script></head><body class="page-${page}">${header(page)}<main id="main">${content}</main>${footer()}</body></html>\n`).replace(/(\S)<br>/g, '$1 <br>');
 }
 
 await mkdir(path.join(root,'dist'),{recursive:true});

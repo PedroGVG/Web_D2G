@@ -228,9 +228,9 @@ h1,h2{font-family:var(--display);text-wrap:balance}
 .platform-badge-static{cursor:default}
 .platform-badge-static:hover{transform:none;background:inherit;border-color:inherit}
 
-/* Sin bloqueo del scroll en producto e IA */
-.product-scroll-track,.ai-scroll-track{height:auto!important;margin-top:20px}
-.product-sticky-stage,.ai-sticky-stage{position:static!important;max-height:none!important;padding-top:0!important}
+/* Sin bloqueo del scroll en la consola IA */
+.ai-scroll-track{height:auto!important;margin-top:20px}
+.ai-sticky-stage{position:static!important;max-height:none!important;padding-top:0!important}
 
 /* Simulación: etiqueta más discreta, recorrido más corto en escritorio */
 .strategy-scroll-track{height:140vh}
@@ -267,12 +267,13 @@ h1,h2{font-family:var(--display);text-wrap:balance}
   .product-tabs button .tab-label{white-space:normal}
   /* Mapa: el resumen pasa debajo del mapa y las etiquetas no se cortan */
   .course-canvas-wrap{overflow:visible}
-  .course-hud-bottom{position:static;transform:none;width:100%;margin-top:8px;display:grid;grid-template-columns:repeat(3,1fr);gap:8px;white-space:normal;padding:10px}
+  .course-hud-bottom{position:absolute;left:8px;right:8px;bottom:8px;transform:none;width:auto;display:grid;grid-template-columns:repeat(3,1fr);gap:8px;white-space:normal;padding:8px 10px}
   .course-hud-bottom .hud-metric-divider{display:none}
+  .course-hud-bottom .hud-metric{min-width:0}
+  .course-hud-bottom .hud-metric strong{white-space:normal;display:block;font-size:11px;line-height:1.25}
   .tactical-badge{white-space:normal}
   .tactical-card{white-space:normal}
-  .strategy-scroll-track{height:auto}
-  .strategy-sticky-stage{position:static}
+  .strategy-scroll-track{height:170vh}
   .sim-pill-badge{white-space:normal;max-width:100%;text-align:left}
   /* IA */
   .ai-prompt-btn{font-size:12px}
@@ -282,5 +283,4 @@ h1,h2{font-family:var(--display);text-wrap:balance}
   .ai-teaser-inner{grid-template-columns:1fr;gap:16px}
   .footer-bottom{flex-wrap:wrap;gap:4px 20px}
 }
-.hero-home h1{font-size:clamp(40px,4.3vw,64px)}
 .ai-teaser-inner{align-items:center}

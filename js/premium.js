@@ -114,7 +114,7 @@ document.querySelectorAll('[data-strategy]').forEach(button=>button.addEventList
   clearTimeout(manualScrollTimer);
   applyStrategy(key,false);
 
-  if(strategyTrack&&!mobile.matches){
+  if(strategyTrack){
     const rect=strategyTrack.getBoundingClientRect();
     const scrollTop=window.scrollY||window.pageYOffset;
     const headerOffset=window.innerWidth<=760?72:88;
@@ -134,7 +134,7 @@ document.querySelectorAll('[data-strategy]').forEach(button=>button.addEventList
 if(strategyTrack){
   let ticking=false;
   function onStrategyScroll(){
-    if(isManualScrollLocked||mobile.matches)return;
+    if(isManualScrollLocked)return;
     const rect=strategyTrack.getBoundingClientRect();
     const headerOffset=window.innerWidth<=760?72:88;
     const totalScroll=strategyTrack.offsetHeight-window.innerHeight;
@@ -163,6 +163,9 @@ if(strategyTrack){
 
 const tabs=[...document.querySelectorAll('[data-product-tab]')];
 let currentProductIndex=0;
+let isProductManualScrollLocked=false;
+let productManualScrollTimer=null;
+const productTrack=document.getElementById('product-track');
 
 function activateProduct(index,focus=false,fromScroll=false){
   if(index===currentProductIndex && fromScroll)return;
@@ -174,15 +177,30 @@ function activateProduct(index,focus=false,fromScroll=false){
     const panel=document.getElementById(tab.getAttribute('aria-controls'));
     if(panel)panel.hidden=!selected;
   });
-  if(focus)tabs[index]?.focus();
-  if(window.innerWidth<=760){
-    tabs[index]?.scrollIntoView({behavior:'smooth',inline:'center',block:'nearest'});
-  }
+  if(focus)tabs[index]?.focus({preventScroll:true});
   track('product_view',{feature:tabs[index]?.dataset.productTab,trigger:fromScroll?'scroll':'click'});
 }
 
 function selectProductTab(index,focus=false){
+  isProductManualScrollLocked=true;
+  clearTimeout(productManualScrollTimer);
   activateProduct(index,focus);
+
+  if(productTrack){
+    const rect=productTrack.getBoundingClientRect();
+    const scrollTop=window.scrollY||window.pageYOffset;
+    const headerOffset=window.innerWidth<=760?72:88;
+    const totalScroll=productTrack.offsetHeight-window.innerHeight;
+    if(totalScroll>0){
+      const targetProgress=index===0?0.12:index===1?0.50:0.88;
+      const targetY=scrollTop+rect.top-headerOffset+(totalScroll*targetProgress);
+      window.scrollTo({top:targetY,behavior:'smooth'});
+    }
+  }
+
+  productManualScrollTimer=setTimeout(()=>{
+    isProductManualScrollLocked=false;
+  },750);
 }
 
 tabs.forEach((tab,index)=>{
@@ -200,6 +218,39 @@ tabs.forEach((tab,index)=>{
     selectProductTab(next,true);
   });
 });
+
+if(productTrack){
+  let productTicking=false;
+  function onProductScroll(){
+    if(isProductManualScrollLocked)return;
+    const rect=productTrack.getBoundingClientRect();
+    const headerOffset=window.innerWidth<=760?72:88;
+    const totalScroll=productTrack.offsetHeight-window.innerHeight;
+    if(totalScroll<=0)return;
+
+    const progress=(headerOffset-rect.top)/totalScroll;
+
+    let targetTab=currentProductIndex;
+    if(progress<0.28)targetTab=0;
+    else if(progress>=0.66)targetTab=2;
+    else if(currentProductIndex===0 && progress>=0.33)targetTab=1;
+    else if(currentProductIndex===2 && progress<0.62)targetTab=1;
+
+    if(targetTab!==currentProductIndex)activateProduct(targetTab,false,true);
+  }
+
+  window.addEventListener('scroll',()=>{
+    if(!productTicking){
+      window.requestAnimationFrame(()=>{
+        onProductScroll();
+        productTicking=false;
+      });
+      productTicking=true;
+    }
+  },{passive:true});
+
+  onProductScroll();
+}
 
 const selector=document.getElementById('benchmark-select');
 selector?.addEventListener('change',()=>{
