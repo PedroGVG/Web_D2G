@@ -268,8 +268,8 @@ function strategy() {
   </section>`;
 }
 
-function screenshot(name, alt, extra = '') {
-  return `<button class="screenshot-button ${extra}" type="button" data-zoom="/assets/screens/${lang}/${name}.png" aria-label="${esc(t('Ampliar: ','Enlarge: ')+alt)}"><img src="/assets/screens/${lang}/${name}-1200.webp" srcset="/assets/screens/${lang}/${name}-360.webp 360w, /assets/screens/${lang}/${name}-800.webp 800w, /assets/screens/${lang}/${name}-1200.webp 1200w, /assets/screens/${lang}/${name}-1600.webp 1600w" sizes="(max-width: 760px) 88vw, (max-width: 1100px) 58vw, 820px" alt="${esc(alt)}" width="800" height="900" loading="lazy"><span class="zoom-indicator">${diagonal}<span>${t('Ampliar','Enlarge')}</span></span></button>`;
+function screenshot(name, alt, extra = '', sizes = '(max-width: 760px) 88vw, (max-width: 1100px) 58vw, 820px') {
+  return `<button class="screenshot-button ${extra}" type="button" data-zoom="/assets/screens/${lang}/${name}.png" aria-label="${esc(t('Ampliar: ','Enlarge: ')+alt)}"><img src="/assets/screens/${lang}/${name}-1200.webp" srcset="/assets/screens/${lang}/${name}-360.webp 360w, /assets/screens/${lang}/${name}-800.webp 800w, /assets/screens/${lang}/${name}-1200.webp 1200w, /assets/screens/${lang}/${name}-1600.webp 1600w" sizes="${sizes}" alt="${esc(alt)}" width="800" height="900" loading="lazy"><span class="zoom-indicator">${diagonal}<span>${t('Ampliar','Enlarge')}</span></span></button>`;
 }
 
 function product() {
@@ -286,9 +286,14 @@ function product() {
   const descriptions = [
     t('Dispersión real de cada palo para apuntar con margen óptimo y evitar fallos críticos.', 'True club dispersion to aim with optimal margin and avoid costly misses.'),
     t('Compara tu consistencia desde el tee, en approach, juego corto y putting para identificar qué áreas necesitan trabajo.', 'Compare your consistency off the tee, on approach, in the short game and in putting to identify areas to work on.'),
-    t('Explora la distribución de resultados, el embudo de conversión y los Strokes Gained para entender dónde ganas y pierdes golpes.', 'Explore score distribution, the conversion funnel and Strokes Gained to understand where you gain and lose strokes.')
+    t('Explora la distribución de resultados, las zonas de caída en aproximación y el patrón de fallo en el putt para entender dónde ganas y pierdes golpes.', 'Explore score distribution, approach landing zones and your putting miss pattern to understand where you gain and lose strokes.')
   ];
-  const images = ['screen-product-dispersion','screen-product-consistency','screen-product-statistics'];
+  const statisticsGallery = `<div class="screenshot-gallery">${[
+    ['screen-product-statistics', t('Estadísticas: distribución de resultados y embudo','Statistics: score distribution and funnel')],
+    ['screen-landing-zones', t('Zonas de caída en aproximación','Approach landing zones')],
+    ['screen-putt-miss', t('Mapa de putts y patrón de fallo','Putting heatmap and miss pattern')]
+  ].map(([name,alt])=>screenshot(name,alt,'screenshot-small','(max-width: 760px) 30vw, 280px')).join('')}</div>`;
+  const images = ['screen-product-dispersion','screen-product-consistency',null];
   return `<section class="section section-light product-section" id="producto">
     <div class="container">
       <div class="section-heading">
@@ -300,7 +305,7 @@ function product() {
           <div class="product-tabs" role="tablist" aria-label="${t('Explorar funciones','Explore features')}">
             ${tabs.map((text,i)=>`<button id="product-tab-${i}" type="button" role="tab" aria-selected="${i === 0}" aria-controls="product-panel-${i}" tabindex="${i === 0 ? '0' : '-1'}" data-product-tab="${i}"><span class="tab-num">0${i+1}</span><span class="tab-label">${text}</span></button>`).join('')}
           </div>
-          ${tabs.map((_,i)=>`<div class="product-panel" id="product-panel-${i}" role="tabpanel" aria-labelledby="product-tab-${i}" tabindex="0"${i ? ' hidden' : ''}><div class="product-screen">${screenshot(images[i],tabs[i])}<p class="screen-caption">${t('Captura de Data2Gain · Ejemplo de análisis','Data2Gain screenshot · Example analysis')}</p></div><div class="product-copy"><h3>${titles[i]}</h3><p>${descriptions[i]}</p><a class="text-link" href="${app}" data-track="app_open">${t('Explorar la app','Explore the app')}${arrow}</a></div></div>`).join('')}
+          ${tabs.map((_,i)=>`<div class="product-panel" id="product-panel-${i}" role="tabpanel" aria-labelledby="product-tab-${i}" tabindex="0"${i ? ' hidden' : ''}><div class="product-screen">${images[i] ? screenshot(images[i],tabs[i]) : statisticsGallery}<p class="screen-caption">${t('Captura de Data2Gain · Ejemplo de análisis','Data2Gain screenshot · Example analysis')}</p></div><div class="product-copy"><h3>${titles[i]}</h3><p>${descriptions[i]}</p><a class="text-link" href="${app}" data-track="app_open">${t('Explorar la app','Explore the app')}${arrow}</a></div></div>`).join('')}
         </div>
       </div>
     </div>
@@ -758,7 +763,7 @@ function document(page) {
     inLanguage:lang,
     isPartOf:{'@type':'WebSite',name:'Data2Gain',url:origin}
   };
-  return (`<!doctype html>\n<html lang="${lang}"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>${titles[page]}</title><meta name="description" content="${esc(description)}"><meta name="theme-color" content="#101412"><link rel="canonical" href="${origin+route(page)}"><link rel="alternate" hreflang="es" href="${origin+route(page,'es')}"><link rel="alternate" hreflang="en" href="${origin+route(page,'en')}"><link rel="alternate" hreflang="x-default" href="${origin+route(page,'es')}"><link rel="icon" href="/favicon.ico" sizes="any"><link rel="apple-touch-icon" href="/apple-touch-icon.png"><link rel="manifest" href="/site-${lang}.webmanifest"><meta property="og:type" content="website"><meta property="og:title" content="${titles[page]}"><meta property="og:description" content="${esc(description)}"><meta property="og:url" content="${origin+route(page)}"><meta property="og:image" content="https://data2gain.com/assets/hero-hole-sg.jpg"><meta property="og:locale" content="${lang==='es'?'es_ES':'en_US'}"><meta name="twitter:card" content="summary_large_image"><meta name="twitter:title" content="${titles[page]}"><meta name="twitter:description" content="${esc(description)}"><meta name="twitter:image" content="https://data2gain.com/assets/hero-hole-sg.jpg"><link rel="stylesheet" href="/css/premium.css?v=19"><script type="application/ld+json">${JSON.stringify(schema)}</script><script type="module" src="/js/premium.js?v=9"></script></head><body class="page-${page}">${header(page)}<main id="main">${content}</main>${footer()}</body></html>\n`).replace(/(\S)<br>/g, '$1 <br>');
+  return (`<!doctype html>\n<html lang="${lang}"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>${titles[page]}</title><meta name="description" content="${esc(description)}"><meta name="theme-color" content="#101412"><link rel="canonical" href="${origin+route(page)}"><link rel="alternate" hreflang="es" href="${origin+route(page,'es')}"><link rel="alternate" hreflang="en" href="${origin+route(page,'en')}"><link rel="alternate" hreflang="x-default" href="${origin+route(page,'es')}"><link rel="icon" href="/favicon.ico" sizes="any"><link rel="apple-touch-icon" href="/apple-touch-icon.png"><link rel="manifest" href="/site-${lang}.webmanifest"><meta property="og:type" content="website"><meta property="og:title" content="${titles[page]}"><meta property="og:description" content="${esc(description)}"><meta property="og:url" content="${origin+route(page)}"><meta property="og:image" content="https://data2gain.com/assets/hero-hole-sg.jpg"><meta property="og:locale" content="${lang==='es'?'es_ES':'en_US'}"><meta name="twitter:card" content="summary_large_image"><meta name="twitter:title" content="${titles[page]}"><meta name="twitter:description" content="${esc(description)}"><meta name="twitter:image" content="https://data2gain.com/assets/hero-hole-sg.jpg"><link rel="stylesheet" href="/css/premium.css?v=20"><script type="application/ld+json">${JSON.stringify(schema)}</script><script type="module" src="/js/premium.js?v=9"></script></head><body class="page-${page}">${header(page)}<main id="main">${content}</main>${footer()}</body></html>\n`).replace(/(\S)<br>/g, '$1 <br>');
 }
 
 await mkdir(path.join(root,'dist'),{recursive:true});

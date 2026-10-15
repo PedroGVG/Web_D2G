@@ -289,3 +289,14 @@ h1,h2{font-family:var(--display);text-wrap:balance}
   .strategy-sticky-stage{top:80px}
   .course-canvas-wrap{max-width:min(1120px,calc((100vh - 150px) * 1200 / 805))}
 }
+
+/* Galería de Estadísticas: tres pantallas de la app */
+.screenshot-gallery{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;align-items:start}
+.product-section .product-screen .screenshot-gallery .screenshot-button{width:100%;aspect-ratio:465 / 860}
+.screenshot-gallery .zoom-indicator{right:8px;bottom:8px;padding:6px;min-height:36px;min-width:36px;justify-content:center}
+.screenshot-gallery .zoom-indicator span{display:none}
+@media(max-width:760px){
+  .screenshot-gallery{display:flex;gap:10px;overflow-x:auto;scroll-snap-type:x mandatory;scrollbar-width:none;padding-bottom:2px}
+  .screenshot-gallery::-webkit-scrollbar{display:none}
+  .product-section .product-screen .screenshot-gallery .screenshot-button{flex:0 0 auto;width:calc(min(52vh,420px) * 465 / 860);scroll-snap-align:start}
+}

@@ -50,6 +50,8 @@ def main() -> None:
         "screen-product-dispersion.png",
         "screen-product-consistency.png",
         "screen-product-statistics.png",
+        "screen-landing-zones.png",
+        "screen-putt-miss.png",
         "screen-gap.png",
         "screen-putt.png",
         "screen-ai-chat-1.png",
