@@ -274,26 +274,26 @@ function screenshot(name, alt, extra = '', sizes = '(max-width: 760px) 88vw, (ma
 
 function product() {
   const tabs = [
+    t('Estadísticas','Statistics'),
     t('Radar de Dispersión','Dispersion Radar'),
-    t('Consistencia','Consistency'),
-    t('Estadísticas','Statistics')
+    t('Consistencia','Consistency')
   ];
   const titles = [
+    t('Estadísticas de tu juego. <br>Del resultado a las oportunidades.','Your game statistics. <br>From scores to opportunities.'),
     t('Scatter Plots y elipses. <br>Apunta con certeza estadística.','Scatter plots and ellipses. <br>Aim with statistical certainty.'),
-    t('Consistencia en cada área. <br>Descubre dónde eres más regular.','Consistency in every area. <br>Discover where you are most reliable.'),
-    t('Estadísticas de tu juego. <br>Del resultado a las oportunidades.','Your game statistics. <br>From scores to opportunities.')
+    t('Consistencia en cada área. <br>Descubre dónde eres más regular.','Consistency in every area. <br>Discover where you are most reliable.')
   ];
   const descriptions = [
+    t('Explora la distribución de resultados, las zonas de caída en aproximación y el patrón de fallo en el putt para entender dónde ganas y pierdes golpes.', 'Explore score distribution, approach landing zones and your putting miss pattern to understand where you gain and lose strokes.'),
     t('Dispersión real de cada palo para apuntar con margen óptimo y evitar fallos críticos.', 'True club dispersion to aim with optimal margin and avoid costly misses.'),
-    t('Compara tu consistencia desde el tee, en approach, juego corto y putting para identificar qué áreas necesitan trabajo.', 'Compare your consistency off the tee, on approach, in the short game and in putting to identify areas to work on.'),
-    t('Explora la distribución de resultados, las zonas de caída en aproximación y el patrón de fallo en el putt para entender dónde ganas y pierdes golpes.', 'Explore score distribution, approach landing zones and your putting miss pattern to understand where you gain and lose strokes.')
+    t('Compara tu consistencia desde el tee, en approach, juego corto y putting para identificar qué áreas necesitan trabajo.', 'Compare your consistency off the tee, on approach, in the short game and in putting to identify areas to work on.')
   ];
   const statisticsGallery = `<div class="screenshot-gallery">${[
     ['screen-product-statistics', t('Estadísticas: distribución de resultados y embudo','Statistics: score distribution and funnel')],
     ['screen-landing-zones', t('Zonas de caída en aproximación','Approach landing zones')],
     ['screen-putt-miss', t('Mapa de putts y patrón de fallo','Putting heatmap and miss pattern')]
   ].map(([name,alt])=>screenshot(name,alt,'screenshot-small','(max-width: 760px) 30vw, 280px')).join('')}</div>`;
-  const images = ['screen-product-dispersion','screen-product-consistency',null];
+  const images = [null,'screen-product-dispersion','screen-product-consistency'];
   return `<section class="section section-light product-section" id="producto">
     <div class="container">
       <div class="section-heading">
