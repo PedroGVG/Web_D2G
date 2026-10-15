@@ -258,7 +258,8 @@ h1,h2{font-family:var(--display);text-wrap:balance}
   .page-home .hero-home .hero-description{display:block;order:2;font-size:15.5px;margin-top:-4px}
   .page-home .hero-home .hero-actions .hero-cta-coach{white-space:normal;line-height:1.2}
   /* Idioma en móvil */
-  .mobile-header-controls .languages a{width:44px}
+  .mobile-header-controls .languages a{width:auto;min-width:44px;padding:0 6px;gap:5px}
+  .mobile-header-controls .lang-flag{width:16px;height:11px}
   .mobile-header-controls .languages span{display:inline}
   /* Pestañas de producto: tres columnas visibles */
   .product-tabs{display:grid;grid-template-columns:repeat(3,1fr);gap:4px;overflow:visible}
