@@ -255,7 +255,6 @@ h1,h2{font-family:var(--display);text-wrap:balance}
 
 @media(max-width:760px){
   /* Hero: explicar el producto también en móvil */
-  .page-home .hero-home .hero-description{display:block;order:2;font-size:15.5px;margin-top:-4px}
   .page-home .hero-home .hero-actions .hero-cta-coach{white-space:normal;line-height:1.2}
   /* Idioma en móvil */
   .mobile-header-controls .languages a{width:auto;min-width:44px;padding:0 6px;gap:5px}
@@ -301,3 +300,8 @@ h1,h2{font-family:var(--display);text-wrap:balance}
   .screenshot-gallery::-webkit-scrollbar{display:none}
   .product-section .product-screen .screenshot-gallery .screenshot-button{flex:0 0 auto;width:calc(min(52vh,420px) * 465 / 860);scroll-snap-align:start}
 }
+
+/* Etiqueta de simulación: aviso discreto, no protagonista */
+.strategy-section .sim-pill-badge{background:none;border:0;padding:0;margin-bottom:10px;font-size:10.5px;letter-spacing:.04em;color:#8f9a8c;box-shadow:none;white-space:normal}
+.strategy-section .sim-beacon{display:none}
+@media(max-width:760px){.strategy-section .sim-pill-badge{font-size:10px}}

@@ -252,6 +252,31 @@ if(productTrack){
   onProductScroll();
 }
 
+// Mobile: the statistics gallery is wider than the screen. The first time it comes into view,
+// slide it to the next screenshot and back so it is clear that it can be swiped.
+const gallery=document.querySelector('.screenshot-gallery');
+if(gallery && 'IntersectionObserver' in window){
+  const galleryObserver=new IntersectionObserver(entries=>{
+    if(!entries.some(entry=>entry.isIntersecting))return;
+    if(!mobile.matches || gallery.scrollWidth<=gallery.clientWidth)return;
+    galleryObserver.disconnect();
+    if(window.matchMedia('(prefers-reduced-motion: reduce)').matches)return;
+    const next=gallery.children[1];
+    let returned=false;
+    const slideBack=()=>{
+      if(returned)return;
+      returned=true;
+      setTimeout(()=>gallery.scrollTo({left:0,behavior:'smooth'}),700);
+    };
+    setTimeout(()=>{
+      gallery.addEventListener('scrollend',slideBack,{once:true});
+      gallery.scrollTo({left:next?next.offsetLeft-gallery.offsetLeft:gallery.clientWidth*.7,behavior:'smooth'});
+      setTimeout(slideBack,1500);
+    },500);
+  },{threshold:.6});
+  galleryObserver.observe(gallery);
+}
+
 const selector=document.getElementById('benchmark-select');
 selector?.addEventListener('change',()=>{
   selector.classList.remove('pulse-heartbeat');
