@@ -745,7 +745,7 @@ function info() {
 
 function document(page) {
   const titles = {
-    home: t('Data2Gain | Tu juego. Tus datos. Tu ventaja.','Data2Gain | Your game. Your data. Your advantage.'),
+    home: t('Data2Gain | Siente el golpe con intuición. Decide con datos.','Data2Gain | Feel the shot with intuition. Decide with data.'),
     players: t('Data2Gain para jugadores | Entiende tu golf','Data2Gain for players | Understand your golf'),
     coaches: t('Data2Gain para coaches y academias (100% Gratis)','Data2Gain for coaches & academies (100% Free)'),
     info: t('Información y contacto | Data2Gain','Information & contact | Data2Gain'),
