@@ -66,7 +66,7 @@ function hero(page) {
   const title = home
     ? t('Siente el golpe con intuición.<br><em>Decide con datos.</em>', 'Feel the shot with intuition.<br><em>Decide with data.</em>')
     : coach
-    ? t('Tu criterio.<br>Sus datos.<br><em>Gratis para coaches.</em>', 'Your expertise.<br>Their data.<br><em>Free for coaches.</em>')
+    ? t('Tu criterio.<br>Sus datos.', 'Your expertise.<br>Their data.')
     : t('Conoce tu juego.<br>Encuentra tu<br><em>siguiente paso.</em>', 'Know your game.<br>Find your<br><em>next step.</em>');
 
   const eyebrowText = home
