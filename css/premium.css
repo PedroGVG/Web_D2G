@@ -305,3 +305,19 @@ h1,h2{font-family:var(--display);text-wrap:balance}
 .strategy-section .sim-pill-badge{background:none;border:0;padding:0;margin-bottom:10px;font-size:10.5px;letter-spacing:.04em;color:#8f9a8c;box-shadow:none;white-space:normal}
 .strategy-section .sim-beacon{display:none}
 @media(max-width:760px){.strategy-section .sim-pill-badge{font-size:10px}}
+
+/* Portal del coach: funciones de grupo y captura panorámica */
+.coach-portal{border-bottom:1px solid var(--line)}
+.portal-features{display:grid;grid-template-columns:repeat(4,1fr);gap:20px;margin-bottom:48px}
+.portal-feature{background:var(--surface);border:1px solid var(--line);border-top:3px solid var(--gold);border-radius:8px;padding:28px 24px;transition:transform .2s,border-color .2s}
+.portal-feature:hover{transform:translateY(-2px);border-color:#c5a56a66}
+.portal-feature .coach-step-num{margin-bottom:22px}
+.portal-feature h3{font-size:22px;line-height:1.25;margin-bottom:12px;font-weight:600}
+.portal-feature p{font-size:15px;line-height:1.7}
+.portal-screen{padding:20px;background:#28342a;border-radius:8px}
+.portal-screen .screen-caption{color:var(--muted)}
+.screenshot-wide img{height:auto!important;aspect-ratio:1880/811;object-fit:contain}
+.coach-product .check-list{margin:24px 0 8px}
+.coach-product .check-list svg{color:var(--gold)}
+@media(max-width:1100px){.portal-features{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:760px){.portal-features{grid-template-columns:1fr;gap:14px;margin-bottom:32px}.portal-feature{padding:22px 18px}.portal-feature h3{font-size:20px}.portal-screen{padding:10px}}
