@@ -330,7 +330,7 @@ h1,h2{font-family:var(--display);text-wrap:balance}
   .m-only{display:revert}
   .d-only{display:none!important}
   .page-coaches main{display:flex;flex-direction:column}
-  .page-coaches .hero{order:1}.page-coaches .coach-portal{order:2}.page-coaches .coach-product{order:3}.page-coaches #enfoque{order:4}.page-coaches .coach-services{order:5}.page-coaches .closing{order:6}.page-coaches .mobile-cta{order:7}
+  .page-coaches .hero{order:1}.page-coaches .coach-portal{order:2}.page-coaches .coach-product{order:3}.page-coaches #enfoque{order:4}.page-coaches .coach-services{order:5}.page-coaches .closing{order:6}
   .page-coaches .hero .platform-strip,.page-coaches .hero-footnote,.page-coaches .hero-insight,.page-coaches .hero-baseline{display:none}
   .page-coaches .hero-visual{height:260px}
   .hero-chips{display:flex;flex-wrap:wrap;gap:8px;list-style:none;padding:0;margin:16px 0 0}
@@ -360,9 +360,6 @@ h1,h2{font-family:var(--display);text-wrap:balance}
   .services-mobile{display:flex;align-items:center;justify-content:space-between;gap:16px;padding:18px 0;border-block:1px solid #bdc5b4;font-size:15px;color:var(--body-ink)}
   .services-mobile strong{display:block;color:var(--ink);font-size:17px}
   .services-mobile svg{color:#78613a}
-  .mobile-cta{position:sticky;bottom:0;z-index:20;padding:10px 20px calc(10px + env(safe-area-inset-bottom));background:rgba(16,20,18,.96);border-top:1px solid var(--line);transition:transform .25s}
-  .mobile-cta .button{width:100%;min-height:48px}
-  .mobile-cta.is-hidden{transform:translateY(110%)}
 }
 
 /* Home: solo queda la entrada para coaches, a ancho completo antes de las FAQ */
