@@ -364,3 +364,9 @@ h1,h2{font-family:var(--display);text-wrap:balance}
   .mobile-cta .button{width:100%;min-height:48px}
   .mobile-cta.is-hidden{transform:translateY(110%)}
 }
+
+/* Home: solo queda la entrada para coaches, a ancho completo antes de las FAQ */
+.audience-grid-single{grid-template-columns:1fr}
+.audience-grid-single .audience-card,.audience-grid-single .audience-content{min-height:440px}
+.audience-grid-single .audience-card>img{object-position:50% 30%}
+@media(max-width:760px){.audience-grid-single .audience-card,.audience-grid-single .audience-content{min-height:380px}}

@@ -142,8 +142,7 @@ function how() {
 }
 
 function audiences() {
-  return `<section class="section section-light audience-section"><div class="container"><div class="section-heading"><div>${eyebrow(t('Una ambición compartida','One shared ambition'))}<h2>${t('Para quienes juegan.<br>Y para quienes enseñan.','For those who play.<br>And those who teach.')}</h2></div><p>${t('Dos perfiles, una misma meta:<br>entender el dato para tomar mejores decisiones en el campo.','Two perspectives, one shared goal:<br>using data to make better decisions on the course.')}</p></div><div class="audience-grid">
-    <a class="audience-card" href="${route('players')}" data-track="audience_players"><img src="/assets/editorial/player-drive.webp" srcset="/assets/editorial/player-drive-800.webp 800w, /assets/editorial/player-drive.webp 1200w" sizes="(max-width: 760px) 92vw, 48vw" alt="${t('Golfista aficionado siguiendo el vuelo de su bola en el campo','Amateur golfer watching his ball flight on the course')}" width="896" height="1200" loading="lazy"><div class="audience-content"><span class="eyebrow">${t('Tu próxima mejor ronda','Your next better round')}</span><h3>${t('Soy jugador','I am a player')}</h3><p>${t('Conoce tus puntos fuertes.<br>Trabaja donde más importa.','Know your strengths.<br>Work where it matters most.')}</p><span class="text-link">${t('Descubre tu ventaja','Find your advantage')}${arrow}</span></div></a>
+  return `<section class="section section-light audience-section"><div class="container"><div class="audience-grid audience-grid-single">
     <a class="audience-card" href="${route('coaches')}" data-track="audience_coaches"><img src="/assets/editorial/coaching.jpg" alt="${t('Instructor guiando a una alumna en la práctica de golf','Instructor guiding a student during golf practice')}" width="1400" height="1845" loading="lazy"><div class="audience-content"><span class="eyebrow">${t('Para quienes enseñan','For those who teach')}</span><h3>${t('Soy coach','I am a coach')}</h3><p>${t('Diagnostica el juego real de tus alumnos con datos objetivos. Gratis.','Diagnose your students\' on-course play with objective data at zero cost.')}</p><span class="text-link">${t('Ver la plataforma para coaches','See the coaching platform')}${arrow}</span></div></a>
     </div></div></section>`;
 }
@@ -758,7 +757,7 @@ function document(page) {
     ? t('Términos y condiciones oficiales de uso de la plataforma, aplicaciones y servicios de analítica de golf Data2Gain.','Official terms and conditions of use for Data2Gain golf analytics platform, applications and services.')
     : t('Encuentra el patrón. Precisión de Tour, dispersión real y análisis con IA para transformar tus datos en mejores decisiones en el campo.','Find the pattern. Tour-level precision, true dispersion and AI analysis to turn your data into better on-course decisions.');
   const content = page === 'home'
-    ? hero(page)+how()+product()+audiences()+strategy()+aiTeaser()+pricing()+faq()+closing(page)
+    ? hero(page)+how()+product()+strategy()+aiTeaser()+pricing()+audiences()+faq()+closing(page)
     : page === 'players'
     ? hero(page)+how()+benchmark()+product()+ai()+pricing()+faq()+closing(page)
     : page === 'coaches'
