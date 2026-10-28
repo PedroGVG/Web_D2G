@@ -447,3 +447,17 @@ function initAiConsole() {
   nextBtn?.addEventListener('click', cycleNext);
 }
 initAiConsole();
+
+// Coaches (mobile): hide the sticky access bar while another access button is on screen.
+function initMobileCta() {
+  const bar = document.querySelector('.mobile-cta');
+  const targets = document.querySelectorAll('.hero .hero-actions, .closing .hero-actions');
+  if (!bar || !targets.length || !('IntersectionObserver' in window)) return;
+  const visible = new Set();
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(entry => entry.isIntersecting ? visible.add(entry.target) : visible.delete(entry.target));
+    bar.classList.toggle('is-hidden', visible.size > 0);
+  });
+  targets.forEach(target => observer.observe(target));
+}
+initMobileCta();
