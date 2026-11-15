@@ -409,7 +409,7 @@ h1,h2{font-family:var(--display);text-wrap:balance}
 @media(max-width:760px){
   .page-coaches .coach-mobile-shots{order:3}
   .coach-mobile-shots .section-heading>p{display:none}
-  .phone-gallery{display:flex;overflow-x:auto;scroll-snap-type:x mandatory;scroll-padding-inline:20px;gap:14px;margin-inline:-20px;padding:0 20px 8px;scrollbar-width:none}
+  .phone-gallery{display:flex;justify-content:flex-start;overflow-x:auto;scroll-snap-type:x mandatory;scroll-padding-inline:20px;gap:14px;margin-inline:-20px;padding:0 20px 8px;scrollbar-width:none}
   .phone-gallery::-webkit-scrollbar{display:none}
   .phone-shot{flex:0 0 74%;scroll-snap-align:start}
   .phone-shot .screenshot-button{border-radius:16px}
