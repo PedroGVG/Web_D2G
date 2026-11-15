@@ -33,7 +33,7 @@ Rutas: `/es/`, `/es/jugadores/`, `/es/coaches/`, `/es/informacion/`, `/terminos-
 
 ## Contenido y medición
 
-- Precio publicado de jugador: 8,95 €/mes. Condiciones profesionales por email.
+- Precio publicado de jugador: 9,75 €/mes. Condiciones profesionales por email.
 - Insignias de App Store y Google Play: rellena `stores` en `scripts/build-site.mjs` con las URL de las fichas públicas. Mientras estén vacías, las insignias se muestran sin enlace.
 - Las demostraciones están identificadas como ejemplos; no se publican testimonios ni resultados inventados.
 - Fotografías: `assets/editorial/CREDITS.md`. Las capturas del producto proceden del proyecto original.

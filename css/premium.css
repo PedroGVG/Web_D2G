@@ -367,3 +367,31 @@ h1,h2{font-family:var(--display);text-wrap:balance}
 .audience-grid-single .audience-card,.audience-grid-single .audience-content{min-height:440px}
 .audience-grid-single .audience-card>img{object-position:50% 30%}
 @media(max-width:760px){.audience-grid-single .audience-card,.audience-grid-single .audience-content{min-height:380px}}
+
+/* Academias y federaciones */
+.academy-feature-grid{display:grid;grid-template-columns:.8fr 1.2fr;gap:64px;align-items:center}
+.academy-feature-reverse .academy-feature-copy{order:2}
+.academy-feature-copy>p:not(.eyebrow){max-width:480px;margin-top:22px;line-height:1.75}
+.section-light .academy-feature-copy>p:not(.eyebrow){color:var(--body-ink)}
+.academy-feature .check-list{margin-bottom:0}
+.academy-feature:not(.section-light) .check-list li{color:var(--paper)}
+.academy-feature:not(.section-light) .check-list svg{color:var(--gold)}
+.academy-feature-screen .screen-caption{margin-top:12px;font-size:12px}
+.academy-shot picture,.academy-shot img{display:block;width:100%;height:auto}
+.academy-strength-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:24px}
+.academy-strength-grid article{border-top:2px solid var(--ink);padding-top:22px}
+.academy-strength-grid h3{font-size:22px;font-weight:600;margin-bottom:10px}
+.academy-strength-grid p{color:var(--body-ink);font-size:15px;line-height:1.65}
+@media(max-width:1100px){.academy-feature-grid{grid-template-columns:1fr;gap:32px}.academy-feature-reverse .academy-feature-copy{order:0}.academy-strength-grid{grid-template-columns:1fr 1fr}}
+@media(max-width:760px){
+  .academy-feature-grid{gap:20px}
+  .academy-feature h2{font-size:34px}
+  .academy-feature-copy>p:not(.eyebrow){margin-top:16px;font-size:15px}
+  .academy-feature .check-list{margin-top:16px}
+  .academy-feature .check-list li{font-size:14px;padding:5px 0}
+  .academy-pillars .portal-features{grid-template-columns:1fr 1fr}
+  .academy-strength-grid{grid-template-columns:1fr;gap:18px}
+  .academy-strength-grid h3{font-size:19px}
+}
+.main-nav>a{white-space:nowrap}
+@media(min-width:761px) and (max-width:900px){.main-nav{gap:12px}.nav-utilities{gap:8px}.main-nav>a[href$="#como-funciona"]{display:none}}
