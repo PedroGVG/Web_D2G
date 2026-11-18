@@ -415,3 +415,19 @@ h1,h2{font-family:var(--display);text-wrap:balance}
   .phone-shot .screenshot-button{border-radius:16px}
   .phone-gallery-note{margin-top:12px;font-size:12px}
 }
+
+/* Coaches: radar y evaluación física con capturas del portal */
+.portal-features-6{grid-template-columns:repeat(3,1fr)}
+.portal-feature{display:flex;flex-direction:column;align-items:flex-start}
+.portal-feature .shot-ref{margin-top:auto;padding-top:14px}
+.shot-ref{color:var(--gold);font-size:.85em;font-weight:600;text-decoration:underline;text-underline-offset:3px;white-space:nowrap}
+.shot-ref:hover{text-decoration-thickness:2px}
+.price-coaches .shot-ref{color:#145a34}
+.section-light .shot-ref{color:#7e6941}
+@media(max-width:1100px){.portal-features-6{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:760px){
+  .page-coaches .coach-detail{order:3}
+  .coach-portal .portal-features-6{grid-template-columns:1fr 1fr}
+  .portal-feature .shot-ref{padding-top:8px;font-size:12px}
+}
+@media(min-width:1101px){.academy-feature-reverse .academy-feature-grid{grid-template-columns:1.2fr .8fr}}
