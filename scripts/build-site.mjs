@@ -38,7 +38,6 @@ function header(page) {
     <a class="brand-link" href="${route('home')}" aria-label="${t('Data2Gain, inicio','Data2Gain, home')}">${brand()}</a>
     <div class="mobile-header-controls">${languageSelector(page)}<button class="menu-toggle" type="button" aria-expanded="false" aria-controls="main-nav" aria-label="${t('Abrir menú','Open menu')}"><span></span><span></span></button></div>
     <nav id="main-nav" class="main-nav" aria-label="${t('Navegación principal','Main navigation')}">
-      <a href="${route('players')}"${page === 'players' ? ' aria-current="page"' : ''}>${t('Jugadores','Players')}</a>
       <a href="${route('coaches')}"${page === 'coaches' ? ' aria-current="page"' : ''}>Coaches</a>
       <a href="${route('academies')}"${page === 'academies' ? ' aria-current="page"' : ''}>${t('Academias','Academies')}</a>
       <a href="${route('home')}#como-funciona">${t('Cómo funciona','How it works')}</a>
