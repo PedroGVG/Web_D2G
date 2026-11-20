@@ -877,7 +877,7 @@ function document(page) {
     ? t('Términos y condiciones oficiales de uso de la plataforma, aplicaciones y servicios de analítica de golf Data2Gain.','Official terms and conditions of use for Data2Gain golf analytics platform, applications and services.')
     : t('Encuentra el patrón. Precisión de Tour, dispersión real y análisis con IA para transformar tus datos en mejores decisiones en el campo.','Find the pattern. Tour-level precision, true dispersion and AI analysis to turn your data into better on-course decisions.');
   const content = page === 'home'
-    ? hero(page)+how()+product()+strategy()+aiTeaser()+pricing()+audiences()+faq()+closing(page)
+    ? hero(page)+how()+product()+radarPhysicalGallery(page)+strategy()+aiTeaser()+pricing()+audiences()+faq()+closing(page)
     : page === 'players'
     ? hero(page)+how()+benchmark()+product()+radarPhysicalGallery(page)+ai()+pricing()+faq()+closing(page)
     : page === 'coaches'
