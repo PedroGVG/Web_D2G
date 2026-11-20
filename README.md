@@ -12,8 +12,8 @@ Las copias se excluyen del paquete público y de Git, y Apache bloquea su acceso
 
 - `scripts/build-site.mjs`: fuente de contenido ES/EN y componentes compartidos.
 - `css/premium.css`: sistema visual y estilos responsive.
-- `js/premium.js`: menú, estrategias, pestañas, comparador y ampliación de capturas.
-- `js/demo-data.mjs`: datos ilustrativos; cambiar la referencia no cambia la ronda del jugador.
+- `js/premium.js`: menú, estrategias, pestañas y ampliación de capturas.
+- `js/demo-data.mjs`: niveles de referencia y datos ilustrativos de las pruebas.
 
 La raíz, las páginas de `es/` y `en/`, el sitemap y robots son archivos generados. Requiere Node.js 20 o superior:
 
@@ -34,7 +34,7 @@ Rutas: `/es/`, `/es/jugadores/`, `/es/coaches/`, `/es/informacion/`, `/terminos-
 ## Contenido y medición
 
 - Precio publicado de jugador: 9,75 €/mes. Condiciones profesionales por email.
-- Insignias de App Store y Google Play: rellena `stores` en `scripts/build-site.mjs` con las URL de las fichas públicas. Mientras estén vacías, las insignias se muestran sin enlace.
+- La app web se abre en `https://prod.data2gain.com/`. Las apps nativas para iOS y Android se anuncian como próximas.
 - Las demostraciones están identificadas como ejemplos; no se publican testimonios ni resultados inventados.
 - Fotografías: `assets/editorial/CREDITS.md`. Las capturas del producto proceden del proyecto original.
 - Fuentes locales: Liberation Sans con licencia adjunta y monoespaciada del sistema, como alternativa disponible a Inter Tight. Se conserva el símbolo original.
@@ -44,4 +44,4 @@ Rutas: `/es/`, `/es/jugadores/`, `/es/coaches/`, `/es/informacion/`, `/terminos-
 
 ## Validación
 
-Las pruebas revisan las nueve páginas públicas, enlaces, recursos, anclas, metadatos, exclusión de copias y estabilidad del comparador. Revisar también escritorio y móvil en el navegador, sin enviar emails ni contratar servicios.
+Las pruebas revisan las nueve páginas públicas, enlaces, recursos, anclas, metadatos, exclusión de copias y estabilidad de los datos de referencia. Revisar también escritorio y móvil en el navegador, sin enviar emails ni contratar servicios.

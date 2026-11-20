@@ -1,5 +1,3 @@
-import { compareRound } from './demo-data.mjs';
-
 const language=document.documentElement.lang==='en'?'en':'es';
 const t=(es,en)=>language==='es'?es:en;
 // Measurement hook only: no analytics service, storage, or network transmission.
@@ -276,23 +274,6 @@ if(gallery && 'IntersectionObserver' in window){
   },{threshold:.6});
   galleryObserver.observe(gallery);
 }
-
-const selector=document.getElementById('benchmark-select');
-selector?.addEventListener('change',()=>{
-  selector.classList.remove('pulse-heartbeat');
-  const { values,focus }=compareRound(selector.value);
-  const reference=selector.selectedOptions[0].textContent;
-  document.querySelector('[data-benchmark-label]').textContent=`VS ${reference}`;
-  values.forEach((value,i)=>{
-    document.querySelector(`[data-sg-value="${i}"]`).textContent=`${value>0?'+':''}${value.toFixed(2)}`;
-    const bar=document.querySelector(`[data-sg-bar="${i}"]`);
-    bar.style.setProperty('--bar-size',`${Math.min(Math.abs(value)/2*50,50)}%`);
-    bar.classList.toggle('negative',value<0);bar.classList.toggle('positive',value>=0);
-  });
-  const areas=language==='es'?['las salidas','la aproximación','el juego corto','el putting']:['off-the-tee play','approach play','the short game','putting'];
-  document.querySelector('[data-benchmark-insight]').textContent=values[focus]<0?t(`Frente a ${reference}, ${areas[focus]} es el área con más margen en esta ronda de ejemplo.`,`Against ${reference}, ${areas[focus]} offers the most room for improvement in this sample round.`):t(`En esta ronda de ejemplo, todas las áreas superan la referencia ${reference}. Cambia de nivel para explorar la comparación.`,`In this sample round, every area is above the ${reference} benchmark. Change the level to explore the comparison.`);
-  track('benchmark_change',{reference:selector.value});
-});
 
 const dialog=document.querySelector('.image-dialog');
 let zoomTrigger;
