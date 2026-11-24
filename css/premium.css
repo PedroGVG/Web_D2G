@@ -416,6 +416,14 @@ h1,h2{font-family:var(--display);text-wrap:balance}
   .phone-gallery-note{margin-top:12px;font-size:12px}
 }
 
+/* "La diferencia está en lo que descubres": mismo carrusel que radar y físico */
+.phone-gallery-product{grid-template-columns:repeat(5,minmax(0,260px));gap:28px;margin-top:20px}
+.phone-gallery-product .phone-shot img{aspect-ratio:353 / 654;height:auto;object-fit:cover;object-position:top center}
+.section-light .phone-shot figcaption{color:var(--body-ink)}
+.section-light .phone-shot figcaption strong{color:var(--ink)}
+@media(max-width:1100px){.phone-gallery-product{gap:16px}}
+@media(max-width:760px){.phone-gallery-product{margin-top:8px}}
+
 /* Coaches: radar y evaluación física con capturas del portal */
 .portal-features-6{grid-template-columns:repeat(3,1fr)}
 .portal-feature{display:flex;flex-direction:column;align-items:flex-start}
