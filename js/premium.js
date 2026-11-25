@@ -159,120 +159,26 @@ if(strategyTrack){
   },{passive:true});
 }
 
-const tabs=[...document.querySelectorAll('[data-product-tab]')];
-let currentProductIndex=0;
-let isProductManualScrollLocked=false;
-let productManualScrollTimer=null;
-const productTrack=document.getElementById('product-track');
-
-function activateProduct(index,focus=false,fromScroll=false){
-  if(index===currentProductIndex && fromScroll)return;
-  currentProductIndex=index;
-  tabs.forEach((tab,i)=>{
-    const selected=i===index;
-    tab.setAttribute('aria-selected',String(selected));
-    tab.tabIndex=selected?0:-1;
-    const panel=document.getElementById(tab.getAttribute('aria-controls'));
-    if(panel)panel.hidden=!selected;
+// Mobile: phone galleries scroll sideways. The first time each one comes into view,
+// nudge it a little to the left and back so it is clear that it can be swiped.
+if('IntersectionObserver' in window && !window.matchMedia('(prefers-reduced-motion: reduce)').matches){
+  document.querySelectorAll('.phone-gallery').forEach(gallery=>{
+    const observer=new IntersectionObserver(entries=>{
+      if(!entries.some(entry=>entry.isIntersecting))return;
+      if(!mobile.matches || gallery.scrollWidth<=gallery.clientWidth)return;
+      observer.disconnect();
+      if(gallery.scrollLeft>0)return;
+      setTimeout(()=>{
+        gallery.style.scrollSnapType='none';
+        gallery.scrollTo({left:56,behavior:'smooth'});
+        setTimeout(()=>{
+          gallery.scrollTo({left:0,behavior:'smooth'});
+          setTimeout(()=>{gallery.style.scrollSnapType='';},500);
+        },550);
+      },400);
+    },{threshold:.6});
+    observer.observe(gallery);
   });
-  if(focus)tabs[index]?.focus({preventScroll:true});
-  track('product_view',{feature:tabs[index]?.dataset.productTab,trigger:fromScroll?'scroll':'click'});
-}
-
-function selectProductTab(index,focus=false){
-  isProductManualScrollLocked=true;
-  clearTimeout(productManualScrollTimer);
-  activateProduct(index,focus);
-
-  if(productTrack){
-    const rect=productTrack.getBoundingClientRect();
-    const scrollTop=window.scrollY||window.pageYOffset;
-    const headerOffset=window.innerWidth<=760?72:88;
-    const totalScroll=productTrack.offsetHeight-window.innerHeight;
-    if(totalScroll>0){
-      const targetProgress=index===0?0.12:index===1?0.50:0.88;
-      const targetY=scrollTop+rect.top-headerOffset+(totalScroll*targetProgress);
-      window.scrollTo({top:targetY,behavior:'smooth'});
-    }
-  }
-
-  productManualScrollTimer=setTimeout(()=>{
-    isProductManualScrollLocked=false;
-  },750);
-}
-
-tabs.forEach((tab,index)=>{
-  tab.addEventListener('click',()=>{
-    selectProductTab(index);
-  });
-  tab.addEventListener('keydown',event=>{
-    let next=index;
-    if(event.key==='ArrowRight')next=(index+1)%tabs.length;
-    else if(event.key==='ArrowLeft')next=(index-1+tabs.length)%tabs.length;
-    else if(event.key==='Home')next=0;
-    else if(event.key==='End')next=tabs.length-1;
-    else return;
-    event.preventDefault();
-    selectProductTab(next,true);
-  });
-});
-
-if(productTrack){
-  let productTicking=false;
-  function onProductScroll(){
-    if(isProductManualScrollLocked)return;
-    const rect=productTrack.getBoundingClientRect();
-    const headerOffset=window.innerWidth<=760?72:88;
-    const totalScroll=productTrack.offsetHeight-window.innerHeight;
-    if(totalScroll<=0)return;
-
-    const progress=(headerOffset-rect.top)/totalScroll;
-
-    let targetTab=currentProductIndex;
-    if(progress<0.28)targetTab=0;
-    else if(progress>=0.66)targetTab=2;
-    else if(currentProductIndex===0 && progress>=0.33)targetTab=1;
-    else if(currentProductIndex===2 && progress<0.62)targetTab=1;
-
-    if(targetTab!==currentProductIndex)activateProduct(targetTab,false,true);
-  }
-
-  window.addEventListener('scroll',()=>{
-    if(!productTicking){
-      window.requestAnimationFrame(()=>{
-        onProductScroll();
-        productTicking=false;
-      });
-      productTicking=true;
-    }
-  },{passive:true});
-
-  onProductScroll();
-}
-
-// Mobile: the statistics gallery is wider than the screen. The first time it comes into view,
-// slide it to the next screenshot and back so it is clear that it can be swiped.
-const gallery=document.querySelector('.screenshot-gallery');
-if(gallery && 'IntersectionObserver' in window){
-  const galleryObserver=new IntersectionObserver(entries=>{
-    if(!entries.some(entry=>entry.isIntersecting))return;
-    if(!mobile.matches || gallery.scrollWidth<=gallery.clientWidth)return;
-    galleryObserver.disconnect();
-    if(window.matchMedia('(prefers-reduced-motion: reduce)').matches)return;
-    const next=gallery.children[1];
-    let returned=false;
-    const slideBack=()=>{
-      if(returned)return;
-      returned=true;
-      setTimeout(()=>gallery.scrollTo({left:0,behavior:'smooth'}),700);
-    };
-    setTimeout(()=>{
-      gallery.addEventListener('scrollend',slideBack,{once:true});
-      gallery.scrollTo({left:next?next.offsetLeft-gallery.offsetLeft:gallery.clientWidth*.7,behavior:'smooth'});
-      setTimeout(slideBack,1500);
-    },500);
-  },{threshold:.6});
-  galleryObserver.observe(gallery);
 }
 
 const dialog=document.querySelector('.image-dialog');
